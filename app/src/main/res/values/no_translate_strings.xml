@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">Quillnote</string>
-    <string name="app_version" translatable="false">1.4.3</string>
+    <string name="app_version" translatable="false">1.4.4</string>
     <string name="app_website" translatable="false">https://qosp.org</string>
     <string name="app_developer_name" translatable="false">Michael Soultanidis</string>
     <string name="app_developer_repo" translatable="false">https://github.com/msoultanidis</string>

@@ -1,0 +1,292 @@
+<resources>
+    <!-- Navigation drawer -->
+    <string name="nav_notes">Notlar</string>
+    <string name="nav_archive">Arşiv</string>
+    <string name="nav_deleted">Silinmiş</string>
+    <string name="nav_settings">Ayarlar</string>
+    <string name="nav_about">Hakkında</string>
+    <string name="nav_tags">Etiketler</string>
+    <string name="nav_all_notes">Tüm Notlar</string>
+    <string name="nav_notebooks">Defterler</string>
+    <string name="nav_your_notebooks">Senin Not Kitapların</string>
+
+    <!-- Preferences -->
+    <string name="preferences_header_general">Genel</string>
+    <string name="preferences_theme_mode">Tema</string>
+    <string name="preferences_theme_mode_dark">Koyu</string>
+    <string name="preferences_theme_mode_light">Açık</string>
+    <string name="preferences_theme_mode_system">Cihaza Göre</string>
+
+    <string name="preferences_dark_theme_mode">Koyu tema modu</string>
+    <string name="preferences_theme_dark_mode_standard">Standart</string>
+    <string name="preferences_theme_dark_mode_black">Siyah</string>
+
+    <string name="preferences_header_view">Görünüm</string>
+    <string name="preferences_layout_mode">Görünüm modu</string>
+    <string name="preferences_layout_mode_grid">Tablo</string>
+    <string name="preferences_layout_mode_list">Liste</string>
+
+    <string name="preferences_color_scheme">Renk Şeması</string>
+    <string name="preferences_color_scheme_blue">Mavi</string>
+    <string name="preferences_color_scheme_pink">Pembe</string>
+    <string name="preferences_color_scheme_green">Yeşil</string>
+    <string name="preferences_color_scheme_orange">Turuncu</string>
+    <string name="preferences_color_scheme_purple">Mor</string>
+    <string name="preferences_color_scheme_yellow">Sarı</string>
+    <string name="preferences_color_scheme_red">Kırmızı</string>
+
+    <string name="preferences_sort_method">Filtre</string>
+    <string name="preferences_sort_method_title_asc">Başlık (artan)</string>
+    <string name="preferences_sort_method_title_desc">Başlık (azalan)</string>
+    <string name="preferences_sort_method_created_asc">Oluşturulan Tarih (artan)</string>
+    <string name="preferences_sort_method_created_desc">Oluşturulan Tarih (azalan)</string>
+    <string name="preferences_sort_method_modified_asc">Değiştirilen Tarih (artan)</string>
+    <string name="preferences_sort_method_modified_desc">Değiştirilen Tarih (azalan)</string>
+
+    <string name="preferences_show_date">Oluşturulmuş/Değiştirilen tarihi göster</string>
+    <string name="preferences_date_format">Tarih formatı</string>
+    <string name="preferences_time_format">Saat formatı</string>
+
+    <string name="preferences_header_other">Diğer</string>
+    <string name="preferences_group_notes_without_notebook">Defter içinde olmayan notları grupla</string>
+    <string name="preferences_open_media_in">Medyayı şununla aç</string>
+    <string name="preferences_open_media_in_internal">Dahili oynatıcı</string>
+    <string name="preferences_open_media_in_external">Harici oynatıcı</string>
+    <string name="preferences_note_deletion_time">Çöp kutusundaki notları</string>
+    <string name="preferences_note_deletion_time_instantly">Hemen</string>
+    <string name="preferences_note_deletion_time_week">7 gün sonra sil</string>
+    <string name="preferences_note_deletion_time_two_weeks">14 gün sonra sil</string>
+    <string name="preferences_note_deletion_time_month">30 gün sonra sil</string>
+
+    <string name="preferences_header_backup">Yedekleme</string>
+    <string name="preferences_create_backup">Yedek oluştur</string>
+    <string name="preferences_create_backup_subtext">Tüm notları yedek dosyasına aktar.</string>
+    <string name="preferences_restore">Geri yükle</string>
+    <string name="preferences_restore_subtext">Notları yedek dosyadan yükle.</string>
+    <string name="preferences_backup_strategy">Ekler için yedekleme yöntemi</string>
+    <string name="preferences_backup_strategy_include_files">Herşeyi yedekle</string>
+    <string name="preferences_backup_strategy_keep_info">Sadece açıklamayı ve yerel yolu yedekle</string>
+    <string name="preferences_backup_strategy_keep_nothing">Ekleri yedekleme</string>
+
+    <string name="preferences_header_syncing">Senkronizasyon</string>
+    <string name="preferences_go_to_sync_settings">Senkronize ayarlarına git</string>
+    <string name="preferences_currently_syncing_with">Şu anda %s senkronize edilmiyor</string>
+    <string name="preferences_currently_not_syncing">Şu anda senkronize edilmiyor</string>
+    <string name="preferences_cloud_service">Senkronize hizmeti</string>
+    <string name="preferences_cloud_service_disabled">Kapalı</string>
+    <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
+    <string name="preferences_sync_experimental_warning">Senkronize şu anda tamamlanmamış.\nHatalarla karşı karşıya gelebilirsin.</string>
+    <string name="preferences_nextcloud_limited_features">Nextcloud Notları etiket, eklenti, hatırlatıcı, görev listesi vb. özellikleri desteklemiyor.</string>
+    <string name="preferences_nextcloud_account">Nextcloud hesabı</string>
+    <string name="preferences_nextcloud_instance_url">Nextcloud URL\'i</string>
+    <string name="preferences_nextcloud_set_your_credentials">Kullanıcı bilgilerini ayarla</string>
+    <string name="preferences_nextcloud_set_server_url">Sunucu\'nun\'s URL\'sini ayarla</string>
+    <string name="preferences_sync_on_wifi">Wi-Fi</string>
+    <string name="preferences_sync_on_wifi_data">Wi-Fi veya Veri</string>
+    <string name="preferences_sync_when_on">Açık iken senkronizasyon et</string>
+    <string name="preferences_background_sync">Arkaplanda senkronizasyon et</string>
+    <string name="preferences_background_sync_enabled">Etkin</string>
+    <string name="preferences_background_sync_disabled">Devredışı</string>
+    <string name="preferences_new_notes_synchronizable">Yeni notlar senkronize edilebilir</string>
+
+
+    <!-- About -->
+    <string name="about_version">Versiyon</string>
+    <string name="about_website">Website</string>
+    <string name="about_developer">Geliştirici</string>
+    <string name="about_contribute">Katkıda Bulun</string>
+    <string name="about_support">Destek</string>
+    <string name="about_support_subtext">Açık kaynaklı projeler oluşturmak ve yönetmek zaman alıcıdır ve kâr sağlamaz.
+        \nGeliştiricilere bir bira al!
+    </string>
+    <string name="about_libraries">Kitaplıklar</string>
+    <string name="about_libraries_subtext">Üçüncü taraf kitaplıklarını ve lisanslarını görüntüleyin.</string>
+
+
+    <!-- General -->
+    <string name="default_string">Varsayılan</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+    <string name="ok">Tamam</string>
+    <string name="indicator_notes_empty">Notların burada görünecek.</string>
+    <string name="indicator_untitled">Adsız</string>
+    <string name="hint_username">Kullanıcı Adı</string>
+    <string name="hint_password">Şifre</string>
+    <string name="action_save">Kaydet</string>
+    <string name="action_cancel">İptal</string>
+    <string name="action_delete">Sil</string>
+    <string name="action_done">Tamam!</string>
+    <string name="action_delete_permanently">Kalıcı olarak sil</string>
+    <string name="action_select_all">Tümünü Seç</string>
+    <string name="action_create_list">Liste oluştur</string>
+    <string name="action_show_hidden_notes">Gizli notları göster</string>
+    <string name="action_unarchive">Arşivden çıkar</string>
+    <string name="action_export">Dışarı çıkar</string>
+    <string name="action_hide">Gizle</string>
+    <string name="action_show">Göster</string>
+    <string name="action_archive">Arşivle</string>
+    <string name="action_pin">Sabitle</string>
+    <string name="action_unpin">Sabiti Kaldır</string>
+    <string name="action_restore">Geri yükle</string>
+    <string name="action_share">Paylaş</string>
+    <string name="action_pin_unpin">Sabitle / Sabiti Kaldır</string>
+    <string name="action_move_to">Taşı…</string>
+    <string name="action_duplicate">Kopyala</string>
+    <string name="action_select_more">Daha seç…</string>
+
+
+    <!-- Attachments -->
+    <string name="attachments_edit_description">Açıklamayı değiştir</string>
+    <string name="attachments_hint_description">Eklenti açıklaması</string>
+    <string name="action_record_audio">Ses kaydet</string>
+    <string name="indicator_recording">Kayıt (%1$s)</string>
+    <string name="action_attach_files">Dosya ekle</string>
+    <string name="action_take_photo">Fotoğraf çek</string>
+    <string name="indicator_recorded_clip">Kayıtlı Klip</string>
+
+
+    <!-- Notebooks -->
+    <string name="default_notebook">Diğer</string>
+    <string name="notebooks_new_notebook">Yeni not defteri</string>
+    <string name="notebooks_hint_name">Defter adı</string>
+    <string name="notebooks_unassigned">No Notebook</string>
+    <string name="indicator_notebook_empty">Not defterin yok.</string>
+    <string name="action_create_notebook">Not defteri oluştur</string>
+    <string name="action_rename_notebook">Not defterini yeniden adlandır</string>
+    <string name="action_new_notebook">Yeni not defteri</string>
+    <string name="indicator_notebook_already_exists">%1$s adında not defteri zaten var.</string>
+
+
+    <!-- Archive -->
+    <string name="indicator_archive_empty">Arşivlenmiş notların burada görünecek.</string>
+
+
+    <!-- Deleted -->
+    <string name="action_empty_bin">Boş çöp</string>
+    <string name="empty_bin_warning_title">Emin misin?</string>
+    <string name="empty_bin_warning_text">Silinmiş notların burada görünecek.</string>
+    <string name="indicator_deleted_note_cannot_be_edited">Çöp kutusundaki notlar değiştirilemez.</string>
+    <string name="indicator_deleted_empty">Silinmiş notların burada %1$d gün görünecek.</string>
+    <string name="indicator_bin_disabled">Notlar anında silinecek olarak ayarlı.\nBunu ayarlar\'dan değiştirebilirsiniz.</string>
+    <string name="indicator_deleted_notes_permanently">Notlar kalıcı olarak silindi.</string>
+    <string name="indicator_deleted_note_permanently">Not kalıcı olarak silindi.</string>
+
+
+    <!-- Reminders -->
+    <string name="reminders">Hatırlatıcılar</string>
+    <string name="reminder">Hatırlatıcı</string>
+    <string name="reminders_hint_name">Hatırlatıcı adı</string>
+    <string name="action_set_date">Tarih seç</string>
+    <string name="action_set_time">Saat seç</string>
+    <string name="action_new_reminder">Yeni hatırlatıcı</string>
+    <string name="notification_reminder_fired">Hatırlatıcın var.</string>
+    <string name="indicator_cannot_set_past_reminder">Geçmiş zamana hatırlatıcı koyamazsın</string>
+
+
+    <!-- Tags -->
+    <string name="action_new_tag">Yeni etiket</string>
+    <string name="tags_hint_name">Etiket adı</string>
+    <string name="indicator_tags_empty">Etiketin yok.</string>
+    <string name="action_rename_tag">Etiketi yeniden adlandır</string>
+    <string name="indicator_tag_already_exists">%1$s adında etiket zaten var.</string>
+
+
+    <!-- Search -->
+    <string name="search_hint">Ara…</string>
+    <string name="action_search">Ara</string>
+    <string name="indicator_search_empty">Arama sonuçları burada görünecek.</string>
+    <string name="indicator_no_results_found">Sonuç bulunamadı.</string>
+
+
+    <!-- Editor -->
+    <string name="editor_hint_title">Başlık</string>
+    <string name="editor_hint_content">Not al!</string>
+    <string name="action_add_task">Görev</string>
+    <string name="action_convert_to_note">Nota dönüştür</string>
+    <string name="action_convert_to_list">Listeye dönüştür</string>
+    <string name="action_do_not_sync">Senkronize etme</string>
+    <string name="action_change_color">Renk değiştir</string>
+    <string name="action_enable_markdown">Markdown\'ı aç</string>
+    <string name="action_disable_markdown">Markdown\'ı kapat</string>
+    <string name="action_insert_bold_text">Kalın markdown ekle</string>
+    <string name="action_insert_italics">İtalik markdown ekle</string>
+    <string name="action_insert_strikethrough">Üstü çizili markdown ekle</string>
+    <string name="action_insert_heading">Başlık ekle</string>
+    <string name="action_insert_quote">Tırnak işareti ekle</string>
+    <string name="action_insert_code">Kod kutusu ekle</string>
+    <string name="indicator_note_date">%1$s\'de oluşturuldu\nEn son %2$s\'de değiştirildi</string>
+    <string name="indicator_restored_notes">Notlar geri yüklendi</string>
+    <string name="indicator_restored_note">Not geri yüklendi</string>
+    <string name="indicator_archived_notes">Notlar arşivlendi</string>
+    <string name="indicator_archive_note">Not arşivlendi</string>
+    <string name="indicator_moved_notes_to_bin">Notlar çöp kutusuna taşındı</string>
+    <string name="indicator_moved_note_to_bin">Not çöp kutusuna taşındı</string>
+    <string name="indicator_empty_note_discarded">Boş not silindi</string>
+    <string name="action_insert_link">Link ekle</string>
+    <string name="action_insert">Ekle</string>
+    <string name="action_insert_table">Tablo ekle</string>
+    <string name="message_invalid_number_rows_columns">Geçersiz sayıda satır ve sütun</string>
+    <string name="action_insert_image">Resim ekle</string>
+    <string name="hint_image_description">Açıklama</string>
+    <string name="hint_image_path">Resim yolu</string>
+    <string name="hint_hyperlink_text">Yazı</string>
+    <string name="hint_hyperlink_url">URL</string>
+    <string name="hint_number_columns">Sütun sayısı</string>
+    <string name="hint_number_rows">Satır sayısı</string>
+    <string name="message_cannot_preview_table">Tablo önizlenemiyor.</string>
+
+    <!-- Backup / Restore -->
+    <string name="notification_backing_up">Notların yedekleniyor…</string>
+    <string name="notification_backup_complete">Yedekleme tamamlandı!</string>
+    <string name="notification_backup_failed">Yedekleme başarısız</string>
+    <string name="notification_restoring_notes">Notların geri yükleniyor…</string>
+    <string name="notification_restore_complete">Geri yükleme tamamlandı</string>
+    <string name="notification_restore_failed">Geri yükleme başarısız</string>
+
+
+    <!-- Notification channels -->
+    <string name="notifications_channel_reminders">Hatırlatıcılar</string>
+    <string name="notifications_channel_backups">Yedekler</string>
+    <string name="notifications_channel_playback">Medya oynatma</string>
+
+    <!-- Syncing -->
+    <string name="message_not_valid_https">Bu geçerli bir HTTPS url\'si değil.</string>
+    <string name="indicator_nextcloud_currently_logged_in_as"><b>%s</b> olarak giriş yapılı.</string>
+    <string name="indicator_nextcloud_currently_not_logged_in">Oturum yok.</string>
+    <string name="action_nextcloud_authenticate">Kimlik doğrula</string>
+    <string name="indicator_offline_account">Çevrimdışı hesap</string>
+    <string name="indicator_connecting">Bağlanıyor…</string>
+    <string name="message_something_went_wrong">Bir şeyler yanlış gitti.</string>
+    <string name="message_invalid_credentials">Yanlış kullanıcı bilgilerden dolayı sunucu doğrulanamadı.</string>
+    <string name="message_logged_in_successfully">Başarıyla giriş yapıldı!</string>
+    <string name="message_server_not_compatible">Sunucu versiyonu bu uygulama ile uyumlu değil.</string>
+    <string name="message_internet_not_available">İnternet bağlanıtısı mevcut değil.</string>
+    <string name="message_credentials_cannot_be_blank">Kullanıcı bilgileri boş olamaz.</string>
+    <string name="preference_nextcloud_clear_credentials">Kullanıcı bilgilerini ve server URL\'sini temizle</string>
+    <string name="notification_media_play_pause">Oynat / Duraklat</string>
+    <string name="notification_media_stop">Dur</string>
+
+    <!-- App shortcuts -->
+    <string name="shortcut_take_note">Not al</string>
+    <string name="shortcut_make_list">Liste yap</string>
+
+    <plurals name="more_items">
+        <item quantity="one">+%d madde</item>
+        <item quantity="other">+%d madde</item>
+    </plurals>
+
+    <plurals name="selected_notes">
+        <item quantity="one">%d not şeçildi</item>
+        <item quantity="other">%d not şeçildi</item>
+    </plurals>
+
+    <plurals name="selected_notebooks">
+        <item quantity="one">%d not defteri şecildi</item>
+        <item quantity="other">%d not defteri şecildi</item>
+    </plurals>
+
+    <plurals name="selected_tags">
+        <item quantity="one">%d etiket şeçildi</item>
+        <item quantity="other">%d etiket şeçildi</item>
+    </plurals>
+</resources>

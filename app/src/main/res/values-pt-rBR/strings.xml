@@ -17,6 +17,10 @@
     <string name="preferences_theme_mode_light">Claro</string>
     <string name="preferences_theme_mode_system">Seguir tema do sistema</string>
 
+    <string name="preferences_dark_theme_mode">Modo do tema escuro</string>
+    <string name="preferences_theme_dark_mode_standard">Padrão</string>
+    <string name="preferences_theme_dark_mode_black">Preto puro</string>
+
     <string name="preferences_header_view">Visualização</string>
     <string name="preferences_layout_mode">Modo de exibição</string>
     <string name="preferences_layout_mode_grid">Grelha</string>

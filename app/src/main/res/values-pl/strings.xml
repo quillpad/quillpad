@@ -84,6 +84,9 @@
     <string name="preferences_background_sync_enabled">Włączona</string>
     <string name="preferences_background_sync_disabled">Wyłączona</string>
     <string name="preferences_new_notes_synchronizable">Włącz synchronizację dla nowych notatek</string>
+    <string name="preferences_dark_theme_mode">Tryb ciemnego motywu</string>
+    <string name="preferences_theme_dark_mode_standard">Standard</string>
+    <string name="preferences_theme_dark_mode_black">Czarny</string>
 
 
     <!-- About -->

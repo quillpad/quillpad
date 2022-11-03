@@ -65,6 +65,7 @@ enum class DateFormat(val patternResource: Int) : EnumPreference by key("date_fo
     d_MMMM_yyyy(R.string.d_MMMM_yyyy),
     MM_d_yyyy(R.string.MM_d_yyyy),
     d_MM_yyyy(R.string.d_MM_yyyy),
+    yyyy_MM_dd(R.string.yyyy_MM_dd),
 }
 
 enum class TimeFormat(val patternResource: Int) : EnumPreference by key("time_format") {

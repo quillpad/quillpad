@@ -79,6 +79,9 @@
     <string name="preferences_background_sync_enabled">Habilitada</string>
     <string name="preferences_background_sync_disabled">Deshabilitada</string>
     <string name="preferences_new_notes_synchronizable">Sincronizar notas nuevas</string>
+    <string name="preferences_dark_theme_mode">Modo de tema oscuro</string>
+    <string name="preferences_theme_dark_mode_standard">Estándar</string>
+    <string name="preferences_theme_dark_mode_black">Negro</string>
 
     <!-- About -->
     <string name="about_version">Versión</string>

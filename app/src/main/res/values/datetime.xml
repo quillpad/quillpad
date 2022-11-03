@@ -5,6 +5,7 @@
     <string name="d_MMMM_yyyy" translatable="false">d MMMM yyyy</string>
     <string name="MM_d_yyyy" translatable="false">MM/d/yyyy</string>
     <string name="d_MM_yyyy" translatable="false">d/MM/yyyy</string>
+    <string name="yyyy_MM_dd" translatable="false">yyyy-MM-dd</string>
 
     <!-- Time -->
     <string name="HH_mm" translatable="false">HH:mm</string>

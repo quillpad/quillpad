@@ -3,6 +3,13 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_search"
+        android:enabled="true"
+        android:icon="@drawable/ic_search"
+        android:title="@string/action_search"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
             android:title="@string/preferences_sort_method"
             android:icon="@drawable/ic_sort"
             app:showAsAction="ifRoom">
@@ -34,11 +41,6 @@
             android:title="@string/preferences_layout_mode"
             android:visible="false"
             app:showAsAction="ifRoom"/>
-    <item
-            android:id="@+id/action_search"
-            android:title="@string/action_search"
-            android:icon="@drawable/ic_search"
-            app:showAsAction="never"/>
     <item
             android:id="@+id/action_show_hidden_notes"
             android:title="@string/action_show_hidden_notes"
