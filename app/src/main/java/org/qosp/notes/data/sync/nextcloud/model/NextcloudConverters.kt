@@ -5,7 +5,7 @@ import org.qosp.notes.data.model.Note
 fun Note.asNextcloudNote(id: Long, category: String): NextcloudNote = NextcloudNote(
     id = id,
     title = title,
-    content = if (isList) taskListToString() else content,
+    content = if (isList) taskListToMd() else content,
     category = category,
     favorite = isPinned,
     modified = modifiedDate

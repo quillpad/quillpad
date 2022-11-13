@@ -245,6 +245,7 @@ class NextcloudManager(
 
     private suspend fun NextcloudNote.asUpdatedLocalNote(note: Note) = note.copy(
         title = title,
+        taskList = if (note.isList) note.mdToTaskList(content) else listOf(),
         content = content,
         isPinned = favorite,
         modifiedDate = modified,
