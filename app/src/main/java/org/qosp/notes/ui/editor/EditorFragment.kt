@@ -945,17 +945,18 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
     }
 
     private fun updateTask(position: Int, content: String? = null, isDone: Boolean? = null) {
-        tasksAdapter.tasks = tasksAdapter.tasks
-            .mapIndexed { index, task ->
-                when (index) {
-                    position -> task.copy(
-                        content = content ?: task.content,
-                        isDone = isDone ?: task.isDone
-                    )
-                    else -> task
-                }
-            }
-            .toMutableList()
+        val tasks = tasksAdapter.tasks
+        val task = tasks[position].let {
+            it.copy(
+                content = content ?: it.content,
+                isDone = isDone ?: it.isDone
+            )
+        }
+        tasks[position] = task
+        val notCompleted = tasks.filterNot { it.isDone }.sortedBy { it.id }
+        val completed = tasks.filter { it.isDone }.sortedBy { it.id }
+        tasksAdapter.tasks = (notCompleted + completed).toMutableList()
+        tasksAdapter.notifyItemMoved(position, tasksAdapter.tasks.indexOf(task))
         model.updateTaskList(tasksAdapter.tasks)
     }
 
