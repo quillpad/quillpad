@@ -13,11 +13,11 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "org.qosp.notes"
+        applicationId "io.github.quillpad"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 8
-        versionName "1.4.3"
+        versionName "1.4.4"
 
         testInstrumentationRunner "org.qosp.notes.TestRunner"
     }
