@@ -62,6 +62,7 @@ android {
             option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
         }
     }
+    namespace 'org.qosp.notes'
 }
 
 repositories {
