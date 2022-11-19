@@ -1,0 +1,57 @@
+name: Android Build Release
+
+on:
+  push:
+    tags:
+      - v*
+    branches: 
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
+      
+    - name: Setup keystore
+      run: |
+        echo "${{secrets.KEYSTORE}}" > keystore.jks.asc
+        gpg -d --batch --passphrase "${{secrets.GPG_PASS}}" --output app/keystore.jks keystore.jks.asc
+        
+    - name: Build App
+      run: |
+        chmod +x gradlew
+        ./gradlew assembleDefaultFlavor \
+            -Pkeystore=keystore.jks \
+            -Pstorepass=${{secrets.STORE_PASS}} \
+            -Pkeypass=${{secrets.KEY_PASS}} \
+            -Pkeyalias=${{secrets.KEY_NAME}}
+
+    - name: Archive APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: Archive Quillpad APK
+        path: app/build/outputs/apk/defaultFlavor/release/app-defaultFlavor-release.apk
+    
+    - name: Rename app to release java-version
+      if: ${{ github.ref_type == 'tag' }}
+      env: 
+        VERSION: ${{ github.ref_name }}
+      run: |
+        echo version = ${VERSION:1}
+        echo "APK_VERSION=${VERSION:1}" >> $GITHUB_ENV
+        cp -v app/build/outputs/apk/defaultFlavor/release/app-defaultFlavor-release.apk quillpad-${VERSION:1}.apk
+
+    - name: Do Release
+      uses: softprops/action-gh-release@v1
+      if: ${{ github.ref_type == 'tag' }}
+      with:
+        files: quillpad-${{env.APK_VERSION}}.apk
