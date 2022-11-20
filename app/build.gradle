@@ -22,10 +22,29 @@ android {
         testInstrumentationRunner "org.qosp.notes.TestRunner"
     }
 
+    if (project.hasProperty("keystore")) {
+        signingConfigs {
+            release {
+                def keystoreFileArg = project.property("keystore").toString()
+                def storePassArg = project.property("storepass").toString()
+                def keyName = project.property("keyalias").toString()
+                def keypassArg = project.property("keypass").toString()
+                storeFile file(keystoreFileArg)
+                storePassword storePassArg
+                keyAlias keyName
+                keyPassword keypassArg
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
+            crunchPngs false
+            if (project.hasProperty("keystore")) {
+                signingConfig signingConfigs.release
+            }
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
