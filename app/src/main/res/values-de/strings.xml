@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Navigation drawer -->
+    <string name="nav_notes">Notizen</string>
+    <string name="nav_archive">Archiv</string>
+    <string name="nav_deleted">Gelöscht</string>
+    <string name="nav_settings">Einstellungen</string>
+    <string name="nav_about">Über</string>
+    <string name="nav_tags">Tags</string>
+    <string name="nav_all_notes">Alle Notizen</string>
+    <string name="nav_notebooks">Notizbücher</string>
+    <string name="nav_your_notebooks">Deine Notizbücher</string>
+
+    <!-- Preferences -->
+    <string name="preferences_header_general">Generell</string>
+    <string name="preferences_theme_mode">Thema</string>
+    <string name="preferences_theme_mode_dark">Dunkel</string>
+    <string name="preferences_theme_mode_light">Hell</string>
+    <string name="preferences_theme_mode_system">System folgend</string>
+
+    <string name="preferences_dark_theme_mode">Dunkel-Thema Modus</string>
+    <string name="preferences_theme_dark_mode_standard">Standard</string>
+    <string name="preferences_theme_dark_mode_black">Schwarz</string>
+
+    <string name="preferences_header_view">Ansicht</string>
+    <string name="preferences_layout_mode">Anordnung</string>
+    <string name="preferences_layout_mode_grid">Raster</string>
+    <string name="preferences_layout_mode_list">Liste</string>
+
+    <string name="preferences_color_scheme">Farbpalette</string>
+    <string name="preferences_color_scheme_blue">Blau</string>
+    <string name="preferences_color_scheme_pink">Pink</string>
+    <string name="preferences_color_scheme_green">Grün</string>
+    <string name="preferences_color_scheme_orange">Orange</string>
+    <string name="preferences_color_scheme_purple">Violett</string>
+    <string name="preferences_color_scheme_yellow">Gelb</string>
+    <string name="preferences_color_scheme_red">Rot</string>
+
+    <string name="preferences_sort_method">Sortieren nach</string>
+    <string name="preferences_sort_method_title_asc">Titel (aufsteigend)</string>
+    <string name="preferences_sort_method_title_desc">Titel (absteigend)</string>
+    <string name="preferences_sort_method_created_asc">Erstellungsdatum (aufsteigend)</string>
+    <string name="preferences_sort_method_created_desc">Erstellungsdatum (absteigend)</string>
+    <string name="preferences_sort_method_modified_asc">Änderungsdatum (aufsteigend)</string>
+    <string name="preferences_sort_method_modified_desc">Änderungsdatum (absteigend)</string>
+
+    <string name="preferences_show_date">Erstellungs-/Änderungsdatum anzeigen</string>
+    <string name="preferences_date_format">Datumsformat</string>
+    <string name="preferences_time_format">Zeitformat</string>
+
+    <string name="preferences_header_other">Andere</string>
+    <string name="preferences_group_notes_without_notebook">Notizen die nicht in einem Notizbuch sind gruppieren</string>
+    <string name="preferences_open_media_in">Medien öffnen in</string>
+    <string name="preferences_open_media_in_internal">internem Player</string>
+    <string name="preferences_open_media_in_external">externem Player</string>
+    <string name="preferences_note_deletion_time">Notizen in Mülleimer löschen</string>
+    <string name="preferences_note_deletion_time_instantly">Sofort</string>
+    <string name="preferences_note_deletion_time_week">Nach 7 Tagen</string>
+    <string name="preferences_note_deletion_time_two_weeks">Nach 14 Tagen</string>
+    <string name="preferences_note_deletion_time_month">Nach 30 Tagen</string>
+
+    <string name="preferences_header_backup">Sicherung</string>
+    <string name="preferences_create_backup">Sicherung erstellen</string>
+    <string name="preferences_create_backup_subtext">Alle Notizen als Sicherungsdatei exportieren.</string>
+    <string name="preferences_restore">Wiederherstellen</string>
+    <string name="preferences_restore_subtext">Notizen aus Sicherungsdatei laden.</string>
+    <string name="preferences_backup_strategy">Backup von Anhängen</string>
+    <string name="preferences_backup_strategy_include_files">Alle sichern</string>
+    <string name="preferences_backup_strategy_keep_info">Nur Beschreibung und lokalen Pfad sichern</string>
+    <string name="preferences_backup_strategy_keep_nothing">Anhänge nicht sichern</string>
+
+    <string name="preferences_header_syncing">Synchronisierung</string>
+    <string name="preferences_go_to_sync_settings">Synchronisierungseinstellungen</string>
+    <string name="preferences_currently_syncing_with">Aktuell Synchronisierung mit %s</string>
+    <string name="preferences_currently_not_syncing">Aktuell keine Synchronisierung</string>
+    <string name="preferences_cloud_service">Synchronisierungsdienst</string>
+    <string name="preferences_cloud_service_disabled">Deaktiviert</string>
+    <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
+    <string name="preferences_sync_experimental_warning">Synchronisierung is aktuell experimentell.\nEs können Fehler auftreten.</string>
+    <string name="preferences_nextcloud_limited_features">Aktuell unterstützt Nextcloud Notes keine Tags, Anhänge, Erinnerungen und weitere Funktionen.</string>
+    <string name="preferences_nextcloud_account">Nextcloud Konto</string>
+    <string name="preferences_nextcloud_instance_url">URL der Nextcloud Instanz</string>
+    <string name="preferences_nextcloud_set_your_credentials">Zugangsdaten einstellen</string>
+    <string name="preferences_nextcloud_set_server_url">Server-URL einstellen</string>
+    <string name="preferences_sync_on_wifi">WLAN</string>
+    <string name="preferences_sync_on_wifi_data">WLAN oder Mobilen Daten</string>
+    <string name="preferences_sync_when_on">Synchronisierung bei</string>
+    <string name="preferences_background_sync">Hintergrundsynchronisierung</string>
+    <string name="preferences_background_sync_enabled">Aktiviert</string>
+    <string name="preferences_background_sync_disabled">Deaktiviert</string>
+    <string name="preferences_new_notes_synchronizable">Neue Notizen synchronisieren</string>
+
+
+    <!-- About -->
+    <string name="about_version">Version</string>
+    <string name="about_website">Webseite</string>
+    <string name="about_developer">Entwickler</string>
+    <string name="about_contribute">Mitwirken</string>
+    <string name="about_support">Unterstützen</string>
+    <string name="about_support_subtext">Open-Source-Projekte zu erstellen und zu aktualisieren ist zeitintensiv und liefert
+        keinen Profit.\nSpendieren Sie den Entwicklern ein Bier!
+    </string>
+    <string name="about_libraries">Bibliotheken</string>
+    <string name="about_libraries_subtext">Bibliotheken und Lizenzen Dritter ansehen.</string>
+
+
+    <!-- General -->
+    <string name="default_string">Standard</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="ok">Ok</string>
+    <string name="indicator_notes_empty">Ihre Notizen werden hier erscheinen.</string>
+    <string name="indicator_untitled">Ohne Titel</string>
+    <string name="hint_username">Benutzername</string>
+    <string name="hint_password">Passwort</string>
+    <string name="action_save">Speichern</string>
+    <string name="action_cancel">Abbrechen</string>
+    <string name="action_delete">Löschen</string>
+    <string name="action_done">Fertig!</string>
+    <string name="action_delete_permanently">Unwiderruflich löschen</string>
+    <string name="action_select_all">Alle auswählen</string>
+    <string name="action_create_list">Liste erstellen</string>
+    <string name="action_show_hidden_notes">Verborgene Notizen anzeigen</string>
+    <string name="action_unarchive">Wiederherstellen</string>
+    <string name="action_export">Exportieren</string>
+    <string name="action_hide">Verbergen</string>
+    <string name="action_show">Anzeigen</string>
+    <string name="action_archive">Archivieren</string>
+    <string name="action_pin">Anheften</string>
+    <string name="action_unpin">Losheften</string>
+    <string name="action_restore">Wiederherstellen</string>
+    <string name="action_share">Teilen</string>
+    <string name="action_pin_unpin">Anheften / Losheften</string>
+    <string name="action_move_to">Verschieben nach…</string>
+    <string name="action_duplicate">Duplizieren</string>
+    <string name="action_select_more">Mehr auswählen…</string>
+
+
+    <!-- Attachments -->
+    <string name="attachments_edit_description">Beschreibung bearbeiten</string>
+    <string name="attachments_hint_description">Anhangsbeschreibung</string>
+    <string name="action_record_audio">Audio aufnehmen</string>
+    <string name="indicator_recording">Aufnehmen (%1$s)</string>
+    <string name="action_attach_files">Dateien anhängen</string>
+    <string name="action_take_photo">Foto aufnhemen</string>
+    <string name="indicator_recorded_clip">Audioaufnahme</string>
+
+
+    <!-- Notebooks -->
+    <string name="default_notebook">Andere</string>
+    <string name="notebooks_new_notebook">Neues Notizbuch</string>
+    <string name="notebooks_hint_name">Name des Notizbuches</string>
+    <string name="notebooks_unassigned">Kein Notizbuch</string>
+    <string name="indicator_notebook_empty">Sie haben keine Notizbücher.</string>
+    <string name="action_create_notebook">Notizbuch erstellen</string>
+    <string name="action_rename_notebook">Notizbuch neu benennen</string>
+    <string name="action_new_notebook">Neues Notizbuch</string>
+    <string name="indicator_notebook_already_exists">Ein Notizbuch mit dem Namen %1$s existiert bereits.</string>
+
+
+    <!-- Archive -->
+    <string name="indicator_archive_empty">Ihre archivierten Notizen werden hier erscheinen.</string>
+
+
+    <!-- Deleted -->
+    <string name="action_empty_bin">Mülleimer leeren</string>
+    <string name="empty_bin_warning_title">Sind Sie sich sicher?</string>
+    <string name="empty_bin_warning_text">Alle gelöschten Notizen werden unwiderruflich gelöscht.</string>
+    <string name="indicator_deleted_note_cannot_be_edited">Notizen im Mülleimer können nicht bearbeitet werden.</string>
+    <string name="indicator_deleted_empty">Ihre gelöschten Notizen werden hier für %1$d Tage erscheinen.</string>
+    <string name="indicator_bin_disabled">Notizen werden sofort gelöscht.\nSie können dieses Verhalten in den Einstellungen ändern.</string>
+    <string name="indicator_deleted_notes_permanently">Notizen unwiderruflich gelöscht.</string>
+    <string name="indicator_deleted_note_permanently">Notiz unwiderruflich gelöscht.</string>
+
+
+    <!-- Reminders -->
+    <string name="reminders">Erinnerungen</string>
+    <string name="reminder">Erinnerung</string>
+    <string name="reminders_hint_name">Name der Erinnerung</string>
+    <string name="action_set_date">Datum setzen</string>
+    <string name="action_set_time">Zeit setzen</string>
+    <string name="action_new_reminder">Neue Erinnerung</string>
+    <string name="notification_reminder_fired">Sie haben eine Erinnerung.</string>
+    <string name="indicator_cannot_set_past_reminder">Erinnerung kann nicht für ein Datum in der Vergangenheit gestellt werden.</string>
+
+
+    <!-- Tags -->
+    <string name="action_new_tag">Neuer Tag</string>
+    <string name="tags_hint_name">Name des Tags</string>
+    <string name="indicator_tags_empty">Sie haben keine Tags</string>
+    <string name="action_rename_tag">Tag neu benennen</string>
+    <string name="indicator_tag_already_exists">Ein Tag mit dem Namen %1$s existiert bereits.</string>
+
+
+    <!-- Search -->
+    <string name="search_hint">Suchen…</string>
+    <string name="action_search">Suchen</string>
+    <string name="indicator_search_empty">Suchergebnisse werden hier erscheinen.</string>
+    <string name="indicator_no_results_found">Keine Ergebnisse gefunden.</string>
+
+
+    <!-- Editor -->
+    <string name="editor_hint_title">Titel</string>
+    <string name="editor_hint_content">Machen Sie eine Notiz!</string>
+    <string name="action_add_task">Aufgabe</string>
+    <string name="action_convert_to_note">Zu Notiz konvertieren</string>
+    <string name="action_convert_to_list">Zu Liste konvertieren</string>
+    <string name="action_do_not_sync">Nicht synchronisieren</string>
+    <string name="action_change_color">Farbe ändern</string>
+    <string name="action_enable_markdown">Markdown aktivieren</string>
+    <string name="action_disable_markdown">Markdown deaktivieren</string>
+    <string name="action_insert_bold_text">Fettgedrucktes Markdown einfügen</string>
+    <string name="action_insert_italics">Kursives Markdown einfügen</string>
+    <string name="action_insert_strikethrough">Durchgestrichenes Markdown einfügen</string>
+    <string name="action_insert_heading">Überschrift in Markdown einfügen</string>
+    <string name="action_insert_quote">Zitat in Markdown einfügen</string>
+    <string name="action_insert_code">Code in Markdown einfügen</string>
+    <string name="indicator_note_date">Erstellt: %1$s\nZuletzt bearbeitet: %2$s</string>
+    <string name="indicator_restored_notes">Wiederhergestellte Notizen</string>
+    <string name="indicator_restored_note">Wiederhergestellte Notiz</string>
+    <string name="indicator_archived_notes">Archivierte Notizen</string>
+    <string name="indicator_archive_note">Archivierte Notiz</string>
+    <string name="indicator_moved_notes_to_bin">Notizen in Mülleimer verschoben</string>
+    <string name="indicator_moved_note_to_bin">Notiz in Mülleimer verschoben</string>
+    <string name="indicator_empty_note_discarded">Leere Notiz verworfen</string>
+    <string name="action_insert_link">Link einfügen</string>
+    <string name="action_insert">Einfügen</string>
+    <string name="action_insert_table">Tabelle einfügen</string>
+    <string name="message_invalid_number_rows_columns">Anzahl der Zeilen und Spalten unzulässig</string>
+    <string name="action_insert_image">Bild einfügen</string>
+    <string name="hint_image_description">Beschreibung</string>
+    <string name="hint_image_path">Pfad des Bildes</string>
+    <string name="hint_hyperlink_text">Text</string>
+    <string name="hint_hyperlink_url">URL</string>
+    <string name="hint_number_columns">Anzahl der Spalten</string>
+    <string name="hint_number_rows">Anzahl der Zeilen</string>
+    <string name="message_cannot_preview_table">Vorschau der Tabelle nicht möglich.</string>
+
+    <!-- Backup / Restore -->
+    <string name="notification_backing_up">Sicherung der Noitzen…</string>
+    <string name="notification_backup_complete">Sicherung erfolgreich!</string>
+    <string name="notification_backup_failed">Sicherung fehlgeschlagen</string>
+    <string name="notification_restoring_notes">Wiederherstellung Ihrer Notizen…</string>
+    <string name="notification_restore_complete">Wiederherstellung erfolgreich!</string>
+    <string name="notification_restore_failed">Wiederherstellung fehlgeschlagen!</string>
+
+
+    <!-- Notification channels -->
+    <string name="notifications_channel_reminders">Erinnerungen</string>
+    <string name="notifications_channel_backups">Sicherungen</string>
+    <string name="notifications_channel_playback">Medienwiedergabe</string>
+
+    <!-- Syncing -->
+    <string name="message_not_valid_https">Dies ist keine valide HTTPS url.</string>
+    <string name="indicator_nextcloud_currently_logged_in_as">Sie sind aktuell als <b>%s</b> angemeldet.</string>
+    <string name="indicator_nextcloud_currently_not_logged_in">Sie sind aktuell nicht angemeldet.</string>
+    <string name="action_nextcloud_authenticate">Authentifizieren</string>
+    <string name="indicator_offline_account">Offline-Konto</string>
+    <string name="indicator_connecting">Verbinden…</string>
+    <string name="message_something_went_wrong">Es ist ein Problem aufgetreten.</string>
+    <string name="message_invalid_credentials">Authentifikation mit dem Server ist aufgrund falscher Anmeldedaten fehlgschlagen.</string>
+    <string name="message_logged_in_successfully">Erfolgreich angemeldet!</string>
+    <string name="message_server_not_compatible">Die Version des Servers ist nicht kompatibel mit der App.</string>
+    <string name="message_internet_not_available">Internetverbindung nicht möglich.</string>
+    <string name="message_credentials_cannot_be_blank">Anmeldedaten können nicht leer gelassen werden.</string>
+    <string name="preference_nextcloud_clear_credentials">Anmeldedaten und Server-URL löschen</string>
+    <string name="notification_media_play_pause">Abspielen / Pausieren</string>
+    <string name="notification_media_stop">Stop</string>
+
+    <!-- App shortcuts -->
+    <string name="shortcut_take_note">Notiz erstellen</string>
+    <string name="shortcut_make_list">Liste erstellen</string>
+
+    <plurals name="more_items">
+        <item quantity="one">+%d Element</item>
+        <item quantity="other">+%d Elemente</item>
+    </plurals>
+
+    <plurals name="selected_notes">
+        <item quantity="one">%d Notiz ausgewählt</item>
+        <item quantity="other">%d Notizen ausgewählt</item>
+    </plurals>
+
+    <plurals name="selected_notebooks">
+        <item quantity="one">%d Notizbuch ausgewählt</item>
+        <item quantity="other">%d Notizbücher ausgewählt</item>
+    </plurals>
+
+    <plurals name="selected_tags">
+        <item quantity="one">%d Tag ausgewählt</item>
+        <item quantity="other">%d Tags ausgewählt</item>
+    </plurals>
+</resources>
