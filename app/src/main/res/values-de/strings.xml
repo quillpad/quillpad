@@ -76,7 +76,7 @@
     <string name="preferences_cloud_service">Synchronisierungsdienst</string>
     <string name="preferences_cloud_service_disabled">Deaktiviert</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_sync_experimental_warning">Synchronisierung is aktuell experimentell.\nSie können auf Fehler stoßen.</string>
+    <string name="preferences_sync_experimental_warning">Synchronisierung is aktuell experimentell.\nEs können Fehler auftreten.</string>
     <string name="preferences_nextcloud_limited_features">Aktuell unterstützt Nextcloud Notes keine Tags, Anhänge, Erinnerungen und weitere Funktionen.</string>
     <string name="preferences_nextcloud_account">Nextcloud Konto</string>
     <string name="preferences_nextcloud_instance_url">URL der Nextcloud Instanz</string>
