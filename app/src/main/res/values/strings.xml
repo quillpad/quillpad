@@ -76,7 +76,7 @@
     <string name="preferences_cloud_service_disabled">Disabled</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
     <string name="preferences_sync_experimental_warning">Syncing functionality is currently experimental.\nYou may encounter bugs.</string>
-    <string name="preferences_nextcloud_limited_features">Keep in mind Nextcloud Notes does not support features such as tags, attachments, reminders, task lists and more.</string>
+    <string name="preferences_nextcloud_limited_features">Keep in mind Nextcloud Notes does not support features such as tags, attachments, reminders and more.</string>
     <string name="preferences_nextcloud_account">Nextcloud account</string>
     <string name="preferences_nextcloud_instance_url">Nextcloud instance URL</string>
     <string name="preferences_nextcloud_set_your_credentials">Set your credentials</string>
