@@ -73,9 +73,9 @@ fun View.liftAppBarOnScroll(
             viewTreeObserver.addOnScrollChangedListener(listener)
 
             appBar.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-                override fun onViewAttachedToWindow(v: View?) { }
+                override fun onViewAttachedToWindow(v: View) { }
 
-                override fun onViewDetachedFromWindow(v: View?) {
+                override fun onViewDetachedFromWindow(v: View) {
                     viewTreeObserver.removeOnScrollChangedListener(listener)
                 }
             })

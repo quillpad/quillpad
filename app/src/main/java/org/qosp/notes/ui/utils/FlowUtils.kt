@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 inline fun <T> Flow<T>.collect(lifecycleOwner: LifecycleOwner, crossinline action: suspend (value: T) -> Unit) {
     lifecycleOwner.lifecycleScope.launch {
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            this@collect.collect(action)
+            this@collect.collect()
         }
     }
 }
