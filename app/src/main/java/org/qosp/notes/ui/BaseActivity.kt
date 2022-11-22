@@ -52,17 +52,14 @@ open class BaseActivity : AppCompatActivity() {
                 // if black
                 if (darkThemeModeStyle != null) {
                     theme.applyStyle(darkThemeModeStyle, true)
-                    println("setting navbar to black")
                     setNavbarColor(ContextCompat.getColor(this@BaseActivity, R.color.navBarBlack))
                 }
                 else {
-                    println("setting navbar to gray")
                     setNavbarColor(ContextCompat.getColor(this@BaseActivity, R.color.navBarDark))
                 }
             }
             // if light
             else if (themeMode == ThemeMode.LIGHT.mode) {
-                println("setting navbar to white")
                 setNavbarColor(ContextCompat.getColor(this@BaseActivity, R.color.navBarLight))
             }
 
