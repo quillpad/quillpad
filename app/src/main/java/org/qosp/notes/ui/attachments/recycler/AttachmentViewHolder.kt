@@ -9,7 +9,8 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import coil.fetch.VideoFrameUriFetcher
+import coil.decode.VideoFrameDecoder
+import coil.fetch.Fetcher
 import coil.load
 import coil.request.ImageRequest
 import org.qosp.notes.R
@@ -30,7 +31,12 @@ class AttachmentViewHolder(
 
         if (listener != null) {
             itemView.setOnClickListener { listener.onItemClick(bindingAdapterPosition, binding) }
-            itemView.setOnLongClickListener { listener.onLongClick(bindingAdapterPosition, binding) }
+            itemView.setOnLongClickListener {
+                listener.onLongClick(
+                    bindingAdapterPosition,
+                    binding
+                )
+            }
         }
     }
 
@@ -68,14 +74,18 @@ class AttachmentViewHolder(
                 imageView.apply {
                     scaleType = ImageView.ScaleType.FIT_CENTER
                     loadThumbnail(attachment.uri(context)) {
-                        fetcher(VideoFrameUriFetcher(context))
+                        decoderFactory(VideoFrameDecoder.Factory())
                     }
                 }
                 setIndicator(R.drawable.ic_movie)
             }
             Attachment.Type.AUDIO -> {
                 imageView.loadThumbnail(attachment.uri(context)) {
-                    fetcher(AlbumArtFetcher(context))
+                    fetcherFactory(Fetcher.Factory { data, options, _ ->
+                        (data as? Uri)?.let {
+                            AlbumArtFetcher(context, data, options)
+                        }
+                    })
                 }
 
                 setIndicator(R.drawable.ic_music)

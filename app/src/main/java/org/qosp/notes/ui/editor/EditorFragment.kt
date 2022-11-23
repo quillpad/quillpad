@@ -394,13 +394,13 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                 }
                 R.id.action_export_note -> {
                     activityModel.notesToBackup = setOf(note)
-                    exportNotesLauncher.launch()
+                    exportNotesLauncher.launch(null)
                 }
                 R.id.action_share -> {
                     shareNote(requireContext(), note)
                 }
                 R.id.action_attach_file -> {
-                    requestMediaLauncher.launch()
+                    requestMediaLauncher.launch(null)
                 }
                 R.id.action_take_photo -> {
                     lifecycleScope.launch {

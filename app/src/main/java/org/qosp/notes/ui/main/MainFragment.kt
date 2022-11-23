@@ -250,7 +250,7 @@ open class MainFragment : AbstractNotesFragment(R.layout.fragment_main) {
                     true
                 }
                 R.id.action_attach_file -> {
-                    chooseFileLauncher.launch()
+                    chooseFileLauncher.launch(null)
                     true
                 }
                 R.id.action_take_photo -> {

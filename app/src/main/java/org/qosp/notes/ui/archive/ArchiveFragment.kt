@@ -44,6 +44,7 @@ class ArchiveFragment : AbstractNotesFragment(R.layout.fragment_archive) {
         get() = binding.layoutAppBar.toolbarSelection
     override val secondaryToolbarMenuRes: Int = R.menu.archive_selected_notes
 
+    @Deprecated("")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.archive, menu)
@@ -51,6 +52,7 @@ class ArchiveFragment : AbstractNotesFragment(R.layout.fragment_archive) {
         setHiddenNotesItemActionText()
     }
 
+    @Deprecated("")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_search -> findNavController().navigateSafely(ArchiveFragmentDirections.actionArchiveToSearch())

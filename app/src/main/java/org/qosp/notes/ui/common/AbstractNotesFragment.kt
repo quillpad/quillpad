@@ -372,7 +372,7 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
                 R.id.action_move_selected -> showMoveToNotebookDialog(*selectedNotes)
                 R.id.action_export_selected -> {
                     activityModel.notesToBackup = selectedNotes.toSet()
-                    exportNotesLauncher.launch()
+                    exportNotesLauncher.launch(null)
                 }
                 R.id.action_select_all -> {
                     selectAllNotes()
@@ -498,7 +498,7 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
             }
             action(R.string.action_export, R.drawable.ic_export_note) {
                 activityModel.notesToBackup = setOf(note)
-                exportNotesLauncher.launch()
+                exportNotesLauncher.launch(null)
             }
             action(R.string.action_share, R.drawable.ic_share) {
                 shareNote(requireContext(), note)

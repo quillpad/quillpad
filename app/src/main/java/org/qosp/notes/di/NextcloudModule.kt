@@ -5,8 +5,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import org.qosp.notes.data.repo.IdMappingRepository
 import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.data.repo.NotebookRepository
@@ -20,17 +21,16 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NextcloudModule {
+    private val json = Json { ignoreUnknownKeys = true }
 
+    @OptIn(ExperimentalSerializationApi::class)
     @Provides
     @Singleton
     fun provideNextcloud(): NextcloudAPI {
         return Retrofit.Builder()
             .baseUrl("http://localhost/") // Since the URL is configurable by the user we set it later during the request
             .addConverterFactory(
-                Json {
-                    ignoreUnknownKeys = true
-                }
-                    .asConverterFactory(MediaType.get("application/json"))
+                json.asConverterFactory("application/json".toMediaType())
             )
             .build()
             .create()

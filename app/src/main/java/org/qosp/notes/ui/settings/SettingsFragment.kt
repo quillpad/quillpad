@@ -11,21 +11,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.qosp.notes.R
 import org.qosp.notes.databinding.FragmentSettingsBinding
-import org.qosp.notes.preferences.AppPreferences
-import org.qosp.notes.preferences.CloudService
-import org.qosp.notes.preferences.DarkThemeMode
-import org.qosp.notes.preferences.DateFormat
-import org.qosp.notes.preferences.LayoutMode
-import org.qosp.notes.preferences.ThemeMode
-import org.qosp.notes.preferences.TimeFormat
+import org.qosp.notes.preferences.*
 import org.qosp.notes.ui.MainActivity
 import org.qosp.notes.ui.common.BaseFragment
-import org.qosp.notes.ui.utils.RestoreNotesContract
-import org.qosp.notes.ui.utils.collect
-import org.qosp.notes.ui.utils.launch
-import org.qosp.notes.ui.utils.liftAppBarOnScroll
-import org.qosp.notes.ui.utils.navigateSafely
-import org.qosp.notes.ui.utils.viewBinding
+import org.qosp.notes.ui.utils.*
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -70,11 +59,11 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
             requireContext().resources.getDimension(R.dimen.app_bar_elevation)
         )
 
-        binding.settingRestoreNotes.setOnClickListener { loadBackupLauncher.launch() }
+        binding.settingRestoreNotes.setOnClickListener { loadBackupLauncher.launch(null) }
 
         binding.settingBackupNotes.setOnClickListener {
             activityModel.notesToBackup = null
-            exportNotesLauncher.launch()
+            exportNotesLauncher.launch(null)
         }
     }
 

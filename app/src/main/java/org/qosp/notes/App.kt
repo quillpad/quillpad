@@ -18,12 +18,13 @@ import coil.ImageLoader
 import coil.ImageLoaderFactory
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
-import coil.util.CoilUtils
+import coil.decode.VideoFrameDecoder
+import coil.disk.DiskCache
+import coil.memory.MemoryCache
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import okhttp3.OkHttpClient
 import org.qosp.notes.components.workers.BinCleaningWorker
 import org.qosp.notes.components.workers.SyncWorker
 import java.util.concurrent.TimeUnit
@@ -44,13 +45,16 @@ class App : Application(), ImageLoaderFactory, Configuration.Provider {
     override fun newImageLoader(): ImageLoader {
         return ImageLoader.Builder(applicationContext)
             .crossfade(true)
-            .okHttpClient {
-                OkHttpClient.Builder()
-                    .cache(CoilUtils.createDefaultCache(applicationContext))
-                    .build()
+            .memoryCache {
+                MemoryCache.Builder(applicationContext).maxSizePercent(0.05).build()
             }
-            .componentRegistry {
-                if (SDK_INT >= 28) add(ImageDecoderDecoder(applicationContext)) else add(GifDecoder())
+            .diskCache(
+                DiskCache.Builder().directory(applicationContext.cacheDir.resolve("img_cache"))
+                    .maxSizePercent(0.02).build()
+            )
+            .components {
+                if (SDK_INT >= 28) add(ImageDecoderDecoder.Factory()) else add(GifDecoder.Factory())
+                add(VideoFrameDecoder.Factory())
             }
             .build()
     }
@@ -66,7 +70,8 @@ class App : Application(), ImageLoaderFactory, Configuration.Provider {
 
     private fun createNotificationChannels() {
         if (SDK_INT < Build.VERSION_CODES.O) return
-        val notificationManager = ContextCompat.getSystemService(this, NotificationManager::class.java) ?: return
+        val notificationManager =
+            ContextCompat.getSystemService(this, NotificationManager::class.java) ?: return
 
         listOf(
             NotificationChannel(
@@ -94,7 +99,9 @@ class App : Application(), ImageLoaderFactory, Configuration.Provider {
             "BIN_CLEAN" to PeriodicWorkRequestBuilder<BinCleaningWorker>(5, TimeUnit.HOURS)
                 .build(),
             "SYNC" to PeriodicWorkRequestBuilder<SyncWorker>(1, TimeUnit.HOURS)
-                .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
+                .setConstraints(
+                    Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+                )
                 .build(),
         )
 
