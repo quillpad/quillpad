@@ -16,7 +16,7 @@ fun ActivityResultLauncher<None>.launch() {
 object None
 
 object ChooseFilesContract : ActivityResultContract<None, List<Uri>>() {
-    override fun createIntent(context: Context, input: None): Intent {
+    override fun createIntent(context: Context, input: None?): Intent {
         return Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/*", "video/*", "audio/*"))
@@ -36,7 +36,7 @@ object ChooseFilesContract : ActivityResultContract<None, List<Uri>>() {
 }
 
 object ExportNotesContract : ActivityResultContract<None, Uri?>() {
-    override fun createIntent(context: Context, input: None): Intent {
+    override fun createIntent(context: Context, input: None?): Intent {
         return Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "application/zip"
@@ -50,7 +50,7 @@ object ExportNotesContract : ActivityResultContract<None, Uri?>() {
 }
 
 object RestoreNotesContract : ActivityResultContract<None, Uri?>() {
-    override fun createIntent(context: Context, input: None): Intent {
+    override fun createIntent(context: Context, input: None?): Intent {
         return Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "application/zip"
