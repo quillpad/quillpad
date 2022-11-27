@@ -82,6 +82,7 @@ class MainActivity : BaseActivity() {
         super.onNewIntent(intent)
         if (intent != null) handleIntent(intent)
     }
+
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
@@ -121,7 +122,8 @@ class MainActivity : BaseActivity() {
 
     private fun setupDrawerHeader() {
         val header = binding.navigationView.getHeaderView(0)
-        val syncSettingsButton = header.findViewById<AppCompatImageButton>(R.id.button_sync_settings)
+        val syncSettingsButton =
+            header.findViewById<AppCompatImageButton>(R.id.button_sync_settings)
         val textViewUsername = header.findViewById<AppCompatTextView>(R.id.text_view_username)
         val textViewProvider = header.findViewById<AppCompatTextView>(R.id.text_view_provider)
 
@@ -139,24 +141,31 @@ class MainActivity : BaseActivity() {
 
         syncManager.config
             .collect(this@MainActivity) { config ->
-                textViewUsername.text = config?.username ?: getString(R.string.indicator_offline_account)
-                textViewProvider.text = getString(config?.provider?.nameResource ?: R.string.preferences_currently_not_syncing)
+                textViewUsername.text =
+                    config?.username ?: getString(R.string.indicator_offline_account)
+                textViewProvider.text = getString(
+                    config?.provider?.nameResource ?: R.string.preferences_currently_not_syncing
+                )
             }
     }
 
-    private fun selectCurrentDestinationMenuItem(destinationId: Int? = null, arguments: Bundle? = null) {
-        val destinationId = when (val id = destinationId ?: navController.currentDestination?.id ?: return) {
-            // Assign destinations that do not have a drawer entry to an existing entry
-            R.id.fragment_sync_settings -> R.id.fragment_settings
-            R.id.fragment_search -> R.id.fragment_main
-            else -> id
-        }
+    private fun selectCurrentDestinationMenuItem(
+        destinationId: Int? = null,
+        arguments: Bundle? = null
+    ) {
+        val destinationId =
+            when (val id = destinationId ?: navController.currentDestination?.id ?: return) {
+                // Assign destinations that do not have a drawer entry to an existing entry
+                R.id.fragment_sync_settings -> R.id.fragment_settings
+                R.id.fragment_search -> R.id.fragment_main
+                else -> id
+            }
 
         val arguments = arguments ?: navController.currentBackStackEntry?.arguments
         val notebookId = arguments?.getLong("notebookId", -1L)?.takeIf { it >= 0L }
 
         binding.navigationView.post {
-            (notebooksMenu!!.children + topLevelMenu.children)
+            ((notebooksMenu?.children ?: emptySequence()) + topLevelMenu.children)
                 .forEach { item ->
                     item.isChecked = when (notebookId) {
                         null -> item.itemId == destinationId
@@ -170,7 +179,7 @@ class MainActivity : BaseActivity() {
         // Alternative of setupWithNavController(), NavigationUI.java
         // Sets up click listeners for all drawer menu items except from notebooks.
         // Those are handled in createNotebookMenuItems()
-        (topLevelMenu.children + listOfNotNull(notebooksMenu!!.findItem(R.id.fragment_manage_notebooks)))
+        (topLevelMenu.children + listOfNotNull(notebooksMenu?.findItem(R.id.fragment_manage_notebooks)))
             .forEach { item ->
                 if (item.itemId !in primaryDestinations + secondaryDestinations) return@forEach
 
@@ -183,7 +192,7 @@ class MainActivity : BaseActivity() {
                 }
             }
 
-        notebooksMenu!!.findItem(R.id.nav_default_notebook)?.setOnMenuItemClickListener {
+        notebooksMenu?.findItem(R.id.nav_default_notebook)?.setOnMenuItemClickListener {
             binding.drawer.closeAndThen {
                 navController.navigateSafely(
                     R.id.fragment_notebook,
@@ -201,16 +210,20 @@ class MainActivity : BaseActivity() {
     private fun setupNavigation() {
         fun createNotebookMenuItems(notebooks: List<Notebook>) {
             notebooks.forEach { notebook ->
-                val menuItem = notebooksMenu!!.findItem(notebook.id.toInt())
+                val menuItem = notebooksMenu?.findItem(notebook.id.toInt())
                 if (menuItem != null && notebook.name != menuItem.title) {
                     menuItem.title = notebook.name
                 }
                 if (menuItem == null) {
-                    notebooksMenu!!
-                        .add(R.id.section_notebooks, notebook.id.toInt(), 0, notebook.name)
-                        .setIcon(R.drawable.ic_notebook)
-                        .setCheckable(true)
-                        .setOnMenuItemClickListener {
+                    notebooksMenu?.add(
+                        R.id.section_notebooks,
+                        notebook.id.toInt(),
+                        0,
+                        notebook.name
+                    )
+                        ?.setIcon(R.drawable.ic_notebook)
+                        ?.setCheckable(true)
+                        ?.setOnMenuItemClickListener {
                             binding.drawer.closeAndThen {
                                 navController.navigateSafely(
                                     R.id.fragment_notebook,
@@ -251,19 +264,23 @@ class MainActivity : BaseActivity() {
 
             // Remove deleted notebooks from the menu
             (primaryDestinations + secondaryDestinations + notebookIds).let { dests ->
-                var index = 0
-                while (index < notebooksMenu!!.size()) {
-                    val item = notebooksMenu!!.getItem(index)
-                    if (item.itemId !in dests) notebooksMenu!!.removeItem(item.itemId) else index++
+                notebooksMenu?.let { nbMenu ->
+                    var index = 0
+                    while (index < nbMenu.size()) {
+                        val item = nbMenu.getItem(index)
+                        if (item.itemId !in dests) nbMenu.removeItem(item.itemId) else index++
+                    }
                 }
             }
 
             createNotebookMenuItems(notebooks)
 
             val defaultTitle = getString(R.string.default_notebook)
-            notebooksMenu!!.findItem(R.id.nav_default_notebook)?.apply {
+            notebooksMenu?.findItem(R.id.nav_default_notebook)?.apply {
                 isVisible = showDefaultNotebook
-                title = defaultTitle + " (${getString(R.string.default_string)})".takeIf { notebooks.any { it.name == defaultTitle } }.orEmpty()
+                title =
+                    defaultTitle + " (${getString(R.string.default_string)})".takeIf { notebooks.any { it.name == defaultTitle } }
+                        .orEmpty()
             }
         }
     }
