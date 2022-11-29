@@ -1,9 +1,9 @@
 package org.qosp.notes.di
 
 import android.content.Context
-import android.graphics.Color
 import android.text.style.BackgroundColorSpan
 import android.text.util.Linkify
+import android.util.TypedValue
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -59,7 +59,12 @@ object MarkwonModule {
                     .addExtension(
                         2,
                         '=',
-                        SpanFactory { _, _ -> BackgroundColorSpan(Color.RED) })
+                        SpanFactory { _, _ ->
+                            val typedValue = TypedValue()
+                            context.theme.resolveAttribute(R.attr.colorNoteTextHighlight, typedValue, true)
+                            val color = typedValue.data;
+                            return@SpanFactory BackgroundColorSpan(color)
+                        })
             })
             .usePlugin(CoilImagesPlugin.create(context, syncManager))
             .apply {

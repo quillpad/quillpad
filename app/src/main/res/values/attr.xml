@@ -20,6 +20,7 @@
     <!-- Notes -->
     <attr name="colorNoteText" format="color"/>
     <attr name="colorNoteIndicator" format="color"/>
+    <attr name="colorNoteTextHighlight" format="color"/>
     <attr name="colorAttachmentIndicator" format="color"/>
 
     <attr name="colorNoteDefault" format="color"/>

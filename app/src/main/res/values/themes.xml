@@ -37,6 +37,8 @@
         <item name="colorNoteOrange">#FFAB91</item>
         <item name="colorNoteYellow">#FFF59D</item>
 
+        <item name="colorNoteTextHighlight">#96FFFF00</item>
+
         <item name="popupTheme">@style/Widget.Custom.PopupMenu</item>
         <item name="materialAlertDialogTheme">@style/DialogTheme</item>
     </style>
