@@ -35,8 +35,9 @@
             <org.qosp.notes.ui.utils.views.PreferenceView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/app_version"
                     app:text="@string/about_version"
-                    app:subText="@string/app_version"
+                    app:subText=""
                     app:iconSrc="@drawable/ic_about"/>
 
             <org.qosp.notes.ui.utils.views.PreferenceView
