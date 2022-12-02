@@ -2,6 +2,7 @@ package org.qosp.notes.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -255,7 +256,9 @@ open class MainFragment : AbstractNotesFragment(R.layout.fragment_main) {
                 }
                 R.id.action_take_photo -> {
                     lifecycleScope.launch {
-                        takePhotoLauncher.launch(activityModel.createImageFile())
+                        runCatching {
+                            takePhotoLauncher.launch(activityModel.createImageFile())
+                        }.getOrElse { Log.e(TAG, "Cannot launch camera app", it) }
                     }
                     true
                 }

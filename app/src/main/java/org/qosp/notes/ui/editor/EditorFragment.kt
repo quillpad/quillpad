@@ -8,6 +8,7 @@ import android.graphics.RectF
 import android.os.Bundle
 import android.text.InputType
 import android.text.TextWatcher
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.Menu
 import android.view.MenuInflater
@@ -404,7 +405,9 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                 }
                 R.id.action_take_photo -> {
                     lifecycleScope.launch {
-                        takePhotoLauncher.launch(activityModel.createImageFile())
+                        runCatching {
+                            takePhotoLauncher.launch(activityModel.createImageFile())
+                        }.getOrElse { Log.e(TAG, "Cannot launch camera app", it) }
                     }
                 }
                 R.id.action_record_audio -> {

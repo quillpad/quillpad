@@ -124,7 +124,6 @@ class App : Application(), ImageLoaderFactory, Configuration.Provider {
                 .detectLeakedSqlLiteObjects()
                 .detectLeakedClosableObjects()
                 .penaltyLog()
-                .penaltyDeath()
                 .build()
         )
     }
