@@ -1,5 +1,6 @@
 package org.qosp.notes.ui.editor.markdown
 
+import android.text.Editable
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
@@ -62,14 +63,16 @@ fun ExtendedEditText.toggleCheckmarkCurrentLine() {
     val oldLength = line.length
 
     line = when {
-        line.matches(Regex("-[ ]*\\[ \\][ ]+.*")) -> {
+        line.matches(Regex("- *\\[ ] +.*")) -> {
             line.replaceFirst("[ ]", "[x]").trimEnd() + " " // There's a strange bug which causes
             // text to be duplicated after pressing Enter
             // .trimEnd() + " " seems to be fixing it
         }
-        line.matches(Regex("-[ ]*\\[x\\][ ]+.*")) -> {
+
+        line.matches(Regex("- *\\[x] +.*")) -> {
             line.replaceFirst("[x]", "[ ]").trimEnd() + " "
         }
+
         else -> "- [ ] $line"
     }
 
@@ -98,23 +101,38 @@ fun tableMarkdown(rows: Int, columns: Int): String {
     return markdown
 }
 
+private val listRegex = Regex("^((\\s*)- +).*")
+private val checkRegex = Regex("^((\\s*)- *\\[([ x])] +).*")
+private val numListRegex = Regex("((\\s*)([1-9]+)[.] +).*")
+
+
 val ExtendedEditText.addListItemListener: TextView.OnEditorActionListener
-    get() = TextView.OnEditorActionListener { v: TextView, actionId: Int, event: KeyEvent ->
-        if (actionId == EditorInfo.TYPE_NULL && event.action == KeyEvent.ACTION_DOWN) {
-            val text = text ?: return@OnEditorActionListener true
-            text.insert(selectionStart, "\n")
-
-            val previousLine = text.lines().getOrNull(currentLineIndex - 1) ?: return@OnEditorActionListener true
-
-            when {
-                previousLine.matches(Regex("-[ ]*\\[( |x)\\][ ]+.*")) -> text.insert(currentLineStartPos, "- [ ] ")
-                previousLine.matches(Regex("-[ ]+.*")) -> text.insert(currentLineStartPos, "- ")
-                previousLine.matches(Regex("[1-9]+[0-9]*[.][ ]+.*")) -> {
-                    val inc = Regex("[1-9]+[0-9]*").findAll(previousLine).first().value.toInt().inc()
-                    text.insert(currentLineStartPos, "$inc. ")
+    get() = object : TextView.OnEditorActionListener {
+        override fun onEditorAction(view: TextView, actionId: Int, event: KeyEvent): Boolean {
+            if (actionId == EditorInfo.TYPE_NULL && event.action == KeyEvent.ACTION_DOWN) {
+                val text = text ?: return true
+                text.insert(selectionStart, "\n")
+                val previousLine = text.lines().getOrNull(currentLineIndex - 1) ?: return true
+                when {
+                    previousLine.matches(checkRegex) -> nextListLine(checkRegex, previousLine, "- [ ] ", text)
+                    previousLine.matches(listRegex) -> nextListLine(listRegex, previousLine, "- ", text)
+                    previousLine.matches(numListRegex) -> {
+                        val suffix = numListRegex.find(previousLine)?.groupValues?.get(3)?.toInt()?.inc() ?: 1
+                        nextListLine(numListRegex, previousLine, "$suffix. ", text)
+                    }
                 }
+            }
+            return true
+        }
+
+        private fun nextListLine(regex: Regex, line: String, suffix: String, text: Editable) {
+            val matchedLine = regex.find(line)?.groupValues?.getOrNull(1) ?: ""
+            if (matchedLine == line) {
+                text.delete(currentLineStartPos - line.length - 1, currentLineStartPos)
+            } else {
+                val prefix = (regex.find(line)?.groupValues?.getOrNull(2) ?: "")
+                text.insert(currentLineStartPos, "$prefix$suffix")
             }
         }
 
-        true
     }
