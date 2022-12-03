@@ -5,6 +5,7 @@ import me.msoul.datastore.EnumPreference
 import me.msoul.datastore.key
 import org.qosp.notes.R
 import java.util.concurrent.TimeUnit
+import kotlin.time.Duration.Companion.days
 
 enum class LayoutMode(override val nameResource: Int) : HasNameResource, EnumPreference by key("layout_mode") {
     GRID(R.string.preferences_layout_mode_grid) { override val isDefault = true },
@@ -52,9 +53,10 @@ enum class NoteDeletionTime(
     override val nameResource: Int,
     val interval: Long,
 ) : HasNameResource, EnumPreference by key("note_deletion_time") {
-    WEEK(R.string.preferences_note_deletion_time_week, TimeUnit.DAYS.toSeconds(7)) { override val isDefault = true },
-    TWO_WEEKS(R.string.preferences_note_deletion_time_two_weeks, TimeUnit.DAYS.toSeconds(14)),
-    MONTH(R.string.preferences_note_deletion_time_month, TimeUnit.DAYS.toSeconds(30)),
+    WEEK(R.string.preferences_note_deletion_time_week, 7.days.inWholeSeconds) { override val isDefault = true },
+    TWO_WEEKS(R.string.preferences_note_deletion_time_two_weeks, 14.days.inWholeSeconds),
+    MONTH(R.string.preferences_note_deletion_time_month, 30.days.inWholeSeconds),
+    NEVER(R.string.never, -1),
     INSTANTLY(R.string.preferences_note_deletion_time_instantly, 0L);
 
     fun toDays() = TimeUnit.SECONDS.toDays(this.interval)

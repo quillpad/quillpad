@@ -269,6 +269,7 @@
     <!-- App shortcuts -->
     <string name="shortcut_take_note">Lag et notat</string>
     <string name="shortcut_make_list">Lag en liste</string>
+  <string name="never">Aldri</string>
 
     <plurals name="more_items">
         <item quantity="one">+%d element</item>

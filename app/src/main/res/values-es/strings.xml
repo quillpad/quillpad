@@ -251,7 +251,8 @@
     <!-- App shortcuts -->
     <string name="shortcut_take_note">Tomar nota</string>
     <string name="shortcut_make_list">Crear lista</string>
-    <plurals name="more_items">
+  <string name="never">Nunca</string>
+  <plurals name="more_items">
         <item quantity="one">+%d elemento</item>
         <item quantity="other">+%d elementos</item>
     </plurals>

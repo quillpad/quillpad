@@ -25,7 +25,8 @@ class BinCleaningWorker @AssistedInject constructor(
 ) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
-        val deletionTime = preferenceRepository.get<NoteDeletionTime>().first().interval
+        val deletionTime = preferenceRepository.get<NoteDeletionTime>().first().interval.takeIf { it > 0 }
+            ?: return@withContext Result.success()
         val now = Instant.now()
         val toBeDeleted = noteRepository.getDeleted().first()
             .filter { note ->

@@ -271,6 +271,7 @@
     <!-- App shortcuts -->
     <string name="shortcut_take_note">Notiz erstellen</string>
     <string name="shortcut_make_list">Liste erstellen</string>
+  <string name="never">Niemals</string>
 
     <plurals name="more_items">
         <item quantity="one">+%d Element</item>

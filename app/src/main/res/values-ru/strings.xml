@@ -269,6 +269,7 @@
     <!-- App shortcuts -->
     <string name="shortcut_take_note">Создать заметку</string>
     <string name="shortcut_make_list">Создать список</string>
+  <string name="never">Никогда</string>
 
     <plurals name="more_items">
         <item quantity="one">+%d эл-т</item>

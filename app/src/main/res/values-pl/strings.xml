@@ -267,6 +267,7 @@
     <!-- App shortcuts -->
     <string name="shortcut_take_note">Nowa notatka</string>
     <string name="shortcut_make_list">Nowa lista</string>
+  <string name="never">Nigdy</string>
 
 
     <plurals name="more_items" tools:ignore="MissingQuantity">

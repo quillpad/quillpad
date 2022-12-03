@@ -270,6 +270,7 @@
     <!-- App shortcuts -->
     <string name="shortcut_take_note">Not al</string>
     <string name="shortcut_make_list">Liste yap</string>
+  <string name="never">Hiçbir zaman</string>
 
     <plurals name="more_items">
         <item quantity="one">+%d madde</item>

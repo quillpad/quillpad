@@ -270,6 +270,7 @@
     <!-- App shortcuts -->
     <string name="shortcut_take_note">Take a note</string>
     <string name="shortcut_make_list">Make a list</string>
+    <string name="never">Never</string>
 
     <plurals name="more_items">
         <item quantity="one">+%d item</item>

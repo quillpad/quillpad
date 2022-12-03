@@ -220,6 +220,7 @@
     <string name="preferences_dark_theme_mode">Απόχρωση σκούρου θέματος</string>
     <string name="preferences_theme_dark_mode_standard">Κανονική</string>
     <string name="preferences_theme_dark_mode_black">Μάυρη</string>
+  <string name="never">Ποτέ</string>
 
     <plurals name="more_items">
         <item quantity="one">+%d στοιχείο</item>
