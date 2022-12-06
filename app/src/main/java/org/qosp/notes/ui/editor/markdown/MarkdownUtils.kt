@@ -108,8 +108,8 @@ private val numListRegex = Regex("((\\s*)([1-9]+)[.] +).*")
 
 val ExtendedEditText.addListItemListener: TextView.OnEditorActionListener
     get() = object : TextView.OnEditorActionListener {
-        override fun onEditorAction(view: TextView, actionId: Int, event: KeyEvent): Boolean {
-            if (actionId == EditorInfo.TYPE_NULL && event.action == KeyEvent.ACTION_DOWN) {
+        override fun onEditorAction(view: TextView, actionId: Int, event: KeyEvent?): Boolean {
+            if (actionId == EditorInfo.IME_ACTION_DONE ) {
                 val text = text ?: return true
                 text.insert(selectionStart, "\n")
                 val previousLine = text.lines().getOrNull(currentLineIndex - 1) ?: return true
