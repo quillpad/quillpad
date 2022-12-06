@@ -8,10 +8,17 @@
         <item name="colorOutline">#1EFFFFFF</item>
         <item name="colorTextOverlay">#99000000</item>
 
-        <item name="android:navigationBarColor">#121212</item>
-
         <!-- App bars -->
         <item name="colorBottomAppBarBackground">#202020</item>
+
+
+        <item name="android:navigationBarColor">
+            @android:color/transparent
+        </item>
+
+        <item name="android:statusBarColor">
+            @android:color/transparent
+        </item>
 
         <!-- Navigation -->
         <item name="colorDrawerBackground">#202020</item>
