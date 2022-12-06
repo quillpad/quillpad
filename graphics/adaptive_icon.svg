@@ -27,14 +27,14 @@
      inkscape:object-nodes="true"
      inkscape:snap-nodes="true"
      inkscape:zoom="5.6568542"
-     inkscape:cx="34.117902"
-     inkscape:cy="64.435106"
+     inkscape:cx="25.279068"
+     inkscape:cy="64.611883"
      inkscape:window-width="1920"
-     inkscape:window-height="1080"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-height="1052"
+     inkscape:window-x="1920"
+     inkscape:window-y="28"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg5"
+     inkscape:current-layer="layer1"
      inkscape:showpageshadow="0"
      inkscape:deskcolor="#d1d1d1" />
   <defs
@@ -218,7 +218,7 @@
      id="layer1"
      inkscape:highlight-color="#0a2463">
     <rect
-       style="fill:#191970;stroke-width:1.60514;stroke-linecap:round;stroke-miterlimit:3;paint-order:markers stroke fill;fill-opacity:1"
+       style="fill:#1a1a1a;stroke-width:1.60514;stroke-linecap:round;stroke-miterlimit:3;paint-order:markers stroke fill;fill-opacity:1"
        id="rect1225"
        width="28.575001"
        height="28.575001"

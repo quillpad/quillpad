@@ -1,10 +1,10 @@
 ## Colors
 The main "brand" colors are:
 - ![#f03c15](https://placehold.co/15x15/a4c639/a4c639.png) `#a4c639` [Android green (pre-2018)](https://en.wikipedia.org/wiki/Android_green)
-- ![#1589F0](https://placehold.co/15x15/191970/191970.png) `#191970` [Midnight blue](https://en.wikipedia.org/wiki/Midnight_blue)
+- ![#1589F0](https://placehold.co/15x15/1a1a1a/1a1a1a.png) `#1a1a1a` 90% gray
 
 ## Logo
-When used as an icon, the blue background is used with a green quill. <br>
+When used as an icon, the gray background is used with a green quill. <br>
 In other cases, the logo is used with a white background and green quill.
 
 It consists of a quill (`quill.svg`) used as part of the letter 'Q' (`Q_centered.svg`).
