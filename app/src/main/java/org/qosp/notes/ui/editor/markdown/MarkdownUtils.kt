@@ -1,9 +1,5 @@
 package org.qosp.notes.ui.editor.markdown
 
-import android.text.Editable
-import android.view.KeyEvent
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import org.qosp.notes.ui.utils.views.ExtendedEditText
 
 enum class MarkdownSpan(val value: String) {
@@ -100,39 +96,3 @@ fun tableMarkdown(rows: Int, columns: Int): String {
     }
     return markdown
 }
-
-private val listRegex = Regex("^((\\s*)- +).*")
-private val checkRegex = Regex("^((\\s*)- *\\[([ x])] +).*")
-private val numListRegex = Regex("((\\s*)([1-9]+)[.] +).*")
-
-
-val ExtendedEditText.addListItemListener: TextView.OnEditorActionListener
-    get() = object : TextView.OnEditorActionListener {
-        override fun onEditorAction(view: TextView, actionId: Int, event: KeyEvent?): Boolean {
-            if (actionId == EditorInfo.IME_ACTION_DONE ) {
-                val text = text ?: return true
-                text.insert(selectionStart, "\n")
-                val previousLine = text.lines().getOrNull(currentLineIndex - 1) ?: return true
-                when {
-                    previousLine.matches(checkRegex) -> nextListLine(checkRegex, previousLine, "- [ ] ", text)
-                    previousLine.matches(listRegex) -> nextListLine(listRegex, previousLine, "- ", text)
-                    previousLine.matches(numListRegex) -> {
-                        val suffix = numListRegex.find(previousLine)?.groupValues?.get(3)?.toInt()?.inc() ?: 1
-                        nextListLine(numListRegex, previousLine, "$suffix. ", text)
-                    }
-                }
-            }
-            return true
-        }
-
-        private fun nextListLine(regex: Regex, line: String, suffix: String, text: Editable) {
-            val matchedLine = regex.find(line)?.groupValues?.getOrNull(1) ?: ""
-            if (matchedLine == line) {
-                text.delete(currentLineStartPos - line.length - 1, currentLineStartPos)
-            } else {
-                val prefix = (regex.find(line)?.groupValues?.getOrNull(2) ?: "")
-                text.insert(currentLineStartPos, "$prefix$suffix")
-            }
-        }
-
-    }

@@ -6,14 +6,11 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
-import android.view.ContextThemeWrapper
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.activity.addCallback
@@ -73,11 +70,7 @@ import org.qosp.notes.ui.common.showMoveToNotebookDialog
 import org.qosp.notes.ui.editor.dialog.InsertHyperlinkDialog
 import org.qosp.notes.ui.editor.dialog.InsertImageDialog
 import org.qosp.notes.ui.editor.dialog.InsertTableDialog
-import org.qosp.notes.ui.editor.markdown.MarkdownSpan
-import org.qosp.notes.ui.editor.markdown.addListItemListener
-import org.qosp.notes.ui.editor.markdown.applyTo
-import org.qosp.notes.ui.editor.markdown.insertMarkdown
-import org.qosp.notes.ui.editor.markdown.toggleCheckmarkCurrentLine
+import org.qosp.notes.ui.editor.markdown.*
 import org.qosp.notes.ui.media.MediaActivity
 import org.qosp.notes.ui.recorder.RECORDED_ATTACHMENT
 import org.qosp.notes.ui.recorder.RECORD_CODE
@@ -195,6 +188,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                     }
                 }
+
                 ACTION_STATE_SWIPE -> {
                     val newDx = dX / 3
                     val p = Paint().apply { color = context?.resolveAttribute(R.attr.colorTaskSwipe) ?: Color.RED }
@@ -339,55 +333,69 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                 R.id.action_convert_note -> {
                     if (note.isList) model.toTextNote() else model.toList()
                 }
+
                 R.id.action_archive_note -> {
                     if (note.isArchived) activityModel.unarchiveNotes(note) else activityModel.archiveNotes(note)
                     sendMessage(getString(R.string.indicator_archive_note))
                     activity?.onBackPressed()
                 }
+
                 R.id.action_delete_note -> {
                     activityModel.deleteNotes(note)
                     sendMessage(getString(R.string.indicator_moved_note_to_bin))
                     activity?.onBackPressed()
                 }
+
                 R.id.action_restore_note -> {
                     activityModel.restoreNotes(note)
                     activity?.onBackPressed()
                 }
+
                 R.id.action_delete_permanently_note -> {
                     activityModel.deleteNotesPermanently(note)
                     sendMessage(getString(R.string.indicator_deleted_note_permanently))
                     activity?.onBackPressed()
                 }
+
                 R.id.action_view_tags -> {
                     findNavController().navigateSafely(
                         EditorFragmentDirections.actionEditorToTags().setNoteId(note.id)
                     )
                 }
+
                 R.id.action_view_reminders -> {
                     showRemindersDialog(note)
                 }
+
                 R.id.action_pin_note -> {
                     activityModel.pinNotes(note)
                 }
+
                 R.id.action_hide_note -> {
                     if (note.isHidden) activityModel.showNotes(note) else activityModel.hideNotes(note)
                 }
+
                 R.id.action_do_not_sync -> {
                     if (note.isLocalOnly) activityModel.makeNotesSyncable(note) else activityModel.makeNotesLocal(note)
                 }
+
                 R.id.action_change_color -> {
                     showColorChangeDialog()
                 }
+
                 R.id.action_export_note -> {
                     activityModel.notesToBackup = setOf(note)
                     exportNotesLauncher.launch(null)
                 }
+
                 R.id.action_share -> {
                     shareNote(requireContext(), note)
                 }
+
                 R.id.action_attach_file -> {
                     requestMediaLauncher.launch(null)
                 }
+
                 R.id.action_take_photo -> {
                     lifecycleScope.launch {
                         runCatching {
@@ -395,10 +403,12 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                         }.getOrElse { Log.e(TAG, "Cannot launch camera app", it) }
                     }
                 }
+
                 R.id.action_record_audio -> {
                     clearFragmentResult(RECORD_CODE)
                     RecordAudioDialog().show(parentFragmentManager, null)
                 }
+
                 R.id.action_enable_disable_markdown -> {
                     if (note.isMarkdownEnabled) {
                         activityModel.disableMarkdown(note)
@@ -406,6 +416,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                         activityModel.enableMarkdown(note)
                     }
                 }
+
                 else -> false
             }
         }
@@ -542,6 +553,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                         jumpToNextTaskOrAdd(-1)
                         true
                     }
+
                     else -> false
                 }
             }
@@ -559,7 +571,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         editTextContent.apply {
             enableUndoRedo(this@EditorFragment)
             setRawInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
-            doOnTextChanged { text, start, before, count ->
+            doOnTextChanged { text, _, _, _ ->
                 // Only listen for meaningful changes, we do not care about empty text
                 if (data.note == null) {
                     return@doOnTextChanged
@@ -567,12 +579,53 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
                 model.setNoteContent(text.toString().trim())
             }
-            setOnFocusChangeListener { v, hasFocus ->
+            setOnFocusChangeListener { _, hasFocus ->
                 contentHasFocus = hasFocus
                 setMarkdownToolbarVisibility()
             }
 
-            setOnEditorActionListener(addListItemListener)
+
+            addTextChangedListener(object : TextWatcher {
+                var changedText = ""
+                private val listRegex = Regex("^((\\s*)([\\-+*] +)).*")
+                private val checkRegex = Regex("^((\\s*)- *\\[([ x])] +).*")
+                private val numListRegex = Regex("((\\s*)([1-9][0-9]*)[.] +).*")
+                private val indentedLine = Regex("((\\s+)).*")
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    changedText = s?.substring(start, start + count).toString()
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    if (changedText.endsWith('\n')) {
+                        val txt = text ?: return
+                        val prevLine = txt.lines().getOrNull(currentLineIndex - 1) ?: return
+                        when {
+                            prevLine.matches(checkRegex) -> nextListLine(checkRegex, prevLine, txt, "- [ ] ")
+                            prevLine.matches(listRegex) -> nextListLine(listRegex, prevLine, txt)
+                            prevLine.matches(numListRegex) -> {
+                                val nextNum = numListRegex.find(prevLine)?.groupValues?.get(3)?.toInt()?.inc() ?: 1
+                                nextListLine(numListRegex, prevLine, txt, "$nextNum. ")
+                            }
+
+                            prevLine.matches(indentedLine) -> nextListLine(indentedLine, prevLine, txt)
+                        }
+                    }
+                }
+
+                private fun nextListLine(regex: Regex, line: String, text: Editable, suffix: String? = null) {
+                    val groups = regex.find(line)?.groupValues
+                    val matchedLine = groups?.getOrNull(1) ?: ""
+                    if (matchedLine == line) {
+                        text.delete(currentLineStartPos - line.length - 1, currentLineStartPos - 1)
+                    } else {
+                        val indent = groups?.getOrNull(2) ?: ""
+                        text.insert(currentLineStartPos, "$indent${suffix ?: groups?.getOrNull(3) ?: ""}")
+                    }
+                }
+            })
 
             setOnCanUndoRedoListener { canUndo, canRedo ->
                 binding.bottomToolbar.menu?.run {
@@ -744,7 +797,11 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
             textViewDate.isVisible = data.showDates
             if (formatter != null && data.showDates) {
                 textViewDate.text =
-                    getString(R.string.indicator_note_date, creationDate.format(formatter), modifiedDate.format(formatter))
+                    getString(
+                        R.string.indicator_note_date,
+                        creationDate.format(formatter),
+                        modifiedDate.format(formatter)
+                    )
             }
 
             // We want to start the transition only when everything is loaded
@@ -805,6 +862,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                         .show(parentFragmentManager, null)
                     null
                 }
+
                 R.id.action_insert_image -> {
                     clearFragmentResult(MARKDOWN_DIALOG_RESULT)
                     InsertImageDialog
@@ -812,33 +870,43 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                         .show(parentFragmentManager, null)
                     null
                 }
+
                 R.id.action_insert_table -> {
                     clearFragmentResult(MARKDOWN_DIALOG_RESULT)
                     InsertTableDialog().show(parentFragmentManager, null)
                     null
                 }
+
                 R.id.action_toggle_check_line -> {
                     editTextContent.toggleCheckmarkCurrentLine()
                     null
                 }
+
                 R.id.action_scroll_to_top -> {
                     scrollView.smoothScrollTo(0, 0)
                     editTextContent.setSelection(0)
                     null
                 }
+
                 R.id.action_scroll_to_bottom -> {
-                    scrollView.smoothScrollTo(0, editTextContent.bottom + editTextContent.paddingBottom + editTextContent.marginBottom)
+                    scrollView.smoothScrollTo(
+                        0,
+                        editTextContent.bottom + editTextContent.paddingBottom + editTextContent.marginBottom
+                    )
                     editTextContent.setSelection(editTextContent.length())
                     null
                 }
+
                 R.id.action_undo -> {
                     editTextContent.undo()
                     null
                 }
+
                 R.id.action_redo -> {
                     editTextContent.redo()
                     null
                 }
+
                 else -> return@setOnMenuItemClickListener false
             }
             editTextContent.insertMarkdown(span ?: return@setOnMenuItemClickListener false)
@@ -953,7 +1021,10 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         val selected = NoteColor.values().indexOf(data.note?.color).coerceAtLeast(0)
         val dialog = BaseDialog.build(requireContext()) {
             setTitle(getString(R.string.action_change_color))
-            setSingleChoiceItems(NoteColor.values().map { it.localizedName }.toTypedArray(), selected) { dialog, which ->
+            setSingleChoiceItems(
+                NoteColor.values().map { it.localizedName }.toTypedArray(),
+                selected
+            ) { dialog, which ->
                 model.setColor(NoteColor.values()[which])
             }
             setPositiveButton(getString(R.string.action_done)) { dialog, which -> }
@@ -1015,6 +1086,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         when {
             fabChangeMode.isVisible == shouldDisplayFAB -> { /* FAB is already like it should be, no reason to animate */
             }
+
             fabChangeMode.isVisible && !shouldDisplayFAB -> fabChangeMode.hide()
             else -> fabChangeMode.show()
         }
@@ -1023,17 +1095,18 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         setMarkdownToolbarVisibility(note)
     }
 
-    private val NoteColor.localizedName get() = getString(
-        when (this) {
-            NoteColor.Default -> R.string.default_string
-            NoteColor.Green -> R.string.preferences_color_scheme_green
-            NoteColor.Pink -> R.string.preferences_color_scheme_pink
-            NoteColor.Blue -> R.string.preferences_color_scheme_blue
-            NoteColor.Red -> R.string.preferences_color_scheme_red
-            NoteColor.Orange -> R.string.preferences_color_scheme_orange
-            NoteColor.Yellow -> R.string.preferences_color_scheme_yellow
-        }
-    )
+    private val NoteColor.localizedName
+        get() = getString(
+            when (this) {
+                NoteColor.Default -> R.string.default_string
+                NoteColor.Green -> R.string.preferences_color_scheme_green
+                NoteColor.Pink -> R.string.preferences_color_scheme_pink
+                NoteColor.Blue -> R.string.preferences_color_scheme_blue
+                NoteColor.Red -> R.string.preferences_color_scheme_red
+                NoteColor.Orange -> R.string.preferences_color_scheme_orange
+                NoteColor.Yellow -> R.string.preferences_color_scheme_yellow
+            }
+        )
 
     companion object {
         const val MARKDOWN_DIALOG_RESULT = "MARKDOWN_DIALOG_RESULT"

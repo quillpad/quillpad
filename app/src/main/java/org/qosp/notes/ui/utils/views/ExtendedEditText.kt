@@ -106,7 +106,6 @@ class ExtendedEditText : AppCompatEditText {
         if (textWatchers != null) {
             if (watcher != null) textWatchers.remove(watcher)
         }
-
         super.removeTextChangedListener(watcher)
     }
 
@@ -181,8 +180,8 @@ class ExtendedEditText : AppCompatEditText {
     }
 
     inner class UndoRedoTextWatcher : TextWatcher {
-        var textBefore: CharSequence? = null
-        var textSetAtLeastOnce = false
+        private var textBefore: CharSequence? = null
+        private var textSetAtLeastOnce = false
 
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             textBefore = s.subSequence(start, start + count)
