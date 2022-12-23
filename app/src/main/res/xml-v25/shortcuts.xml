@@ -7,7 +7,7 @@
             android:shortcutShortLabel="@string/shortcut_take_note">
         <intent
                 android:action="android.intent.action.VIEW"
-                android:targetPackage="org.qosp.notes"
+                android:targetPackage="io.github.quillpad"
                 android:targetClass="org.qosp.notes.ui.MainActivity"
                 android:data="quillnote://notes/editor_create?newNoteIsList=false"/>
     </shortcut>
@@ -18,7 +18,7 @@
             android:shortcutShortLabel="@string/shortcut_make_list">
         <intent
                 android:action="android.intent.action.VIEW"
-                android:targetPackage="org.qosp.notes"
+                android:targetPackage="io.github.quillpad"
                 android:targetClass="org.qosp.notes.ui.MainActivity"
                 android:data="quillnote://notes/editor_create?newNoteIsList=true"/>
     </shortcut>
