@@ -68,7 +68,7 @@
             android:name="org.qosp.notes.ui.editor.EditorFragment"
             android:label=""
             android:layout="@layout/fragment_editor">
-        <deepLink app:uri="quillnote://notes/{transitionName}?newNoteIsList={newNoteIsList}" />
+        <deepLink app:uri="quillpad://notes/{transitionName}?newNoteIsList={newNoteIsList}" />
 
         <action
                 android:id="@+id/actionEditorToTags"

@@ -9,7 +9,7 @@
                 android:action="android.intent.action.VIEW"
                 android:targetPackage="io.github.quillpad"
                 android:targetClass="org.qosp.notes.ui.MainActivity"
-                android:data="quillnote://notes/editor_create?newNoteIsList=false"/>
+                android:data="quillpad://notes/editor_create?newNoteIsList=false"/>
     </shortcut>
     <shortcut
             android:shortcutId="makeList"
@@ -20,6 +20,6 @@
                 android:action="android.intent.action.VIEW"
                 android:targetPackage="io.github.quillpad"
                 android:targetClass="org.qosp.notes.ui.MainActivity"
-                android:data="quillnote://notes/editor_create?newNoteIsList=true"/>
+                android:data="quillpad://notes/editor_create?newNoteIsList=true"/>
     </shortcut>
 </shortcuts>
