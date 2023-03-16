@@ -3,6 +3,13 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!-- Change editor between view and edit mode -->
+    <item
+        android:id="@+id/action_change_mode"
+        android:icon="@drawable/ic_show"
+        android:title="@string/action_change_mode"
+        android:visible="false"
+        app:showAsAction="ifRoom"/>
     <item
             android:id="@+id/action_pin_note"
             android:icon="@drawable/ic_pin"

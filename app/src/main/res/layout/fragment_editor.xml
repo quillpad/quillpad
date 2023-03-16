@@ -147,16 +147,6 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_change_mode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_pencil"
-            app:layout_constraintBottom_toTopOf="@id/container_bottom_toolbar"
-            app:layout_constraintEnd_toEndOf="parent"
-            style="@style/Widget.Custom.FloatingActionButton"/>
-
     <LinearLayout
             android:id="@+id/container_bottom_toolbar"
             android:layout_width="match_parent"

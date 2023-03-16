@@ -311,11 +311,6 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                 text?.insert(selectionStart, markdown)
             }
         }
-
-        binding.fabChangeMode.setOnClickListener {
-            updateEditMode(!model.inEditMode)
-            if (model.inEditMode) requestFocusForFields(true) else view.hideKeyboard()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -369,6 +364,12 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
                 R.id.action_pin_note -> {
                     activityModel.pinNotes(note)
+                }
+
+                R.id.action_change_mode -> {
+                    updateEditMode(!model.inEditMode)
+                    if (model.inEditMode) requestFocusForFields(true) else view?.hideKeyboard()
+                    setupMenuItems(note, note.reminders.isNotEmpty())
                 }
 
                 R.id.action_hide_note -> {
@@ -654,6 +655,16 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
             title =
                 if (note.isList) getString(R.string.action_convert_to_note) else getString(R.string.action_convert_to_list)
             isVisible = !note.isDeleted
+        }
+
+        findItem(R.id.action_change_mode)?.apply {
+            setIcon(if (model.inEditMode) R.drawable.ic_show else R.drawable.ic_pencil)
+
+            val noteHasEmptyContent = note?.title?.isBlank() == true || when (note?.isList) {
+                true -> note.taskList.isEmpty()
+                else -> note?.content?.isBlank() == true
+            }
+            isVisible = !note.isDeleted && !noteHasEmptyContent
         }
 
         findItem(R.id.action_pin_note)?.apply {
@@ -1082,16 +1093,6 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         textViewContentPreview.isVisible = !model.inEditMode && !isList
         editTextContent.isVisible = model.inEditMode && !isList
 
-        val shouldDisplayFAB = !isNoteDeleted && !noteHasEmptyContent
-        when {
-            fabChangeMode.isVisible == shouldDisplayFAB -> { /* FAB is already like it should be, no reason to animate */
-            }
-
-            fabChangeMode.isVisible && !shouldDisplayFAB -> fabChangeMode.hide()
-            else -> fabChangeMode.show()
-        }
-
-        fabChangeMode.setImageResource(if (model.inEditMode) R.drawable.ic_show else R.drawable.ic_pencil)
         setMarkdownToolbarVisibility(note)
     }
 

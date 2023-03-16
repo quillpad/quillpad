@@ -125,6 +125,7 @@
     <string name="action_hide">Hide</string>
     <string name="action_show">Show</string>
     <string name="action_archive">Archive</string>
+    <string name="action_change_mode">Edit/View mode</string>
     <string name="action_pin">Pin</string>
     <string name="action_unpin">Unpin</string>
     <string name="action_restore">Restore</string>
