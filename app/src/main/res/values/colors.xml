@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="navBarDark">#202020</color>
-    <color name="navBarLight">#ffffff</color>
+    <color name="navBarLight">#FFF5EE</color>
     <color name="navBarBlack">#121212</color>
 </resources>
