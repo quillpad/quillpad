@@ -82,7 +82,7 @@
     <string name="preferences_nextcloud_set_your_credentials">设置您的证书</string>
     <string name="preferences_nextcloud_set_server_url">设置服务器的网址</string>
     <string name="preferences_sync_on_wifi">无线局域网</string>
-    <string name="preferences_sync_on_wifi_data">无线局域网与数据</string>
+    <string name="preferences_sync_on_wifi_data">无线局域网与流量数据</string>
     <string name="preferences_sync_when_on">启用时同步</string>
     <string name="preferences_background_sync">后台同步</string>
     <string name="preferences_background_sync_enabled">启用</string>
