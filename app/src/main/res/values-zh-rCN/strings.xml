@@ -2,7 +2,7 @@
     <!-- Navigation drawer 导航抽屉 -->
     <string name="nav_notes">笔记</string>
     <string name="nav_archive">存档</string>
-    <string name="nav_deleted">删除</string>
+    <string name="nav_deleted">废纸篓</string>
     <string name="nav_settings">设置</string>
     <string name="nav_about">关于</string>
     <string name="nav_tags">标签</string>
@@ -52,7 +52,7 @@
     <string name="preferences_open_media_in">打开媒体</string>
     <string name="preferences_open_media_in_internal">内部播放器</string>
     <string name="preferences_open_media_in_external">外部播放器</string>
-    <string name="preferences_note_deletion_time">删除回收站中的笔记</string>
+    <string name="preferences_note_deletion_time">删除废纸篓中的笔记</string>
     <string name="preferences_note_deletion_time_instantly">立即</string>
     <string name="preferences_note_deletion_time_week">7天后</string>
     <string name="preferences_note_deletion_time_two_weeks">14天后</string>
@@ -97,7 +97,7 @@
     <string name="about_contribute">贡献</string>
     <string name="about_support">支持</string>
     <string name="about_support_subtext">创建和维护开源项目非常耗时，而且不会带来
-      任何利润。\n给开发人员买啤酒！
+      任何利润。\n请开发人员喝啤酒！
     </string>
     <string name="about_libraries">关于库</string>
     <string name="about_libraries_subtext">查看第三方库和许可证。</string>
@@ -142,7 +142,7 @@
     <string name="indicator_recording">正在录制音频 (%1$s)</string>
     <string name="action_attach_files">附加文件</string>
     <string name="action_take_photo">拍照</string>
-    <string name="indicator_recorded_clip">录制音频剪辑</string>
+    <string name="indicator_recorded_clip">录制的音频剪辑</string>
 
 
     <!-- Notebooks -->
@@ -162,10 +162,10 @@
 
 
     <!-- Deleted -->
-    <string name="action_empty_bin">清空回收站</string>
+    <string name="action_empty_bin">清空废纸篓</string>
     <string name="empty_bin_warning_title">是否确定？</string>
     <string name="empty_bin_warning_text">所有已删除的笔记都将丢失。</string>
-    <string name="indicator_deleted_note_cannot_be_edited">无法编辑回收站内的注释。</string>
+    <string name="indicator_deleted_note_cannot_be_edited">无法编辑废纸篓中的注释。</string>
     <string name="indicator_deleted_empty">您删除的笔记将显示在此处 %1$d 天。</string>
     <string name="indicator_bin_disabled">笔记设置为立即删除。\n您可以在设置中更改此设置。</string>
     <string name="indicator_deleted_notes_permanently">彻底删除笔记。</string>
@@ -186,7 +186,7 @@
     <!-- Tags -->
     <string name="action_new_tag">新标签</string>
     <string name="tags_hint_name">标签名称</string>
-    <string name="indicator_tags_empty">您没有标签。</string>
+    <string name="indicator_tags_empty">您没有添加标签。</string>
     <string name="action_rename_tag">重命名标签</string>
     <string name="indicator_tag_already_exists">名称为 %1$s 的标签已存在。</string>
 
@@ -208,20 +208,20 @@
     <string name="action_change_color">更改颜色</string>
     <string name="action_enable_markdown">启用 Markdown</string>
     <string name="action_disable_markdown">禁用 Markdown</string>
-    <string name="action_insert_bold_text">插入粗体 Markdown</string>
-    <string name="action_insert_italics">插入斜体 Markdown</string>
-    <string name="action_insert_strikethrough">插入删除线 Markdown</string>
-    <string name="action_insert_highlight">插入高亮显示 Markdown</string>
-    <string name="action_insert_heading">插入标题 Markdown</string>
-    <string name="action_insert_quote">插入引文 Markdown</string>
-    <string name="action_insert_code">插入代码 Markdown</string>
+    <string name="action_insert_bold_text">插入 Markdown粗体</string>
+    <string name="action_insert_italics">插入 Markdown斜体</string>
+    <string name="action_insert_strikethrough">插入 Markdown删除线</string>
+    <string name="action_insert_highlight">插入 Markdown高亮显示</string>
+    <string name="action_insert_heading">插入 Markdown标题</string>
+    <string name="action_insert_quote">插入 Markdown引文</string>
+    <string name="action_insert_code">插入 Markdown代码</string>
     <string name="indicator_note_date">创建于 %1$s\n上次修改时间 %2$s</string>
     <string name="indicator_restored_notes">恢复的笔记</string>
     <string name="indicator_restored_note">恢复的笔记</string>
     <string name="indicator_archived_notes">已存档的笔记</string>
     <string name="indicator_archive_note">已存档的笔记</string>
-    <string name="indicator_moved_notes_to_bin">把笔记移至回收站</string>
-    <string name="indicator_moved_note_to_bin">把笔记移至回收站</string>
+    <string name="indicator_moved_notes_to_bin">把笔记移至废纸篓</string>
+    <string name="indicator_moved_note_to_bin">把笔记移至废纸篓</string>
     <string name="indicator_empty_note_discarded">丢弃的空笔记</string>
     <string name="action_insert_link">插入链接</string>
     <string name="action_insert">插入</string>
@@ -234,7 +234,7 @@
     <string name="hint_hyperlink_url">网址</string>
     <string name="hint_number_columns">列数</string>
     <string name="hint_number_rows">行数</string>
-    <string name="message_cannot_preview_table">无法预览表。</string>
+    <string name="message_cannot_preview_table">无法预览表格。</string>
 
     <!-- Backup / Restore -->
     <string name="notification_backing_up">备份您的笔记…</string>
@@ -273,8 +273,8 @@
     <string name="never">从不</string>
 
     <plurals name="more_items">
-        <item quantity="one">+%d item</item>
-        <item quantity="other">+%d items</item>
+        <item quantity="one">+%d 个项目</item>
+        <item quantity="other">+%d 个项目</item>
     </plurals>
 
     <plurals name="selected_notes">
