@@ -5,6 +5,9 @@ Quillpad is fully free and open-source. It will never show you ads, ask you for 
 
 Take beautiful markdown notes whenever you feel inspired. Place them in notebooks and tag them accordingly. Stay organized by making task lists, set reminders and keep everything in one place by attaching related files.
 
+### Matrix
+Join the conversation at [Matrix](https://matrix.to/#/#quillpad_community:gitter.im) or [Gitter](https://gitter.im/quillpad/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 ### Fork Info
 Quillpad is a fork of an original app called [Quillnote](https://github.com/msoultanidis/quillnote). The development stopped on the original app and PR backlogs were not cleared up. The community showed much interest in the app for continued development and so this fork was created. https://github.com/msoultanidis/quillnote/issues/177 https://github.com/msoultanidis/quillnote/issues/209
 
