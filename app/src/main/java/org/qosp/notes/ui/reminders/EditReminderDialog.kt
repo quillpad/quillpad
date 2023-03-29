@@ -1,13 +1,17 @@
 package org.qosp.notes.ui.reminders
 
 import android.app.DatePickerDialog
+import android.app.NotificationManager
 import android.app.TimePickerDialog
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
@@ -34,6 +38,13 @@ class EditReminderDialog : BaseDialog<DialogEditReminderBinding>() {
     private var dateFormatter: DateTimeFormatter? = null
     private var timeFormatter: DateTimeFormatter? = null
 
+    private val pushNotificationPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            if (!granted) {
+                dismiss()
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -58,6 +69,7 @@ class EditReminderDialog : BaseDialog<DialogEditReminderBinding>() {
                 }
                 setupListeners(dialog, binding, reminder)
             }
+
             else -> {
                 val noteId = noteId ?: return
                 // Create a new reminder
@@ -73,6 +85,13 @@ class EditReminderDialog : BaseDialog<DialogEditReminderBinding>() {
 
             timeFormatter = DateTimeFormatter.ofPattern(getString(tf.patternResource))
             binding.buttonSetTime.text = model.date.format(timeFormatter)
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val notificationManager = context?.getSystemService(NotificationManager::class.java)
+            if (notificationManager?.areNotificationsEnabled() != true) {
+                pushNotificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+            }
         }
     }
 
