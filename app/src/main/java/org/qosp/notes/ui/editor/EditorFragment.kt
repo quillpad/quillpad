@@ -1051,7 +1051,8 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
     /** Gives the focus to the editor fields if they are empty */
     private fun requestFocusForFields(forceFocus: Boolean = false) = with(binding) {
-        if (editTextTitle.text.isNullOrEmpty()) {
+        // Don't set focus to title if already auto-set to 'Untitled' (probably user doesn't want to set title)
+        if (editTextTitle.text.isNullOrEmpty() && textViewTitlePreview.text.toString() != getString(R.string.indicator_untitled).toString()) {
             editTextTitle.requestFocusAndKeyboard()
         } else {
             if (editTextContent.text.isNullOrEmpty() || forceFocus) {
@@ -1062,10 +1063,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
     private fun updateEditMode(inEditMode: Boolean = model.inEditMode, note: Note? = data.note) = with(binding) {
         // If the note is empty the fragment should open in edit mode by default
-        val noteHasEmptyContent = note?.title?.isBlank() == true || when (note?.isList) {
-            true -> note.taskList.isEmpty()
-            else -> note?.content?.isBlank() == true
-        }
+        val noteHasEmptyContent = note?.content?.isBlank() == true || (note?.isList == true && note.taskList.isEmpty())
 
         model.inEditMode = (inEditMode || noteHasEmptyContent) && !isNoteDeleted
 
