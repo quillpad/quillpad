@@ -44,6 +44,9 @@
     <string name="preferences_sort_method_modified_desc">Date modified (descending)</string>
 
     <string name="preferences_show_date">Show date created/modified</string>
+    <string name="preferences_show_fab_change_mode">Edit/View note button position</string>
+    <string name="preferences_fab">Floating button</string>
+    <string name="preferences_top_bar">Top bar</string>
     <string name="preferences_date_format">Date format</string>
     <string name="preferences_time_format">Time format</string>
 
@@ -125,6 +128,7 @@
     <string name="action_hide">Hide</string>
     <string name="action_show">Show</string>
     <string name="action_archive">Archive</string>
+    <string name="action_change_mode">Edit/View mode</string>
     <string name="action_pin">Pin</string>
     <string name="action_unpin">Unpin</string>
     <string name="action_restore">Restore</string>

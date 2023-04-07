@@ -44,6 +44,7 @@ class PreferenceRepository(
                     timeFormat = prefs.getEnum(),
                     openMediaIn = prefs.getEnum(),
                     showDate = prefs.getEnum(),
+                    showFabChangeMode = prefs.getEnum(),
                     groupNotesWithoutNotebook = prefs.getEnum(),
                     cloudService = prefs.getEnum(),
                     syncMode = prefs.getEnum(),

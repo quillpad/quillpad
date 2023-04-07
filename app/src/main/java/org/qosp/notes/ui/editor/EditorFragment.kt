@@ -371,6 +371,12 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                     activityModel.pinNotes(note)
                 }
 
+                R.id.action_change_mode -> {
+                    updateEditMode(!model.inEditMode)
+                    if (model.inEditMode) requestFocusForFields(true) else view?.hideKeyboard()
+                    setupMenuItems(note, note.reminders.isNotEmpty())
+                }
+
                 R.id.action_hide_note -> {
                     if (note.isHidden) activityModel.showNotes(note) else activityModel.hideNotes(note)
                 }
@@ -654,6 +660,15 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
             title =
                 if (note.isList) getString(R.string.action_convert_to_note) else getString(R.string.action_convert_to_list)
             isVisible = !note.isDeleted
+        }
+
+        findItem(R.id.action_change_mode)?.apply {
+            // if view/edit mode FAB isn't displayed (user pref) show it in the top menu
+            if (!data.showFabChangeMode) {
+                setIcon(if (model.inEditMode) R.drawable.ic_show else R.drawable.ic_pencil)
+
+                isVisible = !note.isDeleted && !hasNoteEmptyContent(note)
+            }
         }
 
         findItem(R.id.action_pin_note)?.apply {
@@ -1063,7 +1078,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
     private fun updateEditMode(inEditMode: Boolean = model.inEditMode, note: Note? = data.note) = with(binding) {
         // If the note is empty the fragment should open in edit mode by default
-        val noteHasEmptyContent = note?.content?.isBlank() == true || (note?.isList == true && note.taskList.isEmpty())
+        val noteHasEmptyContent = hasNoteEmptyContent(note)
 
         model.inEditMode = (inEditMode || noteHasEmptyContent) && !isNoteDeleted
 
@@ -1080,7 +1095,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         textViewContentPreview.isVisible = !model.inEditMode && !isList
         editTextContent.isVisible = model.inEditMode && !isList
 
-        val shouldDisplayFAB = !isNoteDeleted && !noteHasEmptyContent
+        val shouldDisplayFAB = data.showFabChangeMode && !isNoteDeleted && !noteHasEmptyContent
         when {
             fabChangeMode.isVisible == shouldDisplayFAB -> { /* FAB is already like it should be, no reason to animate */
             }
@@ -1091,6 +1106,10 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
         fabChangeMode.setImageResource(if (model.inEditMode) R.drawable.ic_show else R.drawable.ic_pencil)
         setMarkdownToolbarVisibility(note)
+    }
+
+    private fun hasNoteEmptyContent (note: Note? = data.note) : Boolean {
+        return note?.content?.isBlank() == true || (note?.isList == true && note.taskList.isEmpty())
     }
 
     private val NoteColor.localizedName

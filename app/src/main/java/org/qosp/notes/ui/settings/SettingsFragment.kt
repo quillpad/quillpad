@@ -50,6 +50,7 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
         setupNoteDeletionTimeListener()
         setupBackupStrategyListener()
         setupShowDateListener()
+        setupShowFabChangeModeListener()
         setupDateFormatListener()
         setupTimeFormatListener()
         setupSyncSettingsListener()
@@ -94,6 +95,7 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
 
                 binding.settingGroupNotesWithoutNotebook.subText = getString(groupNotesWithoutNotebook.nameResource)
                 binding.settingShowDate.subText = getString(showDate.nameResource)
+                binding.settingShowFab.subText = getString(showFabChangeMode.nameResource)
 
                 with(DateTimeFormatter.ofPattern(getString(dateFormat.patternResource))) {
                     binding.settingDateFormat.subText = format(LocalDate.now())
@@ -180,6 +182,12 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
 
     private fun setupShowDateListener() = binding.settingShowDate.setOnClickListener {
         showPreferenceDialog(R.string.preferences_show_date, appPreferences.showDate) { selected ->
+            model.setPreference(selected)
+        }
+    }
+
+    private fun setupShowFabChangeModeListener() = binding.settingShowFab.setOnClickListener {
+        showPreferenceDialog(R.string.preferences_show_fab_change_mode, appPreferences.showFabChangeMode) { selected ->
             model.setPreference(selected)
         }
     }

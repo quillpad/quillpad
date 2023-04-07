@@ -32,6 +32,7 @@ import org.qosp.notes.preferences.NewNotesSyncable
 import org.qosp.notes.preferences.OpenMediaIn
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.preferences.ShowDate
+import org.qosp.notes.preferences.ShowFabChangeMode
 import org.qosp.notes.preferences.TimeFormat
 import java.time.Instant
 import javax.inject.Inject
@@ -66,6 +67,7 @@ class EditorViewModel @Inject constructor(
                         dateTimeFormats = prefs.dateFormat to prefs.timeFormat,
                         openMediaInternally = prefs.openMediaIn == OpenMediaIn.INTERNAL,
                         showDates = prefs.showDate == ShowDate.YES,
+                        showFabChangeMode = prefs.showFabChangeMode == ShowFabChangeMode.FAB,
                         isInitialized = true,
                     )
                 }
@@ -195,6 +197,7 @@ class EditorViewModel @Inject constructor(
         val dateTimeFormats: Pair<DateFormat, TimeFormat> = defaultOf<DateFormat>() to defaultOf<TimeFormat>(),
         val openMediaInternally: Boolean = true,
         val showDates: Boolean = true,
+        val showFabChangeMode: Boolean = true,
         val isInitialized: Boolean = false,
     )
 }

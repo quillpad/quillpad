@@ -85,6 +85,11 @@ enum class ShowDate(override val nameResource: Int) : HasNameResource, EnumPrefe
     NO(R.string.no),
 }
 
+enum class ShowFabChangeMode(override val nameResource: Int) : HasNameResource, EnumPreference by key("show_fab_change_mode") {
+    FAB(R.string.preferences_fab) { override val isDefault = true },
+    TOPBAR(R.string.preferences_top_bar),
+}
+
 enum class GroupNotesWithoutNotebook(
     override val nameResource: Int,
 ) : HasNameResource, EnumPreference by key("group_notes_without_notebook") {
