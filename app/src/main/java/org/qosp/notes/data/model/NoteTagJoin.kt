@@ -1,9 +1,11 @@
 package org.qosp.notes.data.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
 @Entity(
@@ -25,10 +27,11 @@ import kotlinx.serialization.Serializable
         )
     ],
 )
+@Parcelize
 @Serializable
 data class NoteTagJoin(
     @ColumnInfo(index = true)
     val tagId: Long = 0L,
     @ColumnInfo(index = true)
     val noteId: Long = 0L
-)
+) : Parcelable
