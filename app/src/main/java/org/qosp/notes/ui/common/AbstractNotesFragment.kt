@@ -248,17 +248,14 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
                 }
 
                 if (model.isSyncingEnabled() && !recyclerAdapter.searchMode) {
-                    swipeRefreshLayout.isRefreshing = true
                     activityModel
                         .syncAsync()
                         .await()
                         .showToastOnCriticalError()
                 }
-
                 swipeRefreshLayout.isRefreshing = false
             }
         }
-
         postponeEnterTransition(1500L, TimeUnit.MILLISECONDS)
     }
 
