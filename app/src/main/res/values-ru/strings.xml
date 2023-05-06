@@ -82,7 +82,7 @@
     <string name="preferences_nextcloud_set_your_credentials">Ввести данные</string>
     <string name="preferences_nextcloud_set_server_url">Установить URL сервера</string>
     <string name="preferences_sync_on_wifi">Wi-Fi</string>
-    <string name="preferences_sync_on_wifi_data">Wi-Fi или память</string>
+    <string name="preferences_sync_on_wifi_data">Wi-Fi или Моб.связь</string>
     <string name="preferences_sync_when_on">Синхр-ть при запуске</string>
     <string name="preferences_background_sync">Фоновая синх-ия</string>
     <string name="preferences_background_sync_enabled">Включено</string>
