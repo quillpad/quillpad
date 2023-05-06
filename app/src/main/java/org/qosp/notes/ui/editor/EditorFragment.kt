@@ -673,6 +673,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
         findItem(R.id.action_pin_note)?.apply {
             setIcon(if (note.isPinned) R.drawable.ic_pin_filled else R.drawable.ic_pin)
+            setTitle(if (note.isPinned) R.string.action_unpin else R.string.action_pin)
             isVisible = !note.isDeleted
         }
 
