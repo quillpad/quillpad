@@ -20,6 +20,14 @@ android {
         versionName "1.4.9"
 
         testInstrumentationRunner "org.qosp.notes.TestRunner"
+
+        // export schema
+        // https://stackoverflow.com/a/44645943/4594587
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     if (project.hasProperty("keystore")) {
