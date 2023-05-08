@@ -20,7 +20,9 @@ object DatabaseModule {
         @ApplicationContext context: Context,
     ): AppDatabase {
         return Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.DB_NAME)
-            .fallbackToDestructiveMigration()
+            // we don't want to silently wipe user data in case DB migration fails,
+            // rather let the app crash
+            // .fallbackToDestructiveMigration()
             .addMigrations(AppDatabase.MIGRATION_1_2)
             .build()
     }
