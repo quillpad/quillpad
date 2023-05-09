@@ -166,6 +166,7 @@
     <string name="indicator_deleted_note_cannot_be_edited">Le note nel cestino non si possono modificare.</string>
     <string name="indicator_deleted_empty">Le tue note cestinate appariranno qui per %1$d giorni.</string>
     <string name="indicator_bin_disabled">Note impostate per essere cancellate subito.\nPuoi cambiarlo in Impostazioni.</string>
+    <string name="indicator_bin_forever">Le note sono impostate per non essere mai cancellate.\nPuoi modificarlo in Impostazioni.</string>
     <string name="indicator_deleted_notes_permanently">Note cancellate.</string>
     <string name="indicator_deleted_note_permanently">Nota cancellata.</string>
 

@@ -66,8 +66,11 @@ class DeletedFragment : AbstractNotesFragment(R.layout.fragment_deleted) {
 
         val days = data.noteDeletionTimeInDays
 
-        binding.indicatorDeletedEmptyText.text =
-            if (days != 0L) getString(R.string.indicator_deleted_empty, days) else getString(R.string.indicator_bin_disabled)
+        binding.indicatorDeletedEmptyText.text = when (days) {
+            -1L -> getString(R.string.indicator_bin_forever)
+            0L -> getString(R.string.indicator_bin_disabled)
+            else -> getString(R.string.indicator_deleted_empty, days)
+        }
     }
 
     override fun onNoteClick(noteId: Long, position: Int, viewBinding: LayoutNoteBinding) {

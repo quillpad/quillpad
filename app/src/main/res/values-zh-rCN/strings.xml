@@ -168,6 +168,7 @@
     <string name="indicator_deleted_note_cannot_be_edited">无法编辑废纸篓中的注释。</string>
     <string name="indicator_deleted_empty">您删除的笔记将显示在此处 %1$d 天。</string>
     <string name="indicator_bin_disabled">笔记设置为立即删除。\n您可以在设置中更改此设置。</string>
+    <string name="indicator_bin_forever">笔记设置为永不删除。\n您可以在“设置”中更改此设置。</string>
     <string name="indicator_deleted_notes_permanently">彻底删除笔记。</string>
     <string name="indicator_deleted_note_permanently">彻底删除笔记。</string>
 

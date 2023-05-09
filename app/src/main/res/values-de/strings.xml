@@ -169,6 +169,7 @@
     <string name="indicator_deleted_note_cannot_be_edited">Notizen im Mülleimer können nicht bearbeitet werden.</string>
     <string name="indicator_deleted_empty">Ihre gelöschten Notizen werden hier für %1$d Tage erscheinen.</string>
     <string name="indicator_bin_disabled">Notizen werden sofort gelöscht.\nSie können dieses Verhalten in den Einstellungen ändern.</string>
+    <string name="indicator_bin_forever">Notizen sind so eingestellt, dass sie niemals gelöscht werden.\nSie können dies in den Einstellungen ändern.</string>
     <string name="indicator_deleted_notes_permanently">Notizen unwiderruflich gelöscht.</string>
     <string name="indicator_deleted_note_permanently">Notiz unwiderruflich gelöscht.</string>
 

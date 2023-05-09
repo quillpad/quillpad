@@ -168,6 +168,7 @@
     <string name="indicator_deleted_note_cannot_be_edited">Anotações na lixeira não podem ser editadas.</string>
     <string name="indicator_deleted_empty">Suas anotações excluídas aparecerão aqui por %1$d dias.</string>
     <string name="indicator_bin_disabled">As anotações estão definidas para serem excluídas instantaneamente.\nVocê pode mudar isso em Configurações.</string>
+    <string name="indicator_bin_forever">As notas são definidas para nunca serem excluídas.\nVocê pode alterar isso em Configurações.</string>
     <string name="indicator_deleted_notes_permanently">Anotações excluídas permanentemente.</string>
     <string name="indicator_deleted_note_permanently">Anotação excluída permanentemente.</string>
 

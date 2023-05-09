@@ -167,6 +167,7 @@
     <string name="indicator_deleted_note_cannot_be_edited">Notater i papirkurven kan ikke redigeres.</string>
     <string name="indicator_deleted_empty">Dine slettede notater vil vises her i %1$d dager.</string>
     <string name="indicator_bin_disabled">Notater blir slettet umiddelbart.\nDu kan endre dette i innstillingene.</string>
+    <string name="indicator_bin_forever">Notater er satt til å aldri bli slettet.\nDu kan endre dette i Innstillinger.</string>
     <string name="indicator_deleted_notes_permanently">Notater slettet for godt.</string>
     <string name="indicator_deleted_note_permanently">Notat slettet for godt.</string>
 
