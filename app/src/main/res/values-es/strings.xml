@@ -153,7 +153,7 @@
     <string name="empty_bin_warning_text">Todas las notas se perderán.</string>
     <string name="indicator_deleted_note_cannot_be_edited">Las notas de la papelera no se pueden editar.</string>
     <string name="indicator_deleted_empty">Las notas eliminadas se mostrarán aquí durante %1$d días.</string>
-    <string name="indicator_bin_disabled">Las notas se eliminarán al instante.\nPuedes cambiar esto en los ajustes.</string>
+    <string name="indicator_bin_instantly">Las notas se eliminarán al instante.\nPuedes cambiar esto en los ajustes.</string>
     <string name="indicator_deleted_notes_permanently">Notas eliminadas permanentemente.</string>
     <string name="indicator_deleted_note_permanently">Nota eliminada permanentemente.</string>
 

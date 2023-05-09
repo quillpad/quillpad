@@ -171,7 +171,8 @@
     <string name="empty_bin_warning_text">All deleted notes will be lost.</string>
     <string name="indicator_deleted_note_cannot_be_edited">Notes inside the bin cannot be edited.</string>
     <string name="indicator_deleted_empty">Your deleted notes will appear here for %1$d days.</string>
-    <string name="indicator_bin_disabled">Notes are set to be deleted instantly.\nYou can change this at Settings.</string>
+    <string name="indicator_bin_disabled">Notes are set to be never deleted.\nYou can change this at Settings.</string>
+    <string name="indicator_bin_instantly">Notes are set to be instantly deleted.\nYou can change this at Settings.</string>
     <string name="indicator_deleted_notes_permanently">Deleted notes permanently.</string>
     <string name="indicator_deleted_note_permanently">Deleted note permanently.</string>
 

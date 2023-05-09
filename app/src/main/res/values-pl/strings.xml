@@ -164,7 +164,7 @@
     <string name="empty_bin_warning_text">Wszystkie usunięte notatki nie będą możliwe do odzyskania.</string>
     <string name="indicator_deleted_note_cannot_be_edited">Notatki w koszu nie mogą być zmieniane.</string>
     <string name="indicator_deleted_empty">Twoje usunięte notatki pojawią się tutaj na %1$d dni.</string>
-    <string name="indicator_bin_disabled">Notatki są usuwane natychmiastowo.\nMożesz zmienić to w ustawieniach.</string>
+    <string name="indicator_bin_instantly">Notatki są usuwane natychmiastowo.\nMożesz zmienić to w ustawieniach.</string>
     <string name="indicator_deleted_notes_permanently">Usunięto notatki na stałe.</string>
     <string name="indicator_deleted_note_permanently">Usunięto notatkę na stałe.</string>
 

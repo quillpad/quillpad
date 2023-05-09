@@ -164,7 +164,7 @@
     <string name="empty_bin_warning_text">Toutes les notes supprimées vont être perdues.</string>
     <string name="indicator_deleted_note_cannot_be_edited">Les notes dans la corbeille ne peuvent être modifiées.</string>
     <string name="indicator_deleted_empty">Vos notes supprimées apparaîtront ici pendant %1$d jours.</string>
-    <string name="indicator_bin_disabled">Les notes sont configurées pour être immédiatement supprimées.\nVous pouvez changer cela dans les Paramètres..</string>
+    <string name="indicator_bin_instantly">Les notes sont configurées pour être immédiatement supprimées.\nVous pouvez changer cela dans les Paramètres..</string>
     <string name="indicator_deleted_notes_permanently">Les notes ont été définitivement supprimées.</string>
     <string name="indicator_deleted_note_permanently">La note a été définitvement supprimée.</string>
 

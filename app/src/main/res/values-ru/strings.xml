@@ -166,7 +166,7 @@
     <string name="empty_bin_warning_text">Все удалённые заметки будут безвозвратно потеряны.</string>
     <string name="indicator_deleted_note_cannot_be_edited">Заметки в корзине недоступны к изменению.</string>
     <string name="indicator_deleted_empty">Ваши удалённые заметки появятся тут через %1$d дней.</string>
-    <string name="indicator_bin_disabled">Вы настроили безвозвратное удаление заметок.\nМожете изменить это поведение в настройках.</string>
+    <string name="indicator_bin_instantly">Вы настроили безвозвратное удаление заметок.\nМожете изменить это поведение в настройках.</string>
     <string name="indicator_deleted_notes_permanently">Заметки удалены безвозвратно.</string>
     <string name="indicator_deleted_note_permanently">Заметка удалена безвозвратно.</string>
 

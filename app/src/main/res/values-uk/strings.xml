@@ -167,7 +167,7 @@
     <string name="empty_bin_warning_text">Усі видалені нотатки будуть втрачені назавжди.</string>
     <string name="indicator_deleted_note_cannot_be_edited">Нотатки у смітнику не можуть бути змінені.</string>
     <string name="indicator_deleted_empty">Видалені вами нотатки, існуватимуть у смітнику зо %1$d діб.</string>
-    <string name="indicator_bin_disabled">Смітник
+    <string name="indicator_bin_instantly">Смітник
     налаштований на миттєве видалення нотатків.\nВи можете змінити це у налаштуваннях.</string>
     <string name="indicator_deleted_notes_permanently">Нотатки видалено назавжди.</string>
     <string name="indicator_deleted_note_permanently">Нотаток видалено назавжди.</string>

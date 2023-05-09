@@ -59,7 +59,7 @@ enum class NoteDeletionTime(
     NEVER(R.string.never, -1),
     INSTANTLY(R.string.preferences_note_deletion_time_instantly, 0L);
 
-    fun toDays() = TimeUnit.SECONDS.toDays(this.interval)
+    fun toDays() = if (this.interval == -1L) -1L else TimeUnit.SECONDS.toDays(this.interval)
 }
 
 enum class DateFormat(val patternResource: Int) : EnumPreference by key("date_format") {

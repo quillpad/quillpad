@@ -167,7 +167,7 @@
     <string name="empty_bin_warning_text">Silinen tüm notlar kaybolacak.</string>
     <string name="indicator_deleted_note_cannot_be_edited">Çöp kutusundaki notlar düzenlenemez.</string>
     <string name="indicator_deleted_empty">Silinen notlar %1$d gün boyunca burada görünecek.</string>
-    <string name="indicator_bin_disabled">Notlar anında silinecek şekilde ayarlanmış.\nBunu Ayarlar\'dan değiştirebilirsiniz.</string>
+    <string name="indicator_bin_instantly">Notlar anında silinecek şekilde ayarlanmış.\nBunu Ayarlar\'dan değiştirebilirsiniz.</string>
     <string name="indicator_deleted_notes_permanently">Notlar kalıcı olarak silindi.</string>
     <string name="indicator_deleted_note_permanently">Not kalıcı olarak silindi.</string>
 

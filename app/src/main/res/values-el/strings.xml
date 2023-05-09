@@ -134,7 +134,7 @@
     <string name="empty_bin_warning_text">Όλες οι σημειώσεις στον κάδο θα χαθούν.</string>
     <string name="indicator_deleted_note_cannot_be_edited">Οι σημειώσεις στον κάδο μπορούν μόνο να προβληθούν.</string>
     <string name="indicator_deleted_empty">Οι διαγραμμένες σας σημειώσεις θα εμφανίζονται εδώ για %1$d μέρες.</string>
-    <string name="indicator_bin_disabled">Έχετε επιλέξει οι σημειώσεις να διαγράφονται οριστικά.\nΜπορείτε να το αλλάξετε αυτό στις ρυθμίσεις.</string>
+    <string name="indicator_bin_instantly">Έχετε επιλέξει οι σημειώσεις να διαγράφονται οριστικά.\nΜπορείτε να το αλλάξετε αυτό στις ρυθμίσεις.</string>
     <string name="indicator_deleted_notes_permanently">Σημειώσεις διαγράφηκαν οριστικά.</string>
     <string name="indicator_deleted_note_permanently">Η σημείωση διαγράφηκε οριστικά.</string>
     <string name="reminders">Υπενθυμίσεις</string>
