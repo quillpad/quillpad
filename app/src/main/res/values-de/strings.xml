@@ -134,6 +134,8 @@
     <string name="action_move_to">Verschieben nach…</string>
     <string name="action_duplicate">Duplizieren</string>
     <string name="action_select_more">Mehr auswählen…</string>
+    <string name="action_compact_preview">Kompakte Vorschau</string>
+    <string name="action_full_preview">Vollständige Vorschau</string>
 
 
     <!-- Attachments -->

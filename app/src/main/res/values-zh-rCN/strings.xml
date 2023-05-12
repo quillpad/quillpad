@@ -133,6 +133,8 @@
     <string name="action_move_to">移动到…</string>
     <string name="action_duplicate">生成副本</string>
     <string name="action_select_more">选择更多…</string>
+    <string name="action_compact_preview">精简预览</string>
+    <string name="action_full_preview">完整预览</string>
 
 
     <!-- Attachments -->

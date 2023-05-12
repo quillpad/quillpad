@@ -132,6 +132,8 @@
     <string name="action_move_to">Переместить в…</string>
     <string name="action_duplicate">Дублировать</string>
     <string name="action_select_more">Выбрать ещё…</string>
+    <string name="action_compact_preview">Компактный предварительный просмотр</string>
+    <string name="action_full_preview">Полный предварительный просмотр</string>
 
 
     <!-- Attachments -->
