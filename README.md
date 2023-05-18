@@ -41,6 +41,8 @@ With Quillpad, you can:
 - Toggle between Light and Dark mode
 - Choose between multiple color schemes
 
+## Migration
+Backups from [Notally](https://github.com/OmGodse/Notally) can be converted into Quillpad compatible backups using this [python script](https://gist.github.com/nWestie/224d14a6efd00661b5c93040c7511816)
 
 ## Roadmap
 The major features that are currently planned for this app are listed below in a series of milestones. In additional to these major features, there will be bug fixes and other enhancements will be added as we go. 
