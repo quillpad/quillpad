@@ -156,6 +156,18 @@ class ActivityViewModel @Inject constructor(
         )
     }
 
+    fun makeNotesFullPreview(vararg notes: Note) = update(*notes) { note ->
+        note.copy(
+            isCompactPreview = false,
+        )
+    }
+
+    fun makeNotesCompactPreview(vararg notes: Note) = update(*notes) { note ->
+        note.copy(
+            isCompactPreview = true,
+        )
+    }
+
     fun disableMarkdown(vararg notes: Note) = update(*notes) { note ->
         note.copy(
             isMarkdownEnabled = false,

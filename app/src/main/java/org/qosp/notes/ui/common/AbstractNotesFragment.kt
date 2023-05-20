@@ -484,6 +484,12 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
             action(R.string.action_hide, R.drawable.ic_hidden, condition = !note.isHidden) {
                 activityModel.hideNotes(note)
             }
+            action(R.string.action_compact_preview, R.drawable.ic_preview, condition = !note.isCompactPreview) {
+                activityModel.makeNotesCompactPreview(note)
+            }
+            action(R.string.action_full_preview, R.drawable.ic_preview, condition = note.isCompactPreview) {
+                activityModel.makeNotesFullPreview(note)
+            }
             action(R.string.action_disable_markdown, R.drawable.ic_markdown, condition = !note.isDeleted && note.isMarkdownEnabled) {
                 activityModel.disableMarkdown(note)
             }

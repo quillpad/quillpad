@@ -123,6 +123,8 @@
     <string name="action_move_to">Mover a…</string>
     <string name="action_duplicate">Duplicar</string>
     <string name="action_select_more">Seleccionar más…</string>
+    <string name="action_compact_preview">Vista previa compacta</string>
+    <string name="action_full_preview">Vista previa completa</string>
 
     <!-- Attachments -->
     <string name="attachments_edit_description">Editar descripción</string>

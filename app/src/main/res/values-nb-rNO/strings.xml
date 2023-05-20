@@ -132,6 +132,8 @@
     <string name="action_move_to">Flytt til …</string>
     <string name="action_duplicate">Dupliser</string>
     <string name="action_select_more">Velg flere …</string>
+    <string name="action_compact_preview">Kompakt forhåndsvisning</string>
+    <string name="action_full_preview">Full forhåndsvisning</string>
 
 
     <!-- Attachments -->

@@ -130,6 +130,8 @@
     <string name="action_move_to">Déplacer vers…</string>
     <string name="action_duplicate">Dupliquer</string>
     <string name="action_select_more">Sélectionner plus</string>
+    <string name="action_compact_preview">Aperçu compact</string>
+    <string name="action_full_preview">Aperçu complet</string>
 
 
     <!-- Attachments -->

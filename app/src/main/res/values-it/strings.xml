@@ -131,6 +131,8 @@
     <string name="action_move_to">Muovi…</string>
     <string name="action_duplicate">Duplica</string>
     <string name="action_select_more">Seleziona…</string>
+    <string name="action_compact_preview">Anteprima compatta</string>
+    <string name="action_full_preview">Anteprima completa</string>
 
 
     <!-- Attachments -->

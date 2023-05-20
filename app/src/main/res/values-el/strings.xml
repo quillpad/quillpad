@@ -222,6 +222,8 @@
     <string name="preferences_theme_dark_mode_standard">Κανονική</string>
     <string name="preferences_theme_dark_mode_black">Μάυρη</string>
   <string name="never">Ποτέ</string>
+    <string name="action_compact_preview">Συμπαγής προεπισκόπηση</string>
+    <string name="action_full_preview">Πλήρης προεπισκόπηση</string>
 
     <plurals name="more_items">
         <item quantity="one">+%d στοιχείο</item>

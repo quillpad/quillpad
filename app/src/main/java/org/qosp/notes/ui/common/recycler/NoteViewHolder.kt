@@ -94,9 +94,9 @@ class NoteViewHolder(
     }
 
     private fun setContent(note: Note) = with(binding) {
-        recyclerTasks.isVisible = note.isList && note.taskList.isNotEmpty()
+        recyclerTasks.isVisible = note.isList && note.taskList.isNotEmpty() && !note.isCompactPreview
         indicatorMoreTasks.isVisible = false
-        textViewContent.isVisible = !note.isList && note.content.isNotEmpty()
+        textViewContent.isVisible = !note.isList && note.content.isNotEmpty() && !note.isCompactPreview
 
         val taskList = note.taskList.takeIf { it.size <= 8 } ?: note.taskList.subList(0, 8).also {
             val moreItems = note.taskList.size - 8

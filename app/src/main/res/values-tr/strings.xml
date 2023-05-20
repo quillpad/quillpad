@@ -133,6 +133,8 @@
     <string name="action_move_to">Taşı</string>
     <string name="action_duplicate">Kopyala</string>
     <string name="action_select_more">Çoklu seçim</string>
+    <string name="action_compact_preview">Kompakt önizleme</string>
+    <string name="action_full_preview">Tam önizleme</string>
 
 
     <!-- Attachments -->

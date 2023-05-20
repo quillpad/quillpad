@@ -132,6 +132,8 @@
     <string name="action_move_to">Перемістити у…</string>
     <string name="action_duplicate">Подвоїти</string>
     <string name="action_select_more">Обрати більше…</string>
+    <string name="action_compact_preview">Компактний попередній перегляд</string>
+    <string name="action_full_preview">Повний попередній перегляд</string>
 
 
 
