@@ -336,6 +336,8 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
 
             when (item.itemId) {
                 R.id.action_pin_selected -> activityModel.pinNotes(*selectedNotes)
+                R.id.action_compact_preview_selected -> activityModel.compactPreviewNotes(*selectedNotes)
+                R.id.action_full_preview_selected -> activityModel.fullPreviewNotes(*selectedNotes)
                 R.id.action_archive_selected -> {
                     activityModel.archiveNotes(*selectedNotes)
                     sendMessage(

@@ -137,6 +137,18 @@ class ActivityViewModel @Inject constructor(
         )
     }
 
+    fun compactPreviewNotes(vararg notes: Note) = update(*notes) { note ->
+        note.copy(
+            isCompactPreview = true,
+        )
+    }
+
+    fun fullPreviewNotes(vararg notes: Note) = update(*notes) { note ->
+        note.copy(
+            isCompactPreview = false,
+        )
+    }
+
     fun moveNotes(notebookId: Long?, vararg notes: Note) = update(*notes) { note ->
         note.copy(
             notebookId = notebookId,

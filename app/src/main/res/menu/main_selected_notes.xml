@@ -6,6 +6,14 @@
             android:title="@string/action_pin_unpin"
             app:showAsAction="never"/>
     <item
+        android:id="@+id/action_compact_preview_selected"
+        android:title="@string/action_compact_preview"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_full_preview_selected"
+        android:title="@string/action_full_preview"
+        app:showAsAction="never"/>
+    <item
             android:id="@+id/action_archive_selected"
             android:title="@string/action_archive"
             app:showAsAction="never"/>
