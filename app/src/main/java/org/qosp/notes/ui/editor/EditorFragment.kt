@@ -1019,17 +1019,36 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
     private fun updateTask(position: Int, content: String? = null, isDone: Boolean? = null) {
         val tasks = tasksAdapter.tasks
-        val task = tasks[position].let {
-            it.copy(
-                content = content ?: it.content,
-                isDone = isDone ?: it.isDone
-            )
+        val oldTask = tasks[position]
+        val newTask = tasks[position].copy(
+            content = content ?: oldTask.content,
+            isDone = isDone ?: oldTask.isDone
+        )
+        tasks[position] = newTask
+
+        if (oldTask.isDone != newTask.isDone) {
+            if (newTask.isDone) {
+                // Move to very end
+                tasks.removeAt(position)
+                tasks.add(newTask)
+
+                tasksAdapter.notifyItemMoved(position, tasks.indexOf(newTask))
+                tasksAdapter.notifyItemRangeChanged(position, tasks.size - position)
+            } else {
+                // Move to after last open task or to very beginning if all tasks are done
+                val newPosition = tasks.indexOfLast { it.id != newTask.id && ! it.isDone } + 1
+
+                // Only move upwards; don't move further down
+                if (newPosition < position) {
+                    tasks.removeAt(position)
+                    tasks.add(newPosition, newTask)
+
+                    tasksAdapter.notifyItemMoved(position, newPosition)
+                    tasksAdapter.notifyItemRangeChanged(newPosition, position - newPosition + 1)
+                }
+            }
         }
-        tasks[position] = task
-        val notCompleted = tasks.filterNot { it.isDone }.sortedBy { it.id }
-        val completed = tasks.filter { it.isDone }.sortedBy { it.id }
-        tasksAdapter.tasks = (notCompleted + completed).toMutableList()
-        tasksAdapter.notifyItemMoved(position, tasksAdapter.tasks.indexOf(task))
+
         model.updateTaskList(tasksAdapter.tasks)
     }
 
