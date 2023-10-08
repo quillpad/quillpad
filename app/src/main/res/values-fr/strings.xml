@@ -42,6 +42,9 @@
     <string name="preferences_show_date">Afficher la date de création et modification</string>
     <string name="preferences_date_format">Format de la date</string>
     <string name="preferences_time_format">Format de l\'heure</string>
+    <string name="preferences_show_fab_change_mode">Modifiez / Affichez la position du bouton de note</string>
+    <string name="preferences_fab">Bouton flottant</string>
+     <string name="preferences_top_bar">Barre supérieure</string>
 
     <string name="preferences_header_other">Autre</string>
     <string name="preferences_group_notes_without_notebook">Grouper les notes qui ne sont pas dans un carnet</string>
