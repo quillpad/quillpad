@@ -104,6 +104,13 @@ enum class MoveCheckedItems(
     NO(R.string.no) { override val isDefault = true },
 }
 
+enum class ShowNothingIfNoteUntitled(
+    override val nameResource: Int,
+) : HasNameResource, EnumPreference by key("show_nothing_if_note_untitled") {
+    YES(R.string.yes),
+    NO(R.string.no) { override val isDefault = true },
+}
+
 enum class CloudService(override val nameResource: Int) : HasNameResource, EnumPreference by key("cloud_service") {
     DISABLED(R.string.preferences_cloud_service_disabled) { override val isDefault = true },
     NEXTCLOUD(R.string.preferences_cloud_service_nextcloud),
