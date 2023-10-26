@@ -176,6 +176,12 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
         }
     }
 
+    private fun setupShowNothingIfNoteUntitledListener() = binding.settingGroupNotesWithoutNotebook.setOnClickListener {
+        showPreferenceDialog(R.string.preferences_show_nothing_if_note_untitled, appPreferences.groupNotesWithoutNotebook) { selected ->
+            model.setPreference(selected)
+        }
+    }
+
     private fun setupOpenMediaInListener() = binding.settingOpenMedia.setOnClickListener {
         showPreferenceDialog(R.string.preferences_open_media_in, appPreferences.openMediaIn) { selected ->
             model.setPreference(selected)
