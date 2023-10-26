@@ -53,6 +53,7 @@
     <string name="preferences_header_other">Other</string>
     <string name="preferences_group_notes_without_notebook">Group notes which are not in any notebook</string>
     <string name="preferences_move_checked_items">Move (un)checked items in the lists</string>
+    <string name="preferences_show_nothing_if_note_untitled">Do not display the word \"Untitled\" if the note has no title</string>
     <string name="preferences_open_media_in">Open media in</string>
     <string name="preferences_open_media_in_internal">Internal player</string>
     <string name="preferences_open_media_in_external">External player</string>

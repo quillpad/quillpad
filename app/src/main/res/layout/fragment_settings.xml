@@ -151,6 +151,13 @@
                 app:iconSrc="@drawable/ic_box_checked_outline"/>
 
             <org.qosp.notes.ui.utils.views.PreferenceView
+                android:id="@+id/setting_show_nothing_if_note_untitled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="@string/preferences_show_nothing_if_note_untitled"
+                app:iconSrc="@drawable/ic_notes"/>
+
+            <org.qosp.notes.ui.utils.views.PreferenceView
                     android:id="@+id/setting_note_deletion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
