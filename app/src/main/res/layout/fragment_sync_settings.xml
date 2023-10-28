@@ -1,92 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="org.qosp.notes.preferences.CloudService"/>
+        <variable name="model" type="org.qosp.notes.ui.settings.SettingsViewModel"/>
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:transitionGroup="true"
         android:fitsSystemWindows="true">
 
-    <include android:id="@+id/layout_app_bar" layout="@layout/layout_appbar"/>
+        <include android:id="@+id/layout_app_bar" layout="@layout/layout_appbar"/>
 
-    <ScrollView
+        <ScrollView
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
-        <LinearLayout
+            <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    app:contentPadding="16dp"
-                    app:cardElevation="8dp"
-                    app:cardBackgroundColor="?attr/colorSurface"
-                    app:cardCornerRadius="16dp">
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                        android:drawablePadding="8dp"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="@string/preferences_sync_experimental_warning"
-                        app:drawableStartCompat="@drawable/ic_about"/>
-            </com.google.android.material.card.MaterialCardView>
 
-
-            <org.qosp.notes.ui.utils.views.PreferenceView
+                <org.qosp.notes.ui.utils.views.PreferenceView
                     android:id="@+id/setting_sync_provider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:text="@string/preferences_cloud_service"
-                    app:iconSrc="@drawable/ic_sync_settings"/>
+                    app:subTextId="@{model.prefs.cloudService.nameResource}"
+                    app:iconSrc="@drawable/ic_sync_settings">
+                </org.qosp.notes.ui.utils.views.PreferenceView>
 
-            <LinearLayout
+                <LinearLayout
                     android:id="@+id/layout_generic_settings"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                <org.qosp.notes.ui.utils.views.PreferenceView
+                    <org.qosp.notes.ui.utils.views.PreferenceView
                         android:id="@+id/setting_sync_mode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:visible="@{model.prefs.cloudService == CloudService.NEXTCLOUD}"
                         app:text="@string/preferences_sync_when_on"
+                        app:subTextId="@{model.prefs.syncMode.nameResource}"
                         app:iconSrc="@drawable/ic_wifi"/>
 
-                <org.qosp.notes.ui.utils.views.PreferenceView
+                    <org.qosp.notes.ui.utils.views.PreferenceView
                         android:id="@+id/setting_background_sync"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:visible="@{model.prefs.cloudService == CloudService.NEXTCLOUD}"
+                        app:subTextId="@{model.prefs.backgroundSync.nameResource}"
                         app:text="@string/preferences_background_sync"
                         app:iconSrc="@drawable/ic_sync"/>
 
-                <org.qosp.notes.ui.utils.views.PreferenceView
+                    <org.qosp.notes.ui.utils.views.PreferenceView
                         android:id="@+id/setting_notes_syncable_by_default"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:visible="@{model.prefs.cloudService == CloudService.NEXTCLOUD}"
                         app:text="@string/preferences_new_notes_synchronizable"
+                        app:subTextId="@{model.prefs.newNotesSyncable.nameResource}"
                         app:iconSrc="@drawable/ic_file"/>
-            </LinearLayout>
+                </LinearLayout>
 
-
-            <LinearLayout
+                <LinearLayout
                     android:id="@+id/layout_nextcloud_settings"
+                    app:visible="@{model.selectedCloud == CloudService.NEXTCLOUD}"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                <View
+                    <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="?attr/colorOutline"/>
 
-                <TextView
+                    <TextView
                         android:text="@string/preferences_cloud_service_nextcloud"
                         android:textStyle="bold"
                         android:fontFamily="@font/inter_font_family"
@@ -95,7 +89,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
-                <TextView
+                    <TextView
                         android:text="@string/preferences_nextcloud_limited_features"
                         android:textStyle="bold"
                         android:paddingHorizontal="16dp"
@@ -103,7 +97,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
-                <org.qosp.notes.ui.utils.views.PreferenceView
+                    <org.qosp.notes.ui.utils.views.PreferenceView
                         android:id="@+id/setting_nextcloud_server"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -111,21 +105,58 @@
                         app:subText="@string/preferences_nextcloud_set_server_url"
                         app:iconSrc="@drawable/ic_web"/>
 
-                <org.qosp.notes.ui.utils.views.PreferenceView
+                    <org.qosp.notes.ui.utils.views.PreferenceView
                         android:id="@+id/setting_nextcloud_account"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:text="@string/preferences_nextcloud_account"
                         app:subText="@string/preferences_nextcloud_set_your_credentials"
                         app:iconSrc="@drawable/ic_person"/>
-                <org.qosp.notes.ui.utils.views.PreferenceView
+                    <org.qosp.notes.ui.utils.views.PreferenceView
                         android:id="@+id/setting_nextcloud_clear_credentials"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:text="@string/preference_nextcloud_clear_credentials"
                         app:iconSrc="@drawable/ic_logout"/>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layout_storage_settings"
+                    app:visible="@{model.selectedCloud == CloudService.FILE_STORAGE}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?attr/colorOutline"/>
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:fontFamily="@font/inter_font_family"
+                        android:text="@string/preferences_cloud_service_files"
+                        android:textColor="?attr/colorPrimary"/>
 
-</LinearLayout>
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="16dp"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/preferences_file_storage_info"/>
+
+                    <org.qosp.notes.ui.utils.views.PreferenceView
+                        android:id="@+id/setting_storage_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:iconSrc="@drawable/ic_file"
+                        app:subText="@string/preferences_file_storage_location"
+                        app:text="@string/preferences_file_storage_select"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

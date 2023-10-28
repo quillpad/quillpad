@@ -42,5 +42,6 @@
         <attr name="iconSrc" format="reference"/>
         <attr name="text" format="string"/>
         <attr name="subText" format="string"/>
+        <attr name="subTextId" format="integer"/>
     </declare-styleable>
 </resources>
