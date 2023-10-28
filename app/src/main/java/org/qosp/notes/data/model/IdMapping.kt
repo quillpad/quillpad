@@ -19,4 +19,5 @@ data class IdMapping(
     val extras: String?,
     val isDeletedLocally: Boolean,
     val isBeingUpdated: Boolean = false,
+    val storageUri: String? = null,
 ) : Parcelable

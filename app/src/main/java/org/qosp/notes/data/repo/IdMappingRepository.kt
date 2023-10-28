@@ -30,6 +30,8 @@ class IdMappingRepository(private val idMappingDao: IdMappingDao) {
 
     suspend fun getAllByLocalId(localId: Long) = idMappingDao.getAllByLocalId(localId)
 
+    suspend fun getAllByProvider(provider: CloudService) = idMappingDao.getAllByCloudService(provider)
+
     suspend fun getByLocalIdAndProvider(localId: Long, provider: CloudService): IdMapping? {
         return idMappingDao.getByLocalIdAndProvider(localId, provider)
     }
