@@ -1,11 +1,15 @@
+# indicate this is the root of the project
 root = true
 
-[*]
+[*.{kt,java,xml,gradle,md}]
 charset = utf-8
 end_of_line = lf
 # indent_size = 2
 indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
 insert_final_newline = true
+end_of_line = lf
 max_line_length = 120
 # tab_width = 2
 # ij_continuation_indent_size = 4
@@ -13,7 +17,7 @@ max_line_length = 120
 # ij_formatter_on_tag = @formatter:on
 # ij_formatter_tags_enabled = true
 # ij_smart_tabs = false
-# ij_visual_guides = 
+# ij_visual_guides =
 # ij_wrap_on_typing = false
 
 [{*.ant,*.fxml,*.jhm,*.jnlp,*.jrxml,*.rng,*.tld,*.wsdl,*.xml,*.xsd,*.xsl,*.xslt,*.xul}]
@@ -95,7 +99,7 @@ ij_kotlin_imports_layout = *, java.**, javax.**, kotlin.**, ^
 # ij_kotlin_method_parameters_wrap = on_every_item
 ij_kotlin_name_count_to_use_star_import = 1000
 ij_kotlin_name_count_to_use_star_import_for_members = 1000
-# ij_kotlin_packages_to_use_import_on_demand = 
+# ij_kotlin_packages_to_use_import_on_demand =
 # ij_kotlin_parameter_annotation_wrap = off
 # ij_kotlin_space_after_comma = true
 # ij_kotlin_space_after_extend_colon = true
