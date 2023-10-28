@@ -1,20 +1,23 @@
 package org.qosp.notes.ui.sync
 
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.isVisible
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.qosp.notes.R
 import org.qosp.notes.databinding.FragmentSyncSettingsBinding
 import org.qosp.notes.preferences.AppPreferences
-import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.ui.common.BaseFragment
 import org.qosp.notes.ui.settings.SettingsViewModel
 import org.qosp.notes.ui.settings.showPreferenceDialog
 import org.qosp.notes.ui.sync.nextcloud.NextcloudAccountDialog
 import org.qosp.notes.ui.sync.nextcloud.NextcloudServerDialog
+import org.qosp.notes.ui.utils.StorageLocationContract
 import org.qosp.notes.ui.utils.collect
 import org.qosp.notes.ui.utils.liftAppBarOnScroll
 import org.qosp.notes.ui.utils.viewBinding
@@ -30,18 +33,28 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
         get() = getString(R.string.preferences_header_syncing)
 
     private var appPreferences = AppPreferences()
-
     private var nextcloudUrl = ""
+    private var storageLocation: Uri? = null
+
+    private val locationListener = registerForActivityResult(StorageLocationContract) { uri ->
+        uri?.let {
+            model.setEncryptedString(PreferenceRepository.STORAGE_LOCATION, it.toString())
+            Log.i(TAG, "Storing location: $it")
+            val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            context?.contentResolver?.takePersistableUriPermission(it, takeFlags)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.model = model
+        binding.lifecycleOwner = this
         binding.scrollView.liftAppBarOnScroll(
             binding.layoutAppBar.appBar,
             requireContext().resources.getDimension(R.dimen.app_bar_elevation)
         )
-
-        setProviderSettingsVisibility(appPreferences.cloudService)
 
         setupPreferenceObservers()
         setupSyncServiceListener()
@@ -52,25 +65,19 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
         setupNextcloudServerListener()
         setupNextcloudAccountListener()
         setupClearNextcloudCredentialsListener()
+
+        setupLocalLocationListener()
     }
 
-    private fun setupPreferenceObservers() {
-        model.appPreferences.collect(viewLifecycleOwner) {
-            appPreferences = it
 
-            with(appPreferences) {
-                binding.settingSyncProvider.subText = getString(cloudService.nameResource)
-                setProviderSettingsVisibility(cloudService)
-                binding.settingSyncMode.subText = getString(syncMode.nameResource)
-                binding.settingBackgroundSync.subText = getString(backgroundSync.nameResource)
-                binding.settingNotesSyncableByDefault.subText = getString(newNotesSyncable.nameResource)
-            }
-        }
+    private fun setupPreferenceObservers() {
+        model.appPreferences.collect(viewLifecycleOwner) { appPreferences = it }
 
         // ENCRYPTED
         model.getEncryptedString(PreferenceRepository.NEXTCLOUD_INSTANCE_URL).collect(viewLifecycleOwner) {
             nextcloudUrl = it
-            binding.settingNextcloudServer.subText = nextcloudUrl.ifEmpty { getString(R.string.preferences_nextcloud_set_server_url) }
+            binding.settingNextcloudServer.subText =
+                nextcloudUrl.ifEmpty { getString(R.string.preferences_nextcloud_set_server_url) }
         }
 
         model.loggedInUsername.collect(viewLifecycleOwner) {
@@ -80,6 +87,21 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
                 getString(R.string.preferences_nextcloud_set_your_credentials)
             }
         }
+
+        model.getEncryptedString(PreferenceRepository.STORAGE_LOCATION).collect(viewLifecycleOwner) { u ->
+            val uri = Uri.parse(u)
+            val pm = context?.packageManager
+            storageLocation = uri
+            val appName = pm?.getInstalledPackages(PackageManager.GET_PROVIDERS)
+                ?.firstOrNull { it?.providers?.any { p -> p?.authority == uri.authority } ?: false }
+                ?.applicationInfo
+                ?.let { pm.getApplicationLabel(it) }?.toString() ?: uri.authority
+            binding.settingStorageLocation.subText = appName ?: getString(R.string.preferences_file_storage_select)
+        }
+    }
+
+    private fun setupLocalLocationListener() = binding.settingStorageLocation.setOnClickListener {
+        locationListener.launch(storageLocation)
     }
 
     private fun setupNextcloudServerListener() = binding.settingNextcloudServer.setOnClickListener {
@@ -109,16 +131,15 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
     }
 
     private fun setupNewNotesSyncableListener() = binding.settingNotesSyncableByDefault.setOnClickListener {
-        showPreferenceDialog(R.string.preferences_new_notes_synchronizable, appPreferences.newNotesSyncable) { selected ->
+        showPreferenceDialog(
+            R.string.preferences_new_notes_synchronizable,
+            appPreferences.newNotesSyncable
+        ) { selected ->
             model.setPreference(selected)
         }
     }
 
     private fun setupClearNextcloudCredentialsListener() = binding.settingNextcloudClearCredentials.setOnClickListener {
         model.clearNextcloudCredentials()
-    }
-    private fun setProviderSettingsVisibility(currentProvider: CloudService) {
-        binding.layoutNextcloudSettings.isVisible = currentProvider == CloudService.NEXTCLOUD
-        binding.layoutGenericSettings.isVisible = currentProvider != CloudService.DISABLED
     }
 }

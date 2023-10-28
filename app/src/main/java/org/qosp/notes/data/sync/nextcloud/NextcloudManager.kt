@@ -1,5 +1,6 @@
 package org.qosp.notes.data.sync.nextcloud
 
+import android.util.Log
 import kotlinx.coroutines.flow.first
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
@@ -54,10 +55,7 @@ class NextcloudManager(
         }
     }
 
-    override suspend fun deleteNote(
-        note: Note,
-        config: ProviderConfig
-    ): BaseResult {
+    override suspend fun deleteNote(note: Note, config: ProviderConfig): BaseResult {
         if (config !is NextcloudConfig) return InvalidConfig
 
         val nextcloudNote = note.asNextcloudNote()
@@ -69,21 +67,6 @@ class NextcloudManager(
             idMappingRepository.deleteByRemoteId(CloudService.NEXTCLOUD, nextcloudNote.id)
         }
     }
-
-    override suspend fun moveNoteToBin(note: Note, config: ProviderConfig): BaseResult {
-        if (config !is NextcloudConfig) return InvalidConfig
-
-        val nextcloudNote = note.asNextcloudNote()
-
-        if (nextcloudNote.id == 0L) return GenericError("Cannot delete note that does not exist.")
-
-        return tryCalling {
-            nextcloudAPI.deleteNote(nextcloudNote, config)
-            idMappingRepository.unassignProviderFromNote(CloudService.NEXTCLOUD, note.id)
-        }
-    }
-
-    override suspend fun restoreNote(note: Note, config: ProviderConfig) = createNote(note, config)
 
     override suspend fun updateNote(
         note: Note,
@@ -271,6 +254,7 @@ class NextcloudManager(
             block()
             Success
         } catch (e: Exception) {
+            Log.e(Tag, e.message.toString())
             when (e) {
                 ServerNotSupportedException -> ServerNotSupported
                 is HttpException -> {
@@ -286,5 +270,6 @@ class NextcloudManager(
 
     companion object {
         const val MIN_SUPPORTED_VERSION = 1
+        const val Tag = "NextcloudManager"
     }
 }

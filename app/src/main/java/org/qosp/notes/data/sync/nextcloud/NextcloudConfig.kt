@@ -10,15 +10,15 @@ import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.PreferenceRepository
 
 data class NextcloudConfig(
-    override val remoteAddress: String,
-    override val username: String,
+    val remoteAddress: String,
+    val username: String,
     private val password: String,
 ) : ProviderConfig {
 
     val credentials = ("Basic " + Base64.encodeToString("$username:$password".toByteArray(), Base64.NO_WRAP)).trim()
 
     override val provider: CloudService = CloudService.NEXTCLOUD
-    override val authenticationHeaders: Map<String, String>
+    val authenticationHeaders: Map<String, String>
         get() = mapOf("Authorization" to credentials)
 
     companion object {
@@ -28,11 +28,11 @@ data class NextcloudConfig(
             val username = preferenceRepository.getEncryptedString(PreferenceRepository.NEXTCLOUD_USERNAME)
             val password = preferenceRepository.getEncryptedString(PreferenceRepository.NEXTCLOUD_PASSWORD)
 
-            return url.flatMapLatest { url ->
+            return url.flatMapLatest { u ->
                 username.flatMapLatest { username ->
                     password.map { password ->
-                        NextcloudConfig(url, username, password)
-                            .takeUnless { url.isBlank() or username.isBlank() or password.isBlank() }
+                        NextcloudConfig(u, username, password)
+                            .takeUnless { u.isBlank() or username.isBlank() or password.isBlank() }
                     }
                 }
             }

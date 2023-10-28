@@ -64,8 +64,7 @@
     <string name="preferences_cloud_service">Servizio sincro</string>
     <string name="preferences_cloud_service_disabled">Nessuno</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_sync_experimental_warning">Funzione sincro in fase sperimentale.\nPossono esserci dei bachi.</string>
-    <string name="preferences_nextcloud_limited_features">Tieni presente che Nextcloud Notes non supporta funzioni come etichette, allegati, promemoria, compiti ed altro.</string>
+  <string name="preferences_nextcloud_limited_features">Tieni presente che Nextcloud Notes non supporta funzioni come etichette, allegati, promemoria, compiti ed altro.</string>
     <string name="preferences_nextcloud_account">Profilo Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">Istanza URL Nextcloud</string>
     <string name="preferences_nextcloud_set_your_credentials">Imposta credenziali</string>
@@ -260,7 +259,12 @@
         <item quantity="many"></item>
         <item quantity="other">Selezionate %d etichette</item>
     </plurals>
-    <string name="preferences_color_scheme_system">Segui sistema</string>
+  <string name="preferences_cloud_service_files">Archiviazione file</string>
+  <string name="preferences_file_storage_info">Seleziona una cartella dalla memoria locale o da un provider cloud. Tutte
+    le note verranno archiviate come file Markdown.
+  </string>
+  <string name="preferences_file_storage_location">Posizione di archiviazione</string>
+  <string name="preferences_file_storage_select">Seleziona Posizione di archiviazione</string>
     <string name="new_and_updated">Nuovo e aggiornato!</string>
     <string name="what_is_new">Cosa c\'è di nuovo?</string>
     <string name="continue_next">Continua</string>

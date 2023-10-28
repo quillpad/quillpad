@@ -28,6 +28,7 @@ import org.qosp.notes.R
 import org.qosp.notes.components.backup.BackupService
 import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.data.sync.core.SyncManager
+import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
 import org.qosp.notes.databinding.ActivityMainBinding
 import org.qosp.notes.preferences.SortNavdrawerNotebooksMethod
 import org.qosp.notes.ui.utils.closeAndThen
@@ -132,6 +133,7 @@ class MainActivity : BaseActivity() {
 
                 navController.handleDeepLink(link)
             }
+
             else -> navController.handleDeepLink(intent)
         }
     }
@@ -157,11 +159,10 @@ class MainActivity : BaseActivity() {
 
         syncManager.config
             .collect(this@MainActivity) { config ->
-                textViewUsername.text =
-                    config?.username ?: getString(R.string.indicator_offline_account)
-                textViewProvider.text = getString(
-                    config?.provider?.nameResource ?: R.string.preferences_currently_not_syncing
-                )
+                if (config is NextcloudConfig) {
+                    textViewUsername.text = config.username
+                    textViewProvider.text = getString(config.provider.nameResource)
+                }
             }
     }
 
