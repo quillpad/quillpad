@@ -8,9 +8,6 @@ interface SyncProvider {
     suspend fun deleteNote(note: Note, config: ProviderConfig): BaseResult
     suspend fun updateNote(note: Note, config: ProviderConfig): BaseResult
 
-    suspend fun moveNoteToBin(note: Note, config: ProviderConfig): BaseResult
-    suspend fun restoreNote(note: Note, config: ProviderConfig): BaseResult
-
     suspend fun authenticate(config: ProviderConfig): BaseResult
     suspend fun isServerCompatible(config: ProviderConfig): BaseResult
 }

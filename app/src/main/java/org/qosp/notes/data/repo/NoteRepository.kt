@@ -86,7 +86,7 @@ class NoteRepository(
             syncManager.syncingScope.launch {
                 notes
                     .filterNot { it.isLocalOnly }
-                    .forEach { syncManager.moveNoteToBin(it) }
+                    .forEach { syncManager.deleteNote(it) }
             }
         }
     }
@@ -103,7 +103,7 @@ class NoteRepository(
             syncManager.syncingScope.launch {
                 notes
                     .filterNot { it.isLocalOnly }
-                    .forEach { syncManager.restoreNote(it) }
+                    .forEach { syncManager.updateOrCreate(it) }
             }
         }
     }
@@ -182,6 +182,11 @@ class NoteRepository(
 
     fun getNotesWithoutNotebook(sortMethod: SortMethod = defaultOf()): Flow<List<Note>> {
         return noteDao.getNotesWithoutNotebook(sortMethod)
+    }
+
+    suspend fun getNotesByCloudService(provider: CloudService): Map<IdMapping, Note?> {
+        val allNotes = getAll().first().associateBy { it.id }
+        return idMappingDao.getAllByCloudService(provider).associateWith { allNotes[it.localNoteId] }
     }
 
     suspend fun moveRemotelyDeletedNotesToBin(idsInUse: List<Long>, provider: CloudService) {
