@@ -11,12 +11,10 @@ import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.data.sync.core.ApiError
 import org.qosp.notes.data.sync.core.BaseResult
 import org.qosp.notes.data.sync.core.GenericError
-import org.qosp.notes.data.sync.core.InvalidConfig
-import org.qosp.notes.data.sync.core.ProviderConfig
+import org.qosp.notes.data.sync.core.ISyncBackend
 import org.qosp.notes.data.sync.core.ServerNotSupported
 import org.qosp.notes.data.sync.core.ServerNotSupportedException
 import org.qosp.notes.data.sync.core.Success
-import org.qosp.notes.data.sync.core.SyncProvider
 import org.qosp.notes.data.sync.core.Unauthorized
 import org.qosp.notes.data.sync.nextcloud.model.NextcloudNote
 import org.qosp.notes.data.sync.nextcloud.model.asNewLocalNote
@@ -24,19 +22,17 @@ import org.qosp.notes.data.sync.nextcloud.model.asNextcloudNote
 import org.qosp.notes.preferences.CloudService
 import retrofit2.HttpException
 
-class NextcloudManager(
+class NextcloudBackend(
     private val nextcloudAPI: NextcloudAPI,
     private val noteRepository: NoteRepository,
     private val notebookRepository: NotebookRepository,
     private val idMappingRepository: IdMappingRepository,
-) : SyncProvider {
+) : ISyncBackend<NextcloudConfig> {
 
     override suspend fun createNote(
         note: Note,
-        config: ProviderConfig
+        config: NextcloudConfig
     ): BaseResult {
-        if (config !is NextcloudConfig) return InvalidConfig
-
         val nextcloudNote = note.asNextcloudNote()
 
         if (nextcloudNote.id != 0L) return GenericError("Cannot create note that already exists")
@@ -55,8 +51,7 @@ class NextcloudManager(
         }
     }
 
-    override suspend fun deleteNote(note: Note, config: ProviderConfig): BaseResult {
-        if (config !is NextcloudConfig) return InvalidConfig
+    override suspend fun deleteNote(note: Note, config: NextcloudConfig): BaseResult {
 
         val nextcloudNote = note.asNextcloudNote()
 
@@ -70,9 +65,8 @@ class NextcloudManager(
 
     override suspend fun updateNote(
         note: Note,
-        config: ProviderConfig
+        config: NextcloudConfig
     ): BaseResult {
-        if (config !is NextcloudConfig) return InvalidConfig
 
         val nextcloudNote = note.asNextcloudNote()
 
@@ -83,17 +77,13 @@ class NextcloudManager(
         }
     }
 
-    override suspend fun authenticate(config: ProviderConfig): BaseResult {
-        if (config !is NextcloudConfig) return InvalidConfig
-
+    override suspend fun authenticate(config: NextcloudConfig): BaseResult {
         return tryCalling {
             nextcloudAPI.testCredentials(config)
         }
     }
 
-    override suspend fun isServerCompatible(config: ProviderConfig): BaseResult {
-        if (config !is NextcloudConfig) return InvalidConfig
-
+    override suspend fun isServerCompatible(config: NextcloudConfig): BaseResult {
         return tryCalling {
             val capabilities = nextcloudAPI.getNotesCapabilities(config)!!
             val maxServerVersion = capabilities.apiVersion.last().toFloat()
@@ -102,9 +92,7 @@ class NextcloudManager(
         }
     }
 
-    override suspend fun sync(config: ProviderConfig): BaseResult {
-        if (config !is NextcloudConfig) return InvalidConfig
-
+    override suspend fun sync(config: NextcloudConfig): BaseResult {
         suspend fun handleConflict(local: Note, remote: NextcloudNote, mapping: IdMapping) {
             if (mapping.isDeletedLocally) return
 
@@ -162,6 +150,7 @@ class NextcloudManager(
                             )
                         )
                     }
+
                     else -> {
                         if (mapping.isDeletedLocally && mapping.remoteNoteId != null) {
                             nextcloudAPI.deleteNote(remoteNote, config)
@@ -263,6 +252,7 @@ class NextcloudManager(
                         else -> ApiError(e.message(), e.code())
                     }
                 }
+
                 else -> GenericError(e.message.toString())
             }
         }
@@ -272,4 +262,8 @@ class NextcloudManager(
         const val MIN_SUPPORTED_VERSION = 1
         const val Tag = "NextcloudManager"
     }
+
+    override val service: CloudService
+        get() = CloudService.NEXTCLOUD
+
 }

@@ -79,7 +79,6 @@
     <string name="preferences_cloud_service">同步服务</string>
     <string name="preferences_cloud_service_disabled">禁用</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_sync_experimental_warning">同步功能目前处于试验阶段。\n您可能会遇到错误。</string>
     <string name="preferences_nextcloud_limited_features">请记住，Nextcloud Notes 不支持标签、附件、提醒等功能。</string>
     <string name="preferences_nextcloud_account">Nextcloud 帐户</string>
     <string name="preferences_nextcloud_instance_url">Nextcloud 实例网址</string>

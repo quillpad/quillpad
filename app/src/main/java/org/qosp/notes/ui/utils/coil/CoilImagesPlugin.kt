@@ -133,7 +133,7 @@ class CoilImagesPlugin internal constructor(coilStore: CoilStore, imageLoader: I
                         return ImageRequest.Builder(context)
                             .data(drawable.destination)
                             .apply {
-                                (syncManager.config.value as? NextcloudConfig)
+                                (syncManager.syncProvider.value?.getConfig() as? NextcloudConfig)
                                     ?.authenticationHeaders
                                     ?.forEach { (key, value) -> addHeader(key, value) }
                             }

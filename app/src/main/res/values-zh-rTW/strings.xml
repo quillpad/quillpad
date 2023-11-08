@@ -83,7 +83,6 @@
     <string name="preferences_cloud_service">同步服務</string>
     <string name="preferences_cloud_service_disabled">停用</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_sync_experimental_warning">同步功能目前處於實驗階段。\n您可能會遇到錯誤。</string>
     <string name="preferences_nextcloud_limited_features">請留意Nextcloud Notes 不支援標籤、附件、提醒等功能。</string>
     <string name="preferences_nextcloud_account">Nextcloud 帳戶</string>
     <string name="preferences_nextcloud_instance_url">Nextcloud 實例網址</string>
