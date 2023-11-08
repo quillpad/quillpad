@@ -1,140 +1,130 @@
 package org.qosp.notes.data.sync.core
 
+import android.content.Context
+import android.util.Log
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.ObsoleteCoroutinesApi
-import kotlinx.coroutines.channels.actor
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.repo.IdMappingRepository
+import org.qosp.notes.data.sync.fs.StorageBackend
+import org.qosp.notes.data.sync.fs.StorageConfig
+import org.qosp.notes.data.sync.nextcloud.NextcloudBackend
 import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
-import org.qosp.notes.data.sync.nextcloud.NextcloudManager
+import org.qosp.notes.preferences.AppPreferences
 import org.qosp.notes.preferences.CloudService
+import org.qosp.notes.preferences.CloudService.DISABLED
+import org.qosp.notes.preferences.CloudService.FILE_STORAGE
+import org.qosp.notes.preferences.CloudService.NEXTCLOUD
 import org.qosp.notes.preferences.PreferenceRepository
-import org.qosp.notes.preferences.SyncMode
 import org.qosp.notes.ui.utils.ConnectionManager
+import org.qosp.notes.ui.utils.collect
 
 class SyncManager(
     private val preferenceRepository: PreferenceRepository,
     private val idMappingRepository: IdMappingRepository,
-    val connectionManager: ConnectionManager,
-    private val nextcloudManager: NextcloudManager,
+    private val connectionManager: ConnectionManager,
+    private val context: Context,
+    private val nextcloudBackend: NextcloudBackend,
+    private val storageBackend: StorageBackend,
     val syncingScope: CoroutineScope,
 ) {
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val prefs: Flow<SyncPrefs> = preferenceRepository.getAll().flatMapLatest { prefs ->
-        when (prefs.cloudService) {
-            CloudService.DISABLED -> flowOf(SyncPrefs(false, null, prefs.syncMode, null))
-            CloudService.NEXTCLOUD -> {
-                NextcloudConfig.fromPreferences(preferenceRepository).map { config ->
-                    SyncPrefs(true, nextcloudManager, prefs.syncMode, config)
-                }
-            }
+    private val syncService: Flow<CloudService> = preferenceRepository.getAll().map { it.cloudService }
+    private val pref: StateFlow<AppPreferences?> =
+        preferenceRepository.getAll().stateIn(syncingScope, SharingStarted.Eagerly, null)
+
+    val syncProvider: StateFlow<ISyncProvider?> = combine(
+        syncService,
+        NextcloudConfig.fromPreferences(preferenceRepository),
+        StorageConfig.storageLocation(preferenceRepository, context)
+    ) { service, nextcloudConfig, storageConfig ->
+        when (service) {
+            DISABLED -> null
+            NEXTCLOUD -> nextcloudConfig?.let { BackendManager(nextcloudBackend, it) }
+            FILE_STORAGE -> storageConfig?.let { BackendManager(storageBackend, it) }
         }
-    }
+    }.stateIn(syncingScope, SharingStarted.Eagerly, null)
 
-    val config = prefs.map { prefs -> prefs.config }
-        .stateIn(syncingScope, SharingStarted.WhileSubscribed(5000), null)
+    val config = syncProvider.map { it?.getConfig() }
 
-    @OptIn(ObsoleteCoroutinesApi::class)
-    private val actor = syncingScope.actor<Message> {
+    private val tasksFlow: MutableSharedFlow<Pair<Message, ProviderConfig?>> = MutableSharedFlow()
 
-        for (msg in channel) {
-            with(msg) {
-                val result = when (this) {
-                    is CreateNote -> provider.createNote(note, config)
-                    is DeleteNote -> provider.deleteNote(note, config)
-                    is MoveNoteToBin -> provider.moveNoteToBin(note, config)
-                    is RestoreNote -> provider.restoreNote(note, config)
-                    is Sync -> provider.sync(config)
-                    is UpdateNote -> provider.updateNote(note, config)
-                    is Authenticate -> provider.authenticate(config)
-                    is IsServerCompatible -> provider.isServerCompatible(config)
+    init {
+        tasksFlow.collect(syncingScope) { (msg, config) ->
+            val sync = syncProvider.value
+            if (sync == null) {
+                msg.deferred.complete(SyncingNotEnabled)
+            } else if (!connectionManager.isConnectionAvailable(pref.value?.syncMode)) {
+                msg.deferred.complete(NoConnectivity)
+            } else {
+                Log.i(TAG, "Doing message: $msg")
+                val result = when (msg) {
+                    is CreateNote -> sync.createNote(msg.note)
+                    is DeleteNote -> sync.deleteNote(msg.note)
+                    is Sync -> sync.sync()
+                    is UpdateNote -> sync.updateNote(msg.note)
+                    is Authenticate -> sync.authenticate(config)
+                    is IsServerCompatible -> sync.isServerCompatible(config)
                     is UpdateOrCreateNote -> {
-                        val exists = idMappingRepository.getByLocalIdAndProvider(note.id, config.provider) != null
-                        if (exists) provider.updateNote(note, config) else provider.createNote(note, config)
+                        val exists = idMappingRepository.getByLocalIdAndProvider(msg.note.id, sync.service) != null
+                        if (exists) sync.updateNote(msg.note) else sync.createNote(msg.note)
                     }
                 }
-
-                deferred.complete(result)
+                msg.deferred.complete(result)
             }
         }
     }
 
-    suspend inline fun ifSyncing(
-        customConfig: ProviderConfig? = null,
-        fallback: () -> Unit = {},
-        block: (SyncProvider, ProviderConfig) -> BaseResult,
-    ): BaseResult {
-        val (isEnabled, provider, mode, prefConfig) = prefs.first()
-        val config = customConfig ?: prefConfig
-
-        return when {
-            !isEnabled -> SyncingNotEnabled.also { fallback() }
-            provider == null || config == null -> InvalidConfig.also { fallback() }
-            !connectionManager.isConnectionAvailable(mode) -> NoConnectivity.also { fallback() }
-            else -> block(provider, config)
-        }
-    }
+    val isSyncing: Boolean
+        get() = syncProvider.value != null && connectionManager.isConnectionAvailable(pref.value?.syncMode)
 
     private suspend inline fun sendMessage(
         customConfig: ProviderConfig? = null,
-        crossinline block: suspend (SyncProvider, ProviderConfig) -> Message,
+        crossinline block: suspend () -> Message,
     ): BaseResult {
-        return ifSyncing(customConfig) { provider, config ->
-            val message = block(provider, config)
-            actor.send(message)
-            message.deferred.await()
-        }
+        val message = block()
+        tasksFlow.emit(message to customConfig)
+        val result = message.deferred.await()
+        Log.i(TAG, "sendMessage: Got result $result")
+        return result
     }
 
-    suspend fun sync() = sendMessage { provider, config -> Sync(provider, config) }
+    suspend fun sync() = sendMessage { Sync() }
 
-    suspend fun createNote(note: Note) = sendMessage { provider, config -> CreateNote(note, provider, config) }
+    suspend fun createNote(note: Note) = sendMessage { CreateNote(note) }
 
-    suspend fun deleteNote(note: Note) = sendMessage { provider, config -> DeleteNote(note, provider, config) }
+    suspend fun deleteNote(note: Note) = sendMessage { DeleteNote(note) }
 
-    suspend fun moveNoteToBin(note: Note) = sendMessage { provider, config -> MoveNoteToBin(note, provider, config) }
+    suspend fun updateNote(note: Note) = sendMessage { UpdateNote(note) }
 
-    suspend fun restoreNote(note: Note) = sendMessage { provider, config -> RestoreNote(note, provider, config) }
+    suspend fun updateOrCreate(note: Note) = sendMessage { UpdateOrCreateNote(note) }
 
-    suspend fun updateNote(note: Note) = sendMessage { provider, config -> UpdateNote(note, provider, config) }
+    suspend fun isServerCompatible(customConfig: ProviderConfig? = null) =
+        sendMessage(customConfig) { IsServerCompatible() }
 
-    suspend fun updateOrCreate(note: Note) = sendMessage { provider, config -> UpdateOrCreateNote(note, provider, config) }
+    suspend fun authenticate(customConfig: ProviderConfig? = null) = sendMessage(customConfig) { Authenticate() }
 
-    suspend fun isServerCompatible(customConfig: ProviderConfig? = null) = sendMessage(customConfig) { provider, config ->
-        IsServerCompatible(provider, config)
-    }
-
-    suspend fun authenticate(customConfig: ProviderConfig? = null) = sendMessage(customConfig) { provider, config ->
-        Authenticate(provider, config)
+    companion object {
+        private const val TAG = "SyncManager"
     }
 }
 
-data class SyncPrefs(
-    val isEnabled: Boolean,
-    val provider: SyncProvider?,
-    val mode: SyncMode,
-    val config: ProviderConfig?,
-)
-
-private sealed class Message(val provider: SyncProvider, val config: ProviderConfig) {
+private sealed class Message {
     val deferred: CompletableDeferred<BaseResult> = CompletableDeferred()
+    override fun toString(): String = this::class.java.simpleName
 }
-private class CreateNote(val note: Note, provider: SyncProvider, config: ProviderConfig) : Message(provider, config)
-private class UpdateNote(val note: Note, provider: SyncProvider, config: ProviderConfig) : Message(provider, config)
-private class UpdateOrCreateNote(val note: Note, provider: SyncProvider, config: ProviderConfig) : Message(provider, config)
-private class DeleteNote(val note: Note, provider: SyncProvider, config: ProviderConfig) : Message(provider, config)
-private class RestoreNote(val note: Note, provider: SyncProvider, config: ProviderConfig) : Message(provider, config)
-private class MoveNoteToBin(val note: Note, provider: SyncProvider, config: ProviderConfig) : Message(provider, config)
-private class Sync(provider: SyncProvider, config: ProviderConfig) : Message(provider, config)
-private class Authenticate(provider: SyncProvider, config: ProviderConfig) : Message(provider, config)
-private class IsServerCompatible(provider: SyncProvider, config: ProviderConfig) : Message(provider, config)
+
+private class CreateNote(val note: Note) : Message()
+private class UpdateNote(val note: Note) : Message()
+private class UpdateOrCreateNote(val note: Note) : Message()
+private class DeleteNote(val note: Note) : Message()
+private class Sync : Message()
+private class Authenticate : Message()
+private class IsServerCompatible : Message()

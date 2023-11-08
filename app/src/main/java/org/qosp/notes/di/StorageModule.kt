@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import org.qosp.notes.data.repo.IdMappingRepository
 import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.data.repo.NotebookRepository
-import org.qosp.notes.data.sync.fs.StorageManager
+import org.qosp.notes.data.sync.fs.StorageBackend
 import org.qosp.notes.preferences.PreferenceRepository
 import javax.inject.Named
 import javax.inject.Singleton
@@ -26,5 +26,5 @@ object StorageModule {
         @Named(NO_SYNC) noteRepository: NoteRepository,
         @Named(NO_SYNC) notebookRepository: NotebookRepository,
         idMappingRepository: IdMappingRepository,
-    ) = StorageManager(preferenceRepository, context, noteRepository, notebookRepository, idMappingRepository)
+    ) = StorageBackend(preferenceRepository, context, noteRepository, notebookRepository, idMappingRepository)
 }

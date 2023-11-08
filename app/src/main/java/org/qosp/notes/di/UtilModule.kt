@@ -14,8 +14,8 @@ import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.data.repo.ReminderRepository
 import org.qosp.notes.data.repo.TagRepository
 import org.qosp.notes.data.sync.core.SyncManager
-import org.qosp.notes.data.sync.fs.StorageManager
-import org.qosp.notes.data.sync.nextcloud.NextcloudManager
+import org.qosp.notes.data.sync.fs.StorageBackend
+import org.qosp.notes.data.sync.nextcloud.NextcloudBackend
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.ui.reminders.ReminderManager
 import org.qosp.notes.ui.utils.ConnectionManager
@@ -36,8 +36,8 @@ class UtilModule {
         context: Context,
         preferenceRepository: PreferenceRepository,
         idMappingRepository: IdMappingRepository,
-        nextcloudManager: NextcloudManager,
-        storageManager: StorageManager,
+        nextcloudManager: NextcloudBackend,
+        storageManager: StorageBackend,
         app: Application,
     ) = SyncManager(
         preferenceRepository,

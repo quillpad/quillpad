@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import me.msoul.datastore.defaultOf
 import org.qosp.notes.data.model.Note
-import org.qosp.notes.data.sync.core.Success
 import org.qosp.notes.data.sync.core.SyncManager
 import org.qosp.notes.preferences.LayoutMode
 import org.qosp.notes.preferences.NoteDeletionTime
@@ -33,7 +32,7 @@ abstract class AbstractNotesViewModel(
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), Data())
 
-    suspend fun isSyncingEnabled(): Boolean = syncManager.ifSyncing { _, _ -> Success } == Success
+    suspend fun isSyncingEnabled(): Boolean = syncManager.isSyncing
 
     data class Data(
         val notes: List<Note> = emptyList(),

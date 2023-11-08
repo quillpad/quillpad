@@ -4,6 +4,12 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.testing.MigrationTestHelper
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import dagger.hilt.testing.TestInstallIn
+import javax.inject.Singleton
 import kotlinx.coroutines.GlobalScope
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -17,7 +23,8 @@ import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.data.repo.ReminderRepository
 import org.qosp.notes.data.repo.TagRepository
 import org.qosp.notes.data.sync.core.SyncManager
-import org.qosp.notes.data.sync.nextcloud.NextcloudManager
+import org.qosp.notes.data.sync.fs.StorageBackend
+import org.qosp.notes.data.sync.nextcloud.NextcloudBackend
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.ui.reminders.ReminderManager
 import org.qosp.notes.ui.utils.ConnectionManager
