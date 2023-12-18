@@ -730,6 +730,21 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
             // Update Title and Content only the first the since they are EditTexts
             if (isFirstLoad) {
 
+                // apply font size preference
+                if (data.editorFontSize != -1) { // is customised
+                    val fontSizeFloat =  data.editorFontSize.toFloat()
+
+                    textViewTitlePreview.textSize = fontSizeFloat
+                    textViewContentPreview.textSize = fontSizeFloat
+
+                    editTextTitle.textSize = fontSizeFloat
+                    editTextContent.textSize = fontSizeFloat
+
+                    if (isList) {
+                        tasksAdapter.setFontSize(fontSizeFloat)
+                    }
+                }
+
                 editTextTitle.withoutTextWatchers {
                     setText(data.note.title)
                 }
@@ -754,6 +769,11 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
             // We only want to update the task list when the user converts the note from text to list
             if (isConverted) {
+
+                if (data.editorFontSize != -1) {
+                    tasksAdapter.setFontSize(data.editorFontSize.toFloat())
+                }
+
                 tasksAdapter.tasks.clear()
                 tasksAdapter.notifyDataSetChanged()
                 tasksAdapter.submitList(data.note.taskList)

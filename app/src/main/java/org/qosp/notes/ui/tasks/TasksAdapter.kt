@@ -15,6 +15,8 @@ class TasksAdapter(
     private val markwon: Markwon,
 ) : RecyclerView.Adapter<TaskViewHolder>() {
 
+    private var fontSize: Float = -1.0f
+
     var tasks: MutableList<NoteTask> = mutableListOf()
 
     override fun getItemCount(): Int = tasks.size
@@ -22,6 +24,16 @@ class TasksAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val binding: LayoutTaskBinding =
             LayoutTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        // apply font size preference
+        binding.editText.textSize = fontSize
+        // checkboxes are only downscaled, because upscaled looks blurry
+        val checkBoxScaleRatio: Float = fontSize / 16 // 16 because by default edit_text uses MaterialComponents.Body1 = 16sp
+        if (checkBoxScaleRatio < 1.0) {
+            binding.checkBox.scaleX = checkBoxScaleRatio
+            binding.checkBox.scaleY = checkBoxScaleRatio
+        }
+
         return TaskViewHolder(parent.context, binding, listener, inPreview, markwon)
     }
 
@@ -42,6 +54,10 @@ class TasksAdapter(
                 result.dispatchUpdatesTo(this)
             }
         }
+    }
+
+    fun setFontSize(fs: Float) {
+        fontSize = fs
     }
 
     private class DiffCallback(val oldList: List<NoteTask>, val newList: List<NoteTask>) : DiffUtil.Callback() {

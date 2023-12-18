@@ -95,6 +95,13 @@
                     app:iconSrc="@drawable/ic_date_time"/>
 
             <org.qosp.notes.ui.utils.views.PreferenceView
+                android:id="@+id/setting_font_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="@string/preferences_font_size"
+                app:iconSrc="@drawable/ic_search"/>
+
+            <org.qosp.notes.ui.utils.views.PreferenceView
                 android:id="@+id/setting_show_fab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
