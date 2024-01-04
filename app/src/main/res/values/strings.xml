@@ -11,6 +11,7 @@
     <string name="nav_your_notebooks">Your Notebooks</string>
 
     <!-- Preferences -->
+    <!-- Preferences / General -->
     <string name="preferences_header_general">General</string>
     <string name="preferences_theme_mode">Theme mode</string>
     <string name="preferences_theme_mode_dark">Dark</string>
@@ -21,11 +22,6 @@
     <string name="preferences_theme_dark_mode_standard">Standard</string>
     <string name="preferences_theme_dark_mode_black">Black</string>
 
-    <string name="preferences_header_view">View</string>
-    <string name="preferences_layout_mode">Layout mode</string>
-    <string name="preferences_layout_mode_grid">Grid</string>
-    <string name="preferences_layout_mode_list">List</string>
-
     <string name="preferences_color_scheme">Color scheme</string>
     <string name="preferences_color_scheme_blue">Blue</string>
     <string name="preferences_color_scheme_pink">Pink</string>
@@ -35,6 +31,16 @@
     <string name="preferences_color_scheme_yellow">Yellow</string>
     <string name="preferences_color_scheme_red">Red</string>
 
+    <!-- Preferences / View -->
+    <string name="preferences_header_view">View</string>
+
+    <!-- Preferences / View / Notebook -->
+    <string name="preferences_header_view_notebook">Notebook</string>
+
+    <string name="preferences_layout_mode">Layout mode</string>
+    <string name="preferences_layout_mode_grid">Grid</string>
+    <string name="preferences_layout_mode_list">List</string>
+
     <string name="preferences_sort_method">Sort by</string>
     <string name="preferences_sort_method_title_asc">Title (ascending)</string>
     <string name="preferences_sort_method_title_desc">Title (descending)</string>
@@ -43,7 +49,8 @@
     <string name="preferences_sort_method_modified_asc">Date modified (ascending)</string>
     <string name="preferences_sort_method_modified_desc">Date modified (descending)</string>
 
-    <string name="preferences_show_date">Show date created/modified</string>
+    <!-- Preferences / View / Note content -->
+    <string name="preferences_header_view_note_content">Note content</string>
 
     <string name="preferences_font_size">Text editor/view font size</string>
     <string name="preferences_font_size_default">Default</string>
@@ -60,21 +67,29 @@
     <string name="preferences_show_fab_change_mode">Edit/View note button position</string>
     <string name="preferences_fab">Floating button</string>
     <string name="preferences_top_bar">Top bar</string>
+
+    <string name="preferences_show_date">Show date created/modified</string>
     <string name="preferences_date_format">Date format</string>
     <string name="preferences_time_format">Time format</string>
 
+    <!-- Preferences / Other -->
     <string name="preferences_header_other">Other</string>
-    <string name="preferences_group_notes_without_notebook">Group notes which are not in any notebook</string>
-    <string name="preferences_move_checked_items">Move (un)checked items in the lists</string>
+
     <string name="preferences_open_media_in">Open media in</string>
     <string name="preferences_open_media_in_internal">Internal player</string>
     <string name="preferences_open_media_in_external">External player</string>
+
+    <string name="preferences_group_notes_without_notebook">Group notes which are not in any notebook</string>
+
+    <string name="preferences_move_checked_items">Move (un)checked items in the lists</string>
+
     <string name="preferences_note_deletion_time">Delete notes in bin</string>
     <string name="preferences_note_deletion_time_instantly">Instantly</string>
     <string name="preferences_note_deletion_time_week">After 7 days</string>
     <string name="preferences_note_deletion_time_two_weeks">After 14 days</string>
     <string name="preferences_note_deletion_time_month">After 30 days</string>
 
+    <!-- Preferences / Backup -->
     <string name="preferences_header_backup">Backup</string>
     <string name="preferences_create_backup">Create a backup</string>
     <string name="preferences_create_backup_subtext">Export all notes to a backup file.</string>
@@ -85,6 +100,7 @@
     <string name="preferences_backup_strategy_keep_info">Only backup description and local path</string>
     <string name="preferences_backup_strategy_keep_nothing">Do not backup attachments</string>
 
+    <!-- Preferences / Syncing -->
     <string name="preferences_header_syncing">Syncing</string>
     <string name="preferences_go_to_sync_settings">Go to sync settings</string>
     <string name="preferences_currently_syncing_with">Currently syncing with %s</string>
