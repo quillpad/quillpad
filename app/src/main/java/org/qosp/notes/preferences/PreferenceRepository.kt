@@ -44,6 +44,7 @@ class PreferenceRepository(
                     timeFormat = prefs.getEnum(),
                     openMediaIn = prefs.getEnum(),
                     showDate = prefs.getEnum(),
+                    editorFontSize = prefs.getEnum(),
                     showFabChangeMode = prefs.getEnum(),
                     groupNotesWithoutNotebook = prefs.getEnum(),
                     moveCheckedItems = prefs.getEnum(),

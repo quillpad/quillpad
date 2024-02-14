@@ -62,6 +62,7 @@ class EditorViewModel @Inject constructor(
                         dateTimeFormats = prefs.dateFormat to prefs.timeFormat,
                         openMediaInternally = prefs.openMediaIn == OpenMediaIn.INTERNAL,
                         showDates = prefs.showDate == ShowDate.YES,
+                        editorFontSize = prefs.editorFontSize.fontSize,
                         showFabChangeMode = prefs.showFabChangeMode == ShowFabChangeMode.FAB,
                         isInitialized = true,
                     )
@@ -193,6 +194,7 @@ class EditorViewModel @Inject constructor(
         val dateTimeFormats: Pair<DateFormat, TimeFormat> = defaultOf<DateFormat>() to defaultOf<TimeFormat>(),
         val openMediaInternally: Boolean = true,
         val showDates: Boolean = true,
+        val editorFontSize: Int = -1, // -1: not customised, default font size
         val showFabChangeMode: Boolean = true,
         val isInitialized: Boolean = false,
         val moveCheckedItems: Boolean = true,

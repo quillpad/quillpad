@@ -85,6 +85,22 @@ enum class ShowDate(override val nameResource: Int) : HasNameResource, EnumPrefe
     NO(R.string.no),
 }
 
+// TODO (maybe): make this a number input dialog rather than radio buttons choice
+enum class FontSize(
+    override val nameResource: Int, val fontSize: Int
+) : HasNameResource, EnumPreference by key("editor_font_size") {
+    DEFAULT(R.string.preferences_font_size_default, -1) { override val isDefault = true }, // uses predefined/default MaterialComponents.Body1 font size
+    TEN(R.string.preferences_font_size_ten, 10),
+    FIFTEEN(R.string.preferences_font_size_fifteen, 15),
+    TWENTY(R.string.preferences_font_size_twenty, 20),
+    TWENTYFIVE(R.string.preferences_font_size_twentyfive, 25),
+    THIRTY(R.string.preferences_font_size_thirty, 30),
+    THIRTYFIVE(R.string.preferences_font_size_thirtyfive, 35),
+    FORTY(R.string.preferences_font_size_forty, 40),
+    FORTYFIVE(R.string.preferences_font_size_fortyfive, 45),
+    FIFTY(R.string.preferences_font_size_fifty, 50),
+}
+
 enum class ShowFabChangeMode(override val nameResource: Int) : HasNameResource, EnumPreference by key("show_fab_change_mode") {
     FAB(R.string.preferences_fab) { override val isDefault = true },
     TOPBAR(R.string.preferences_top_bar),
