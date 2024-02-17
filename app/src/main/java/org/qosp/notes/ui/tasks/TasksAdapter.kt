@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.noties.markwon.Markwon
 import org.qosp.notes.data.model.NoteTask
 import org.qosp.notes.databinding.LayoutTaskBinding
+import java.lang.Float.min
 import java.util.*
 
 class TasksAdapter(
@@ -28,11 +29,9 @@ class TasksAdapter(
         // apply font size preference
         binding.editText.textSize = fontSize
         // checkboxes are only downscaled, because upscaled looks blurry
-        val checkBoxScaleRatio: Float = fontSize / 16 // 16 because by default edit_text uses MaterialComponents.Body1 = 16sp
-        if (checkBoxScaleRatio < 1.0) {
-            binding.checkBox.scaleX = checkBoxScaleRatio
-            binding.checkBox.scaleY = checkBoxScaleRatio
-        }
+        val checkBoxScaleRatio: Float = if (fontSize > 0) min(fontSize / 16, 1.0F) else 1.0F // 16 because by default edit_text uses MaterialComponents.Body1 = 16sp
+        binding.checkBox.scaleX = checkBoxScaleRatio
+        binding.checkBox.scaleY = checkBoxScaleRatio
 
         return TaskViewHolder(parent.context, binding, listener, inPreview, markwon)
     }
