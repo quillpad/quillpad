@@ -17,9 +17,7 @@ Quillpad is a fork of an original app called [Quillnote](https://github.com/msou
 <a href="https://f-droid.org/packages/io.github.quillpad">
     <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
     alt="Get it on F-Droid"
-    height="80">
-</a>
-<a href='https://play.google.com/store/apps/details?id=io.github.quillpad'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height="80"/></a>
+    height="80"></a><a href='https://play.google.com/store/apps/details?id=io.github.quillpad'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height="80"/></a>
 
 
 
@@ -43,6 +41,15 @@ With Quillpad, you can:
 
 ## Migration
 Backups from [Notally](https://github.com/OmGodse/Notally) can be converted into Quillpad compatible backups using this [python script](https://gist.github.com/nWestie/224d14a6efd00661b5c93040c7511816)
+
+## Translations
+
+Follow these steps to add a new translation:
+
+1. Create an account on Github or use your Github account if you have one that already exists.
+2. Create a new folder under [quillpad/app/src/main/res](https://github.com/quillpad/quillpad/tree/master/app/src/main/res) named values-LANGCODE (e.g the Arabic folder will be named values-ar).
+3. Copy the file [quillpad/app/src/main/res/values/strings.xml](https://github.com/quillpad/quillpad/blob/master/app/src/main/res/values/strings.xml) and put it in the values-LANGCODE folder.
+4. Now you can translate the strings.xml file in your language value folder.
 
 ## Roadmap
 The major features that are currently planned for this app are listed below in a series of milestones. In additional to these major features, there will be bug fixes and other enhancements will be added as we go. 
