@@ -293,4 +293,5 @@
         <item quantity="one">%d etikett valgt</item>
         <item quantity="other">%d etiketter valgt</item>
     </plurals>
+    <string name="preferences_color_scheme_system">System</string>
 </resources>

@@ -292,4 +292,5 @@
         <item quantity="one">Selezionata %d etichetta</item>
         <item quantity="other">Selezionate %d etichette</item>
     </plurals>
+    <string name="preferences_color_scheme_system">Segui sistema</string>
 </resources>

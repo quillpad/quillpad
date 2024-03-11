@@ -295,4 +295,5 @@
         <item quantity="one">%d étiquette sélectionnée</item>
         <item quantity="other">%d étiquettes sélectionnées</item>
     </plurals>
+    <string name="preferences_color_scheme_system">Thème du système</string>
 </resources>

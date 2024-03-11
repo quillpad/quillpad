@@ -30,6 +30,7 @@
     <string name="preferences_color_scheme_purple">Purple</string>
     <string name="preferences_color_scheme_yellow">Yellow</string>
     <string name="preferences_color_scheme_red">Red</string>
+    <string name="preferences_color_scheme_system">Follow system</string>
 
     <!-- Preferences / View -->
     <string name="preferences_header_view">View</string>

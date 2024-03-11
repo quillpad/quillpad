@@ -5,6 +5,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import me.msoul.datastore.EnumPreference
 import org.qosp.notes.R
 import org.qosp.notes.preferences.HasNameResource
+import org.qosp.notes.preferences.HasSupportRequirement
 
 inline fun <reified T> Fragment.showPreferenceDialog(
     titleRes: Int,
@@ -16,6 +17,9 @@ inline fun <reified T> Fragment.showPreferenceDialog(
     val enumValues = enumValues<T>()
     val selectedIndex = enumValues.indexOf(selected)
     val items = items ?: enumValues
+        .filter {
+            it !is HasSupportRequirement || it.isSupported()
+        }
         .map {
             if (it is HasNameResource) requireContext().getString(it.nameResource) else ""
         }

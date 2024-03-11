@@ -294,4 +294,5 @@
         <item quantity="one">Обрано %d помітку</item>
         <item quantity="other">Обрано %d поміток</item>
     </plurals>
-</resources>
+     <string name="preferences_color_scheme_system">За системою</string>
+ </resources>

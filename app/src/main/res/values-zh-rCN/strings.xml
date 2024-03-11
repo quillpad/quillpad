@@ -294,4 +294,5 @@
         <item quantity="one">选定的 %d 个标签</item>
         <item quantity="other">选定的 %d 个标签</item>
     </plurals>
+    <string name="preferences_color_scheme_system">跟随系统</string>
 </resources>

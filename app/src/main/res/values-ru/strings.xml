@@ -297,4 +297,5 @@
         <item quantity="few">Выбраны %d метки</item>
         <item quantity="many">Выбрано %d меток</item>
     </plurals>
+    <string name="preferences_color_scheme_system">Системная</string>
 </resources>

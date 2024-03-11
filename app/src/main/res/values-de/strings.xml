@@ -295,4 +295,5 @@
         <item quantity="one">%d Tag ausgewählt</item>
         <item quantity="other">%d Tags ausgewählt</item>
     </plurals>
+    <string name="preferences_color_scheme_system">System folgend</string>
 </resources>

@@ -244,4 +244,5 @@
         <item quantity="one">Επιλέχθηκε %d ετικέτα</item>
         <item quantity="other">Επιλέχθηκαν %d ετικέτες</item>
     </plurals>
+    <string name="preferences_color_scheme_system">Ρύθμιση συστήματος</string>
 </resources>

@@ -292,4 +292,5 @@
         <item quantity="one">Zaznaczono %d znacznik</item>
         <item quantity="other">Zaznaczono %d znaczniki</item>
     </plurals>
+    <string name="preferences_color_scheme_system">Zgodny z systemem</string>
 </resources>

@@ -294,4 +294,5 @@
         <item quantity="one">%d etiqueta selecionada</item>
         <item quantity="other">%d etiquetas selecionadas</item>
     </plurals>
+    <string name="preferences_color_scheme_system">Seguir tema do sistema</string>
 </resources>

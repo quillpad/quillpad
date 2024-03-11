@@ -271,5 +271,6 @@
         <item quantity="one">%d etiqueta seleccionada</item>
         <item quantity="other">%d etiquetas seleccionadas</item>
     </plurals>
+    <string name="preferences_color_scheme_system">Del sistema</string>
 
 </resources>

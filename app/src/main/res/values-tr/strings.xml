@@ -294,4 +294,5 @@
         <item quantity="one">%d etiket şeçildi</item>
         <item quantity="other">%d etiket şeçildi</item>
     </plurals>
+    <string name="preferences_color_scheme_system">Sisteme uy</string>
 </resources>
