@@ -296,4 +296,7 @@
         <item quantity="other">%d étiquettes sélectionnées</item>
     </plurals>
     <string name="preferences_color_scheme_system">Thème du système</string>
+    <string name="action_disable_screen_always_on">Désactiver l\'écran toujours allumé</string>
+    <string name="action_enable_screen_always_on">Activer l\'écran toujours allumé</string>
+    <string name="action_screen_always_on">Écran toujours allumé</string>
 </resources>

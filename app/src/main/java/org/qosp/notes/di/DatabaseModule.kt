@@ -24,6 +24,7 @@ object DatabaseModule {
             // rather let the app crash
             // .fallbackToDestructiveMigration()
             .addMigrations(AppDatabase.MIGRATION_1_2)
+            .addMigrations(AppDatabase.MIGRATION_2_3)
             .build()
     }
 }

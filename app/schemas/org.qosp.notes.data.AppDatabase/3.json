@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 2,
-    "identityHash": "4c616a3aa1faf4611482e94c9448c5c7",
+    "version": 3,
+    "identityHash": "933b90be6a1662313ff8511dcd759c6d",
     "entities": [
       {
         "tableName": "notes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`title` TEXT NOT NULL, `content` TEXT NOT NULL, `isList` INTEGER NOT NULL, `taskList` TEXT NOT NULL, `isArchived` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `isPinned` INTEGER NOT NULL, `isHidden` INTEGER NOT NULL, `isMarkdownEnabled` INTEGER NOT NULL, `isLocalOnly` INTEGER NOT NULL, `isCompactPreview` INTEGER NOT NULL, `screenAlwaysOn` TEXT NOT NULL, `creationDate` INTEGER NOT NULL, `modifiedDate` INTEGER NOT NULL, `deletionDate` INTEGER, `attachments` TEXT NOT NULL, `color` TEXT NOT NULL, `notebookId` INTEGER, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`notebookId`) REFERENCES `notebooks`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`title` TEXT NOT NULL, `content` TEXT NOT NULL, `isList` INTEGER NOT NULL, `taskList` TEXT NOT NULL, `isArchived` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `isPinned` INTEGER NOT NULL, `isHidden` INTEGER NOT NULL, `isMarkdownEnabled` INTEGER NOT NULL, `isLocalOnly` INTEGER NOT NULL, `isCompactPreview` INTEGER NOT NULL, `screenAlwaysOn` INTEGER NOT NULL, `creationDate` INTEGER NOT NULL, `modifiedDate` INTEGER NOT NULL, `deletionDate` INTEGER, `attachments` TEXT NOT NULL, `color` TEXT NOT NULL, `notebookId` INTEGER, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`notebookId`) REFERENCES `notebooks`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL )",
         "fields": [
           {
             "fieldPath": "title",
@@ -395,7 +395,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4c616a3aa1faf4611482e94c9448c5c7')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '933b90be6a1662313ff8511dcd759c6d')"
     ]
   }
 }

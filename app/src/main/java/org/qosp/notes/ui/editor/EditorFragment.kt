@@ -1,6 +1,7 @@
 package org.qosp.notes.ui.editor
 
 import android.app.AlarmManager
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
@@ -427,6 +428,15 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                     }
                 }
 
+                R.id.action_screen_always_on -> {
+                    if (note.screenAlwaysOn) {
+                        activityModel.disableScreenAlwaysOn(note)
+                    } else {
+                        activityModel.enableScreenAlwaysOn(note)
+                    }
+                    setupScreenAlwaysOn(!note.screenAlwaysOn)
+                }
+
                 else -> false
             }
         }
@@ -444,6 +454,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         itemTouchHelper.attachToRecyclerView(null)
         attachmentsAdapter.listener = null
         tasksAdapter.listener = null
+        setupScreenAlwaysOn(false)
         super.onDestroyView()
     }
 
@@ -706,6 +717,11 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
             isChecked = note.isLocalOnly
             isVisible = !note.isDeleted
         }
+
+        findItem(R.id.action_screen_always_on)?.apply {
+            isChecked = note.screenAlwaysOn
+            isVisible = !note.isDeleted
+        }
     }
 
     private fun observeData() = with(binding) {
@@ -721,6 +737,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
             val isConverted = data.note.isList != isList
             val isMarkdownEnabled = data.note.isMarkdownEnabled
             val (dateFormat, timeFormat) = data.dateTimeFormats
+            val screenAlwaysOn = data.note.screenAlwaysOn
 
             isList = data.note.isList
             isNoteDeleted = data.note.isDeleted
@@ -730,6 +747,8 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
             } else {
                 disableMarkdownTextWatcher()
             }
+
+            setupScreenAlwaysOn(screenAlwaysOn)
 
             // Update Title and Content only the first the since they are EditTexts
             if (isFirstLoad) {
@@ -997,6 +1016,14 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
             editTextContent.isMarkdownEnabled = false
             setMarkdownToolbarVisibility()
+        }
+    }
+
+    private fun setupScreenAlwaysOn(enable: Boolean) {
+        if (enable) {
+            activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        } else {
+            activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
     }
 
