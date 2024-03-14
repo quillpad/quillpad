@@ -172,7 +172,7 @@ abstract class ExtendedListAdapter<T, VH : RecyclerView.ViewHolder?>(
     }
 
     @CallSuper
-    override fun onBindViewHolder(holder: VH, position: Int) {
+    override fun onBindViewHolder(holder: VH & Any, position: Int) {
         if (isSelectionEnabled) onItemSelectedStatusChanged(getItemId(position), holder)
     }
 

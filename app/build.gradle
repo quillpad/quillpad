@@ -1,21 +1,21 @@
 plugins {
-    id "com.android.application"
-    id "kotlin-android"
-    id "kotlin-kapt"
-    id "androidx.navigation.safeargs"
-    id "kotlinx-serialization"
-    id "kotlin-parcelize"
-    id "dagger.hilt.android.plugin"
+    alias libs.plugins.androidApplication
+    alias libs.plugins.kapt
+    alias libs.plugins.kotlinAndroid
+    alias libs.plugins.kotlinParcelize
+    alias libs.plugins.kotlinSerialization
+    alias libs.plugins.navigationSafeArgs
+    alias libs.plugins.hiltAndroid
 }
 
 android {
-    compileSdk 33
+    compileSdk 34
     buildToolsVersion = "30.0.3"
 
     defaultConfig {
         applicationId "io.github.quillpad"
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode 17
         versionName "1.4.13"
 
@@ -102,86 +102,86 @@ dependencies {
     testImplementation "junit:junit:4.13.2"
     androidTestImplementation "androidx.test.ext:junit:1.1.4"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.5.0"
-    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:1.1.6"
+    coreLibraryDesugaring libs.coreLibraryDesugaring
     // AndroidX
     implementation "androidx.core:core-ktx:1.9.0"
-    implementation "androidx.appcompat:appcompat:1.5.1"
-    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
-    implementation "androidx.coordinatorlayout:coordinatorlayout:1.2.0"
-    implementation "androidx.recyclerview:recyclerview:1.2.1"
-    implementation "androidx.fragment:fragment-ktx:1.5.4"
-    implementation "androidx.palette:palette-ktx:1.0.0"
-    implementation "androidx.media:media:1.6.0"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    implementation libs.appcompat
+    implementation libs.constraintlayout
+    implementation libs.coordinatorlayout
+    implementation libs.recyclerview
+    implementation libs.fragmentKtx
+    implementation libs.paletteKtx
+    implementation libs.media
+    implementation libs.swiperefreshlayout
 
     // Navigation Component
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation libs.navigationFragmentKtx
+    implementation libs.navigationUiKtx
 
     // Material Components
-    implementation "com.google.android.material:material:$material_version"
+    implementation libs.material
 
     // Room
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-runtime:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-    testImplementation "androidx.room:room-testing:$room_version"
+    kapt libs.roomCompiler
+    implementation libs.roomRuntime
+    implementation libs.roomKtx
+    testImplementation libs.roomTesting
 
     // Lifecycle
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-service:$lifecycle_version"
+    implementation libs.lifecycleRuntimeKtx
+    implementation libs.lifecycleCommonJava8
+    implementation libs.lifecycleLiveDataKtx
+    implementation libs.lifecycleViewModelKtx
+    implementation libs.lifecycleService
 
     // Security
-    implementation "androidx.security:security-crypto:1.1.0-alpha04"
+    implementation libs.securityCrypto
 
     // Flow Preferences
-    implementation "com.github.tfcporciuncula.flow-preferences:flow-preferences:1.4.0"
+    implementation libs.flowPreferences
 
     // DataStore Preferences
-    implementation "androidx.datastore:datastore-preferences:$datastore_version"
-    implementation "me.msoul:datastoreext:1.0.0"
+    implementation libs.datastorePreferences
+    implementation libs.datastoreext
 
     // Markwon
-    implementation "io.noties.markwon:core:$markwon_version"
-    implementation "io.noties.markwon:editor:$markwon_version"
-    implementation "io.noties.markwon:linkify:$markwon_version"
-    implementation "io.noties.markwon:ext-strikethrough:$markwon_version"
-    implementation "io.noties.markwon:simple-ext:$markwon_version"
-    implementation "io.noties.markwon:ext-tables:$markwon_version"
-    implementation "io.noties.markwon:ext-tasklist:$markwon_version"
-    implementation "me.saket:better-link-movement-method:2.2.0"
+    implementation libs.markwon
+    implementation libs.markwonEditor
+    implementation libs.markwonLinkify
+    implementation libs.markwonStrikethrough
+    implementation libs.markwonSimpleExt
+    implementation libs.markwonTable
+    implementation libs.markwonTasklist
+    implementation libs.betterLinkMovementMethod
 
     // Work Manager
-    implementation "androidx.work:work-runtime-ktx:$work_version"
-    androidTestImplementation "androidx.work:work-testing:$work_version"
+    implementation libs.workRuntimeKtx
+    androidTestImplementation libs.workTesting
 
     // Coil
-    implementation "io.coil-kt:coil:$coil_version"
-    implementation "io.coil-kt:coil-video:$coil_version"
-    implementation "io.coil-kt:coil-gif:$coil_version"
+    implementation libs.coil
+    implementation libs.coilVideo
+    implementation libs.coilGif
 
     // PhotoView
-    implementation "com.github.chrisbanes:PhotoView:$photoview_version"
+    implementation libs.photoview
 
     // Hilt
-    implementation "androidx.hilt:hilt-work:1.0.0"
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
-    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
-    kapt "androidx.hilt:hilt-compiler:1.0.0"
+    implementation libs.androidxHiltWork
+    implementation libs.hiltAndroid
+    androidTestImplementation libs.hiltAndroidTesting
+    kaptAndroidTest libs.hiltAndroidCompiler
+    kapt libs.hiltCompiler
+    kapt libs.androidxHiltCompiler
 
     // ExoPlayer
-    implementation "com.google.android.exoplayer:exoplayer-core:$exoplayer_version"
-    implementation "com.google.android.exoplayer:exoplayer-ui:$exoplayer_version"
+    implementation libs.exoplayerCore
+    implementation libs.exoplayerUi
 
     // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
+    implementation libs.retrofit
+    implementation libs.retrofit2KotlinxSerializationConverter
 
     // LeakCanary
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
+    debugImplementation libs.leakcanaryAndroid
 }

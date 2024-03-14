@@ -1,0 +1,95 @@
+[versions]
+androidGradlePlugin = "7.3.1"
+androidxHilt = "1.0.0"
+appcompat = "1.5.1"
+betterLinkMovementMethod = "2.2.0"
+coil = "2.2.2"
+coilGif = "2.2.2"
+coilVideo = "2.2.2"
+constraintlayout = "2.1.4"
+coordinatorlayout = "1.2.0"
+coreLibraryDesugaring = "1.1.6"
+datastore = "1.0.0"
+exoplayer = "2.18.1"
+flowPreferences = "1.4.0"
+fragmentKtx = "1.5.4"
+hilt = "2.44.2"
+kotlin = "1.7.20"
+kotlinSerialization = "1.7.20"
+leakcanaryAndroid = "2.10"
+lifecycle = "2.5.1"
+markwon = "4.6.2"
+material = "1.7.0"
+media = "1.6.0"
+nav = "2.5.3"
+navigationSafeArgs = "2.5.3"
+paletteKtx = "1.0.0"
+photoview = "2.3.0"
+recyclerview = "1.2.1"
+retrofit = "2.9.0"
+retrofit2KotlinxSerializationConverter = "0.8.0"
+room = "2.4.3"
+securityCrypto = "1.1.0-alpha04"
+swiperefreshlayout = "1.1.0"
+work = "2.7.1"
+
+[libraries]
+androidxHiltCompiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidxHilt" }
+androidxHiltWork = { module = "androidx.hilt:hilt-work", version.ref = "androidxHilt" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+betterLinkMovementMethod = { module = "me.saket:better-link-movement-method", version.ref = "betterLinkMovementMethod" }
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coilGif = { module = "io.coil-kt:coil-gif", version.ref = "coilGif" }
+coilVideo = { module = "io.coil-kt:coil-video", version.ref = "coilVideo" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+coordinatorlayout = { module = "androidx.coordinatorlayout:coordinatorlayout", version.ref = "coordinatorlayout" }
+coreLibraryDesugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "coreLibraryDesugaring" }
+datastorePreferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
+datastoreext = { module = "me.msoul:datastoreext", version.ref = "datastore" }
+exoplayerCore = { module = "com.google.android.exoplayer:exoplayer-core", version.ref = "exoplayer" }
+exoplayerUi = { module = "com.google.android.exoplayer:exoplayer-ui", version.ref = "exoplayer" }
+flowPreferences = { module = "com.github.tfcporciuncula.flow-preferences:flow-preferences", version.ref = "flowPreferences" }
+fragmentKtx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
+hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hiltAndroidTesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+hiltCompiler = { module = "com.google.dagger:hilt-compiler", version.ref= "hilt" }
+leakcanaryAndroid = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
+lifecycleCommonJava8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "lifecycle" }
+lifecycleLiveDataKtx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
+lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+lifecycleService = { module = "androidx.lifecycle:lifecycle-service", version.ref = "lifecycle" }
+lifecycleViewModelKtx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+markwon = { module = "io.noties.markwon:core", version.ref = "markwon" }
+markwonEditor = { module = "io.noties.markwon:editor", version.ref = "markwon" }
+markwonLinkify = { module = "io.noties.markwon:linkify", version.ref = "markwon" }
+markwonSimpleExt = { module = "io.noties.markwon:simple-ext", version.ref = "markwon" }
+markwonStrikethrough = { module = "io.noties.markwon:ext-strikethrough", version.ref = "markwon" }
+markwonTable = { module = "io.noties.markwon:ext-tables", version.ref = "markwon" }
+markwonTasklist = { module = "io.noties.markwon:ext-tasklist", version.ref = "markwon" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+media = { module = "androidx.media:media", version.ref = "media" }
+navigationFragmentKtx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "nav" }
+navigationUiKtx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "nav" }
+paletteKtx = { module = "androidx.palette:palette-ktx", version.ref = "paletteKtx" }
+photoview = { module = "com.github.chrisbanes:PhotoView", version.ref = "photoview" }
+recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit2KotlinxSerializationConverter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
+roomCompiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+roomKtx = { module = "androidx.room:room-ktx", version.ref = "room" }
+roomRuntime = { module = "androidx.room:room-runtime", version.ref = "room" }
+roomTesting = { module = "androidx.room:room-testing", version.ref = "room" }
+securityCrypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
+swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
+workRuntimeKtx = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
+workTesting = { module = "androidx.work:work-testing", version.ref = "work" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinParcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
+navigationSafeArgs = { id = "androidx.navigation.safeargs", version.ref = "navigationSafeArgs" }

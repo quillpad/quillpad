@@ -165,7 +165,7 @@ class BackupManager(
 
         ZipInputStream(BufferedInputStream(context.contentResolver.openInputStream(uri))).use { input ->
             while (true) {
-                val entry = input.nextEntry ?: break
+                val entry = runCatching { input.nextEntry }.getOrNull() ?: break
                 when (entry.name) {
                     "backup.json" -> {
                         // Create backup class

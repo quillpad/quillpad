@@ -1,11 +1,15 @@
 package org.qosp.notes.ui.editor
 
+import android.app.AlarmManager
 import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -732,7 +736,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
                 // apply font size preference
                 if (data.editorFontSize != -1) { // is customised
-                    val fontSizeFloat =  data.editorFontSize.toFloat()
+                    val fontSizeFloat = data.editorFontSize.toFloat()
 
                     textViewTitlePreview.textSize = fontSizeFloat
                     textViewContentPreview.textSize = fontSizeFloat
@@ -1056,7 +1060,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                 tasksAdapter.notifyItemRangeChanged(position, tasks.size - position)
             } else {
                 // Move to after last open task or to very beginning if all tasks are done
-                val newPosition = tasks.indexOfLast { it.id != newTask.id && ! it.isDone } + 1
+                val newPosition = tasks.indexOfLast { it.id != newTask.id && !it.isDone } + 1
 
                 // Only move upwards; don't move further down
                 if (newPosition < position) {
@@ -1095,13 +1099,28 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                 val reminderDate = LocalDateTime.ofEpochSecond(reminder.date, 0, offset)
 
                 action(reminder.name + " (${reminderDate.format(formatter)})", R.drawable.ic_bell) {
-                    EditReminderDialog.build(note.id, reminder).show(parentFragmentManager, null)
+                    if (checkSchedulePermission()) EditReminderDialog.build(note.id, reminder)
+                        .show(parentFragmentManager, null)
                 }
             }
             action(R.string.action_new_reminder, R.drawable.ic_add) {
-                EditReminderDialog.build(note.id, null).show(parentFragmentManager, null)
+                if (checkSchedulePermission()) EditReminderDialog.build(note.id, null).show(parentFragmentManager, null)
             }
         }
+    }
+
+    private fun checkSchedulePermission(): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val alarmManager = context?.getSystemService(AlarmManager::class.java)
+            if (alarmManager?.canScheduleExactAlarms() != true) {
+                val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).apply {
+                    data = Uri.fromParts("package", context?.packageName, null)
+                }
+                context?.startActivity(intent)
+                return false
+            }
+        }
+        return true
     }
 
     /** Gives the focus to the editor fields if they are empty */
@@ -1148,7 +1167,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         setMarkdownToolbarVisibility(note)
     }
 
-    private fun hasNoteEmptyContent (note: Note? = data.note) : Boolean {
+    private fun hasNoteEmptyContent(note: Note? = data.note): Boolean {
         return note?.content?.isBlank() == true || (note?.isList == true && note.taskList.isEmpty())
     }
 
