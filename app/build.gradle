@@ -4,6 +4,7 @@ plugins {
     alias libs.plugins.kotlinAndroid
     alias libs.plugins.kotlinParcelize
     alias libs.plugins.kotlinSerialization
+    alias libs.plugins.ksp
     alias libs.plugins.navigationSafeArgs
     alias libs.plugins.hiltAndroid
 }
@@ -11,10 +12,10 @@ plugins {
 android {
     compileSdk 34
     buildToolsVersion = "30.0.3"
-
+    namespace 'org.qosp.notes'
     defaultConfig {
         applicationId "io.github.quillpad"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 34
         versionCode 20
         versionName "1.4.14"
@@ -70,13 +71,13 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_11
     }
 
     compileOptions {
         coreLibraryDesugaringEnabled true
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     buildFeatures {
@@ -89,7 +90,7 @@ android {
             option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
         }
     }
-    namespace 'org.qosp.notes'
+
 }
 
 repositories {
@@ -98,41 +99,26 @@ repositories {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1'
     testImplementation "junit:junit:4.13.2"
     androidTestImplementation "androidx.test.ext:junit:1.1.4"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.5.0"
     coreLibraryDesugaring libs.coreLibraryDesugaring
     // AndroidX
-    implementation "androidx.core:core-ktx:1.9.0"
-    implementation libs.appcompat
-    implementation libs.constraintlayout
-    implementation libs.coordinatorlayout
-    implementation libs.recyclerview
-    implementation libs.fragmentKtx
-    implementation libs.paletteKtx
-    implementation libs.media
-    implementation libs.swiperefreshlayout
+    implementation libs.bundles.kotlin.androidX
 
-    // Navigation Component
-    implementation libs.navigationFragmentKtx
-    implementation libs.navigationUiKtx
+    implementation libs.bundles.kotlin.deps
 
     // Material Components
     implementation libs.material
 
     // Room
-    kapt libs.roomCompiler
+    ksp libs.roomCompiler
     implementation libs.roomRuntime
     implementation libs.roomKtx
     testImplementation libs.roomTesting
 
     // Lifecycle
-    implementation libs.lifecycleRuntimeKtx
-    implementation libs.lifecycleCommonJava8
-    implementation libs.lifecycleLiveDataKtx
-    implementation libs.lifecycleViewModelKtx
-    implementation libs.lifecycleService
+    implementation libs.bundles.kotlin.lifecycle
 
     // Security
     implementation libs.securityCrypto
@@ -145,14 +131,7 @@ dependencies {
     implementation libs.datastoreext
 
     // Markwon
-    implementation libs.markwon
-    implementation libs.markwonEditor
-    implementation libs.markwonLinkify
-    implementation libs.markwonStrikethrough
-    implementation libs.markwonSimpleExt
-    implementation libs.markwonTable
-    implementation libs.markwonTasklist
-    implementation libs.betterLinkMovementMethod
+    implementation libs.bundles.markwon
 
     // Work Manager
     implementation libs.workRuntimeKtx
@@ -180,7 +159,7 @@ dependencies {
 
     // Retrofit
     implementation libs.retrofit
-    implementation libs.retrofit2KotlinxSerializationConverter
+    implementation libs.retrofit2Convertor
 
     // LeakCanary
     debugImplementation libs.leakcanaryAndroid
