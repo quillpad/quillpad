@@ -24,10 +24,8 @@ android {
 
         // export schema
         // https://stackoverflow.com/a/44645943/4594587
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
-            }
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas".toString())
         }
     }
 
