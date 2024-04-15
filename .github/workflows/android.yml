@@ -20,6 +20,14 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        add-job-summary-as-pr-comment: on-failure # Valid values are 'never' (default), 'always', and 'on-failure'
+        build-scan-publish: true
+        build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+        build-scan-terms-of-use-agree: "yes"
+
     - name: Setup keystore
       run: |
         echo "${{secrets.KEYSTORE}}" > keystore.jks.asc
