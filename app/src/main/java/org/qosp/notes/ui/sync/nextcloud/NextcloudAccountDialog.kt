@@ -67,8 +67,13 @@ class NextcloudAccountDialog : BaseDialog<DialogNextcloudAccountBinding>() {
                     Unauthorized -> R.string.message_invalid_credentials
                     else -> R.string.message_something_went_wrong
                 }
-                Toast.makeText(requireContext(), getString(messageResId), Toast.LENGTH_SHORT).show()
-                if (result == Success) dismiss()
+                if (messageResId != R.string.message_something_went_wrong) { // known error or success
+                    Toast.makeText(requireContext(), getString(messageResId), Toast.LENGTH_SHORT).show()
+                    if (result == Success) dismiss()
+                } else { // unknown error
+                    val text = getString(R.string.message_something_went_wrong) + "\n" + result.message
+                    Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()
+                }
             }
         }
 

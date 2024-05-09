@@ -61,16 +61,33 @@ The major features that are currently planned for this app are listed below in a
 - Update to the latest version of Android API and Dependency Libraries.
 
 ### Milestone 1.6 (Jetpack Compose)
-- Introduce Compose and Kotlin multiplatform. The main app views like the list of notes, edit view and the todo list view will be migrated to Compose. 
+~~- Introduce Compose and Kotlin multiplatform. The main app views like the list of notes, edit view and the todo list view will be migrated to Compose.~~
+
+The app uses the current XML based UI and a bunch of Android based libraries.
+- **Migrating the UI to compose**. These libraries are Android UI and would need to be replaced with Compose Multiplatform libraries. The entire UI will be re-written in Compose.
+    - `androidx.appcompat:appcompat`
+    - `androidx.recyclerview:recyclerview`
+    - `androidx.fragment:fragment-ktx`
+    - `androidx.palette:palette-ktx`
+    - `androidx.media:media`
+    - `androidx.swiperefreshlayout:swiperefreshlayout`
+    - `androidx.navigation:navigation-ui-ktx `
+- **Hilt + Dagger** will need to be replaced with koin. Given that the dependency injection is already deeply integrated with the UI, this will be a major change.
+- **Room Database** will need to be replaced with SQLDelight. This is a major change as the entire database schema will need to be re-written. All the migrations will need to be re-written and tested if an earlier version of the app with Room DB be able to newer versions with SQLDelight.
+- **Markwon** will need to be replaced with Compose compatible Markdown library. Given that the app is a markdown editor, this is a major change and I don't know if there is a Compose and Multiplatform compatible markdown library.
+- **Retrofit, Security-crypto, ExoPlayer**, and other libraries will need to be replaced with Multiplatform compatible libraries.
+
+Given the extensive changes required for the migration to Compose Multiplatform, it would be more practical to start a new project. This approach allows us to build the app with multiplatform compatibility in mind from the ground up, rather than trying to retrofit it into an existing Android-specific codebase.
+
+Furthermore, this approach ensures that the current app remains stable and usable for users during the migration process. We can gradually port features from the old app to the new one.
+
 
 ### Milestone 1.7 (Desktop App)
-- Introduce desktop app. With the main views available in compose, try making a desktop app with help of Compose for desktop.
-  
+~~- Introduce desktop app. With the main views available in compose, try making a desktop app with help of Compose for desktop.~~
+
 ### Milestone 1.8 (iOS App)
-- Try an iOS version since the kotlin multiplatform code does the heavy lifting of notes management and syncing. Leverage the same storage API equivalent in iOS.
+~~- Try an iOS version since the kotlin multiplatform code does the heavy lifting of notes management and syncing. Leverage the same storage API equivalent in iOS.~~
 
 ### Milestone 2.0 (Encryption)
-- The primary motive to have encryption is not for security. That's secondary
-- Now we have the ability to sync notes using cloud providers like Google Drive and Dropbox. The cloud providers _may_ to go through the notes and _may_ index them and _may_ profile the user. This is the primary reason for the encryption feature. Which means, the notes won't be staying as markdown files, and cannot be edited by other text editors. 
+- Now we have the ability to sync notes using cloud providers like ~~Google Drive and Dropbox~~ pCloud. The cloud providers _may_ to go through the notes and _may_ index them and _may_ profile the user. This is the primary reason for the encryption feature. Which means, the notes won't be staying as markdown files, and cannot be edited by other text editors. 
 - Encryption will be optional. The user can switch between having the notes encrypted vs stored them as plain markdown files.
-- The main focus  

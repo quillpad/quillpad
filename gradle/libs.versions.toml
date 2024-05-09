@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "7.3.1"
+androidGradlePlugin = "7.4.2"
 androidxHilt = "1.0.0"
 appcompat = "1.5.1"
 betterLinkMovementMethod = "2.2.0"
@@ -9,6 +9,7 @@ coilVideo = "2.2.2"
 constraintlayout = "2.1.4"
 coordinatorlayout = "1.2.0"
 coreLibraryDesugaring = "1.1.6"
+coreKtx = "1.9.0"
 datastore = "1.0.0"
 exoplayer = "2.18.1"
 flowPreferences = "1.4.0"
@@ -16,6 +17,8 @@ fragmentKtx = "1.5.4"
 hilt = "2.44.2"
 kotlin = "1.7.20"
 kotlinSerialization = "1.7.20"
+kotlinSerializationJson = "1.4.1"
+ksp = "1.7.20-1.0.8"
 leakcanaryAndroid = "2.10"
 lifecycle = "2.5.1"
 markwon = "4.6.2"
@@ -27,7 +30,7 @@ paletteKtx = "1.0.0"
 photoview = "2.3.0"
 recyclerview = "1.2.1"
 retrofit = "2.9.0"
-retrofit2KotlinxSerializationConverter = "0.8.0"
+retrofit2Converter = "0.8.0"
 room = "2.4.3"
 securityCrypto = "1.1.0-alpha04"
 swiperefreshlayout = "1.1.0"
@@ -44,6 +47,7 @@ coilVideo = { module = "io.coil-kt:coil-video", version.ref = "coilVideo" }
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 coordinatorlayout = { module = "androidx.coordinatorlayout:coordinatorlayout", version.ref = "coordinatorlayout" }
 coreLibraryDesugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "coreLibraryDesugaring" }
+coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 datastorePreferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 datastoreext = { module = "me.msoul:datastoreext", version.ref = "datastore" }
 exoplayerCore = { module = "com.google.android.exoplayer:exoplayer-core", version.ref = "exoplayer" }
@@ -53,7 +57,8 @@ fragmentKtx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragme
 hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 hiltAndroidTesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
-hiltCompiler = { module = "com.google.dagger:hilt-compiler", version.ref= "hilt" }
+hiltCompiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerializationJson" }
 leakcanaryAndroid = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
 lifecycleCommonJava8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "lifecycle" }
 lifecycleLiveDataKtx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
@@ -75,7 +80,7 @@ paletteKtx = { module = "androidx.palette:palette-ktx", version.ref = "paletteKt
 photoview = { module = "com.github.chrisbanes:PhotoView", version.ref = "photoview" }
 recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-retrofit2KotlinxSerializationConverter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
+retrofit2Convertor = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2Converter" }
 roomCompiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 roomKtx = { module = "androidx.room:room-ktx", version.ref = "room" }
 roomRuntime = { module = "androidx.room:room-runtime", version.ref = "room" }
@@ -85,6 +90,15 @@ swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout"
 workRuntimeKtx = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
 workTesting = { module = "androidx.work:work-testing", version.ref = "work" }
 
+[bundles]
+kotlin-deps = ["kotlin-serialization-json"]
+kotlin-androidX = ["coreKtx", "appcompat", "constraintlayout", "coordinatorlayout", "recyclerview", "fragmentKtx",
+    "paletteKtx", "media", "swiperefreshlayout", "navigationFragmentKtx", "navigationUiKtx"]
+kotlin-lifecycle = ["lifecycleRuntimeKtx", "lifecycleCommonJava8", "lifecycleLiveDataKtx", "lifecycleViewModelKtx",
+    "lifecycleService"]
+markwon = ["markwon", "markwonEditor", "markwonLinkify", "markwonStrikethrough", "markwonSimpleExt", "markwonTable",
+    "markwonTasklist", "betterLinkMovementMethod", ]
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
@@ -92,4 +106,5 @@ kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinParcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 navigationSafeArgs = { id = "androidx.navigation.safeargs", version.ref = "navigationSafeArgs" }

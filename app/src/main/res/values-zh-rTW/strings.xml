@@ -68,8 +68,8 @@
     <string name="preferences_show_fab_change_mode">編輯/檢視筆記按鈕位置</string>
     <string name="preferences_fab">浮動按鈕</string>
     <string name="preferences_top_bar">置頂橫幅</string>
-
     <string name="preferences_show_date">顯示製作/修改日期</string>
+
     <string name="preferences_date_format">日期格式</string>
     <string name="preferences_time_format">時間格式</string>
 
@@ -111,6 +111,7 @@
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
     <string name="preferences_sync_experimental_warning">同步功能目前處於實驗階段。\n您可能會遇到錯誤。</string>
     <string name="preferences_nextcloud_limited_features">請留意Nextcloud Notes 不支援標籤、附件、提醒等功能。</string>
+
     <string name="preferences_nextcloud_account">Nextcloud 帳戶</string>
     <string name="preferences_nextcloud_instance_url">Nextcloud 實例網址</string>
     <string name="preferences_nextcloud_set_your_credentials">設置您的認證</string>
@@ -253,6 +254,7 @@
     <string name="action_insert_heading">插入Markdown標題</string>
     <string name="action_insert_quote">插入Markdown引文</string>
     <string name="action_insert_code">插入Markdown代碼</string>
+
     <string name="indicator_note_date">製作於 %1$s\n上次修改時間 %2$s</string>
     <string name="indicator_restored_notes">還原的筆記</string>
     <string name="indicator_restored_note">還原的筆記</string>
@@ -302,6 +304,7 @@
     <string name="message_internet_not_available">無網際網路連線</string>
     <string name="message_credentials_cannot_be_blank">認證不能為空</string>
     <string name="preference_nextcloud_clear_credentials">清除認證和伺服器的網址</string>
+
     <string name="notification_media_play_pause">播放 / 暫停</string>
     <string name="notification_media_stop">停止</string>
 

@@ -1123,15 +1123,10 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         return true
     }
 
-    /** Gives the focus to the editor fields if they are empty */
+    /** Gives the focus to the note body if it is empty */
     private fun requestFocusForFields(forceFocus: Boolean = false) = with(binding) {
-        // Don't set focus to title if already auto-set to 'Untitled' (probably user doesn't want to set title)
-        if (editTextTitle.text.isNullOrEmpty() && textViewTitlePreview.text.toString() != getString(R.string.indicator_untitled).toString()) {
-            editTextTitle.requestFocusAndKeyboard()
-        } else {
-            if (editTextContent.text.isNullOrEmpty() || forceFocus) {
-                editTextContent.requestFocusAndKeyboard()
-            }
+        if (editTextContent.text.isNullOrEmpty() || forceFocus) {
+            editTextContent.requestFocusAndKeyboard()
         }
     }
 
