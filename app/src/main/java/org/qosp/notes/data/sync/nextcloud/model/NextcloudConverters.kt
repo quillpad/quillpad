@@ -1,6 +1,7 @@
 package org.qosp.notes.data.sync.nextcloud.model
 
 import org.qosp.notes.data.model.Note
+import org.qosp.notes.data.sync.core.NextcloudNote
 
 fun Note.asNextcloudNote(id: Long, category: String): NextcloudNote = NextcloudNote(
     id = id,
@@ -14,7 +15,7 @@ fun Note.asNextcloudNote(id: Long, category: String): NextcloudNote = NextcloudN
 fun NextcloudNote.asNewLocalNote(id: Long, notebookId: Long?) = Note(
     id = id,
     title = title,
-    content = content,
+    content = content ?: "",
     isPinned = favorite,
     modifiedDate = modified,
     notebookId = notebookId

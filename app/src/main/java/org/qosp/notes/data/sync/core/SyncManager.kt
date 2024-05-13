@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.repo.IdMappingRepository
+import org.qosp.notes.data.repo.NoteRepository
+import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.data.sync.fs.StorageBackend
 import org.qosp.notes.data.sync.fs.StorageConfig
 import org.qosp.notes.data.sync.nextcloud.NextcloudBackend
@@ -25,11 +27,14 @@ import org.qosp.notes.preferences.CloudService.NEXTCLOUD
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.ui.utils.ConnectionManager
 import org.qosp.notes.ui.utils.collect
+import javax.inject.Provider
 
 class SyncManager(
     private val preferenceRepository: PreferenceRepository,
     private val idMappingRepository: IdMappingRepository,
     private val connectionManager: ConnectionManager,
+    private val notebookRepositoryProvider: Provider<NotebookRepository>,
+    private val noteRepositoryProvider: Provider<NoteRepository>,
     private val context: Context,
     private val nextcloudBackend: NextcloudBackend,
     private val storageBackend: StorageBackend,
@@ -47,8 +52,25 @@ class SyncManager(
     ) { service, nextcloudConfig, storageConfig ->
         when (service) {
             DISABLED -> null
-            NEXTCLOUD -> nextcloudConfig?.let { BackendManager(nextcloudBackend, it) }
-            FILE_STORAGE -> storageConfig?.let { BackendManager(storageBackend, it) }
+            NEXTCLOUD -> nextcloudConfig?.let {
+                BackendManager(
+                    noteRepositoryProvider.get(),
+                    notebookRepositoryProvider.get(),
+                    idMappingRepository,
+                    nextcloudBackend,
+                    it
+                )
+            }
+
+            FILE_STORAGE -> storageConfig?.let {
+                BackendManager(
+                    noteRepositoryProvider.get(),
+                    notebookRepositoryProvider.get(),
+                    idMappingRepository,
+                    storageBackend,
+                    it
+                )
+            }
         }
     }.stateIn(syncingScope, SharingStarted.Eagerly, null)
 

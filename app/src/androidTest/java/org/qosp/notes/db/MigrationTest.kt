@@ -4,7 +4,6 @@ import androidx.room.testing.MigrationTestHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.work.impl.WorkDatabaseMigrations.MIGRATION_1_2
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

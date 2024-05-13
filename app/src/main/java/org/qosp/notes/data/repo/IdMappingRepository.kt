@@ -24,29 +24,23 @@ class IdMappingRepository(private val idMappingDao: IdMappingDao) {
         idMappingDao.insert(mapping)
     }
 
-    suspend fun deleteByRemoteId(provider: CloudService, vararg remoteIds: Long) {
+    suspend fun deleteByRemoteId(provider: CloudService, vararg remoteIds: Long) =
         idMappingDao.deleteByRemoteId(provider, *remoteIds)
-    }
 
     suspend fun getAllByLocalId(localId: Long) = idMappingDao.getAllByLocalId(localId)
 
     suspend fun getAllByProvider(provider: CloudService) = idMappingDao.getAllByCloudService(provider)
 
-    suspend fun getByLocalIdAndProvider(localId: Long, provider: CloudService): IdMapping? {
-        return idMappingDao.getByLocalIdAndProvider(localId, provider)
-    }
+    suspend fun getByLocalIdAndProvider(localId: Long, provider: CloudService) =
+        idMappingDao.getByLocalIdAndProvider(localId, provider)
 
-    suspend fun getByRemoteId(remoteId: Long, provider: CloudService): IdMapping? {
-        return idMappingDao.getByRemoteId(remoteId, provider)
-    }
+    suspend fun getByRemoteId(remoteId: Long, provider: CloudService) = idMappingDao.getByRemoteId(remoteId, provider)
 
-    suspend fun unassignProviderFromRemotelyDeletedNotes(idsInUse: List<Long>, provider: CloudService) {
+    suspend fun unassignProviderFromRemotelyDeletedNotes(idsInUse: List<Long>, provider: CloudService) =
         idMappingDao.unassignProviderFromRemotelyDeletedNotes(idsInUse, provider)
-    }
 
-    suspend fun unassignProviderFromNote(provider: CloudService, localId: Long) {
+    suspend fun unassignProviderFromNote(provider: CloudService, localId: Long) =
         idMappingDao.unassignProviderFromNote(localId, provider)
-    }
 
     suspend fun deleteIfLocalIdNotIn(ids: List<Long>) = idMappingDao.deleteIfLocalIdNotIn(ids)
 }
