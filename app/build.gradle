@@ -68,10 +68,6 @@ android {
         }
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11
-    }
-
     sourceSets {
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }

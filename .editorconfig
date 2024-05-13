@@ -1,15 +1,19 @@
 # indicate this is the root of the project
 root = true
 
-[*.{kt,java,xml,gradle,md}]
+[*]
 charset = utf-8
 end_of_line = lf
 # indent_size = 2
 indent_style = space
 indent_size = 4
+
+[{*.yml,*.yaml}]
+indent_size = 2
+
+[*.{kt,java,gradle,md}]
 trim_trailing_whitespace = true
 insert_final_newline = true
-end_of_line = lf
 max_line_length = 120
 # tab_width = 2
 # ij_continuation_indent_size = 4
@@ -20,7 +24,7 @@ max_line_length = 120
 # ij_visual_guides =
 # ij_wrap_on_typing = false
 
-[{*.ant,*.fxml,*.jhm,*.jnlp,*.jrxml,*.rng,*.tld,*.wsdl,*.xml,*.xsd,*.xsl,*.xslt,*.xul}]
+[*.xml]
 ij_continuation_indent_size = 4
 ij_xml_align_attributes = true
 # ij_xml_align_text = false
@@ -42,7 +46,6 @@ ij_xml_text_wrap = normal
 # ij_xml_use_custom_settings = true
 
 [{*.kt,*.kts}]
-indent_size = 4
 tab_width = 4
 # ij_continuation_indent_size = 8
 # ij_kotlin_align_in_columns_case_branch = false

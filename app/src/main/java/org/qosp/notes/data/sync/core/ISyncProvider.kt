@@ -15,13 +15,3 @@ interface ISyncProvider {
     suspend fun isServerCompatible(config: ProviderConfig?): BaseResult
 }
 
-interface ISyncBackend<T> {
-    val service: CloudService
-    suspend fun sync(config: T): BaseResult
-    suspend fun createNote(note: Note, config: T): BaseResult
-    suspend fun deleteNote(note: Note, config: T): BaseResult
-    suspend fun updateNote(note: Note, config: T): BaseResult
-
-    suspend fun authenticate(config: T): BaseResult
-    suspend fun isServerCompatible(config: T): BaseResult
-}
