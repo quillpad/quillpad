@@ -13,7 +13,7 @@ With Quillpad, you can:
 - Add tags to notes
 - Archive notes you want out of your way
 - Search through notes
-- Sync with Nextcloud
+- Sync with Nextcloud (requires the Nextcloud Notes app installed on the Nextcloud server used for syncing)
 - Backup your notes to a zip file which you can restore at a later time
 - Toggle between Light and Dark mode
 - Choose between multiple color schemes
