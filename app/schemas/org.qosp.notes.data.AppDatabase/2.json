@@ -6,7 +6,7 @@
     "entities": [
       {
         "tableName": "notes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`title` TEXT NOT NULL, `content` TEXT NOT NULL, `isList` INTEGER NOT NULL, `taskList` TEXT NOT NULL, `isArchived` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `isPinned` INTEGER NOT NULL, `isHidden` INTEGER NOT NULL, `isMarkdownEnabled` INTEGER NOT NULL, `isLocalOnly` INTEGER NOT NULL, `isCompactPreview` INTEGER NOT NULL, `screenAlwaysOn` TEXT NOT NULL, `creationDate` INTEGER NOT NULL, `modifiedDate` INTEGER NOT NULL, `deletionDate` INTEGER, `attachments` TEXT NOT NULL, `color` TEXT NOT NULL, `notebookId` INTEGER, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`notebookId`) REFERENCES `notebooks`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`title` TEXT NOT NULL, `content` TEXT NOT NULL, `isList` INTEGER NOT NULL, `taskList` TEXT NOT NULL, `isArchived` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `isPinned` INTEGER NOT NULL, `isHidden` INTEGER NOT NULL, `isMarkdownEnabled` INTEGER NOT NULL, `isLocalOnly` INTEGER NOT NULL, `isCompactPreview` INTEGER NOT NULL, `creationDate` INTEGER NOT NULL, `modifiedDate` INTEGER NOT NULL, `deletionDate` INTEGER, `attachments` TEXT NOT NULL, `color` TEXT NOT NULL, `notebookId` INTEGER, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`notebookId`) REFERENCES `notebooks`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL )",
         "fields": [
           {
             "fieldPath": "title",
@@ -71,12 +71,6 @@
           {
             "fieldPath": "isCompactPreview",
             "columnName": "isCompactPreview",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "screenAlwaysOn",
-            "columnName": "screenAlwaysOn",
             "affinity": "INTEGER",
             "notNull": true
           },
