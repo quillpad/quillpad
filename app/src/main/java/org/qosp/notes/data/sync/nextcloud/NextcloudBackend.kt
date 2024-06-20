@@ -51,7 +51,7 @@ class NextcloudBackend(
     }
 
     override suspend fun list(config: NextcloudConfig) = tryCalling {
-        nextcloudAPI.getNotes(config).map { it as SyncNote } // Dirty code
+        nextcloudAPI.getNotes(config)
     }
 
     override suspend fun deleteNote(note: NextcloudNote, config: NextcloudConfig): SyncResult<Unit> {
