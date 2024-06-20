@@ -28,6 +28,7 @@ import org.qosp.notes.data.sync.nextcloud.NextcloudBackend
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.ui.reminders.ReminderManager
 import org.qosp.notes.ui.utils.ConnectionManager
+import javax.inject.Provider
 
 const val TEST_MEDIA_FOLDER = "test_media"
 

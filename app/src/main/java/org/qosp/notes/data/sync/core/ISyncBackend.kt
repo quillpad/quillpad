@@ -10,7 +10,7 @@ interface ISyncBackend<T : ProviderConfig, N: SyncNote> {
     suspend fun getSyncNoteFrom(note: Note, idMapping: IdMapping): N
 
     //    suspend fun sync(config: T): BaseResult
-    suspend fun list(config: T): SyncResult<List<SyncNote>>
+    suspend fun list(config: T): SyncResult<List<N>>
     suspend fun createNote(note: Note, config: T): SyncResult<N>
     suspend fun getNoteContent(note: N, config: T): SyncResult<N>
     suspend fun deleteNote(note: N, config: T): SyncResult<Unit>
