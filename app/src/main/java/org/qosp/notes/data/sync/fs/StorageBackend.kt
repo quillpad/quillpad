@@ -13,7 +13,6 @@ import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.data.sync.core.ISyncBackend
 import org.qosp.notes.data.sync.core.NoteFile
 import org.qosp.notes.data.sync.core.Success
-import org.qosp.notes.data.sync.core.SyncNote
 import org.qosp.notes.data.sync.core.SyncResult
 import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.CloudService.FILE_STORAGE
@@ -187,7 +186,7 @@ class StorageBackend(
         }
 
     @OptIn(ExperimentalTime::class)
-    override suspend fun list(config: StorageConfig): SyncResult<List<SyncNote>> = inStorage(config) { root, _ ->
+    override suspend fun list(config: StorageConfig) = inStorage(config) { root, _ ->
         val dirContentsTime = measureTimedValue {
             root.listFiles()
                 .flatMap { if (it.isDirectory) it.listFiles().toList() else listOf(it) }
@@ -213,7 +212,7 @@ class StorageBackend(
     override suspend fun getNoteContent(note: NoteFile, config: StorageConfig) = inStorage(config) { _, _ ->
         val uri = note.uri ?: throw IllegalArgumentException("URI cannot be null")
         val file = DocumentFile.fromSingleUri(context, uri) ?: throw FileNotFoundException("URI not found")
-        NoteFile(file.lastModified(), readFileContent(file),getTitleFromUri(uri), uri)
+        NoteFile(file.lastModified(), readFileContent(file), getTitleFromUri(uri), uri)
     }
 
     private suspend fun renameFile(file: DocumentFile, filename: String, root: DocumentFile, mapping: IdMapping) {
