@@ -37,6 +37,7 @@ import org.qosp.notes.di.MarkwonModule
 import org.qosp.notes.di.NextcloudModule
 import org.qosp.notes.di.PreferencesModule
 import org.qosp.notes.di.RepositoryModule
+import org.qosp.notes.di.StorageModule
 import org.qosp.notes.di.UtilModule
 import org.qosp.notes.ui.UIModule
 import java.util.concurrent.TimeUnit
@@ -87,6 +88,7 @@ class App : Application(), ImageLoaderFactory, Configuration.Provider, KoinStart
                 RepositoryModule().module,
                 PreferencesModule().module,
                 UtilModule().module,
+                StorageModule.module,
                 NextcloudModule().module,
                 UIModule().module,
                 MarkwonModule().module,

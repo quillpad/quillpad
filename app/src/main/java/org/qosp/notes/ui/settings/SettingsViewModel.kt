@@ -14,7 +14,6 @@ import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
 import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.preferences.SyncMode
-import javax.inject.Inject
 
 @KoinViewModel
 class SettingsViewModel(

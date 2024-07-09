@@ -37,7 +37,6 @@ import org.qosp.notes.preferences.ShowDate
 import org.qosp.notes.preferences.ShowFabChangeMode
 import org.qosp.notes.preferences.TimeFormat
 import java.time.Instant
-import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
 @KoinViewModel

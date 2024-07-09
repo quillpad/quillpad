@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.repo.IdMappingRepository
 import org.qosp.notes.data.repo.NoteRepository
@@ -27,19 +29,19 @@ import org.qosp.notes.preferences.CloudService.NEXTCLOUD
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.ui.utils.ConnectionManager
 import org.qosp.notes.ui.utils.collect
-import javax.inject.Provider
 
 class SyncManager(
     private val preferenceRepository: PreferenceRepository,
     private val idMappingRepository: IdMappingRepository,
     private val connectionManager: ConnectionManager,
-    private val notebookRepositoryProvider: Provider<NotebookRepository>,
-    private val noteRepositoryProvider: Provider<NoteRepository>,
     private val context: Context,
     private val nextcloudBackend: NextcloudBackend,
     private val storageBackend: StorageBackend,
     val syncingScope: CoroutineScope,
-) {
+) : KoinComponent {
+
+    private val noteRepository by inject<NoteRepository>()
+    private val notebookRepository by inject<NotebookRepository>()
 
     private val syncService: Flow<CloudService> = preferenceRepository.getAll().map { it.cloudService }
     private val pref: StateFlow<AppPreferences?> =
@@ -54,8 +56,8 @@ class SyncManager(
             DISABLED -> null
             NEXTCLOUD -> nextcloudConfig?.let {
                 BackendManager(
-                    noteRepositoryProvider.get(),
-                    notebookRepositoryProvider.get(),
+                    noteRepository,
+                    notebookRepository,
                     idMappingRepository,
                     nextcloudBackend,
                     it
@@ -64,8 +66,8 @@ class SyncManager(
 
             FILE_STORAGE -> storageConfig?.let {
                 BackendManager(
-                    noteRepositoryProvider.get(),
-                    notebookRepositoryProvider.get(),
+                    noteRepository,
+                    notebookRepository,
                     idMappingRepository,
                     storageBackend,
                     it
