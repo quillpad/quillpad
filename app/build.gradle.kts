@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinParcelize)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kapt)
     alias(libs.plugins.navigationSafeArgs)
 }
 
@@ -30,6 +31,7 @@ android {
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
             arg("KOIN_CONFIG_CHECK", "true")
+            arg("KOIN_DEFAULT_MODULE", "true")
         }
     }
 
@@ -87,8 +89,8 @@ android {
     }
 
     buildFeatures {
-        buildConfig = true
         viewBinding = true
+        dataBinding = true
         compose = true
         buildConfig = true
     }

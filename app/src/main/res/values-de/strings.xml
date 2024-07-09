@@ -291,5 +291,4 @@
   </string>
   <string name="preferences_file_storage_location">Speicherort</string>
     <string name="preferences_file_storage_select">Speicherort auswählen</string>
-    <string name="preferences_color_scheme_system">System folgend</string>
 </resources>

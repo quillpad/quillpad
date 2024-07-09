@@ -300,5 +300,4 @@
   </string>
   <string name="preferences_file_storage_location">Depolama yeri</string>
   <string name="preferences_file_storage_select">Depolama yerini seçin</string>
-    <string name="preferences_color_scheme_system">Sisteme uy</string>
 </resources>

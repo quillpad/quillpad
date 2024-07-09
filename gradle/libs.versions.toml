@@ -174,3 +174,4 @@ kotlinParcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = 
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 navigationSafeArgs = { id = "androidx.navigation.safeargs", version.ref = "navigationSafeArgs" }
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
