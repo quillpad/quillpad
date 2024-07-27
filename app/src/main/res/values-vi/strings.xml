@@ -1,0 +1,335 @@
+<resources>
+    <!-- Navigation drawer -->
+    <string name="nav_notes">Ghi chú</string>
+    <string name="nav_archive">Lưu trữ</string>
+    <string name="nav_deleted">Đã xóa</string>
+    <string name="nav_settings">Thiết đặt</string>
+    <string name="nav_about">Giới thiệu</string>
+    <string name="nav_tags">Thẻ</string>
+    <string name="nav_all_notes">Tất cả ghi chú</string>
+    <string name="nav_notebooks">Sổ tay</string>
+    <string name="nav_your_notebooks">Sổ tay của bạn</string>
+
+    <!-- Preferences -->
+    <!-- Preferences / General -->
+    <string name="preferences_header_general">Tổng quan</string>
+    <string name="preferences_theme_mode">Chế độ chủ đề</string>
+    <string name="preferences_theme_mode_dark">Tối</string>
+    <string name="preferences_theme_mode_light">Sáng</string>
+    <string name="preferences_theme_mode_system">Theo hệ thống</string>
+
+    <string name="preferences_dark_theme_mode">Chế độ chủ đề tối</string>
+    <string name="preferences_theme_dark_mode_standard">Tiêu chuẩn</string>
+    <string name="preferences_theme_dark_mode_black">Đen</string>
+
+    <string name="preferences_color_scheme">Bảng màu</string>
+    <string name="preferences_color_scheme_blue">Lam</string>
+    <string name="preferences_color_scheme_pink">Hồng</string>
+    <string name="preferences_color_scheme_green">Lục</string>
+    <string name="preferences_color_scheme_orange">Cam</string>
+    <string name="preferences_color_scheme_purple">Tím</string>
+    <string name="preferences_color_scheme_yellow">Vàng</string>
+    <string name="preferences_color_scheme_red">Đỏ</string>
+    <string name="preferences_color_scheme_system">Theo hệ thống</string>
+
+    <!-- Preferences / View -->
+    <string name="preferences_header_view">Xem</string>
+    
+    <!-- Preferences / View / Notebook -->
+    <string name="preferences_header_view_notebook">Sổ tay</string>
+    
+    <string name="preferences_layout_mode">Chế độ bố cục</string>
+    <string name="preferences_layout_mode_grid">Lưới</string>
+    <string name="preferences_layout_mode_list">Danh sách</string>
+    
+    <string name="preferences_sort_method">Sắp xếp theo</string>
+    <string name="preferences_sort_method_title_asc">Tiêu đề (tăng dần)</string>
+    <string name="preferences_sort_method_title_desc">Tiêu đề (giảm dần)</string>
+    <string name="preferences_sort_method_created_asc">Ngày tạo (tăng dần)</string>
+    <string name="preferences_sort_method_created_desc">Ngày tạo (giảm dần)</string>
+    <string name="preferences_sort_method_modified_asc">Ngày sửa đổi (tăng dần)</string>
+    <string name="preferences_sort_method_modified_desc">Ngày sửa đổi (giảm dần)</string>
+
+    <!-- Preferences / View / Note content -->
+    <string name="preferences_header_view_note_content">Nội dung ghi chú</string>
+
+    <string name="preferences_font_size">Trình soạn thảo văn bản/cỡ chữ hiển thị</string>
+    <string name="preferences_font_size_default">Mặc định</string>
+    <string name="preferences_font_size_ten">10</string>
+    <string name="preferences_font_size_fifteen">15</string>
+    <string name="preferences_font_size_twenty">20</string>
+    <string name="preferences_font_size_twentyfive">25</string>
+    <string name="preferences_font_size_thirty">30</string>
+    <string name="preferences_font_size_thirtyfive">35</string>
+    <string name="preferences_font_size_forty">40</string>
+    <string name="preferences_font_size_fortyfive">45</string>
+    <string name="preferences_font_size_fifty">50</string>
+
+    <string name="preferences_show_fab_change_mode">Vị trí nút chỉnh sửa/xem ghi chú</string>
+    <string name="preferences_fab">Nút nổi</string>
+    <string name="preferences_top_bar">Thanh trên cùng</string>
+
+    <string name="preferences_show_date">Hiển thị ngày tạo/sửa đổi</string>
+    <string name="preferences_date_format">Định dạng ngày</string>
+    <string name="preferences_time_format">Định dạng thời gian</string>
+
+    <!-- Preferences / Other -->
+    <string name="preferences_header_other">Khác</string>
+
+    <string name="preferences_open_media_in">Mở phương tiện trong</string>
+    <string name="preferences_open_media_in_internal">Trình phát nội bộ</string>
+    <string name="preferences_open_media_in_external">Trình phát bên ngoài</string>
+
+    <string name="preferences_group_notes_without_notebook">Nhóm các ghi chú không có trong sổ tay nào</string>
+
+    <string name="preferences_move_checked_items">Di dời (bỏ) các mục đã chọn trong danh sách</string>
+
+    <string name="preferences_note_deletion_time">Xóa ghi chú trong thùng</string>
+    <string name="preferences_note_deletion_time_instantly">Ngay lập tức</string>
+    <string name="preferences_note_deletion_time_week">Sau 7 ngày</string>
+    <string name="preferences_note_deletion_time_two_weeks">Sau 14 ngày</string>
+    <string name="preferences_note_deletion_time_month">Sau 30 ngày</string>
+
+    <!-- Preferences / Backup -->
+    <string name="preferences_header_backup">Sao lưu</string>
+    <string name="preferences_create_backup">Tạo bản sao lưu</string>
+    <string name="preferences_create_backup_subtext">Xuất tất cả ghi chú sang tệp sao lưu.</string>
+    <string name="preferences_restore">Khôi phục</string>
+    <string name="preferences_restore_subtext">Tải ghi chú từ tệp sao lưu.</string>
+    <string name="preferences_backup_strategy">Chiến lược sao lưu cho tệp đính kèm</string>
+    <string name="preferences_backup_strategy_include_files">Sao lưu mọi thứ</string>
+    <string name="preferences_backup_strategy_keep_info">Chỉ sao lưu mô tả và đường dẫn cục bộ</string>
+    <string name="preferences_backup_strategy_keep_nothing">Không sao lưu tệp đính kèm</string>
+
+    <!-- Preferences / Syncing -->
+    <string name="preferences_header_syncing">Đang đồng bộ hóa</string>
+    <string name="preferences_go_to_sync_settings">Đi tới cài đặt đồng bộ hóa</string>
+    <string name="preferences_currently_syncing_with">Hiện đang đồng bộ hóa với %s</string>
+    <string name="preferences_currently_not_syncing">Hiện không đồng bộ</string>
+    <string name="preferences_cloud_service">Dịch vụ đồng bộ hóa</string>
+    <string name="preferences_cloud_service_disabled">Đã tắt</string>
+    <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
+    <string name="preferences_sync_experimental_warning">Chức năng đồng bộ hóa hiện đang thử nghiệm.\nBạn có thể gặp lỗi.</string>
+    <string name="preferences_nextcloud_limited_features">Hãy nhớ rằng Nextcloud Notes không hỗ trợ các tính năng như thẻ, tệp đính kèm, lời nhắc và hơn thế nữa.</string>
+    <string name="preferences_nextcloud_account">Tài khoản Nextcloud</string>
+    <string name="preferences_nextcloud_instance_url">URL phiên bản Nextcloud</string>
+    <string name="preferences_nextcloud_set_your_credentials">Đặt thông tin xác thực của bạn</string>
+    <string name="preferences_nextcloud_set_server_url">Đặt URL của máy chủ</string>
+    <string name="preferences_sync_on_wifi">Wi-Fi</string>
+    <string name="preferences_sync_on_wifi_data">Wi-Fi hoặc dữ liệu</string>
+    <string name="preferences_sync_when_on">Đồng bộ hóa khi bật</string>
+    <string name="preferences_background_sync">Đồng bộ hóa nền</string>
+    <string name="preferences_background_sync_enabled">Đã bật</string>
+    <string name="preferences_background_sync_disabled">Đã tắt</string>
+    <string name="preferences_new_notes_synchronizable">Ghi chú mới có thể đồng bộ hóa</string>
+
+
+    <!-- About -->
+    <string name="about_version">Phiên bản</string>
+    <string name="about_website">Trang web</string>
+    <string name="about_developer">Nhà phát triển</string>
+    <string name="about_contribute">Đóng góp</string>
+    <string name="about_support">Hỗ trợ</string>
+    <string name="about_support_subtext">Việc tạo và duy trì các dự án nguồn mở tốn nhiều thời gian và không mang lại
+        lợi nhuận.\nHãy mua bia cho nhà phát triển!
+    </string>
+    <string name="about_libraries">Thư viện</string>
+    <string name="about_libraries_subtext">Xem thư viện và giấy phép của bên thứ ba.</string>
+
+
+    <!-- General -->
+    <string name="default_string">Mặc định</string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
+    <string name="ok">Được</string>
+    <string name="indicator_notes_empty">Ghi chú của bạn sẽ xuất hiện ở đây.</string>
+    <string name="indicator_untitled">Không có tiêu đề</string>
+    <string name="hint_username">Tên người dùng</string>
+    <string name="hint_password">Mật khẩu</string>
+    <string name="action_save">Lưu</string>
+    <string name="action_cancel">Hủy</string>
+    <string name="action_delete">Xóa</string>
+    <string name="action_done">Xong!</string>
+    <string name="action_delete_permanently">Xóa vĩnh viễn</string>
+    <string name="action_select_all">Chọn tất cả</string>
+    <string name="action_create_list">Tạo danh sách</string>
+    <string name="action_show_hidden_notes">Hiển thị ghi chú ẩn</string>
+    <string name="action_unarchive">Hủy lưu trữ</string>
+    <string name="action_export">Xuất</string>
+    <string name="action_hide">Ẩn</string>
+    <string name="action_show">Hiển thị</string>
+    <string name="action_archive">Lưu trữ</string>
+    <string name="action_change_mode">Chế độ chỉnh sửa/xem</string>
+    <string name="action_pin">Ghim</string>
+    <string name="action_unpin">Bỏ ghim</string>
+    <string name="action_restore">Khôi phục</string>
+    <string name="action_share">Chia sẻ</string>
+    <string name="action_pin_unpin">Ghim / Bỏ ghim</string>
+    <string name="action_move_to">Di chuyển tới…</string>
+    <string name="action_duplicate">Nhân đôi</string>
+    <string name="action_select_more">Chọn thêm…</string>
+    <string name="action_compact_preview">Xem trước nhỏ gọn</string>
+    <string name="action_full_preview">Xem trước đầy đủ</string>
+    <string name="action_screen_always_on">Màn hình luôn bật</string>
+
+
+    <!-- Attachments -->
+    <string name="attachments_edit_description">Chỉnh sửa mô tả</string>
+    <string name="attachments_hint_description">Mô tả tệp đính kèm</string>
+    <string name="action_record_audio">Ghi âm</string>
+    <string name="indicator_recording">Đang ghi (%1$s)</string>
+    <string name="action_attach_files">Đính kèm tập tin</string>
+    <string name="action_take_photo">Chụp ảnh</string>
+    <string name="indicator_recorded_clip">Clip đã ghi</string>
+
+
+    <!-- Notebooks -->
+    <string name="default_notebook">Khác</string>
+    <string name="notebooks_new_notebook">Sổ tay mới</string>
+    <string name="notebooks_hint_name">Tên sổ tay</string>
+    <string name="notebooks_unassigned">Không có sổ tay</string>
+    <string name="indicator_notebook_empty">Bạn không có sổ tay.</string>
+    <string name="action_create_notebook">Tạo sổ tay</string>
+    <string name="action_rename_notebook">Đổi tên sổ tay</string>
+    <string name="action_new_notebook">Sổ tay mới</string>
+    <string name="indicator_notebook_already_exists">Sổ tay có tên %1$s đã tồn tại.</string>
+
+
+    <!-- Archive -->
+    <string name="indicator_archive_empty">Ghi chú đã lưu trữ của bạn sẽ xuất hiện ở đây.</string>
+
+
+    <!-- Deleted -->
+    <string name="action_empty_bin">Thùng rỗng</string>
+    <string name="empty_bin_warning_title">Bạn có chắc không?</string>
+    <string name="empty_bin_warning_text">Tất cả ghi chú đã xóa sẽ bị mất.</string>
+    <string name="indicator_deleted_note_cannot_be_edited">Không thể chỉnh sửa ghi chú bên trong thùng.</string>
+    <string name="indicator_deleted_empty">Các ghi chú đã xóa của bạn sẽ xuất hiện ở đây trong %1$d ngày.</string>
+    <string name="indicator_bin_disabled">Ghi chú được đặt thành xóa ngay lập tức.\nBạn có thể thay đổi điều này tại Thiết đặt.</string>
+    <string name="indicator_bin_forever">Ghi chú được đặt thành không bao giờ bị xóa.\nBạn có thể thay đổi điều này tại Thiết đặt.</string>
+    <string name="indicator_deleted_notes_permanently">Đã xóa vĩnh viễn các ghi chú.</string>
+    <string name="indicator_deleted_note_permanently">Đã xóa vĩnh viễn ghi chú.</string>
+
+
+    <!-- Reminders -->
+    <string name="reminders">Lời nhắc nhở</string>
+    <string name="reminder">Nhắc nhở</string>
+    <string name="reminders_hint_name">Tên lời nhắc</string>
+    <string name="action_set_date">Đặt ngày</string>
+    <string name="action_set_time">Đặt thời gian</string>
+    <string name="action_new_reminder">Lời nhắc mới</string>
+    <string name="notification_reminder_fired">Bạn có một lời nhắc nhở.</string>
+    <string name="indicator_cannot_set_past_reminder">Không thể đặt lời nhắc cho ngày đã qua</string>
+
+
+    <!-- Tags -->
+    <string name="action_new_tag">Thẻ mới</string>
+    <string name="tags_hint_name">Tên thẻ</string>
+    <string name="indicator_tags_empty">Bạn không có thẻ nào.</string>
+    <string name="action_rename_tag">Đổi tên thẻ</string>
+    <string name="indicator_tag_already_exists">Thẻ có tên %1$s đã tồn tại.</string>
+
+
+    <!-- Search -->
+    <string name="search_hint">Tìm kiếm…</string>
+    <string name="action_search">Tìm kiếm</string>
+    <string name="indicator_search_empty">Kết quả tìm kiếm sẽ được hiển thị ở đây.</string>
+    <string name="indicator_no_results_found">Không tìm thấy kết quả nào.</string>
+
+
+    <!-- Editor -->
+    <string name="editor_hint_title">Tiêu đề</string>
+    <string name="editor_hint_content">Hãy ghi chú!</string>
+    <string name="action_add_task">Nhiệm vụ</string>
+    <string name="action_convert_to_note">Chuyển thành ghi chú</string>
+    <string name="action_convert_to_list">Chuyển thành danh sách</string>
+    <string name="action_do_not_sync">Không đồng bộ</string>
+    <string name="action_change_color">Thay đổi màu sắc</string>
+    <string name="action_enable_markdown">Bật markdown</string>
+    <string name="action_disable_markdown">Tắt markdown</string>
+    <string name="action_enable_screen_always_on">Kích hoạt màn hình luôn bật</string>
+    <string name="action_disable_screen_always_on">Tắt màn hình luôn bật</string>
+    <string name="action_insert_bold_text">Chèn markdown in đậm</string>
+    <string name="action_insert_italics">Chèn markdown in nghiêng</string>
+    <string name="action_insert_strikethrough">Chèn markdown gạch ngang</string>
+    <string name="action_insert_highlight">Chèn markdown nổi bật</string>
+    <string name="action_insert_heading">Chèn markdown tiêu đề</string>
+    <string name="action_insert_quote">Chèn markdown ngoặc kép</string>
+    <string name="action_insert_code">Chèn markdown mã</string>
+    <string name="indicator_note_date">Được tạo lúc %1$s\nSửa đổi lần cuối lúc %2$s</string>
+    <string name="indicator_restored_notes">Đã khôi phục các ghi chú</string>
+    <string name="indicator_restored_note">Đã khôi phục ghi chú</string>
+    <string name="indicator_archived_notes">Đã lưu trữ các ghi chú</string>
+    <string name="indicator_archive_note">Đã lưu trữ ghi chú</string>
+    <string name="indicator_moved_notes_to_bin">Đã chuyển các ghi chú vào thùng rác</string>
+    <string name="indicator_moved_note_to_bin">Đã chuyển ghi chú vào thùng rác</string>
+    <string name="indicator_empty_note_discarded">Ghi chú trống bị loại bỏ</string>
+    <string name="action_insert_link">Chèn liên kết</string>
+    <string name="action_insert">Chèn</string>
+    <string name="action_insert_table">Chèn bảng</string>
+    <string name="message_invalid_number_rows_columns">Số hàng và cột không hợp lệ</string>
+    <string name="action_insert_image">Chèn hình ảnh</string>
+    <string name="hint_image_description">Mô tả</string>
+    <string name="hint_image_path">Đường dẫn hình ảnh</string>
+    <string name="hint_hyperlink_text">Văn bản</string>
+    <string name="hint_hyperlink_url">URL</string>
+    <string name="hint_number_columns">Số cột</string>
+    <string name="hint_number_rows">Số hàng</string>
+    <string name="message_cannot_preview_table">Không thể xem trước bảng.</string>
+
+    <!-- Backup / Restore -->
+    <string name="notification_backing_up">Đang sao lưu ghi chú của bạn…</string>
+    <string name="notification_backup_complete">Sao lưu hoàn tất!</string>
+    <string name="notification_backup_failed">Sao lưu không thành công</string>
+    <string name="notification_restoring_notes">Đang khôi phục ghi chú của bạn…</string>
+    <string name="notification_restore_complete">Khôi phục hoàn tất</string>
+    <string name="notification_restore_failed">Khôi phục không thành công</string>
+
+
+    <!-- Notification channels -->
+    <string name="notifications_channel_reminders">Lời nhắc</string>
+    <string name="notifications_channel_backups">Sao lưu</string>
+    <string name="notifications_channel_playback">Phát lại phương tiện</string>
+
+    <!-- Syncing -->
+    <string name="message_not_valid_https">Đây không phải là url HTTPS hợp lệ.</string>
+    <string name="indicator_nextcloud_currently_logged_in_as">Bạn hiện đang đăng nhập với tên <b>%s</b>.</string>
+    <string name="indicator_nextcloud_currently_not_logged_in">Bạn hiện chưa đăng nhập.</string>
+    <string name="action_nextcloud_authenticate">Xác thực</string>
+    <string name="indicator_offline_account">Tài khoản ngoại tuyến</string>
+    <string name="indicator_connecting">Đang kết nối…</string>
+    <string name="message_something_went_wrong">Đã xảy ra lỗi.</string>
+    <string name="message_invalid_credentials">Không thể xác thực với máy chủ do thông tin xác thực không hợp lệ.</string>
+    <string name="message_logged_in_successfully">Đăng nhập thành công!</string>
+    <string name="message_server_not_compatible">Phiên bản máy chủ không tương thích với ứng dụng này.</string>
+    <string name="message_internet_not_available">Kết nối Internet không khả dụng.</string>
+    <string name="message_credentials_cannot_be_blank">Thông tin xác thực không được để trống.</string>
+    <string name="preference_nextcloud_clear_credentials">Xóa thông tin đăng nhập và URL máy chủ</string>
+    <string name="notification_media_play_pause">Phát / Tạm dừng</string>
+    <string name="notification_media_stop">Dừng lại</string>
+
+    <!-- App shortcuts -->
+    <string name="shortcut_take_note">Tạo ghi chú</string>
+    <string name="shortcut_make_list">Lập danh sách</string>
+    <string name="never">Không bao giờ</string>
+
+    <plurals name="more_items">
+        <item quantity="one">+%d mục</item>
+        <item quantity="other">+%d mục</item>
+    </plurals>
+
+    <plurals name="selected_notes">
+        <item quantity="one">Đã chọn %d ghi chú</item>
+        <item quantity="other">Đã chọn %d ghi chú</item>
+    </plurals>
+
+    <plurals name="selected_notebooks">
+        <item quantity="one">Đã chọn %d sổ tay</item>
+        <item quantity="other">Đã chọn %d sổ tay</item>
+    </plurals>
+
+    <plurals name="selected_tags">
+        <item quantity="one">Đã chọn %d thẻ</item>
+        <item quantity="other">Đã chọn %d thẻ</item>
+    </plurals>
+</resources>
