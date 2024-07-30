@@ -170,6 +170,7 @@
     <string name="action_select_more">Select more…</string>
     <string name="action_compact_preview">Compact preview</string>
     <string name="action_full_preview">Full preview</string>
+    <string name="action_screen_always_on">Screen always on</string>
 
 
     <!-- Attachments -->
@@ -246,6 +247,8 @@
     <string name="action_change_color">Change color</string>
     <string name="action_enable_markdown">Enable markdown</string>
     <string name="action_disable_markdown">Disable markdown</string>
+    <string name="action_enable_screen_always_on">Enable screen always on</string>
+    <string name="action_disable_screen_always_on">Disable screen always on</string>
     <string name="action_insert_bold_text">Insert bold markdown</string>
     <string name="action_insert_italics">Insert italics markdown</string>
     <string name="action_insert_strikethrough">Insert strikethrough markdown</string>

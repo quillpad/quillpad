@@ -47,8 +47,25 @@ jobs:
       with:
         name: Archive Quillpad APK
         path: app/build/outputs/apk/defaultFlavor/release/app-defaultFlavor-release.apk
-    
-    - name: Rename app to release java-version
+
+    - name: Build App Bundle
+      if: ${{ github.ref_type == 'tag' }}
+      run: |
+        chmod +x gradlew
+        ./gradlew bundleGoogleFlavor \
+            -Pkeystore=keystore.jks \
+            -Pstorepass=${{secrets.STORE_PASS}} \
+            -Pkeypass=${{secrets.KEY_PASS}} \
+            -Pkeyalias=${{secrets.KEY_NAME}}
+
+    - name: Archive Bundle
+      if: ${{ github.ref_type == 'tag' }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: Google PlayStore Bundle
+        path: app/build/outputs/bundle/googleFlavorRelease/app-googleFlavor-release.aab
+
+    - name: Rename app to release version
       if: ${{ github.ref_type == 'tag' }}
       env: 
         VERSION: ${{ github.ref_name }}

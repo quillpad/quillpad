@@ -180,6 +180,18 @@ class ActivityViewModel @Inject constructor(
         )
     }
 
+    fun disableScreenAlwaysOn(vararg notes: Note) = update(*notes) { note ->
+        note.copy(
+            screenAlwaysOn = false,
+        )
+    }
+
+    fun enableScreenAlwaysOn(vararg notes: Note) = update(*notes) { note ->
+        note.copy(
+            screenAlwaysOn = true,
+        )
+    }
+
     fun disableMarkdown(vararg notes: Note) = update(*notes) { note ->
         note.copy(
             isMarkdownEnabled = false,

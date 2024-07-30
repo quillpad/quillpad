@@ -17,8 +17,8 @@ android {
         applicationId "io.github.quillpad"
         minSdkVersion 24
         targetSdkVersion 34
-        versionCode 22
-        versionName "1.4.16"
+        versionCode 24
+        versionName "1.4.17"
 
         testInstrumentationRunner "org.qosp.notes.TestRunner"
 
@@ -89,6 +89,11 @@ android {
         }
     }
 
+    sourceSets {
+        // Adds exported schema location as test app assets.
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+
 }
 
 repositories {
@@ -97,6 +102,8 @@ repositories {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation libs.monitor
+    implementation libs.junit.ktx
     testImplementation "junit:junit:4.13.2"
     androidTestImplementation "androidx.test.ext:junit:1.1.4"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.5.0"
@@ -114,6 +121,7 @@ dependencies {
     implementation libs.roomRuntime
     implementation libs.roomKtx
     testImplementation libs.roomTesting
+    androidTestImplementation libs.roomTesting
 
     // Lifecycle
     implementation libs.bundles.kotlin.lifecycle

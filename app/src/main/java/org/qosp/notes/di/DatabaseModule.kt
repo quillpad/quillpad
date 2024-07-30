@@ -22,8 +22,8 @@ object DatabaseModule {
         return Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.DB_NAME)
             // we don't want to silently wipe user data in case DB migration fails,
             // rather let the app crash
-            // .fallbackToDestructiveMigration()
             .addMigrations(AppDatabase.MIGRATION_1_2)
+            .addMigrations(AppDatabase.MIGRATION_2_3)
             .build()
     }
 }

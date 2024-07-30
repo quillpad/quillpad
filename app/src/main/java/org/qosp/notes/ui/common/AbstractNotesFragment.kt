@@ -492,6 +492,12 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
             action(R.string.action_full_preview, R.drawable.ic_preview, condition = note.isCompactPreview) {
                 activityModel.makeNotesFullPreview(note)
             }
+            action(R.string.action_disable_screen_always_on, R.drawable.ic_pin, condition = !note.isDeleted && note.screenAlwaysOn) {
+                activityModel.disableScreenAlwaysOn(note)
+            }
+            action(R.string.action_enable_screen_always_on, R.drawable.ic_pin, condition = !note.isDeleted && !note.screenAlwaysOn) {
+                activityModel.enableScreenAlwaysOn(note)
+            }
             action(R.string.action_disable_markdown, R.drawable.ic_markdown, condition = !note.isDeleted && note.isMarkdownEnabled) {
                 activityModel.disableMarkdown(note)
             }

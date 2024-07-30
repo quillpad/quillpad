@@ -49,8 +49,15 @@
             android:visible="false"
             app:showAsAction="never"/>
     <item
-            android:id="@+id/action_hide_note"
-            android:title="@string/action_hide"
+        android:id="@+id/action_hide_note"
+        android:title="@string/action_hide"
+        android:checkable="true"
+        android:checked="false"
+        android:visible="false"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_screen_always_on"
+            android:title="@string/action_screen_always_on"
             android:checkable="true"
             android:checked="false"
             android:visible="false"
