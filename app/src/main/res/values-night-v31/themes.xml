@@ -3,7 +3,7 @@
     <style name="System">
         <item name="colorPrimary">@android:color/system_accent1_200</item>
         <item name="colorPrimaryDark">@android:color/transparent</item>
-        <item name="colorSecondary">@android:color/system_accent2_800</item>
+        <item name="colorSecondary">@android:color/system_accent2_200</item>
         <item name="colorBackground">@android:color/system_neutral2_900</item>
         <item name="colorSurface">@android:color/system_neutral2_900</item>
         <item name="colorDrawerHeaderBackground">@android:color/system_accent1_600</item>
