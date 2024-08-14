@@ -21,25 +21,31 @@ import coil.decode.ImageDecoderDecoder
 import coil.decode.VideoFrameDecoder
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
+import dagger.hilt.EntryPoint
+import dagger.hilt.EntryPoints
+import dagger.hilt.InstallIn
 import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import org.qosp.notes.components.workers.BinCleaningWorker
 import org.qosp.notes.components.workers.SyncWorker
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 @HiltAndroidApp
 class App : Application(), ImageLoaderFactory, Configuration.Provider {
     val syncingScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    @Inject
-    lateinit var workerFactory: HiltWorkerFactory
+    @EntryPoint
+    @InstallIn(SingletonComponent::class)
+    interface HiltWorkerFactoryEntryPoint {
+        fun workerFactory(): HiltWorkerFactory
+    }
 
-    override fun getWorkManagerConfiguration() =
+    override val workManagerConfiguration: Configuration =
         Configuration.Builder()
-            .setWorkerFactory(workerFactory)
+            .setWorkerFactory(EntryPoints.get(this, HiltWorkerFactoryEntryPoint::class.java).workerFactory())
             .build()
 
     override fun newImageLoader(): ImageLoader {

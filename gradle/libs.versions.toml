@@ -9,9 +9,10 @@ coilVideo = "2.2.2"
 constraintlayout = "2.1.4"
 coordinatorlayout = "1.2.0"
 coreLibraryDesugaring = "1.1.6"
-coreKtx = "1.9.0"
-datastore = "1.0.0"
-exoplayer = "2.18.1"
+coreKtx = "1.13.1"
+datastore = "1.1.1"
+datastoreext = "1.0.0"
+exoplayer = "2.19.1"
 flowPreferences = "1.4.0"
 fragmentKtx = "1.5.4"
 hilt = "2.49"
@@ -22,21 +23,21 @@ ksp = "2.0.0-1.0.24"
 leakcanaryAndroid = "2.10"
 lifecycle = "2.5.1"
 markwon = "4.6.2"
-material = "1.7.0"
-media = "1.6.0"
+material = "1.12.0"
+media = "1.7.0"
 nav = "2.5.3"
 navigationSafeArgs = "2.5.3"
 paletteKtx = "1.0.0"
 photoview = "2.3.0"
 recyclerview = "1.2.1"
-retrofit = "2.9.0"
+retrofit = "2.11.0"
 retrofit2Converter = "0.8.0"
-room = "2.4.3"
-securityCrypto = "1.1.0-alpha04"
+room = "2.6.1"
+securityCrypto = "1.1.0-alpha06"
 swiperefreshlayout = "1.1.0"
-work = "2.7.1"
-monitor = "1.6.1"
-junitKtx = "1.1.5"
+work = "2.9.1"
+monitor = "1.7.1"
+junitKtx = "1.2.1"
 
 [libraries]
 androidxHiltCompiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidxHilt" }
@@ -51,7 +52,7 @@ coordinatorlayout = { module = "androidx.coordinatorlayout:coordinatorlayout", v
 coreLibraryDesugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "coreLibraryDesugaring" }
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 datastorePreferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
-datastoreext = { module = "me.msoul:datastoreext", version.ref = "datastore" }
+datastoreext = { module = "me.msoul:datastoreext", version.ref = "datastoreext" }
 exoplayerCore = { module = "com.google.android.exoplayer:exoplayer-core", version.ref = "exoplayer" }
 exoplayerUi = { module = "com.google.android.exoplayer:exoplayer-ui", version.ref = "exoplayer" }
 flowPreferences = { module = "com.github.tfcporciuncula.flow-preferences:flow-preferences", version.ref = "flowPreferences" }
