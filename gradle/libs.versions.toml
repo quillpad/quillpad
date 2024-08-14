@@ -1,6 +1,6 @@
 [versions]
 androidGradlePlugin = "8.5.2"
-androidxHilt = "1.0.0"
+androidxHilt = "1.2.0"
 appcompat = "1.5.1"
 betterLinkMovementMethod = "2.2.0"
 coil = "2.2.2"
@@ -14,11 +14,11 @@ datastore = "1.0.0"
 exoplayer = "2.18.1"
 flowPreferences = "1.4.0"
 fragmentKtx = "1.5.4"
-hilt = "2.44.2"
-kotlin = "1.7.20"
-kotlinSerialization = "1.7.20"
-kotlinSerializationJson = "1.4.1"
-ksp = "1.7.20-1.0.8"
+hilt = "2.49"
+kotlin = "2.0.0"
+kotlinSerialization = "2.0.0"
+kotlinSerializationJson = "1.7.1"
+ksp = "2.0.0-1.0.24"
 leakcanaryAndroid = "2.10"
 lifecycle = "2.5.1"
 markwon = "4.6.2"
@@ -96,12 +96,36 @@ junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "ju
 
 [bundles]
 kotlin-deps = ["kotlin-serialization-json"]
-kotlin-androidX = ["coreKtx", "appcompat", "constraintlayout", "coordinatorlayout", "recyclerview", "fragmentKtx",
-    "paletteKtx", "media", "swiperefreshlayout", "navigationFragmentKtx", "navigationUiKtx"]
-kotlin-lifecycle = ["lifecycleRuntimeKtx", "lifecycleCommonJava8", "lifecycleLiveDataKtx", "lifecycleViewModelKtx",
-    "lifecycleService"]
-markwon = ["markwon", "markwonEditor", "markwonLinkify", "markwonStrikethrough", "markwonSimpleExt", "markwonTable",
-    "markwonTasklist", "betterLinkMovementMethod", ]
+kotlin-androidX = [
+    "coreKtx",
+    "appcompat",
+    "constraintlayout",
+    "coordinatorlayout",
+    "recyclerview",
+    "fragmentKtx",
+    "paletteKtx",
+    "media",
+    "swiperefreshlayout",
+    "navigationFragmentKtx",
+    "navigationUiKtx"
+]
+kotlin-lifecycle = [
+    "lifecycleRuntimeKtx",
+    "lifecycleCommonJava8",
+    "lifecycleLiveDataKtx",
+    "lifecycleViewModelKtx",
+    "lifecycleService"
+]
+markwon = [
+    "markwon",
+    "markwonEditor",
+    "markwonLinkify",
+    "markwonStrikethrough",
+    "markwonSimpleExt",
+    "markwonTable",
+    "markwonTasklist",
+    "betterLinkMovementMethod",
+]
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }

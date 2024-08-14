@@ -44,6 +44,7 @@ class DeletedFragment : AbstractNotesFragment(R.layout.fragment_deleted) {
         get() = binding.layoutAppBar.toolbarSelection
     override val secondaryToolbarMenuRes = R.menu.deleted_selected_notes
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.deleted, menu)
@@ -51,6 +52,7 @@ class DeletedFragment : AbstractNotesFragment(R.layout.fragment_deleted) {
         setHiddenNotesItemActionText()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_empty_bin -> showEmptyBinDialog()

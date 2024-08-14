@@ -72,10 +72,12 @@ class TagsFragment : BaseFragment(R.layout.fragment_tags) {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.tags, menu)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_create_tag -> EditTagDialog.build(null).show(childFragmentManager, null)

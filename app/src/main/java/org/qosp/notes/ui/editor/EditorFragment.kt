@@ -323,6 +323,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.editor_top, menu)
         this.mainMenu = menu
@@ -332,6 +333,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         data.note?.let { note ->
             when (item.itemId) {

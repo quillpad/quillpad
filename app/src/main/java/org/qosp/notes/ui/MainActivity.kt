@@ -87,6 +87,7 @@ class MainActivity : BaseActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
             binding.drawer.closeDrawer(GravityCompat.START)

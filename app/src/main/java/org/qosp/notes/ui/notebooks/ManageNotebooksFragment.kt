@@ -60,10 +60,12 @@ class ManageNotebooksFragment : BaseFragment(R.layout.fragment_manage_notebooks)
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.manage_notebooks, menu)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_create_notebook -> EditNotebookDialog.build(null).show(childFragmentManager, null)
