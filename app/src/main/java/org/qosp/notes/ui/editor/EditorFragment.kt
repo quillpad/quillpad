@@ -1,7 +1,6 @@
 package org.qosp.notes.ui.editor
 
 import android.app.AlarmManager
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color

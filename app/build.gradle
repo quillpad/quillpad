@@ -108,6 +108,8 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:1.1.4"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.5.0"
     coreLibraryDesugaring libs.coreLibraryDesugaring
+
+    implementation libs.okhttp
     // AndroidX
     implementation libs.bundles.kotlin.androidX
 
