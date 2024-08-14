@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "7.4.2"
+androidGradlePlugin = "8.5.2"
 androidxHilt = "1.0.0"
 appcompat = "1.5.1"
 betterLinkMovementMethod = "2.2.0"
