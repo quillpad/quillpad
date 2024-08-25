@@ -438,10 +438,10 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                     setupScreenAlwaysOn(!note.screenAlwaysOn)
                 }
 
-//                R.id.action_uncheck_all_tasks -> {
-//                    uncheckAllTasks()
-//                    true
-//                }
+                R.id.action_uncheck_all_tasks -> {
+                    uncheckAllTasks()
+                    true
+                }
 
                 else -> false
             }
@@ -729,9 +729,9 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
             isVisible = !note.isDeleted
         }
 
-//        findItem(R.id.action_uncheck_all_tasks)?.apply {
-//            isVisible = note.isList && !note.isDeleted
-//        }
+        findItem(R.id.action_uncheck_all_tasks)?.apply {
+            isVisible = note.isList && !note.isDeleted
+        }
     }
 
     private fun observeData() = with(binding) {
@@ -1207,14 +1207,14 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         return note?.content?.isBlank() == true || (note?.isList == true && note.taskList.isEmpty())
     }
 
-//    private fun uncheckAllTasks() {
-//        val updatedTasks = tasksAdapter.tasks.map { task ->
-//            task.copy(isDone = false)
-//        }
-//        tasksAdapter.submitList(updatedTasks)
-//
-//        model.updateTaskList(updatedTasks)
-//    }
+    private fun uncheckAllTasks() {
+        val updatedTasks = tasksAdapter.tasks.map { task ->
+            task.copy(isDone = false)
+        }
+        tasksAdapter.submitList(updatedTasks)
+
+        model.updateTaskList(updatedTasks)
+    }
 
     private val NoteColor.localizedName
         get() = getString(
