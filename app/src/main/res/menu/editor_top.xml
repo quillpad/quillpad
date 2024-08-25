@@ -46,7 +46,6 @@
     <item
         android:id="@+id/action_uncheck_all_tasks"
         android:title="@string/action_uncheck_all_tasks"
-        android:icon="@drawable/ic_restore"
         android:visible="true"
         app:showAsAction="ifRoom"/>
     <item
