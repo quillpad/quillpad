@@ -31,6 +31,7 @@ import org.qosp.notes.preferences.LayoutMode
 import org.qosp.notes.preferences.NoteDeletionTime
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.preferences.SortMethod
+import org.qosp.notes.preferences.SortNavdrawerNotebooksMethod
 import org.qosp.notes.preferences.SortTagsMethod
 import org.qosp.notes.ui.reminders.ReminderManager
 import java.time.Instant
@@ -241,6 +242,12 @@ class ActivityViewModel @Inject constructor(
     }
 
     fun setSortTagsMethod(method: SortTagsMethod) {
+        viewModelScope.launch(Dispatchers.IO) {
+            preferenceRepository.set(method)
+        }
+    }
+
+    fun setSortNavdrawerNotebooksMethod(method: SortNavdrawerNotebooksMethod) {
         viewModelScope.launch(Dispatchers.IO) {
             preferenceRepository.set(method)
         }
