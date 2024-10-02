@@ -10,7 +10,7 @@ class AttachmentsPreviewGridManager(private val context: Context, private val sp
     private var itemSpans = listOf<Int>()
 
     init {
-        spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+        spanSizeLookup = object : SpanSizeLookup() {
             override fun getSpanSize(position: Int) = itemSpans.getOrNull(position) ?: 1
         }
     }

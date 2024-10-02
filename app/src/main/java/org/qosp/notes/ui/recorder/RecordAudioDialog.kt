@@ -32,7 +32,7 @@ const val RECORD_CODE = "RECORD"
 const val RECORDED_ATTACHMENT = "RECORDED_ATTACHMENT"
 
 @AndroidEntryPoint
-class RecordAudioDialog() : BaseDialog<DialogRecordAudioBinding>() {
+class RecordAudioDialog : BaseDialog<DialogRecordAudioBinding>() {
     private var recorderService: RecorderServiceBinder? = null
     private var isPermissionGranted = false
 

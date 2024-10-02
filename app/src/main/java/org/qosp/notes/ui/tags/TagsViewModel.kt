@@ -36,18 +36,6 @@ class TagsViewModel @Inject constructor(
     private val preferenceRepository: PreferenceRepository
 ) : ViewModel() {
 
-    lateinit var tagDataList: Flow<List<TagData>>
-
-    @CallSuper
-    open fun onTagDataListChanged(tagDataList: Flow<List<TagData>>) {
-        this.tagDataList = tagDataList
-
-        // Update the tag order
-        onSortMethodChanged()
-    }
-
-    open fun onSortMethodChanged() {}
-
     fun getData(noteId: Long? = null): Flow<List<TagData>> {
         return when (noteId) {
             null -> tagRepository.getAll().map { tags ->
