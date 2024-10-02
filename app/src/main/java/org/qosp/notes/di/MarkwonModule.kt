@@ -62,7 +62,7 @@ object MarkwonModule {
                         SpanFactory { _, _ ->
                             val typedValue = TypedValue()
                             context.theme.resolveAttribute(R.attr.colorNoteTextHighlight, typedValue, true)
-                            val color = typedValue.data;
+                            val color = typedValue.data
                             return@SpanFactory BackgroundColorSpan(color)
                         })
             })
