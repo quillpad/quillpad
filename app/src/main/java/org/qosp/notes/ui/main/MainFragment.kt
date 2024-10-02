@@ -29,6 +29,7 @@ import org.qosp.notes.databinding.FragmentMainBinding
 import org.qosp.notes.databinding.LayoutNoteBinding
 import org.qosp.notes.preferences.LayoutMode
 import org.qosp.notes.preferences.SortMethod
+import org.qosp.notes.preferences.SortTagsMethod
 import org.qosp.notes.ui.attachments.fromUri
 import org.qosp.notes.ui.common.AbstractNotesFragment
 import org.qosp.notes.ui.recorder.RECORDED_ATTACHMENT
