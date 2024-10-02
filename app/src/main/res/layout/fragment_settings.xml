@@ -143,10 +143,42 @@
                     app:text="@string/preferences_time_format"
                     app:iconSrc="@drawable/ic_time"/>
 
+            <!-- Tags -->
+            <TextView
+                android:text="@string/preferences_header_view_tags"
+                android:fontFamily="@font/inter_font_family"
+                android:textColor="?attr/colorSecondary"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <org.qosp.notes.ui.utils.views.PreferenceView
+                android:id="@+id/setting_sort_tags_method"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="@string/preferences_sort_tags_method"
+                app:iconSrc="@drawable/ic_sort"/>
+
+            <!-- Navigation drawer -->
+            <TextView
+                android:text="@string/preferences_header_view_navdrawer"
+                android:fontFamily="@font/inter_font_family"
+                android:textColor="?attr/colorSecondary"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <org.qosp.notes.ui.utils.views.PreferenceView
+                android:id="@+id/setting_sort_navdrawer_method"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="@string/preferences_sort_navdrawer_method"
+                app:iconSrc="@drawable/ic_sort"/>
+
             <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?attr/colorOutline"/>
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/colorOutline"/>
 
             <!-- Other -->
             <TextView

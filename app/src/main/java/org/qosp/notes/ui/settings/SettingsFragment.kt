@@ -45,6 +45,8 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
         setupDarkThemeModeListener()
         setupLayoutModeListener()
         setupSortMethodListener()
+        setupSortTagsMethodListener()
+        setupSortNavdrawerMethodListener()
         setupGroupNotesWithoutNotebookListener()
         setupMoveCheckedItemsListener()
         setupOpenMediaInListener()
@@ -90,7 +92,8 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
                     }
                 )
                 binding.settingSortMethod.subText = getString(sortMethod.nameResource)
-                binding.settingSortMethod.subText = getString(sortMethod.nameResource)
+                binding.settingSortTagsMethod.subText = getString(sortTagsMethod.nameResource)
+                binding.settingSortNavdrawerMethod.subText = getString(sortNavdrawerNotebooksMethod.nameResource)
                 binding.settingBackupStrategy.subText = getString(backupStrategy.nameResource)
                 binding.settingOpenMedia.subText = getString(openMediaIn.nameResource)
                 binding.settingNoteDeletion.subText = getString(noteDeletionTime.nameResource)
@@ -156,6 +159,20 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
 
     private fun setupSortMethodListener() = binding.settingSortMethod.setOnClickListener {
         showPreferenceDialog(R.string.preferences_sort_method, appPreferences.sortMethod) { selected ->
+            model.setPreference(selected)
+        }
+    }
+
+    /* Changes the sorting method of tags list. */
+    private fun setupSortTagsMethodListener() = binding.settingSortTagsMethod.setOnClickListener {
+        showPreferenceDialog(R.string.preferences_sort_tags_method, appPreferences.sortTagsMethod) { selected ->
+            model.setPreference(selected)
+        }
+    }
+
+    /* Changes the sorting method of notebooks list in the navigation drawer. */
+    private fun setupSortNavdrawerMethodListener() = binding.settingSortNavdrawerMethod.setOnClickListener {
+        showPreferenceDialog(R.string.preferences_sort_navdrawer_method, appPreferences.sortNavdrawerNotebooksMethod) { selected ->
             model.setPreference(selected)
         }
     }

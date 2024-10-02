@@ -38,6 +38,8 @@ class PreferenceRepository(
                     darkThemeMode = prefs.getEnum(),
                     colorScheme = prefs.getEnum(),
                     sortMethod = prefs.getEnum(),
+                    sortTagsMethod = prefs.getEnum(),
+                    sortNavdrawerNotebooksMethod = prefs.getEnum(),
                     backupStrategy = prefs.getEnum(),
                     noteDeletionTime = prefs.getEnum(),
                     dateFormat = prefs.getEnum(),

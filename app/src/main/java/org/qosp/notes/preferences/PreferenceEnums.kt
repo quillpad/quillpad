@@ -48,6 +48,20 @@ enum class SortMethod(override val nameResource: Int) : HasNameResource, EnumPre
     MODIFIED_DESC(R.string.preferences_sort_method_modified_desc) { override val isDefault = true },
 }
 
+enum class SortTagsMethod(override val nameResource: Int) : HasNameResource, EnumPreference by key("sort_tags_method") {
+    TITLE_ASC(R.string.preferences_sort_method_title_asc),
+    TITLE_DESC(R.string.preferences_sort_method_title_desc),
+    CREATION_ASC(R.string.preferences_sort_method_created_asc),
+    CREATION_DESC(R.string.preferences_sort_method_created_desc),
+}
+
+enum class SortNavdrawerNotebooksMethod(override val nameResource: Int) : HasNameResource, EnumPreference by key("sort_navdrawer_notebooks_method") {
+    TITLE_ASC(R.string.preferences_sort_method_title_asc),
+    TITLE_DESC(R.string.preferences_sort_method_title_desc),
+    CREATION_ASC(R.string.preferences_sort_method_created_asc),
+    CREATION_DESC(R.string.preferences_sort_method_created_desc),
+}
+
 enum class BackupStrategy(override val nameResource: Int) : HasNameResource, EnumPreference by key("backup_strategy") {
     INCLUDE_FILES(R.string.preferences_backup_strategy_include_files) { override val isDefault = true },
     KEEP_INFO(R.string.preferences_backup_strategy_keep_info),

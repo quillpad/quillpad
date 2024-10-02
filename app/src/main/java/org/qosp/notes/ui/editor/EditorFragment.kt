@@ -987,11 +987,11 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         }
 
         actionAddTask.setOnClickListener {
-            var addTaskIndex = tasksAdapter.tasks.size;
+            var addTaskIndex = tasksAdapter.tasks.size
             if (model.moveCheckedItems)
-                addTaskIndex = tasksAdapter.tasks.indexOfLast { !it.isDone } + 1;
+                addTaskIndex = tasksAdapter.tasks.indexOfLast { !it.isDone } + 1
 
-            addTask(addTaskIndex);
+            addTask(addTaskIndex)
         }
     }
 
