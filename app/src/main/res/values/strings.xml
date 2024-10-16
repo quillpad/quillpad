@@ -313,6 +313,10 @@
     <string name="shortcut_take_note">Take a note</string>
     <string name="shortcut_make_list">Make a list</string>
     <string name="never">Never</string>
+    <string name="preferences_header_view_tags">Tag list</string>
+    <string name="preferences_sort_tags_method">Sort tags by</string>
+    <string name="preferences_header_view_navdrawer">Navigation drawer</string>
+    <string name="preferences_sort_navdrawer_method">Sort notebooks by</string>
 
     <plurals name="more_items">
         <item quantity="one">+%d item</item>

@@ -8,6 +8,8 @@ data class AppPreferences(
     val darkThemeMode: DarkThemeMode = defaultOf(),
     val colorScheme: ColorScheme = defaultOf(),
     val sortMethod: SortMethod = defaultOf(),
+    val sortTagsMethod: SortTagsMethod = defaultOf(),
+    val sortNavdrawerNotebooksMethod: SortNavdrawerNotebooksMethod = defaultOf(),
     val backupStrategy: BackupStrategy = defaultOf(),
     val noteDeletionTime: NoteDeletionTime = defaultOf(),
     val dateFormat: DateFormat = defaultOf(),

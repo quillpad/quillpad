@@ -53,7 +53,7 @@ class CoilImagesPlugin internal constructor(coilStore: CoilStore, imageLoader: I
         AsyncDrawableScheduler.schedule(textView)
     }
 
-    private class CoilAsyncDrawableLoader internal constructor(
+    private class CoilAsyncDrawableLoader(
         private val coilStore: CoilStore,
         private val imageLoader: ImageLoader,
     ) :
