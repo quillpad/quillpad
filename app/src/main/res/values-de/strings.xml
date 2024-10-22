@@ -35,6 +35,7 @@
     <string name="preferences_color_scheme_purple">Violett</string>
     <string name="preferences_color_scheme_yellow">Gelb</string>
     <string name="preferences_color_scheme_red">Rot</string>
+    <string name="preferences_color_scheme_system">System folgend</string>
 
     <string name="preferences_sort_method">Sortieren nach</string>
     <string name="preferences_sort_method_title_asc">Titel (aufsteigend)</string>
@@ -43,6 +44,25 @@
     <string name="preferences_sort_method_created_desc">Erstellungsdatum (absteigend)</string>
     <string name="preferences_sort_method_modified_asc">Änderungsdatum (aufsteigend)</string>
     <string name="preferences_sort_method_modified_desc">Änderungsdatum (absteigend)</string>
+
+    <!-- Preferences / View / Note content -->
+    <string name="preferences_header_view_note_content">Notizeninhalt</string>
+
+    <string name="preferences_font_size">Schriftgröße bei Bearbeiten/Anzeigen</string>
+    <string name="preferences_font_size_default">Standard</string>
+    <string name="preferences_font_size_ten">10</string>
+    <string name="preferences_font_size_fifteen">15</string>
+    <string name="preferences_font_size_twenty">20</string>
+    <string name="preferences_font_size_twentyfive">25</string>
+    <string name="preferences_font_size_thirty">30</string>
+    <string name="preferences_font_size_thirtyfive">35</string>
+    <string name="preferences_font_size_forty">40</string>
+    <string name="preferences_font_size_fortyfive">45</string>
+    <string name="preferences_font_size_fifty">50</string>
+
+    <string name="preferences_show_fab_change_mode">Bearbeiten/Anzeigen Notiz Button Position</string>
+    <string name="preferences_fab">Unverankerter Button</string>
+    <string name="preferences_top_bar">"Obere Actionsbar"</string>
 
     <string name="preferences_show_date">Erstellungs-/Änderungsdatum anzeigen</string>
     <string name="preferences_date_format">Datumsformat</string>
@@ -53,6 +73,7 @@
     <string name="preferences_open_media_in">Medien öffnen in</string>
     <string name="preferences_open_media_in_internal">internem Player</string>
     <string name="preferences_open_media_in_external">externem Player</string>
+    <string name="preferences_move_checked_items">Bewege nicht abgehakte Elemente in der Liste</string>
     <string name="preferences_note_deletion_time">Notizen in Mülleimer löschen</string>
     <string name="preferences_note_deletion_time_instantly">Sofort</string>
     <string name="preferences_note_deletion_time_week">Nach 7 Tagen</string>
@@ -126,6 +147,7 @@
     <string name="action_hide">Verbergen</string>
     <string name="action_show">Anzeigen</string>
     <string name="action_archive">Archivieren</string>
+    <string name="action_change_mode">Bearbeiten/Anzeige Modus</string>
     <string name="action_pin">Anheften</string>
     <string name="action_unpin">Losheften</string>
     <string name="action_restore">Wiederherstellen</string>
@@ -139,6 +161,7 @@
 
 
     <!-- Attachments -->
+    <string name="action_screen_always_on">Bildschirm dauerhaft aktiv</string>
     <string name="attachments_edit_description">Beschreibung bearbeiten</string>
     <string name="attachments_hint_description">Anhangsbeschreibung</string>
     <string name="action_record_audio">Audio aufnehmen</string>
@@ -212,6 +235,8 @@
     <string name="action_change_color">Farbe ändern</string>
     <string name="action_enable_markdown">Markdown aktivieren</string>
     <string name="action_disable_markdown">Markdown deaktivieren</string>
+    <string name="action_enable_screen_always_on">Aktiviere Bildschirm dauerhaft aktiv</string>
+    <string name="action_disable_screen_always_on">Deaktiviere Bildschirm dauerhaft aktiv</string>
     <string name="action_insert_bold_text">Fettgedrucktes Markdown einfügen</string>
     <string name="action_insert_italics">Kursives Markdown einfügen</string>
     <string name="action_insert_strikethrough">Durchgestrichenes Markdown einfügen</string>
@@ -219,6 +244,7 @@
     <string name="action_insert_heading">Überschrift in Markdown einfügen</string>
     <string name="action_insert_quote">Zitat in Markdown einfügen</string>
     <string name="action_insert_code">Code in Markdown einfügen</string>
+    <string name="action_uncheck_all_tasks">Alle Elemente abwählen</string>
     <string name="indicator_note_date">Erstellt: %1$s\nZuletzt bearbeitet: %2$s</string>
     <string name="indicator_restored_notes">Wiederhergestellte Notizen</string>
     <string name="indicator_restored_note">Wiederhergestellte Notiz</string>
@@ -295,5 +321,4 @@
         <item quantity="one">%d Tag ausgewählt</item>
         <item quantity="other">%d Tags ausgewählt</item>
     </plurals>
-    <string name="preferences_color_scheme_system">System folgend</string>
 </resources>
