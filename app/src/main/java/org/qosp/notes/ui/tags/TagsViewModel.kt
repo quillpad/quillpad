@@ -50,17 +50,12 @@ class TagsViewModel @Inject constructor(
     }
 
     fun getSortTagsMethod() : String {
-
         return runBlocking {
-            val sort = async {
-                preferenceRepository
-                    .getAll()
-                    .map { it.sortTagsMethod }
-                    .first()
-                    .name
-            }
-
-            return@runBlocking sort.await()
+            return@runBlocking preferenceRepository
+                .getAll()
+                .map { it.sortTagsMethod }
+                .first()
+                .name
         }
     }
 

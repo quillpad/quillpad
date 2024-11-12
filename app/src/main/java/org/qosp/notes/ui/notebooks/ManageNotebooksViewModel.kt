@@ -27,13 +27,11 @@ class ManageNotebooksViewModel @Inject constructor(
 
     fun getSortNavdrawerNotebooksMethod() : String {
         return runBlocking {
-            return@runBlocking async {
-                preferenceRepository
-                    .getAll()
-                    .map { it.sortNavdrawerNotebooksMethod }
-                    .first()
-                    .name
-            }.await()
+            return@runBlocking preferenceRepository
+                .getAll()
+                .map { it.sortNavdrawerNotebooksMethod }
+                .first()
+                .name
         }
     }
 }
