@@ -163,13 +163,12 @@ class ManageNotebooksFragment : BaseFragment(R.layout.fragment_manage_notebooks)
 
         activityModel.notebooks.collect(viewLifecycleOwner) { (_, notebooks) ->
             // Apply sorting to the list of notebooks.
-            var sortedNotebooks: List<Notebook>
-            when (sort) {
-                SortNavdrawerNotebooksMethod.TITLE_ASC.name -> sortedNotebooks = notebooks.sortedBy { it.name }
-                SortNavdrawerNotebooksMethod.TITLE_DESC.name -> sortedNotebooks = notebooks.sortedByDescending { it.name }
-                SortNavdrawerNotebooksMethod.CREATION_ASC.name -> sortedNotebooks = notebooks.sortedBy { it.id }
-                SortNavdrawerNotebooksMethod.CREATION_DESC.name -> sortedNotebooks = notebooks.sortedByDescending { it.id }
-                else -> sortedNotebooks = notebooks.sortedBy { it.name }
+            val sortedNotebooks: List<Notebook> = when (sort) {
+                SortNavdrawerNotebooksMethod.TITLE_ASC.name -> notebooks.sortedBy { it.name }
+                SortNavdrawerNotebooksMethod.TITLE_DESC.name -> notebooks.sortedByDescending { it.name }
+                SortNavdrawerNotebooksMethod.CREATION_ASC.name -> notebooks.sortedBy { it.id }
+                SortNavdrawerNotebooksMethod.CREATION_DESC.name -> notebooks.sortedByDescending { it.id }
+                else -> notebooks.sortedBy { it.name }
             }
 
             // Displaying the sorted list of notebooks in the view.

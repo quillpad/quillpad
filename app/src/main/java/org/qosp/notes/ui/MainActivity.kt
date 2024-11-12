@@ -218,23 +218,20 @@ class MainActivity : BaseActivity() {
 
             // Obtaining the current setting of notebook sorting order.
             val sort = runBlocking {
-                return@runBlocking async {
-                    preferenceRepository
-                        .getAll()
-                        .map { it.sortNavdrawerNotebooksMethod }
-                        .first()
-                        .name
-                }.await()
+                return@runBlocking preferenceRepository
+                    .getAll()
+                    .map { it.sortNavdrawerNotebooksMethod }
+                    .first()
+                    .name
             }
 
             // Sorting the notebooks.
-            var sortedNotebooks: List<Notebook>
-            when (sort) {
-                SortNavdrawerNotebooksMethod.CREATION_ASC.name -> sortedNotebooks = notebooks.sortedBy { it.id }
-                SortNavdrawerNotebooksMethod.CREATION_DESC.name -> sortedNotebooks = notebooks.sortedByDescending { it.id }
-                SortNavdrawerNotebooksMethod.TITLE_ASC.name -> sortedNotebooks = notebooks.sortedBy { it.name }
-                SortNavdrawerNotebooksMethod.TITLE_DESC.name -> sortedNotebooks = notebooks.sortedByDescending { it.name }
-                else -> sortedNotebooks = notebooks.sortedBy { it.name }
+            val sortedNotebooks: List<Notebook> = when (sort) {
+                SortNavdrawerNotebooksMethod.CREATION_ASC.name -> notebooks.sortedBy { it.id }
+                SortNavdrawerNotebooksMethod.CREATION_DESC.name -> notebooks.sortedByDescending { it.id }
+                SortNavdrawerNotebooksMethod.TITLE_ASC.name -> notebooks.sortedBy { it.name }
+                SortNavdrawerNotebooksMethod.TITLE_DESC.name -> notebooks.sortedByDescending { it.name }
+                else -> notebooks.sortedBy { it.name }
             }
 
             // Displaying the notebooks.

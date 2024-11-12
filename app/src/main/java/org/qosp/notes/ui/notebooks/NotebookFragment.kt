@@ -13,7 +13,7 @@ class NotebookFragment : MainFragment() {
     override val currentDestinationId: Int = R.id.fragment_notebook
     private val args: NotebookFragmentArgs by navArgs()
 
-    override val notebookId: Long
+    override val notebookId: Long?
         get() = args.notebookId.takeIf { it >= 0L || it == R.id.nav_default_notebook.toLong() }
     override val toolbarTitle: String
         get() = args.notebookName
