@@ -42,6 +42,8 @@ With Quillpad, you can:
 ## Migration
 Backups from [Notally](https://github.com/OmGodse/Notally) can be converted into Quillpad compatible backups using this [python script](https://gist.github.com/nWestie/224d14a6efd00661b5c93040c7511816)
 
+Notes from [Google Keep](https://www.google.com/keep/) can be converted to Quillpad compatible backups using [gk2qp](https://github.com/l0f3n/gk2qp).
+
 ## Translations
 
 Follow these steps to add a new translation:
