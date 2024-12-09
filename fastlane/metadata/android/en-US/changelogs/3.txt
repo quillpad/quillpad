@@ -1,2 +1,0 @@
-- Added Greek translation.
-- Various other improvements.

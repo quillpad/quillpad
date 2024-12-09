@@ -1,1 +1,0 @@
-Markdown notes, task lists, Nextcloud sync and more. A fork of the Quillnote app
