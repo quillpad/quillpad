@@ -1,0 +1,2 @@
+- Added undo/redo functionality.
+- Added AMOLED theme.

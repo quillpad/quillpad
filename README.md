@@ -11,9 +11,7 @@ Join the conversation at [Matrix](https://matrix.to/#/#quillpad_community:gitter
 ### Fork Info
 Quillpad is a fork of an original app called [Quillnote](https://github.com/msoultanidis/quillnote). The development stopped on the original app and PR backlogs were not cleared up. The community showed much interest in the app for continued development and so this fork was created. https://github.com/msoultanidis/quillnote/issues/177 https://github.com/msoultanidis/quillnote/issues/209
 
-<img src="graphics/images/phoneScreenshots/1.png" width="256"/>
-<img src="graphics/images/phoneScreenshots/2.png" width="256"/>
-<img src="graphics/images/phoneScreenshots/4.png" width="256"/>
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="256"/><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="256"/><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="256"/>
 
 
 <a href="https://f-droid.org/packages/io.github.quillpad">

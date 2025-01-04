@@ -1,0 +1,4 @@
+- Option to highlight text 
+- Can now set the trash to never delete notes
+- UI improvements
+- Bug fixes

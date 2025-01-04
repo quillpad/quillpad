@@ -1,0 +1,8 @@
+- Added Italian, Spanish, Polish, French, Brazilian-Portuguese translations
+- Added support for Markdown (GFM) task lists
+- Added new Markdown shortcuts for images, links & tables to the editor toolbar
+- Added scroll to top & scroll to bottom shortcuts to the editor toolbar
+- Dates of creation/modification can now be hidden
+- Added setting which allows you to see all notes that belong to no notebook via a special notebook
+- New list items are now added automatically while typing by pressing the enter button
+- Fixed some bugs and other various improvements
