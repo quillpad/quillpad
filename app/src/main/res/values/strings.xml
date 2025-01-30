@@ -257,6 +257,7 @@
     <string name="action_insert_quote">Insert quotation markdown</string>
     <string name="action_insert_code">Insert code markdown</string>
     <string name="action_uncheck_all_tasks">Uncheck all items</string>
+    <string name="action_remove_all_checked_tasks">Remove all checked tasks</string>
     <string name="indicator_note_date">Created at %1$s\nLast modified at %2$s</string>
     <string name="indicator_restored_notes">Restored notes</string>
     <string name="indicator_restored_note">Restored note</string>
