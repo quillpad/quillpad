@@ -49,21 +49,27 @@ class BackupService : LifecycleService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
-        intent?.let { intent ->
-            val action = intent.extras?.getSerializable(ACTION) as? Action ?: return@let
-            val uri = intent.extras?.getParcelable<Uri>(URI_EXTRA) ?: return@let
+        intent?.let { i ->
+            val action = i.extras?.getSerializable(ACTION) as? Action ?: return@let
+            val uri = i.extras?.getParcelable<Uri>(URI_EXTRA) ?: return@let
 
             when (action) {
                 Action.RESTORE -> {
                     restoreNotes(uri)
                 }
                 Action.BACKUP -> {
-                    val notes = intent.extras?.getParcelableArrayList<Note>(NOTES)?.toSet()
+                    val notes = i.extras?.getParcelableArrayList<Note>(NOTES)?.toSet()
                     backupNotes(notes, uri)
                 }
             }
         }
         return START_STICKY
+    }
+
+    override fun onTimeout(startId: Int) {
+        super.onTimeout(startId)
+        jobs.forEach { it.cancel() }
+        stopSelf()
     }
 
     override fun onDestroy() {
