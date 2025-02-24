@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kapt)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinParcelize)
@@ -10,14 +11,14 @@ plugins {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 35
     buildToolsVersion = "30.0.3"
     namespace = "org.qosp.notes"
 
     defaultConfig {
         applicationId = "io.github.quillpad"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 30
         versionName = "1.4.23"
 
@@ -91,6 +92,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        compose = true
     }
 
     kapt {
@@ -107,12 +109,15 @@ android {
 }
 
 dependencies {
+    implementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(libs.monitor)
     implementation(libs.junit.ktx)
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.4")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
     coreLibraryDesugaring(libs.coreLibraryDesugaring)
 
     implementation(libs.okhttp)
@@ -123,6 +128,11 @@ dependencies {
 
     // Material Components
     implementation(libs.material)
+    implementation(libs.androidx.material)
+    // Optional - Integration with activities
+    implementation(libs.androidx.activity.compose)
+    // Optional - Integration with ViewModels
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     // Room
     ksp(libs.roomCompiler)

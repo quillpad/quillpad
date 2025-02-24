@@ -129,6 +129,7 @@ class App : Application(), ImageLoaderFactory, Configuration.Provider {
             StrictMode.VmPolicy.Builder()
                 .detectLeakedSqlLiteObjects()
                 .detectLeakedClosableObjects()
+                .detectUnsafeIntentLaunch()
                 .penaltyLog()
                 .build()
         )

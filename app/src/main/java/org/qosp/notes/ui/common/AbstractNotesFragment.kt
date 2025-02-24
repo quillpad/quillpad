@@ -41,7 +41,6 @@ import org.qosp.notes.ui.common.recycler.NoteRecyclerAdapter
 import org.qosp.notes.ui.common.recycler.NoteRecyclerListener
 import org.qosp.notes.ui.common.recycler.onBackPressedHandler
 import org.qosp.notes.ui.utils.collect
-import org.qosp.notes.ui.utils.launch
 import org.qosp.notes.ui.utils.liftAppBarOnScroll
 import org.qosp.notes.ui.utils.shareNote
 import org.qosp.notes.ui.utils.views.BottomSheet
