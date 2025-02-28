@@ -24,11 +24,9 @@ class NoteRepository(
     private suspend fun cleanMappingsForLocalNotes(vararg notes: Note) {
         notes
             .filter { it.isLocalOnly }
-            .also { notes ->
+            .also { n ->
                 idMappingDao.setNotesToBeDeleted(
-                    *notes
-                        .map { it.id }
-                        .toLongArray()
+                    *n.map { it.id }.toLongArray()
                 )
             }
     }
