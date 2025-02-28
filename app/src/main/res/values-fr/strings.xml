@@ -182,7 +182,7 @@
     <string name="reminders_hint_name">Nom du rappel</string>
     <string name="action_set_date">Définir la date</string>
     <string name="action_set_time">Définir l\'heure</string>
-    <string name="action_new_reminder">Nouveau reappel</string>
+    <string name="action_new_reminder">Nouveau rappel</string>
     <string name="notification_reminder_fired">Vous avez un rappel.</string>
     <string name="indicator_cannot_set_past_reminder">Impossible d\'utiliser une date antérieure pour un rappel</string>
 
