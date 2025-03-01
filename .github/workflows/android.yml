@@ -42,12 +42,6 @@ jobs:
             -Pkeypass=${{secrets.KEY_PASS}} \
             -Pkeyalias=${{secrets.KEY_NAME}}
 
-    - name: Archive APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: Archive Quillpad APK
-        path: app/build/outputs/apk/defaultFlavor/release/app-defaultFlavor-release.apk
-
     - name: Build App Bundle
       if: ${{ github.ref_type == 'tag' }}
       run: |
@@ -57,6 +51,15 @@ jobs:
             -Pstorepass=${{secrets.STORE_PASS}} \
             -Pkeypass=${{secrets.KEY_PASS}} \
             -Pkeyalias=${{secrets.KEY_NAME}}
+
+    - name: Delete keystore
+      run: rm -f keystore.jks keystore.jks.asc
+
+    - name: Archive APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: Archive Quillpad APK
+        path: app/build/outputs/apk/defaultFlavor/release/app-defaultFlavor-release.apk
 
     - name: Archive Bundle
       if: ${{ github.ref_type == 'tag' }}
