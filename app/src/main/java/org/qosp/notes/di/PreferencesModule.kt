@@ -3,6 +3,7 @@ package org.qosp.notes.di
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -66,15 +67,13 @@ object PreferencesModule {
                 val appStorageDir = context.filesDir?.parent ?: return
                 val prefsFile = File("$appStorageDir/shared_prefs/$filename.xml")
 
-                context.getSharedPreferences(filename, Context.MODE_PRIVATE)
-                    .edit()
-                    .clear()
-                    .commit()
+                context.getSharedPreferences(filename, Context.MODE_PRIVATE).edit(commit = true) { clear() }
 
                 keyStore.load(null)
                 keyStore.deleteEntry(MasterKey.DEFAULT_MASTER_KEY_ALIAS)
                 prefsFile.delete()
-            } catch (e: Throwable) {}
+            } catch (_: Throwable) {
+            }
         }
 
         return FlowSharedPreferences(
