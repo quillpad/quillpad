@@ -200,6 +200,7 @@
     <string name="action_insert_heading">Insertar formato cabecera</string>
     <string name="action_insert_quote">Insertar formato de cita</string>
     <string name="action_insert_code">Insertar formato de código</string>
+    <string name="action_remove_all_checked_tasks">Eliminar todas las tareas marcadas</string>
     <string name="indicator_note_date">Creada el %1$s\nModificadas el %2$s</string>
     <string name="indicator_restored_notes">Notas restauradas</string>
     <string name="indicator_restored_note">Nota restaurada</string>
@@ -272,5 +273,13 @@
         <item quantity="other">%d etiquetas seleccionadas</item>
     </plurals>
     <string name="preferences_color_scheme_system">Del sistema</string>
+    <string name="new_and_updated">¡Nuevo y actualizado!</string>
+    <string name="what_is_new">¿Qué hay de nuevo?</string>
+    <string name="continue_next">Continuar</string>
+    <string name="preferences_header_view_tags">Lista de etiquetas</string>
+    <string name="preferences_sort_tags_method">Ordenar etiquetas por</string>
+    <string name="preferences_header_view_navdrawer">Panel de navegación</string>
+    <string name="preferences_sort_navdrawer_method">Ordenar cuadernos por</string>
+    <string name="swipe_to_find_out_whats_new">Desliza para descubrir las novedades</string>
 
 </resources>

@@ -218,7 +218,8 @@
     <string name="action_insert_heading">Додати заголовок</string>
     <string name="action_insert_quote">Додати цитату</string>
     <string name="action_insert_code">Додати код</string>
-    <string name="indicator_note_date">Створено %1$s\nВостаннє змінено %2$s</string>
+     <string name="action_remove_all_checked_tasks">Видалити всі позначені завдання</string>
+     <string name="indicator_note_date">Створено %1$s\nВостаннє змінено %2$s</string>
     <string name="indicator_restored_notes">Відновлено нотатки</string>
     <string name="indicator_restored_note">Відновлено нотаток</string>
     <string name="indicator_archived_notes">Архівовано нотатки</string>
@@ -295,4 +296,12 @@
         <item quantity="other">Обрано %d поміток</item>
     </plurals>
      <string name="preferences_color_scheme_system">За системою</string>
+     <string name="new_and_updated">Новий та оновлений!</string>
+     <string name="what_is_new">що нового</string>
+     <string name="continue_next">Продовжити</string>
+     <string name="preferences_header_view_tags">Список тегів</string>
+     <string name="preferences_sort_tags_method">Сортувати теги за</string>
+     <string name="preferences_header_view_navdrawer">Панель навігації</string>
+     <string name="preferences_sort_navdrawer_method">Розсортуйте зошити за</string>
+     <string name="swipe_to_find_out_whats_new">Гортайте, щоб дізнатися, що нового</string>
  </resources>

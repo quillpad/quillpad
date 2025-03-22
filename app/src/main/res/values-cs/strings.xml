@@ -55,15 +55,6 @@
 
 	<string name="preferences_font_size">Velikost fontu v editoru a náhledu</string>
 	<string name="preferences_font_size_default">Výchozí</string>
-	<string name="preferences_font_size_ten">10</string>
-	<string name="preferences_font_size_fifteen">15</string>
-	<string name="preferences_font_size_twenty">20</string>
-	<string name="preferences_font_size_twentyfive">25</string>
-	<string name="preferences_font_size_thirty">30</string>
-	<string name="preferences_font_size_thirtyfive">35</string>
-	<string name="preferences_font_size_forty">40</string>
-	<string name="preferences_font_size_fortyfive">45</string>
-	<string name="preferences_font_size_fifty">50</string>
 
 	<string name="preferences_show_fab_change_mode">Poloha tlačítka Editovat/Zobrazit</string>
 	<string name="preferences_fab">Plovoucí tlačítko</string>
@@ -251,6 +242,7 @@
 	<string name="action_insert_heading">Nadpis</string>
 	<string name="action_insert_quote">Uvozovky</string>
 	<string name="action_insert_code">Zdrojový kód</string>
+	<string name="action_remove_all_checked_tasks">Пур тӗрӗсленӗ задачӑсене те кӑларса пӑрахӑр</string>
 	<string name="indicator_note_date">Vytvořeno %1$s\nNaposledy upraveno %2$s</string>
 	<string name="indicator_restored_notes">Obnovené poznámky</string>
 	<string name="indicator_restored_note">Obnovená poznámka</string>
@@ -331,4 +323,12 @@
     	<item quantity="few">Označeny %d štítky</item>
    	    <item quantity="many">Označeno %d štítků</item>
 	</plurals>
+	<string name="new_and_updated">Ҫӗнӗ те ҫӗнетнӗ!</string>
+	<string name="what_is_new">Мӗн ҫӗнни пур?</string>
+	<string name="continue_next">Малалла тӑс</string>
+	<string name="preferences_header_view_tags">Тег списокӗ</string>
+	<string name="preferences_sort_tags_method">Тегсене тӑрӑх йӗркеле</string>
+	<string name="preferences_header_view_navdrawer">Навигаци ещӗкӗ</string>
+	<string name="preferences_sort_navdrawer_method">Тетрадьсене тӑрӑх уйӑрӑр</string>
+	<string name="swipe_to_find_out_whats_new">Ҫӗнӗ хыпарсене пӗлес тесен, ҫавӑрса илӗр</string>
 </resources>

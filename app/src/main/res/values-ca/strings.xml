@@ -215,6 +215,7 @@
     <string name="action_insert_heading">Insereix capçalera (Markdown)</string>
     <string name="action_insert_quote">Insereix cita (Markdown)</string>
     <string name="action_insert_code">Insereix codi (Markdown)</string>
+    <string name="action_remove_all_checked_tasks">Elimina totes les tasques marcades</string>
     <string name="indicator_note_date">Creada el %1$s\nModificada per última vegada el %2$s</string>
     <string name="indicator_restored_notes">Notes restaurades</string>
     <string name="indicator_restored_note">Nota restaurada</string>
@@ -289,4 +290,12 @@
         <item quantity="one">%d etiqueta seleccionada</item>
         <item quantity="other">%d etiquetes seleccionades</item>
     </plurals>
+    <string name="preferences_sort_navdrawer_method">Ordena els quaderns per</string>
+    <string name="new_and_updated">Nou i actualitzat!</string>
+    <string name="what_is_new">Què hi ha de nou?</string>
+    <string name="continue_next">Continua</string>
+    <string name="preferences_header_view_tags">Llista d\'etiquetes</string>
+    <string name="preferences_sort_tags_method">Ordena les etiquetes per</string>
+    <string name="preferences_header_view_navdrawer">Calaix de navegació</string>
+    <string name="swipe_to_find_out_whats_new">Feu lliscar el dit per descobrir les novetats</string>
 </resources>

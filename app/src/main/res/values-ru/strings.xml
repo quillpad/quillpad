@@ -217,6 +217,7 @@
     <string name="action_insert_heading">Добавить заголовком</string>
     <string name="action_insert_quote">Добавить цитированием</string>
     <string name="action_insert_code">Добавить как код</string>
+    <string name="action_remove_all_checked_tasks">Удалить все отмеченные задачи</string>
     <string name="indicator_note_date">Создано %1$s\nПоследняя правка %2$s</string>
     <string name="indicator_restored_notes">Восстановленные заметки</string>
     <string name="indicator_restored_note">Восстановленная заметка</string>
@@ -298,4 +299,12 @@
         <item quantity="many">Выбрано %d меток</item>
     </plurals>
     <string name="preferences_color_scheme_system">Системная</string>
+    <string name="new_and_updated">Новое и обновленное!</string>
+    <string name="what_is_new">Что нового?</string>
+    <string name="continue_next">Продолжить</string>
+    <string name="preferences_header_view_tags">Список тегов</string>
+    <string name="preferences_sort_tags_method">Сортировать теги по</string>
+    <string name="preferences_header_view_navdrawer">Панель навигации</string>
+    <string name="preferences_sort_navdrawer_method">Сортировать блокноты по</string>
+    <string name="swipe_to_find_out_whats_new">Проведите пальцем, чтобы узнать, что нового</string>
 </resources>

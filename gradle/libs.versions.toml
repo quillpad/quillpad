@@ -45,14 +45,22 @@ swiperefreshlayout = "1.1.0"
 work = "2.10.0"
 monitor = "1.7.2"
 junitKtx = "1.2.1"
+ui = "1.7.8"
+uiToolingPreview = "1.7.8"
+lifecycleRuntimeCompose = "2.8.7"
+navigationCompose = "2.8.8"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junitVersion" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 androidx-material = { module = "androidx.compose.material3:material3" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "ui" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "uiToolingPreview" }
 androidxHiltCompiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidxHilt" }
 androidxHiltWork = { module = "androidx.hilt:hilt-work", version.ref = "androidxHilt" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -75,6 +83,7 @@ hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", vers
 hiltAndroidTesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
 hiltCompiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 junit = { module = "junit:junit", version.ref = "junit" }
+junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerializationJson" }
 leakcanaryAndroid = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
 lifecycleCommonJava8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "lifecycle" }
@@ -91,6 +100,7 @@ markwonTable = { module = "io.noties.markwon:ext-tables", version.ref = "markwon
 markwonTasklist = { module = "io.noties.markwon:ext-tasklist", version.ref = "markwon" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 media = { module = "androidx.media:media", version.ref = "media" }
+monitor = { group = "androidx.test", name = "monitor", version.ref = "monitor" }
 navigationFragmentKtx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "nav" }
 navigationUiKtx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "nav" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
@@ -107,8 +117,6 @@ securityCrypto = { module = "androidx.security:security-crypto", version.ref = "
 swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 workRuntimeKtx = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
 workTesting = { module = "androidx.work:work-testing", version.ref = "work" }
-monitor = { group = "androidx.test", name = "monitor", version.ref = "monitor" }
-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 
 [bundles]
 kotlin-deps = ["kotlin-serialization-json"]

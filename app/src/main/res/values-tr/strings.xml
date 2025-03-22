@@ -218,6 +218,7 @@
     <string name="action_insert_heading">Başlık ekle</string>
     <string name="action_insert_quote">Alıntı ekle</string>
     <string name="action_insert_code">Kod alanı ekle</string>
+    <string name="action_remove_all_checked_tasks">Eliminar todas las tareas marcadas</string>
     <string name="indicator_note_date">Oluşturma: %1$s\nSon değiştirilme: %2$s</string>
     <string name="indicator_restored_notes">Geri yüklenmiş notlar</string>
     <string name="indicator_restored_note">Geri yüklenmiş not</string>
@@ -295,4 +296,12 @@
         <item quantity="other">%d etiket şeçildi</item>
     </plurals>
     <string name="preferences_color_scheme_system">Sisteme uy</string>
+    <string name="new_and_updated">¡Nuevo y actualizado!</string>
+    <string name="what_is_new">¿Qué hay de nuevo?</string>
+    <string name="continue_next">Continuar</string>
+    <string name="preferences_header_view_tags">Lista de etiquetas</string>
+    <string name="preferences_sort_tags_method">Ordenar etiquetas por</string>
+    <string name="preferences_header_view_navdrawer">Panel de navegación</string>
+    <string name="preferences_sort_navdrawer_method">Ordenar cuadernos por</string>
+    <string name="swipe_to_find_out_whats_new">Desliza para descubrir las novedades</string>
 </resources>

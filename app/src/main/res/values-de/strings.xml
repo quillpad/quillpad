@@ -50,15 +50,6 @@
 
     <string name="preferences_font_size">Schriftgröße bei Bearbeiten/Anzeigen</string>
     <string name="preferences_font_size_default">Standard</string>
-    <string name="preferences_font_size_ten">10</string>
-    <string name="preferences_font_size_fifteen">15</string>
-    <string name="preferences_font_size_twenty">20</string>
-    <string name="preferences_font_size_twentyfive">25</string>
-    <string name="preferences_font_size_thirty">30</string>
-    <string name="preferences_font_size_thirtyfive">35</string>
-    <string name="preferences_font_size_forty">40</string>
-    <string name="preferences_font_size_fortyfive">45</string>
-    <string name="preferences_font_size_fifty">50</string>
 
     <string name="preferences_show_fab_change_mode">Bearbeiten/Anzeigen Notiz Button Position</string>
     <string name="preferences_fab">Unverankerter Button</string>
@@ -245,6 +236,7 @@
     <string name="action_insert_quote">Zitat in Markdown einfügen</string>
     <string name="action_insert_code">Code in Markdown einfügen</string>
     <string name="action_uncheck_all_tasks">Alle Elemente abwählen</string>
+    <string name="action_remove_all_checked_tasks">Alle markierten Aufgaben entfernen</string>
     <string name="indicator_note_date">Erstellt: %1$s\nZuletzt bearbeitet: %2$s</string>
     <string name="indicator_restored_notes">Wiederhergestellte Notizen</string>
     <string name="indicator_restored_note">Wiederhergestellte Notiz</string>
@@ -321,4 +313,12 @@
         <item quantity="one">%d Tag ausgewählt</item>
         <item quantity="other">%d Tags ausgewählt</item>
     </plurals>
+    <string name="new_and_updated">Neu und aktualisiert!</string>
+    <string name="what_is_new">Was gibt’s Neues?</string>
+    <string name="continue_next">Weiter</string>
+    <string name="preferences_header_view_tags">Tag-Liste</string>
+    <string name="preferences_sort_tags_method">Tags sortieren nach</string>
+    <string name="preferences_header_view_navdrawer">Navigationsleiste</string>
+    <string name="preferences_sort_navdrawer_method">Notizbücher sortieren nach</string>
+    <string name="swipe_to_find_out_whats_new">Wischen Sie durch die Liste, um zu erfahren, was es Neues gibt</string>
 </resources>

@@ -171,6 +171,7 @@
     <string name="action_insert_heading">Εισαγωγή markdown επικεφαλίδας</string>
     <string name="action_insert_quote">Εισαγωγή markdown παράθεσης</string>
     <string name="action_insert_code">Εισαγωγή markdown κώδικα</string>
+    <string name="action_remove_all_checked_tasks">Καταργήστε όλες τις επιλεγμένες εργασίες</string>
     <string name="indicator_note_date">Δημιουργήθηκε στις %1$s\nΤροποποιήθηκε στις %2$s</string>
     <string name="indicator_restored_notes">Ανακτήθηκαν σημειώσεις</string>
     <string name="indicator_restored_note">Ανακτήθηκε σημείωση</string>
@@ -245,4 +246,12 @@
         <item quantity="other">Επιλέχθηκαν %d ετικέτες</item>
     </plurals>
     <string name="preferences_color_scheme_system">Ρύθμιση συστήματος</string>
+    <string name="new_and_updated">Νέο και Ενημερωμένο!</string>
+    <string name="what_is_new">Τι νέο υπάρχει;</string>
+    <string name="continue_next">Συνεχίζω</string>
+    <string name="preferences_header_view_tags">Λίστα ετικετών</string>
+    <string name="preferences_sort_tags_method">Ταξινόμηση ετικετών κατά</string>
+    <string name="preferences_header_view_navdrawer">Συρτάρι πλοήγησης</string>
+    <string name="preferences_sort_navdrawer_method">Ταξινόμηση σημειωματάρια κατά</string>
+    <string name="swipe_to_find_out_whats_new">Σύρετε μέσα για να μάθετε τι νέο υπάρχει</string>
 </resources>

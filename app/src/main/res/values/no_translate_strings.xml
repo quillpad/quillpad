@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name" translatable="false">Quillpad</string>
   <string name="app_website" translatable="false">https://quillpad.github.io</string>
-    <string name="app_developer_name" translatable="false">Michael Soultanidis</string>
+    <string name="app_developer_name" translatable="false">Michael Soultanidis and Contributors</string>
     <string name="app_developer_repo" translatable="false">https://github.com/msoultanidis</string>
     <string name="app_repo" translatable="false">https://github.com/quillpad/quillpad</string>
     <string name="app_support_page" translatable="false">https://quillpad.github.io/#/support</string>

@@ -217,6 +217,7 @@
     <string name="action_insert_heading">Sett inn overskrift-markdown</string>
     <string name="action_insert_quote">Sett inn sitat-markdown</string>
     <string name="action_insert_code">Sett inn kode-markdown</string>
+    <string name="action_remove_all_checked_tasks">Fjern alle avmerkede oppgaver</string>
     <string name="indicator_note_date">Opprettet %1$s\nSist endret %2$s</string>
     <string name="indicator_restored_notes">Gjenopprettet notater</string>
     <string name="indicator_restored_note">Gjenopprettet notatet</string>
@@ -294,4 +295,12 @@
         <item quantity="other">%d etiketter valgt</item>
     </plurals>
     <string name="preferences_color_scheme_system">System</string>
+    <string name="new_and_updated">Nytt og oppdatert!</string>
+    <string name="what_is_new">Hva er nytt?</string>
+    <string name="continue_next">Fortsette</string>
+    <string name="preferences_header_view_tags">Tag liste</string>
+    <string name="preferences_sort_tags_method">Sorter tagger etter</string>
+    <string name="preferences_header_view_navdrawer">Navigasjonsskuff</string>
+    <string name="preferences_sort_navdrawer_method">Sorter notatbøker etter</string>
+    <string name="swipe_to_find_out_whats_new">Sveip gjennom for å finne ut hva som er nytt</string>
 </resources>

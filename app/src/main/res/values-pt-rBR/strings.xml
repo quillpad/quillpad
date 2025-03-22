@@ -218,6 +218,7 @@
     <string name="action_insert_heading">Inserir marcador de cabeçalho</string>
     <string name="action_insert_quote">Inserir marcador de citação</string>
     <string name="action_insert_code">Inserir marcador de código</string>
+    <string name="action_remove_all_checked_tasks">Remover todas as tarefas marcadas</string>
     <string name="indicator_note_date">Criado em %1$s\nUltima modificação em %2$s</string>
     <string name="indicator_restored_notes">Anotações restauradas</string>
     <string name="indicator_restored_note">Anotação restaurada</string>
@@ -295,4 +296,12 @@
         <item quantity="other">%d etiquetas selecionadas</item>
     </plurals>
     <string name="preferences_color_scheme_system">Seguir tema do sistema</string>
+    <string name="new_and_updated">Novo e atualizado!</string>
+    <string name="what_is_new">O que há de novo?</string>
+    <string name="continue_next">Continuar</string>
+    <string name="preferences_header_view_tags">Lista de tags</string>
+    <string name="preferences_sort_tags_method">Classificar tags por</string>
+    <string name="preferences_header_view_navdrawer">Gaveta de navegação</string>
+    <string name="preferences_sort_navdrawer_method">Classificar cadernos por</string>
+    <string name="swipe_to_find_out_whats_new">Deslize para descobrir o que há de novo</string>
 </resources>

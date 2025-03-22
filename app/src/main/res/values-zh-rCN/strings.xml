@@ -56,15 +56,6 @@
 
     <string name="preferences_font_size">文本编辑/查看字体大小</string>
     <string name="preferences_font_size_default">默认</string>
-    <string name="preferences_font_size_ten">10</string>
-    <string name="preferences_font_size_fifteen">15</string>
-    <string name="preferences_font_size_twenty">20</string>
-    <string name="preferences_font_size_twentyfive">25</string>
-    <string name="preferences_font_size_thirty">30</string>
-    <string name="preferences_font_size_thirtyfive">35</string>
-    <string name="preferences_font_size_forty">40</string>
-    <string name="preferences_font_size_fortyfive">45</string>
-    <string name="preferences_font_size_fifty">50</string>
 
     <string name="preferences_show_fab_change_mode">编辑/查看字符按钮位置</string>
     <string name="preferences_fab">浮动按钮</string>
@@ -245,6 +236,7 @@
     <string name="action_insert_heading">插入 Markdown标题</string>
     <string name="action_insert_quote">插入 Markdown引文</string>
     <string name="action_insert_code">插入 Markdown代码</string>
+    <string name="action_remove_all_checked_tasks">删除所有选中的任务</string>
     <string name="indicator_note_date">创建于 %1$s\n上次修改时间 %2$s</string>
     <string name="indicator_restored_notes">恢复的笔记</string>
     <string name="indicator_restored_note">恢复的笔记</string>
@@ -321,4 +313,12 @@
         <item quantity="one">选定的 %d 个标签</item>
         <item quantity="other">选定的 %d 个标签</item>
     </plurals>
+    <string name="new_and_updated">新增和更新！</string>
+    <string name="what_is_new">有什么新内容？</string>
+    <string name="continue_next">继续</string>
+    <string name="preferences_header_view_tags">标签列表</string>
+    <string name="preferences_sort_tags_method">按以下方式对标签进行排序</string>
+    <string name="preferences_header_view_navdrawer">导航抽屉</string>
+    <string name="preferences_sort_navdrawer_method">按以下方式对笔记本进行排序</string>
+    <string name="swipe_to_find_out_whats_new">滑动查看新内容</string>
 </resources>

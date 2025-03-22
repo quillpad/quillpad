@@ -216,6 +216,7 @@
     <string name="action_insert_heading">Inserisci markdown titolo</string>
     <string name="action_insert_quote">Inserisci markdown quotazione</string>
     <string name="action_insert_code">Inserisci markdown codice</string>
+    <string name="action_remove_all_checked_tasks">Rimuovi tutte le attività selezionate</string>
     <string name="indicator_note_date">Creata il %1$s\nUltima modifica il %2$s</string>
     <string name="indicator_restored_notes">Note recuperate</string>
     <string name="indicator_restored_note">Nota recuperata</string>
@@ -293,4 +294,12 @@
         <item quantity="other">Selezionate %d etichette</item>
     </plurals>
     <string name="preferences_color_scheme_system">Segui sistema</string>
+    <string name="new_and_updated">Nuovo e aggiornato!</string>
+    <string name="what_is_new">Cosa c\'è di nuovo?</string>
+    <string name="continue_next">Continua</string>
+    <string name="preferences_header_view_tags">Elenco tag</string>
+    <string name="preferences_sort_tags_method">Ordina tag per</string>
+    <string name="preferences_header_view_navdrawer">Cassetto di navigazione</string>
+    <string name="preferences_sort_navdrawer_method">Ordina notebook per</string>
+    <string name="swipe_to_find_out_whats_new">Scorri per scoprire le novità</string>
 </resources>

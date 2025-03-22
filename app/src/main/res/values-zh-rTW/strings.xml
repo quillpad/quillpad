@@ -55,15 +55,6 @@
 
     <string name="preferences_font_size">文字編輯器/檢視字體大小</string>
     <string name="preferences_font_size_default">預設</string>
-    <string name="preferences_font_size_ten">10</string>
-    <string name="preferences_font_size_fifteen">15</string>
-    <string name="preferences_font_size_twenty">20</string>
-    <string name="preferences_font_size_twentyfive">25</string>
-    <string name="preferences_font_size_thirty">30</string>
-    <string name="preferences_font_size_thirtyfive">35</string>
-    <string name="preferences_font_size_forty">40</string>
-    <string name="preferences_font_size_fortyfive">45</string>
-    <string name="preferences_font_size_fifty">50</string>
 
     <string name="preferences_show_fab_change_mode">編輯/檢視筆記按鈕位置</string>
     <string name="preferences_fab">浮動按鈕</string>
@@ -255,6 +246,7 @@
     <string name="action_insert_quote">插入Markdown引文</string>
     <string name="action_insert_code">插入Markdown代碼</string>
 
+    <string name="action_remove_all_checked_tasks">移除所有勾選的任務</string>
     <string name="indicator_note_date">製作於 %1$s\n上次修改時間 %2$s</string>
     <string name="indicator_restored_notes">還原的筆記</string>
     <string name="indicator_restored_note">還原的筆記</string>
@@ -332,4 +324,12 @@
         <item quantity="one">選擇的 %d 個標籤</item>
         <item quantity="other">選擇的 %d 個標籤</item>
     </plurals>
+    <string name="new_and_updated">全新更新！</string>
+    <string name="what_is_new">什麼是新的？</string>
+    <string name="continue_next">繼續</string>
+    <string name="preferences_header_view_tags">標籤列表</string>
+    <string name="preferences_sort_tags_method">標籤排序依據</string>
+    <string name="preferences_header_view_navdrawer">導航抽屜</string>
+    <string name="preferences_sort_navdrawer_method">筆記本排序依據</string>
+    <string name="swipe_to_find_out_whats_new">滑動螢幕查看最新動態</string>
 </resources>
