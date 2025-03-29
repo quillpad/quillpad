@@ -99,7 +99,14 @@ android {
             option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
         }
     }
-
+    packaging {
+        resources.excludes.addAll(
+            listOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+            )
+        )
+    }
     sourceSets {
         // Adds exported schema location as test app assets.
         getByName("androidTest").assets.srcDirs(files("$projectDir/schemas"))
@@ -118,7 +125,11 @@ dependencies {
     implementation(libs.monitor)
     implementation(libs.junit.ktx)
     testImplementation(libs.junit)
+    testImplementation(libs.mockk.android)
+    testImplementation(libs.mockk.agent)
     androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.mockk.android)
+    androidTestImplementation(libs.mockk.agent)
     androidTestImplementation(libs.androidx.espresso.core)
     coreLibraryDesugaring(libs.coreLibraryDesugaring)
 
