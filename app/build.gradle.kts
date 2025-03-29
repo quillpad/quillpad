@@ -31,6 +31,7 @@ android {
         // https://stackoverflow.com/a/44645943/4594587
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
+            arg("KOIN_CONFIG_CHECK", "true")
         }
     }
 
@@ -173,6 +174,18 @@ dependencies {
     // Work Manager
     implementation(libs.workRuntimeKtx)
     androidTestImplementation(libs.workTesting)
+
+    // Koin
+    implementation(project.dependencies.platform(libs.koin.bom))
+    implementation(libs.koin.annotations)
+    ksp(libs.koin.ksp.compiler)
+    implementation(libs.koin.core)
+    implementation(libs.koin.core.coroutines)
+    implementation(libs.koin.android)
+    implementation(libs.koin.android.compat)
+    implementation(libs.koin.androidx.workmanager)
+    implementation(libs.koin.androidx.navigation)
+    implementation(libs.koin.androidx.startup)
 
     // Coil
     implementation(libs.coil)
