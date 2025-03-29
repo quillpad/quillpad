@@ -2,7 +2,6 @@ package org.qosp.notes.ui.editor
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
@@ -19,6 +18,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import me.msoul.datastore.defaultOf
+import org.koin.android.annotation.KoinViewModel
 import org.qosp.notes.data.model.Attachment
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.model.NoteColor
@@ -27,12 +27,18 @@ import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.data.sync.core.SyncManager
-import org.qosp.notes.preferences.*
+import org.qosp.notes.preferences.DateFormat
+import org.qosp.notes.preferences.MoveCheckedItems
+import org.qosp.notes.preferences.NewNotesSyncable
+import org.qosp.notes.preferences.OpenMediaIn
+import org.qosp.notes.preferences.PreferenceRepository
+import org.qosp.notes.preferences.ShowDate
+import org.qosp.notes.preferences.ShowFabChangeMode
+import org.qosp.notes.preferences.TimeFormat
 import java.time.Instant
-import javax.inject.Inject
 
-@HiltViewModel
-class EditorViewModel @Inject constructor(
+@KoinViewModel
+class EditorViewModel(
     private val noteRepository: NoteRepository,
     private val notebookRepository: NotebookRepository,
     private val syncManager: SyncManager,

@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.qosp.notes.R
 import org.qosp.notes.data.sync.core.NoConnectivity
 import org.qosp.notes.data.sync.core.ServerNotSupported
@@ -20,17 +20,14 @@ import org.qosp.notes.databinding.DialogNextcloudAccountBinding
 import org.qosp.notes.ui.common.BaseDialog
 import org.qosp.notes.ui.common.setButton
 import org.qosp.notes.ui.utils.requestFocusAndKeyboard
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class NextcloudAccountDialog : BaseDialog<DialogNextcloudAccountBinding>() {
-    private val model: NextcloudViewModel by activityViewModels()
+    private val model: NextcloudViewModel by activityViewModel()
 
     private var username = ""
     private var password = ""
 
-    @Inject
-    lateinit var syncManager: SyncManager
+    val syncManager: SyncManager by inject()
 
     override fun createBinding(inflater: LayoutInflater) = DialogNextcloudAccountBinding.inflate(layoutInflater)
 

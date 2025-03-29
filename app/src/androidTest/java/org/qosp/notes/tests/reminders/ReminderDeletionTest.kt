@@ -1,12 +1,8 @@
 package org.qosp.notes.tests.reminders
 
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertTrue
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.model.Reminder
@@ -17,20 +13,11 @@ import java.time.Instant
 import javax.inject.Inject
 import javax.inject.Named
 
-@HiltAndroidTest
 class ReminderDeletionTest {
     @Inject @Named(NO_SYNC)
     lateinit var noteRepository: NoteRepository
     @Inject
     lateinit var reminderRepository: ReminderRepository
-
-    @get:Rule
-    var hiltRule = HiltAndroidRule(this)
-
-    @Before
-    fun init() {
-        hiltRule.inject()
-    }
 
     @Test
     @Throws(Exception::class)

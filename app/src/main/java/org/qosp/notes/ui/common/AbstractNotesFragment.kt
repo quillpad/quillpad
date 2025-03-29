@@ -27,9 +27,9 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialElevationScale
-import dagger.hilt.android.AndroidEntryPoint
 import io.noties.markwon.Markwon
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.qosp.notes.R
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.sync.core.BaseResult
@@ -45,11 +45,9 @@ import org.qosp.notes.ui.utils.liftAppBarOnScroll
 import org.qosp.notes.ui.utils.shareNote
 import org.qosp.notes.ui.utils.views.BottomSheet
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 private typealias Data = AbstractNotesViewModel.Data
 
-@AndroidEntryPoint
 abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId) {
     abstract val currentDestinationId: Int
     abstract val recyclerView: RecyclerView
@@ -79,8 +77,7 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
             recyclerAdapter.showHiddenNotes = value
         }
 
-    @Inject
-    lateinit var markwon: Markwon
+    val markwon: Markwon by inject()
 
     // Bug:
     //
