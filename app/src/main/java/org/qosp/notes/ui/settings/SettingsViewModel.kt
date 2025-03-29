@@ -2,18 +2,17 @@ package org.qosp.notes.ui.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import me.msoul.datastore.EnumPreference
+import org.koin.android.annotation.KoinViewModel
 import org.qosp.notes.data.sync.core.SyncManager
 import org.qosp.notes.preferences.PreferenceRepository
-import javax.inject.Inject
 
-@HiltViewModel
-class SettingsViewModel @Inject constructor(
+@KoinViewModel
+class SettingsViewModel(
     private val preferenceRepository: PreferenceRepository,
     syncManager: SyncManager,
 ) : ViewModel() {

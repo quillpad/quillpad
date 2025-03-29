@@ -3,7 +3,6 @@ package org.qosp.notes.ui
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +16,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import me.msoul.datastore.defaultOf
+import org.koin.android.annotation.KoinViewModel
 import org.qosp.notes.components.MediaStorageManager
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.model.Notebook
@@ -35,10 +35,9 @@ import org.qosp.notes.preferences.SortNavdrawerNotebooksMethod
 import org.qosp.notes.preferences.SortTagsMethod
 import org.qosp.notes.ui.reminders.ReminderManager
 import java.time.Instant
-import javax.inject.Inject
 
-@HiltViewModel
-class ActivityViewModel @Inject constructor(
+@KoinViewModel
+class ActivityViewModel(
     private val noteRepository: NoteRepository,
     private val notebookRepository: NotebookRepository,
     private val preferenceRepository: PreferenceRepository,

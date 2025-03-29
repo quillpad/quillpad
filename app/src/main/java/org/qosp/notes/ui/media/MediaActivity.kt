@@ -24,10 +24,8 @@ import androidx.palette.graphics.Palette
 import coil.load
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ui.PlayerControlView
 import com.google.android.exoplayer2.util.Util
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -40,7 +38,6 @@ import org.qosp.notes.ui.attachments.uri
 import org.qosp.notes.ui.utils.collect
 import org.qosp.notes.ui.utils.getDrawableCompat
 
-@AndroidEntryPoint
 class MediaActivity : BaseActivity() {
     private lateinit var binding: ActivityMediaBinding
 

@@ -3,7 +3,6 @@ activityCompose = "1.10.0"
 activityKtx = "1.10.0"
 androidGradlePlugin = "8.7.3"
 androidxComposeBom = "2025.02.00"
-androidxHilt = "1.2.0"
 appcompat = "1.7.0"
 betterLinkMovementMethod = "2.2.0"
 coil = "2.2.2"
@@ -19,7 +18,6 @@ espressoCore = "3.6.1"
 exoplayer = "2.19.1"
 flowPreferences = "1.4.0"
 fragmentKtx = "1.8.6"
-hilt = "2.55"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 koin = "4.0.3"
@@ -66,8 +64,6 @@ androidx-material = { module = "androidx.compose.material3:material3" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "ui" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "uiToolingPreview" }
-androidxHiltCompiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidxHilt" }
-androidxHiltWork = { module = "androidx.hilt:hilt-work", version.ref = "androidxHilt" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 betterLinkMovementMethod = { module = "me.saket:better-link-movement-method", version.ref = "betterLinkMovementMethod" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
@@ -83,10 +79,6 @@ exoplayerCore = { module = "com.google.android.exoplayer:exoplayer-core", versio
 exoplayerUi = { module = "com.google.android.exoplayer:exoplayer-ui", version.ref = "exoplayer" }
 flowPreferences = { module = "com.github.tfcporciuncula.flow-preferences:flow-preferences", version.ref = "flowPreferences" }
 fragmentKtx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
-hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
-hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
-hiltAndroidTesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
-hiltCompiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 junit = { module = "junit:junit", version.ref = "junit" }
 junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin-annotation" }
@@ -172,8 +164,6 @@ markwon = [
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinParcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }

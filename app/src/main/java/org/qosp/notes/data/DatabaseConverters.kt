@@ -1,8 +1,6 @@
 package org.qosp.notes.data
 
 import androidx.room.TypeConverter
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.qosp.notes.data.model.Attachment
 import org.qosp.notes.data.model.NoteColor

@@ -18,7 +18,11 @@ import coil.fetch.DrawableResult
 import coil.fetch.FetchResult
 import coil.fetch.Fetcher
 import coil.request.Options
-import coil.size.*
+import coil.size.Dimension
+import coil.size.Scale
+import coil.size.Size
+import coil.size.isOriginal
+import coil.size.pxOrElse
 import org.qosp.notes.R
 import org.qosp.notes.ui.attachments.getAlbumArtBitmap
 import org.qosp.notes.ui.utils.getDrawableCompat
