@@ -2,15 +2,14 @@ package org.qosp.notes.ui.launcher
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import org.koin.android.annotation.KoinViewModel
 import org.qosp.notes.BuildConfig
 import org.qosp.notes.preferences.PreferenceRepository
-import javax.inject.Inject
 
-@HiltViewModel
-class LauncherViewModel @Inject constructor(
+@KoinViewModel
+class LauncherViewModel(
     private val preferenceRepository: PreferenceRepository
 ) : ViewModel() {
 

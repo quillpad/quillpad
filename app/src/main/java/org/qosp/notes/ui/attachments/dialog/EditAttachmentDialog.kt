@@ -5,17 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.qosp.notes.R
 import org.qosp.notes.databinding.DialogEditAttachmentBinding
 import org.qosp.notes.ui.common.BaseDialog
 import org.qosp.notes.ui.utils.collect
 import org.qosp.notes.ui.utils.requestFocusAndKeyboard
 
-@AndroidEntryPoint
 class EditAttachmentDialog : BaseDialog<DialogEditAttachmentBinding>() {
-    private val model: AttachmentDialogViewModel by activityViewModels()
+    private val model: AttachmentDialogViewModel by viewModel()
 
     private var path: String? = null
     private var noteId: Long? = null

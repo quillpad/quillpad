@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.os.bundleOf
@@ -20,10 +19,11 @@ import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.qosp.notes.R
 import org.qosp.notes.components.backup.BackupService
 import org.qosp.notes.data.model.Notebook
@@ -34,16 +34,14 @@ import org.qosp.notes.ui.utils.closeAndThen
 import org.qosp.notes.ui.utils.collect
 import org.qosp.notes.ui.utils.hideKeyboard
 import org.qosp.notes.ui.utils.navigateSafely
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navController: NavController
 
     private lateinit var binding: ActivityMainBinding
-    private val activityModel: ActivityViewModel by viewModels()
+    private val activityModel: ActivityViewModel by viewModel()
 
     private val topLevelMenu get() = binding.navigationView.menu
     private val notebooksMenu get() = topLevelMenu.findItem(R.id.menu_notebooks).subMenu
@@ -64,8 +62,7 @@ class MainActivity : BaseActivity() {
         R.id.fragment_tags,
     )
 
-    @Inject
-    lateinit var syncManager: SyncManager
+    val syncManager: SyncManager by inject<SyncManager>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
