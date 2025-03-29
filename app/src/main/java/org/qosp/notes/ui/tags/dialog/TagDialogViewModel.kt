@@ -2,16 +2,15 @@ package org.qosp.notes.ui.tags.dialog
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 import org.qosp.notes.data.model.Tag
 import org.qosp.notes.data.repo.TagRepository
-import javax.inject.Inject
 
-@HiltViewModel
-class TagDialogViewModel @Inject constructor(private val tagRepository: TagRepository) : ViewModel() {
+@KoinViewModel
+class TagDialogViewModel(private val tagRepository: TagRepository) : ViewModel() {
 
     fun insertTag(tag: Tag) {
         viewModelScope.launch(Dispatchers.IO) {

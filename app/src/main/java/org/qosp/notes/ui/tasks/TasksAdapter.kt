@@ -8,7 +8,7 @@ import io.noties.markwon.Markwon
 import org.qosp.notes.data.model.NoteTask
 import org.qosp.notes.databinding.LayoutTaskBinding
 import java.lang.Float.min
-import java.util.*
+import java.util.Collections
 
 class TasksAdapter(
     private val inPreview: Boolean,

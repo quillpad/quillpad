@@ -4,7 +4,6 @@ import android.content.Context
 import android.net.Uri
 import org.qosp.notes.data.model.Attachment
 import org.qosp.notes.ui.attachments.getAttachmentFilename
-import kotlin.collections.set
 
 interface ProgressHandler {
     fun onProgressChanged(current: Int, max: Int)

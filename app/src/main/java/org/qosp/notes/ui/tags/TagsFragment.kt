@@ -1,7 +1,6 @@
 package org.qosp.notes.ui.tags
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -9,31 +8,13 @@ import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import me.msoul.datastore.defaultOf
-import me.msoul.datastore.key
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.qosp.notes.R
-import org.qosp.notes.data.model.Note
-import org.qosp.notes.data.model.Tag
 import org.qosp.notes.databinding.FragmentTagsBinding
-import org.qosp.notes.preferences.LayoutMode
-import org.qosp.notes.preferences.NoteDeletionTime
-import org.qosp.notes.preferences.SortMethod
 import org.qosp.notes.preferences.SortTagsMethod
 import org.qosp.notes.ui.common.BaseFragment
 import org.qosp.notes.ui.common.recycler.onBackPressedHandler
@@ -46,10 +27,9 @@ import org.qosp.notes.ui.utils.navigateSafely
 import org.qosp.notes.ui.utils.viewBinding
 import org.qosp.notes.ui.utils.views.BottomSheet
 
-@AndroidEntryPoint
 class TagsFragment : BaseFragment(R.layout.fragment_tags) {
     private val binding by viewBinding(FragmentTagsBinding::bind)
-    val model: TagsViewModel by viewModels()
+    val model: TagsViewModel by viewModel()
 
     protected var mainMenu: Menu? = null
 

@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.qosp.notes.R
 import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.databinding.DialogEditNotebookBinding
@@ -17,9 +16,8 @@ import org.qosp.notes.ui.common.BaseDialog
 import org.qosp.notes.ui.common.setButton
 import org.qosp.notes.ui.utils.requestFocusAndKeyboard
 
-@AndroidEntryPoint
 class EditNotebookDialog : BaseDialog<DialogEditNotebookBinding>() {
-    private val model: NotebookDialogViewModel by activityViewModels()
+    private val model: NotebookDialogViewModel by activityViewModel()
     private lateinit var notebook: Notebook
 
     override fun onCreate(savedInstanceState: Bundle?) {

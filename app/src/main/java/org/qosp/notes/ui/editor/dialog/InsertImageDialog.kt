@@ -6,7 +6,6 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import dagger.hilt.android.AndroidEntryPoint
 import org.qosp.notes.R
 import org.qosp.notes.databinding.DialogInsertImageBinding
 import org.qosp.notes.ui.common.BaseDialog
@@ -14,7 +13,7 @@ import org.qosp.notes.ui.editor.EditorFragment
 import org.qosp.notes.ui.editor.markdown.imageMarkdown
 import org.qosp.notes.ui.utils.requestFocusAndKeyboard
 
-@AndroidEntryPoint
+
 class InsertImageDialog : BaseDialog<DialogInsertImageBinding>() {
 
     private var text: String? = null

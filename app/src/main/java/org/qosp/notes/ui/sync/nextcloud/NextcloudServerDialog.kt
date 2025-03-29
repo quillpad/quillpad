@@ -7,17 +7,15 @@ import android.view.View
 import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.qosp.notes.R
 import org.qosp.notes.databinding.DialogNextcloudServerBinding
 import org.qosp.notes.ui.common.BaseDialog
 import org.qosp.notes.ui.common.setButton
 import org.qosp.notes.ui.utils.requestFocusAndKeyboard
 
-@AndroidEntryPoint
 class NextcloudServerDialog : BaseDialog<DialogNextcloudServerBinding>() {
-    private val model: NextcloudViewModel by activityViewModels()
+    private val model: NextcloudViewModel by activityViewModel()
     private var url: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {

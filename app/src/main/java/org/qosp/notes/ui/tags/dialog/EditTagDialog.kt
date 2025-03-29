@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.qosp.notes.R
 import org.qosp.notes.data.model.Tag
 import org.qosp.notes.databinding.DialogEditTagBinding
@@ -17,9 +16,8 @@ import org.qosp.notes.ui.common.BaseDialog
 import org.qosp.notes.ui.common.setButton
 import org.qosp.notes.ui.utils.requestFocusAndKeyboard
 
-@AndroidEntryPoint
 class EditTagDialog : BaseDialog<DialogEditTagBinding>() {
-    private val model: TagDialogViewModel by activityViewModels()
+    private val model: TagDialogViewModel by activityViewModel()
     private lateinit var tag: Tag
 
     override fun onCreate(savedInstanceState: Bundle?) {

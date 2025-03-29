@@ -14,7 +14,12 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
-import android.view.*
+import android.view.ContextThemeWrapper
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.activity.addCallback
@@ -31,7 +36,6 @@ import androidx.core.view.updateLayoutParams
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.clearFragmentResult
 import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -48,13 +52,14 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.transition.MaterialSharedAxis
-import dagger.hilt.android.AndroidEntryPoint
 import io.noties.markwon.Markwon
 import io.noties.markwon.editor.MarkwonEditor
 import io.noties.markwon.editor.MarkwonEditorTextWatcher
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.commonmark.node.Code
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.qosp.notes.R
 import org.qosp.notes.data.model.Attachment
 import org.qosp.notes.data.model.Note
@@ -74,7 +79,10 @@ import org.qosp.notes.ui.common.showMoveToNotebookDialog
 import org.qosp.notes.ui.editor.dialog.InsertHyperlinkDialog
 import org.qosp.notes.ui.editor.dialog.InsertImageDialog
 import org.qosp.notes.ui.editor.dialog.InsertTableDialog
-import org.qosp.notes.ui.editor.markdown.*
+import org.qosp.notes.ui.editor.markdown.MarkdownSpan
+import org.qosp.notes.ui.editor.markdown.applyTo
+import org.qosp.notes.ui.editor.markdown.insertMarkdown
+import org.qosp.notes.ui.editor.markdown.toggleCheckmarkCurrentLine
 import org.qosp.notes.ui.media.MediaActivity
 import org.qosp.notes.ui.recorder.RECORDED_ATTACHMENT
 import org.qosp.notes.ui.recorder.RECORD_CODE
@@ -83,21 +91,33 @@ import org.qosp.notes.ui.reminders.EditReminderDialog
 import org.qosp.notes.ui.tasks.TaskRecyclerListener
 import org.qosp.notes.ui.tasks.TaskViewHolder
 import org.qosp.notes.ui.tasks.TasksAdapter
-import org.qosp.notes.ui.utils.*
+import org.qosp.notes.ui.utils.ChooseFilesContract
+import org.qosp.notes.ui.utils.TakePictureContract
+import org.qosp.notes.ui.utils.collect
+import org.qosp.notes.ui.utils.dp
+import org.qosp.notes.ui.utils.getDimensionAttribute
+import org.qosp.notes.ui.utils.getDrawableCompat
+import org.qosp.notes.ui.utils.hideKeyboard
+import org.qosp.notes.ui.utils.liftAppBarOnScroll
+import org.qosp.notes.ui.utils.navigateSafely
+import org.qosp.notes.ui.utils.requestFocusAndKeyboard
+import org.qosp.notes.ui.utils.resId
+import org.qosp.notes.ui.utils.resolveAttribute
+import org.qosp.notes.ui.utils.shareAttachment
+import org.qosp.notes.ui.utils.shareNote
+import org.qosp.notes.ui.utils.viewBinding
 import org.qosp.notes.ui.utils.views.BottomSheet
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.Executors
-import javax.inject.Inject
 
 private typealias Data = EditorViewModel.Data
 
-@AndroidEntryPoint
 class EditorFragment : BaseFragment(R.layout.fragment_editor) {
     private val binding by viewBinding(FragmentEditorBinding::bind)
-    private val model: EditorViewModel by viewModels()
+    private val model: EditorViewModel by viewModel()
 
     private val args: EditorFragmentArgs by navArgs()
     private var snackbar: Snackbar? = null
@@ -119,11 +139,9 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
     private lateinit var attachmentsAdapter: AttachmentsAdapter
     private lateinit var tasksAdapter: TasksAdapter
 
-    @Inject
-    lateinit var markwon: Markwon
+    val markwon: Markwon by inject()
 
-    @Inject
-    lateinit var markwonEditor: MarkwonEditor
+    val markwonEditor: MarkwonEditor by inject()
 
     override val hasDefaultAnimation = false
     override val toolbar: Toolbar

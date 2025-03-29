@@ -9,10 +9,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.qosp.notes.R
 import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.databinding.FragmentManageNotebooksBinding
@@ -31,13 +30,12 @@ import org.qosp.notes.ui.utils.navigateSafely
 import org.qosp.notes.ui.utils.viewBinding
 import org.qosp.notes.ui.utils.views.BottomSheet
 
-@AndroidEntryPoint
 class ManageNotebooksFragment : BaseFragment(R.layout.fragment_manage_notebooks) {
     private val binding by viewBinding(FragmentManageNotebooksBinding::bind)
 
     protected var mainMenu: Menu? = null
 
-    private val model: ManageNotebooksViewModel by viewModels()
+    private val model: ManageNotebooksViewModel by viewModel()
     private lateinit var adapter: NotebooksRecyclerAdapter
 
     override val toolbar: Toolbar

@@ -5,7 +5,6 @@ import android.app.NotificationManager
 import android.app.TimePickerDialog
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.DatePicker
@@ -14,8 +13,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.qosp.notes.R
 import org.qosp.notes.data.model.Reminder
 import org.qosp.notes.databinding.DialogEditReminderBinding
@@ -28,9 +26,8 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-@AndroidEntryPoint
 class EditReminderDialog : BaseDialog<DialogEditReminderBinding>() {
-    private val model: EditReminderViewModel by activityViewModels()
+    private val model: EditReminderViewModel by activityViewModel()
 
     private lateinit var reminder: Reminder
     private var noteId: Long? = null

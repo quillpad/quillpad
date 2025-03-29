@@ -5,13 +5,12 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.appbar.AppBarLayout
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.qosp.notes.R
 import org.qosp.notes.databinding.FragmentArchiveBinding
 import org.qosp.notes.databinding.LayoutNoteBinding
@@ -19,12 +18,11 @@ import org.qosp.notes.ui.common.AbstractNotesFragment
 import org.qosp.notes.ui.utils.navigateSafely
 import org.qosp.notes.ui.utils.viewBinding
 
-@AndroidEntryPoint
 class ArchiveFragment : AbstractNotesFragment(R.layout.fragment_archive) {
     private val binding by viewBinding(FragmentArchiveBinding::bind)
 
     override val currentDestinationId: Int = R.id.fragment_archive
-    override val model: ArchiveViewModel by viewModels()
+    override val model: ArchiveViewModel by viewModel()
 
     override val recyclerView: RecyclerView
         get() = binding.recyclerArchive

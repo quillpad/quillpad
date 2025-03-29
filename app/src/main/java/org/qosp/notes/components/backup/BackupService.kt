@@ -10,21 +10,19 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.qosp.notes.App
 import org.qosp.notes.R
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.preferences.BackupStrategy
 import org.qosp.notes.preferences.PreferenceRepository
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class BackupService : LifecycleService() {
     private var nextId = 0
         get() {
@@ -34,11 +32,8 @@ class BackupService : LifecycleService() {
 
     private val jobs = mutableListOf<Job>()
 
-    @Inject
-    lateinit var preferenceRepository: PreferenceRepository
-
-    @Inject
-    lateinit var backupManager: BackupManager
+    val preferenceRepository: PreferenceRepository by inject()
+    val backupManager: BackupManager by inject()
 
     private var notificationManager: NotificationManager? = null
 

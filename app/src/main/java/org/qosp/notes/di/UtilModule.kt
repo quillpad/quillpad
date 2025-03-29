@@ -2,11 +2,8 @@ package org.qosp.notes.di
 
 import android.app.Application
 import android.content.Context
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
+import org.koin.core.annotation.Module
+import org.koin.core.annotation.Single
 import org.qosp.notes.App
 import org.qosp.notes.BuildConfig
 import org.qosp.notes.components.MediaStorageManager
@@ -21,31 +18,21 @@ import org.qosp.notes.data.sync.nextcloud.NextcloudManager
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.ui.reminders.ReminderManager
 import org.qosp.notes.ui.utils.ConnectionManager
-import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
-object UtilModule {
+class UtilModule {
 
-    @Provides
-    @Singleton
-    fun provideMediaStorageManager(
-        @ApplicationContext context: Context,
-        noteRepository: NoteRepository,
-    ) = MediaStorageManager(context, noteRepository, App.MEDIA_FOLDER)
+    @Single
+    fun provideMediaStorageManager(context: Context, noteRepository: NoteRepository) =
+        MediaStorageManager(context, noteRepository, App.MEDIA_FOLDER)
 
-    @Provides
-    @Singleton
-    fun provideReminderManager(
-        @ApplicationContext context: Context,
-        reminderRepository: ReminderRepository,
-        noteRepository: NoteRepository,
-    ) = ReminderManager(context, reminderRepository, noteRepository)
+    @Single
+    fun provideReminderManager(context: Context, reminderRepository: ReminderRepository) =
+        ReminderManager(context, reminderRepository)
 
-    @Provides
-    @Singleton
+    @Single
     fun provideSyncManager(
-        @ApplicationContext context: Context,
+        context: Context,
         preferenceRepository: PreferenceRepository,
         idMappingRepository: IdMappingRepository,
         nextcloudManager: NextcloudManager,
@@ -58,8 +45,7 @@ object UtilModule {
         (app as App).syncingScope
     )
 
-    @Provides
-    @Singleton
+    @Single
     fun provideBackupManager(
         noteRepository: NoteRepository,
         notebookRepository: NotebookRepository,
@@ -67,7 +53,7 @@ object UtilModule {
         reminderRepository: ReminderRepository,
         idMappingRepository: IdMappingRepository,
         reminderManager: ReminderManager,
-        @ApplicationContext context: Context,
+        context: Context,
     ) = BackupManager(
         BuildConfig.VERSION_CODE,
         noteRepository,

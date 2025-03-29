@@ -1,13 +1,11 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.kapt)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinParcelize)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.navigationSafeArgs)
-    alias(libs.plugins.hiltAndroid)
 }
 
 android {
@@ -89,17 +87,12 @@ android {
     }
 
     buildFeatures {
+        buildConfig = true
         viewBinding = true
         compose = true
         buildConfig = true
     }
 
-    kapt {
-        javacOptions {
-            option("-Adagger.fastInit=ENABLED")
-            option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
-        }
-    }
     packaging {
         resources.excludes.addAll(
             listOf(
@@ -194,14 +187,6 @@ dependencies {
 
     // PhotoView
     implementation(libs.photoview)
-
-    // Hilt
-    implementation(libs.androidxHiltWork)
-    implementation(libs.hiltAndroid)
-    androidTestImplementation(libs.hiltAndroidTesting)
-    kaptAndroidTest(libs.hiltAndroidCompiler)
-    kapt(libs.hiltCompiler)
-    kapt(libs.androidxHiltCompiler)
 
     // ExoPlayer
     implementation(libs.exoplayerCore)

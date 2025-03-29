@@ -6,10 +6,10 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.transition.MaterialSharedAxis
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.qosp.notes.ui.ActivityViewModel
 import org.qosp.notes.ui.MainActivity
 import org.qosp.notes.ui.utils.ExportNotesContract
@@ -23,7 +23,7 @@ open class BaseFragment(@LayoutRes resId: Int) : Fragment(resId) {
 
     protected val TAG = this::class.simpleName ?: "Quillpad"
 
-    val activityModel: ActivityViewModel by activityViewModels()
+    val activityModel: ActivityViewModel by activityViewModel()
     protected open val toolbar: Toolbar? = null
     protected open val toolbarTitle: String = ""
 
