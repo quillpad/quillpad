@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.qosp.notes.R
 
-private const val TotalPages = 3
+private const val TotalPages = 2
 
 @Composable
 fun WelcomeScreen(onNextClicked: () -> Unit) {
@@ -48,9 +48,8 @@ fun WelcomeScreen(onNextClicked: () -> Unit) {
         ) {
             HorizontalPager(state = pagerState, modifier = Modifier.weight(1f)) { page ->
                 when (page) {
-                    0 -> WelcomeContent { NewAndUpdated() }
-                    1 -> WelcomeContent { WhatIsNew() }
-                    2 -> FinalPage(onNextClicked)
+                    0 -> WelcomeContent { WhatIsNew() }
+                    1 -> FinalPage(onNextClicked)
                 }
             }
             DotsIndicator(totalDots = TotalPages, selectedIndex = pagerState.currentPage)
