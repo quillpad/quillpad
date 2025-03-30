@@ -5,21 +5,14 @@ Quillpad is fully free and open-source. It will never show you ads, ask you for 
 
 Take beautiful markdown notes whenever you feel inspired. Place them in notebooks and tag them accordingly. Stay organized by making task lists, set reminders and keep everything in one place by attaching related files.
 
-### Matrix
-Join the conversation at [Matrix](https://matrix.to/#/#quillpad_community:gitter.im) or [Gitter](https://gitter.im/quillpad/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
-### Fork Info
-Quillpad is a fork of an original app called [Quillnote](https://github.com/msoultanidis/quillnote). The development stopped on the original app and PR backlogs were not cleared up. The community showed much interest in the app for continued development and so this fork was created. https://github.com/msoultanidis/quillnote/issues/177 https://github.com/msoultanidis/quillnote/issues/209
-
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="256"/><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="256"/><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="256"/>
-
+## Available at
 
 <a href="https://f-droid.org/packages/io.github.quillpad">
     <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
     alt="Get it on F-Droid"
-    height="80"></a><a href='https://play.google.com/store/apps/details?id=io.github.quillpad'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height="80"/></a>
-
-
+    height="80">
+</a>
+<a href='https://play.google.com/store/apps/details?id=io.github.quillpad'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height="80"/></a>
 
 ## Features
 With Quillpad, you can:
@@ -38,6 +31,28 @@ With Quillpad, you can:
 - Backup your notes to a zip file which you can restore at a later time
 - Toggle between Light and Dark mode
 - Choose between multiple color schemes
+
+### Support
+
+If you like the work and would like to support me,
+
+<a href="https://buymeacoffee.com/quillpad" target="_blank">
+<img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174" />
+</a>
+
+### Matrix
+
+Join the conversation at [Matrix](https://matrix.to/#/#quillpad_community:gitter.im)
+or [Gitter](https://gitter.im/quillpad/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+### Fork Info
+
+Quillpad is a fork of an original app called [Quillnote](https://github.com/msoultanidis/quillnote). The development
+stopped on the original app and PR backlogs were not cleared up. The community showed much interest in the app for
+continued development and so this fork was
+created. https://github.com/msoultanidis/quillnote/issues/177 https://github.com/msoultanidis/quillnote/issues/209
+
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="256"/><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="256"/><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="256"/>
 
 ## Migration
 Backups from [Notally](https://github.com/OmGodse/Notally) can be converted into Quillpad compatible backups using this [python script](https://gist.github.com/nWestie/224d14a6efd00661b5c93040c7511816)
