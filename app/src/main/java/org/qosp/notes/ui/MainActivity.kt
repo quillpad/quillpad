@@ -97,6 +97,8 @@ class MainActivity : BaseActivity() {
     override fun onBackPressed() {
         if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
             binding.drawer.closeDrawer(GravityCompat.START)
+        } else if (navController.previousBackStackEntry != null) {
+            navController.popBackStack()
         } else {
             moveTaskToBack(true)
         }
