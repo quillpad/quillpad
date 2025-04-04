@@ -3,6 +3,7 @@ activityCompose = "1.10.0"
 activityKtx = "1.10.0"
 androidGradlePlugin = "8.7.3"
 androidxComposeBom = "2025.02.00"
+androidxTest = "1.6.1"
 appcompat = "1.7.0"
 betterLinkMovementMethod = "2.2.0"
 coil = "2.2.2"
@@ -62,6 +63,8 @@ androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lif
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 androidx-material = { module = "androidx.compose.material3:material3" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxTest" }
+androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidxTest" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "ui" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "uiToolingPreview" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -91,6 +94,8 @@ koin-androidx-workmanager = { module = "io.insert-koin:koin-androidx-workmanager
 koin-androidx-navigation = { module = "io.insert-koin:koin-androidx-navigation" }
 koin-androidx-startup = { module = "io.insert-koin:koin-androidx-startup" }
 koin-ksp-compiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koin-annotation" }
+koin-test = { module = "io.insert-koin:koin-test" }
+koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4" }
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerializationJson" }
 leakcanaryAndroid = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
 lifecycleCommonJava8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "lifecycle" }

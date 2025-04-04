@@ -5,18 +5,17 @@ import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import org.qosp.notes.components.MediaStorageManager
 import org.qosp.notes.data.model.Attachment
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.repo.NoteRepository
 import java.io.IOException
-import javax.inject.Inject
 
-class MediaStorageManagerTest {
-    @Inject
-    lateinit var noteRepository: NoteRepository
-    @Inject
-    lateinit var mediaStorageManager: MediaStorageManager
+class MediaStorageManagerTest: KoinComponent {
+    val noteRepository: NoteRepository by inject()
+    val mediaStorageManager: MediaStorageManager by inject()
 
     @Test
     @Throws(Exception::class)
