@@ -1,10 +1,16 @@
 package org.qosp.notes.di
 
 import android.content.Context
+import androidx.room.Room
+import androidx.room.testing.MigrationTestHelper
+import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import kotlinx.coroutines.GlobalScope
-import org.qosp.notes.BuildConfig
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
+import org.qosp.notes.BuildConfig.VERSION_CODE
 import org.qosp.notes.components.MediaStorageManager
 import org.qosp.notes.components.backup.BackupManager
+import org.qosp.notes.data.AppDatabase
 import org.qosp.notes.data.repo.IdMappingRepository
 import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.data.repo.NotebookRepository
@@ -20,50 +26,48 @@ const val TEST_MEDIA_FOLDER = "test_media"
 
 object TestUtilModule {
 
-
-    fun provideMediaStorageManager(
-        context: Context,
-        noteRepository: NoteRepository,
-    ) = MediaStorageManager(context, noteRepository, TEST_MEDIA_FOLDER)
-
-
-    fun provideReminderManager(
-        context: Context,
-        reminderRepository: ReminderRepository,
-        noteRepository: NoteRepository,
-    ) = ReminderManager(context, reminderRepository, noteRepository)
-
-
-    fun provideSyncManager(
-        context: Context,
-        preferenceRepository: PreferenceRepository,
-        idMappingRepository: IdMappingRepository,
-        nextcloudManager: NextcloudManager,
-    ) = SyncManager(
-        preferenceRepository,
-        idMappingRepository,
-        ConnectionManager(context),
-        nextcloudManager,
-        GlobalScope,
-    )
-
-
-    fun provideBackupManager(
-        noteRepository: NoteRepository,
-        notebookRepository: NotebookRepository,
-        tagRepository: TagRepository,
-        reminderRepository: ReminderRepository,
-        idMappingRepository: IdMappingRepository,
-        reminderManager: ReminderManager,
-        context: Context,
-    ) = BackupManager(
-        BuildConfig.VERSION_CODE,
-        noteRepository,
-        notebookRepository,
-        tagRepository,
-        reminderRepository,
-        idMappingRepository,
-        reminderManager,
-        context
-    )
+    // Manual module definition to ensure all dependencies are included
+    val module = module {
+        single {
+            MediaStorageManager(
+                context = get<Context>(),
+                noteRepository = get<NoteRepository>(),
+                mediaFolder = TEST_MEDIA_FOLDER
+            )
+        }
+        single { ReminderManager(context = get<Context>(), reminderRepository = get<ReminderRepository>()) }
+        single {
+            SyncManager(
+                preferenceRepository = get<PreferenceRepository>(),
+                idMappingRepository = get<IdMappingRepository>(),
+                connectionManager = ConnectionManager(get<Context>()),
+                nextcloudManager = get<NextcloudManager>(),
+                syncingScope = GlobalScope,
+            )
+        }
+        single {
+            BackupManager(
+                currentVersion = VERSION_CODE,
+                noteRepository = get<NoteRepository>(),
+                notebookRepository = get<NotebookRepository>(),
+                tagRepository = get<TagRepository>(),
+                reminderRepository = get<ReminderRepository>(),
+                idMappingRepository = get<IdMappingRepository>(),
+                reminderManager = get<ReminderManager>(),
+                context = get<Context>()
+            )
+        }
+        single<AppDatabase> {
+            Room.inMemoryDatabaseBuilder(androidContext(), AppDatabase::class.java)
+                .addMigrations(AppDatabase.MIGRATION_1_2)
+                .addMigrations(AppDatabase.MIGRATION_2_3)
+                .build()
+        }
+        single {
+            MigrationTestHelper(
+                instrumentation = getInstrumentation(),
+                databaseClass = AppDatabase::class.java,
+            )
+        }
+    }
 }

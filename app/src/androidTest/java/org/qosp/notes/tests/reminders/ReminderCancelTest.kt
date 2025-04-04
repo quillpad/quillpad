@@ -3,13 +3,13 @@ package org.qosp.notes.tests.reminders
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import org.qosp.notes.ui.reminders.ReminderManager
 import java.time.Instant
-import javax.inject.Inject
 
-class ReminderCancelTest {
-    @Inject
-    lateinit var reminderManager: ReminderManager
+class ReminderCancelTest : KoinComponent {
+    val reminderManager: ReminderManager by inject()
 
     @Test
     @Throws(Exception::class)

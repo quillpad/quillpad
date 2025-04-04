@@ -118,14 +118,23 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(libs.monitor)
     implementation(libs.junit.ktx)
+    coreLibraryDesugaring(libs.coreLibraryDesugaring)
+
+    // Test
     testImplementation(libs.junit)
     testImplementation(libs.mockk.android)
     testImplementation(libs.mockk.agent)
+    testImplementation(libs.roomTesting)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.koin.test.junit4)
+    androidTestImplementation(libs.roomTesting)
     androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.mockk.agent)
     androidTestImplementation(libs.androidx.espresso.core)
-    coreLibraryDesugaring(libs.coreLibraryDesugaring)
+    androidTestImplementation(libs.workTesting)
 
     implementation(libs.okhttp)
     // AndroidX
@@ -145,8 +154,6 @@ dependencies {
     ksp(libs.roomCompiler)
     implementation(libs.roomRuntime)
     implementation(libs.roomKtx)
-    testImplementation(libs.roomTesting)
-    androidTestImplementation(libs.roomTesting)
 
     // Lifecycle
     implementation(libs.bundles.kotlin.lifecycle)
@@ -166,7 +173,6 @@ dependencies {
 
     // Work Manager
     implementation(libs.workRuntimeKtx)
-    androidTestImplementation(libs.workTesting)
 
     // Koin
     implementation(project.dependencies.platform(libs.koin.bom))
