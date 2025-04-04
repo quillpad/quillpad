@@ -2,17 +2,18 @@ package org.qosp.notes
 
 import androidx.room.Room
 import androidx.room.testing.MigrationTestHelper
-import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import java.io.IOException
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import org.qosp.notes.data.AppDatabase
+import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
-class MigrationTest {
+class MigrationTest : KoinComponent {
     private val testDb = "migration-test"
 
     // Array of all migrations.
@@ -21,12 +22,12 @@ class MigrationTest {
         AppDatabase.MIGRATION_2_3,
     )
 
+    // Inject MigrationTestHelper from Koin
+    private val helper: MigrationTestHelper by inject()
+
     @get:Rule
-    val helper: MigrationTestHelper = MigrationTestHelper(
-        InstrumentationRegistry.getInstrumentation(),
-        AppDatabase::class.java.canonicalName,
-        FrameworkSQLiteOpenHelperFactory()
-    )
+    val helperRule: MigrationTestHelper
+        get() = helper
 
     @Test
     @Throws(IOException::class)
