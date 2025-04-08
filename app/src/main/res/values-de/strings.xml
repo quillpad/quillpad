@@ -3,7 +3,7 @@
     <!-- Navigation drawer -->
     <string name="nav_notes">Notizen</string>
     <string name="nav_archive">Archiv</string>
-    <string name="nav_deleted">Gelöscht</string>
+    <string name="nav_deleted">Papierkorb</string>
     <string name="nav_settings">Einstellungen</string>
     <string name="nav_about">Über</string>
     <string name="nav_tags">Tags</string>
@@ -87,7 +87,7 @@
     <string name="preferences_create_backup">Sicherung erstellen</string>
     <string name="preferences_create_backup_subtext">Alle Notizen als Sicherungsdatei exportieren.</string>
     <string name="preferences_restore">Wiederherstellen</string>
-    <string name="preferences_restore_subtext">Notizen aus Sicherungsdatei laden.</string>
+    <string name="preferences_restore_subtext">Notizen aus Sicherungsdatei importieren.</string>
     <string name="preferences_backup_strategy">Sicherungsstrategie für Anhänge</string>
     <string name="preferences_backup_strategy_include_files">Alles sichern</string>
     <string name="preferences_backup_strategy_keep_info">Nur Beschreibung und lokalen Pfad sichern</string>
@@ -122,7 +122,7 @@
     <string name="about_developer">Entwickler</string>
     <string name="about_contribute">Mitwirken</string>
     <string name="about_support">Unterstützen</string>
-    <string name="about_support_subtext">Die Entwicklung und Pflege von Open-Source-Projekten ist zeitaufwendig und ohne finanziellen Gewinn.\nSpendiere den Entwicklern doch ein Bier!</string>
+    <string name="about_support_subtext">Die Entwicklung und Pflege von Open-Source-Projekten ist zeitaufwendig und wird nicht vergütet.\nSpendiere den Entwicklern doch ein Bier!</string>
     <string name="about_libraries">Bibliotheken</string>
     <string name="about_libraries_subtext">Bibliotheken und Lizenzen Dritter ansehen.</string>
 
