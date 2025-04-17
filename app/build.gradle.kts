@@ -23,7 +23,7 @@ android {
         versionName = "1.4.25"
 
         testInstrumentationRunner = "org.qosp.notes.TestRunner"
-		
+
         // Enable per-app language preferences
         resourceConfigurations.addAll(listOf("ar", "ca", "cs", "de", "el", "en", "es", "fr", "it", "nb-rNO", "nl", "pl", "pt-rBR", "ru", "tr", "uk", "vi", "zh-rCN", "zh-rTW"))
 
@@ -57,6 +57,11 @@ android {
     }
 
     buildTypes {
+        val testLabBuild = project.findProperty("TESTLAB_BUILD")?.toString() ?: "false"
+
+        debug {
+            buildConfigField("boolean", "TESTLAB_BUILD", testLabBuild)
+        }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
@@ -68,6 +73,7 @@ android {
             ndk {
                 debugSymbolLevel = "FULL"
             }
+            buildConfigField("boolean", "TESTLAB_BUILD", testLabBuild)
         }
     }
 
@@ -96,6 +102,7 @@ android {
     buildFeatures {
         viewBinding = true
         compose = true
+        buildConfig = true
     }
 
     kapt {
