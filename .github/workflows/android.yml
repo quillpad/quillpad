@@ -108,7 +108,7 @@ jobs:
       - name: Build Test APK
         run: |
           chmod +x gradlew
-          ./gradlew assembleDefaultFlavor -PTESTLAB_BUILD=true
+          ./gradlew assembleDebug -PTESTLAB_BUILD=true
 
       - name: Archive Test APK
         uses: actions/upload-artifact@v4
