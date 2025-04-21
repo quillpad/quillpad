@@ -1,5 +1,6 @@
 [versions]
 activityCompose = "1.10.0"
+activityKtx = "1.10.0"
 androidGradlePlugin = "8.7.3"
 androidxComposeBom = "2025.02.00"
 androidxHilt = "1.2.0"
@@ -52,6 +53,7 @@ navigationCompose = "2.8.8"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junitVersion" }
@@ -121,17 +123,18 @@ workTesting = { module = "androidx.work:work-testing", version.ref = "work" }
 [bundles]
 kotlin-deps = ["kotlin-serialization-json"]
 kotlin-androidX = [
-    "coreKtx",
+    "androidx-activity-ktx",
     "appcompat",
     "constraintlayout",
     "coordinatorlayout",
-    "recyclerview",
+    "coreKtx",
     "fragmentKtx",
-    "paletteKtx",
     "media",
-    "swiperefreshlayout",
     "navigationFragmentKtx",
-    "navigationUiKtx"
+    "navigationUiKtx",
+    "paletteKtx",
+    "recyclerview",
+    "swiperefreshlayout",
 ]
 kotlin-lifecycle = [
     "lifecycleRuntimeKtx",
