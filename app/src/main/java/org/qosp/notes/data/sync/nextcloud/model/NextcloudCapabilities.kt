@@ -8,4 +8,6 @@ data class NextcloudCapabilities(
     @SerialName("api_version")
     val apiVersion: List<String>,
     val version: String,
+    @SerialName("notes_path")
+    val notesPath: String? = null,
 )
