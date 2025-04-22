@@ -125,14 +125,14 @@ class App : Application(), ImageLoaderFactory, Configuration.Provider {
                 .penaltyLog()
                 .build()
         )
-        StrictMode.setVmPolicy(
-            StrictMode.VmPolicy.Builder()
-                .detectLeakedSqlLiteObjects()
-                .detectLeakedClosableObjects()
-                .detectUnsafeIntentLaunch()
-                .penaltyLog()
-                .build()
-        )
+        val vmPolicy = StrictMode.VmPolicy.Builder()
+            .detectLeakedSqlLiteObjects()
+            .detectLeakedClosableObjects()
+            .penaltyLog()
+        if (SDK_INT >= Build.VERSION_CODES.S) {
+            vmPolicy.detectUnsafeIntentLaunch()
+        }
+        StrictMode.setVmPolicy(vmPolicy.build())
     }
 
     companion object {

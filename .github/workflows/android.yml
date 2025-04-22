@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: set up JDK 21
       uses: actions/setup-java@v4
       with:
@@ -32,7 +32,7 @@ jobs:
       run: |
         echo "${{secrets.KEYSTORE}}" > keystore.jks.asc
         gpg -d --batch --passphrase "${{secrets.GPG_PASS}}" --output app/keystore.jks keystore.jks.asc
-        
+
     - name: Build App
       run: |
         chmod +x gradlew
@@ -105,16 +105,28 @@ jobs:
           build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
           build-scan-terms-of-use-agree: "yes"
 
+      - name: Setup keystore
+        run: |
+          echo "${{secrets.KEYSTORE}}" > keystore.jks.asc
+          gpg -d --batch --passphrase "${{secrets.GPG_PASS}}" --output app/keystore.jks keystore.jks.asc
+
       - name: Build Test APK
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug -PTESTLAB_BUILD=true
+          ./gradlew assembleDefaultFlavor -PTESTLAB_BUILD=true \
+              -Pkeystore=keystore.jks \
+              -Pstorepass=${{secrets.STORE_PASS}} \
+              -Pkeypass=${{secrets.KEY_PASS}} \
+              -Pkeyalias=${{secrets.KEY_NAME}}
+
+      - name: Delete keystore
+        run: rm -f app/keystore.jks keystore.jks.asc
 
       - name: Archive Test APK
         uses: actions/upload-artifact@v4
         with:
           name: Test APK
-          path: app/build/outputs/apk/googleFlavor/debug/app-googleFlavor-debug.apk
+          path: app/build/outputs/apk/defaultFlavor/release/app-defaultFlavor-release.apk
 
       - name: Setup Google Cloud Auth
         uses: google-github-actions/auth@v2
@@ -128,7 +140,7 @@ jobs:
         run: |
           gcloud firebase test android run \
             --type robo \
-            --app app/build/outputs/apk/googleFlavor/debug/app-googleFlavor-debug.apk \
+            --app app/build/outputs/apk/defaultFlavor/release/app-defaultFlavor-release.apk \
             --device=model=MediumPhone.arm,version=35 \
             --device=model=MediumPhone.arm,version=26 \
             --results-dir=test-results

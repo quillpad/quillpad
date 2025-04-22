@@ -309,7 +309,6 @@
     <string name="what_is_new">Neler yeni?</string>
     <string name="continue_next">Devam et</string>
     <string name="swipe_to_find_out_whats_new">Neler yeni olduğunu öğrenmek için kaydırın</string>
-    <string name="what_is_new_content" translatable="false">Geri gezinme ile uygulamanın kapanması düzeltildi</string>
 
     <plurals name="more_items">
         <item quantity="one">+%d öğe</item>
