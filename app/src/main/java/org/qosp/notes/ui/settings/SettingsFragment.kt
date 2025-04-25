@@ -11,10 +11,20 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.qosp.notes.R
 import org.qosp.notes.databinding.FragmentSettingsBinding
-import org.qosp.notes.preferences.*
+import org.qosp.notes.preferences.AppPreferences
+import org.qosp.notes.preferences.CloudService
+import org.qosp.notes.preferences.DarkThemeMode
+import org.qosp.notes.preferences.DateFormat
+import org.qosp.notes.preferences.LayoutMode
+import org.qosp.notes.preferences.ThemeMode
+import org.qosp.notes.preferences.TimeFormat
 import org.qosp.notes.ui.MainActivity
 import org.qosp.notes.ui.common.BaseFragment
-import org.qosp.notes.ui.utils.*
+import org.qosp.notes.ui.utils.RestoreNotesContract
+import org.qosp.notes.ui.utils.collect
+import org.qosp.notes.ui.utils.liftAppBarOnScroll
+import org.qosp.notes.ui.utils.navigateSafely
+import org.qosp.notes.ui.utils.viewBinding
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -227,7 +237,7 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
 
     private fun setupTimeFormatListener() = binding.settingTimeFormat.setOnClickListener {
         val localTime = LocalTime.now()
-        val items = TimeFormat.values()
+        val items = TimeFormat.entries
             .map {
                 DateTimeFormatter.ofPattern(getString(it.patternResource)).format(localTime)
             }
@@ -240,7 +250,7 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
 
     private fun setupDateFormatListener() = binding.settingDateFormat.setOnClickListener {
         val localDate = LocalDate.now()
-        val items = DateFormat.values()
+        val items = DateFormat.entries
             .map {
                 DateTimeFormatter.ofPattern(getString(it.patternResource)).format(localDate)
             }

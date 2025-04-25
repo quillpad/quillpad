@@ -1,12 +1,10 @@
 package org.qosp.notes.ui.media
 
 import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.IBinder
 import android.view.WindowManager
@@ -14,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.ColorUtils
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -24,7 +23,6 @@ import androidx.palette.graphics.Palette
 import coil.load
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ui.PlayerControlView
 import com.google.android.exoplayer2.util.Util
 import dagger.hilt.android.AndroidEntryPoint
@@ -82,7 +80,7 @@ class MediaActivity : BaseActivity() {
 
         attachment = intent.extras?.getParcelable(ATTACHMENT) ?: return
 
-        window.setBackgroundDrawable(ColorDrawable(backgroundColor))
+        window.setBackgroundDrawable(backgroundColor.toDrawable())
 
         WindowInsetsControllerCompat(window, binding.root).isAppearanceLightStatusBars = false
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
@@ -171,7 +169,7 @@ class MediaActivity : BaseActivity() {
             } else {
                 startService(intent)
             }
-            bindService(intent, connection, Context.BIND_AUTO_CREATE)
+            bindService(intent, connection, BIND_AUTO_CREATE)
         }
     }
 
@@ -221,7 +219,7 @@ class MediaActivity : BaseActivity() {
             val dominant = palette.getDominantColor(backgroundColor)
 
             imageView.load(bitmap)
-            root.background = ColorDrawable(dominant)
+            root.background = dominant.toDrawable()
         } else {
             imageView.setColorFilter(Color.WHITE)
             imageView.load(R.drawable.ic_music)

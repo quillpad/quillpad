@@ -27,10 +27,8 @@ class LauncherActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         if (BuildConfig.TESTLAB_BUILD) {
             // Skip the welcome screen in Firebase TestLab builds
-            lifecycleScope.launch {
-                proceedToMainActivity(persistNewVersion = false)
-            }
-        } else if (BuildConfig.DEBUG.not()) {
+            lifecycleScope.launch { proceedToMainActivity(persistNewVersion = false) }
+        } else {
             lifecycleScope.launch {
                 val isCurrentVersionInstalled = viewModel.isCurrentVersionInstalled.firstOrNull() == true
                 Log.d("LauncherActivity", "isNewInstall: ${!isCurrentVersionInstalled}.")

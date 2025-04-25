@@ -14,7 +14,7 @@ class NotebookFragment : MainFragment() {
     private val args: NotebookFragmentArgs by navArgs()
 
     override val notebookId: Long?
-        get() = args.notebookId.takeIf { it >= 0L || it == R.id.nav_default_notebook.toLong() }
+        get() = args.notebookId.takeIf { it >= 0L }
     override val toolbarTitle: String
         get() = args.notebookName
 

@@ -16,9 +16,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.qosp.notes.R
 import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.databinding.FragmentManageNotebooksBinding
-import org.qosp.notes.preferences.SortNavdrawerNotebooksMethod
-import org.qosp.notes.preferences.SortNavdrawerNotebooksMethod.*
-import org.qosp.notes.preferences.SortTagsMethod
+import org.qosp.notes.preferences.SortNavdrawerNotebooksMethod.CREATION_ASC
+import org.qosp.notes.preferences.SortNavdrawerNotebooksMethod.CREATION_DESC
+import org.qosp.notes.preferences.SortNavdrawerNotebooksMethod.TITLE_ASC
+import org.qosp.notes.preferences.SortNavdrawerNotebooksMethod.TITLE_DESC
 import org.qosp.notes.ui.common.BaseFragment
 import org.qosp.notes.ui.common.recycler.onBackPressedHandler
 import org.qosp.notes.ui.notebooks.dialog.EditNotebookDialog

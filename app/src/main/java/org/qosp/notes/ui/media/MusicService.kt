@@ -10,7 +10,6 @@ import android.media.MediaPlayer
 import android.media.session.PlaybackState
 import android.net.Uri
 import android.os.Binder
-import android.os.Build
 import android.os.IBinder
 import android.os.Parcelable
 import android.os.PowerManager
@@ -53,7 +52,7 @@ class MusicService : LifecycleService() {
             IntentAction.PAUSE -> binder?.pausePlaying()
             IntentAction.STOP -> binder?.stopPlaying(shouldStopService = true, shouldReleasePlayer = true)
             IntentAction.STOP_SERVICE -> {
-                stopForeground(true)
+                stopForeground(STOP_FOREGROUND_REMOVE)
                 stopSelf()
             }
             else -> {
@@ -201,7 +200,7 @@ class MusicServiceBinder(
         action: MusicService.IntentAction,
         extras: List<Pair<String, Any>> = listOf()
     ): PendingIntent {
-        val defaultFlag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+        val defaultFlag = PendingIntent.FLAG_IMMUTABLE
 
         return PendingIntent.getService(
             applicationContext, 0,

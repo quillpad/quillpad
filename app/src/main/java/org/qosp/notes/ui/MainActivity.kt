@@ -12,6 +12,8 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
+import androidx.core.view.get
+import androidx.core.view.size
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavDeepLinkBuilder
@@ -303,8 +305,8 @@ class MainActivity : BaseActivity() {
             (primaryDestinations + secondaryDestinations + notebookIds).let { dests ->
                 notebooksMenu?.let { nbMenu ->
                     var index = 0
-                    while (index < nbMenu.size()) {
-                        val item = nbMenu.getItem(index)
+                    while (index < nbMenu.size) {
+                        val item = nbMenu[index]
                         if (item.itemId !in dests) nbMenu.removeItem(item.itemId) else index++
                     }
                 }

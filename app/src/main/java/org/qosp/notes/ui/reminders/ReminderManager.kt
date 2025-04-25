@@ -5,7 +5,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -21,7 +20,7 @@ class ReminderManager(
     private val reminderRepository: ReminderRepository,
 ) {
     private fun requestBroadcast(reminderId: Long, noteId: Long, flag: Int = PendingIntent.FLAG_UPDATE_CURRENT): PendingIntent? {
-        val defaultFlag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+        val defaultFlag = PendingIntent.FLAG_IMMUTABLE
 
         val notificationIntent = Intent(context, ReminderReceiver::class.java).apply {
             putExtras(
@@ -41,7 +40,7 @@ class ReminderManager(
     }
 
     fun isReminderSet(reminderId: Long, noteId: Long): Boolean {
-        val defaultFlag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+        val defaultFlag = PendingIntent.FLAG_IMMUTABLE
         return requestBroadcast(reminderId, noteId, PendingIntent.FLAG_NO_CREATE or defaultFlag) != null
     }
 
@@ -60,7 +59,7 @@ class ReminderManager(
 
     fun cancel(reminderId: Long, noteId: Long, keepIntent: Boolean = false) {
         val alarmManager = ContextCompat.getSystemService(context, AlarmManager::class.java) ?: return
-        val defaultFlag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+        val defaultFlag = PendingIntent.FLAG_IMMUTABLE
         val broadcast = requestBroadcast(reminderId, noteId, PendingIntent.FLAG_NO_CREATE or defaultFlag) ?: return
         alarmManager.cancel(broadcast)
         if (!keepIntent) broadcast.cancel()
