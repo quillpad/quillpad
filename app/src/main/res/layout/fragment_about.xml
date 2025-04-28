@@ -65,13 +65,12 @@
                     app:iconSrc="@drawable/ic_code"/>
 
             <org.qosp.notes.ui.utils.views.PreferenceView
-                    android:id="@+id/action_support"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:text="@string/about_support"
-                    app:subText="@string/about_support_subtext"
-                    app:iconSrc="@drawable/ic_heart"/>
+                android:id="@+id/action_support"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="@string/about_support"
+                app:subText="@string/about_support_subtext"
+                app:iconSrc="@drawable/ic_heart"/>
 
             <org.qosp.notes.ui.utils.views.PreferenceView
                     android:id="@+id/action_view_libraries"

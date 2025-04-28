@@ -44,10 +44,7 @@ class AboutFragment : BaseFragment(resId = R.layout.fragment_about) {
             requireContext().resources.getDimension(R.dimen.app_bar_elevation)
         )
         binding.appVersion.subText = BuildConfig.VERSION_NAME
-
-        if (!BuildConfig.IS_GOOGLE) {
-            binding.actionSupport.isVisible = true
-        }
+        binding.actionSupport.isVisible = true
     }
 
     private fun setupListeners() = with(binding) {
@@ -55,9 +52,7 @@ class AboutFragment : BaseFragment(resId = R.layout.fragment_about) {
         actionContribute.setOnClickListener { launchUrl(requireContext().getString(R.string.app_repo)) }
         actionVisitDeveloper.setOnClickListener { launchUrl(requireContext().getString(R.string.app_developer_repo)) }
         actionViewLibraries.setOnClickListener { showLibrariesDialog() }
-        if (!BuildConfig.IS_GOOGLE) {
-            actionSupport.setOnClickListener { launchUrl(requireContext().getString(R.string.app_support_page)) }
-        }
+        actionSupport.setOnClickListener { launchUrl(requireContext().getString(R.string.app_support_page)) }
     }
 
     private fun showLibrariesDialog() {

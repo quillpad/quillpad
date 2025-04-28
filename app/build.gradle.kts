@@ -77,18 +77,6 @@ android {
         }
     }
 
-    flavorDimensions += "versions"
-    productFlavors {
-        create("googleFlavor") {
-            dimension = "versions"
-            buildConfigField("boolean", "IS_GOOGLE", "true")
-        }
-        create("defaultFlavor") {
-            dimension = "versions"
-            buildConfigField("boolean", "IS_GOOGLE", "false")
-        }
-    }
-
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }

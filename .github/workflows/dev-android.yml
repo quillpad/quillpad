@@ -48,6 +48,4 @@ jobs:
         with:
           name: Quillpad Debug APKs
           path: |
-            app/build/outputs/apk/defaultFlavor/debug/app-defaultFlavor-debug.apk
-            app/build/outputs/apk/googleFlavor/debug/app-googleFlavor-debug.apk
-
+            app/build/outputs/apk/debug/app-debug.apk

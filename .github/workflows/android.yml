@@ -36,7 +36,7 @@ jobs:
     - name: Build App
       run: |
         chmod +x gradlew
-        ./gradlew assembleDefaultFlavor \
+        ./gradlew assembleRelease \
             -Pkeystore=keystore.jks \
             -Pstorepass=${{secrets.STORE_PASS}} \
             -Pkeypass=${{secrets.KEY_PASS}} \
@@ -46,7 +46,7 @@ jobs:
       if: ${{ github.ref_type == 'tag' }}
       run: |
         chmod +x gradlew
-        ./gradlew bundleGoogleFlavor \
+        ./gradlew bundleRelease \
             -Pkeystore=keystore.jks \
             -Pstorepass=${{secrets.STORE_PASS}} \
             -Pkeypass=${{secrets.KEY_PASS}} \
@@ -59,14 +59,14 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Archive Quillpad APK
-        path: app/build/outputs/apk/defaultFlavor/release/app-defaultFlavor-release.apk
+        path: app/build/outputs/apk/release/app-release.apk
 
     - name: Archive Bundle
       if: ${{ github.ref_type == 'tag' }}
       uses: actions/upload-artifact@v4
       with:
         name: Google PlayStore Bundle
-        path: app/build/outputs/bundle/googleFlavorRelease/app-googleFlavor-release.aab
+        path: app/build/outputs/bundle/release/app-release.aab
 
     - name: Rename app to release version
       if: ${{ github.ref_type == 'tag' }}
@@ -75,7 +75,7 @@ jobs:
       run: |
         echo version = ${VERSION:1}
         echo "APK_VERSION=${VERSION:1}" >> $GITHUB_ENV
-        cp -v app/build/outputs/apk/defaultFlavor/release/app-defaultFlavor-release.apk quillpad-${VERSION:1}.apk
+        cp -v app/build/outputs/apk/release/app-release.apk quillpad-${VERSION:1}.apk
 
     - name: Do Release
       uses: softprops/action-gh-release@v2
@@ -113,7 +113,7 @@ jobs:
       - name: Build Test APK
         run: |
           chmod +x gradlew
-          ./gradlew assembleDefaultFlavor -PTESTLAB_BUILD=true \
+          ./gradlew assembleRelease -PTESTLAB_BUILD=true \
               -Pkeystore=keystore.jks \
               -Pstorepass=${{secrets.STORE_PASS}} \
               -Pkeypass=${{secrets.KEY_PASS}} \
@@ -126,7 +126,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Test APK
-          path: app/build/outputs/apk/defaultFlavor/release/app-defaultFlavor-release.apk
+          path: app/build/outputs/apk/release/app-release.apk
 
       - name: Setup Google Cloud Auth
         uses: google-github-actions/auth@v2
@@ -140,7 +140,7 @@ jobs:
         run: |
           gcloud firebase test android run \
             --type robo \
-            --app app/build/outputs/apk/defaultFlavor/release/app-defaultFlavor-release.apk \
+            --app app/build/outputs/apk/release/app-release.apk \
             --device=model=MediumPhone.arm,version=35 \
             --device=model=MediumPhone.arm,version=26 \
             --results-dir=test-results

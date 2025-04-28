@@ -5,7 +5,7 @@
     <string name="app_developer_name" translatable="false">Michael Soultanidis and Contributors</string>
     <string name="app_developer_repo" translatable="false">https://github.com/msoultanidis</string>
     <string name="app_repo" translatable="false">https://github.com/quillpad/quillpad</string>
-    <string name="app_support_page" translatable="false">https://quillpad.github.io/#/support</string>
+    <string name="app_support_page" translatable="false">https://buymeacoffee.com/quillpad</string>
     <string name="hint_nextcloud_url" translatable="false">https://…</string>
 
     <string name="licenses_markdown_text" translatable="false">

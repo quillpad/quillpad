@@ -39,4 +39,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Archive Debug APKs
-        path: app/build/outputs/apk/*/debug/app-*.apk
+        path: app/build/outputs/apk/debug/app-*.apk
