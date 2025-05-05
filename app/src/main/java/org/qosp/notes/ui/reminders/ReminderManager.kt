@@ -14,10 +14,12 @@ import kotlinx.coroutines.flow.first
 import org.qosp.notes.App
 import org.qosp.notes.R
 import org.qosp.notes.data.repo.ReminderRepository
+import org.qosp.notes.data.repo.NoteRepository
 
 class ReminderManager(
     private val context: Context,
     private val reminderRepository: ReminderRepository,
+    private val noteRepository: NoteRepository,
 ) {
     private fun requestBroadcast(reminderId: Long, noteId: Long, flag: Int = PendingIntent.FLAG_UPDATE_CURRENT): PendingIntent? {
         val defaultFlag = PendingIntent.FLAG_IMMUTABLE
@@ -90,6 +92,10 @@ class ReminderManager(
 
         reminderRepository.getById(reminderId).first()?.let { notificationTitle = it.name }
         reminderRepository.deleteById(reminderId)
+
+        if (notificationTitle.isEmpty()) {
+            noteRepository.getById(noteId).first()?.let { notificationTitle = it.title }
+        }
 
         val pendingIntent = NavDeepLinkBuilder(context)
             .setGraph(R.navigation.nav_graph)
