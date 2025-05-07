@@ -43,7 +43,8 @@ object TestUtilModule {
     fun provideReminderManager(
         @ApplicationContext context: Context,
         reminderRepository: ReminderRepository,
-    ) = ReminderManager(context, reminderRepository)
+        noteRepository: NoteRepository,
+    ) = ReminderManager(context, reminderRepository, noteRepository)
 
     @Provides
     @Singleton
