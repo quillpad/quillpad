@@ -15,6 +15,8 @@ import org.qosp.notes.App
 import org.qosp.notes.R
 import org.qosp.notes.data.repo.ReminderRepository
 import org.qosp.notes.data.repo.NoteRepository
+import org.qosp.notes.ui.MainActivity
+
 
 class ReminderManager(
     private val context: Context,
@@ -106,6 +108,7 @@ class ReminderManager(
                     "transitionName" to ""
                 )
             )
+            .setComponentName(MainActivity::class.java)
             .createPendingIntent()
 
         val notification = NotificationCompat.Builder(context, App.REMINDERS_CHANNEL_ID)
