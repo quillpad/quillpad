@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <data>
-        <variable name="model" type="org.qosp.notes.ui.settings.SettingsViewModel"/>
-    </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -48,14 +44,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:text="@string/preferences_theme_mode"
-                    app:subTextId="@{model.prefs.themeMode.nameResource}"
                     app:iconSrc="@drawable/ic_dark_mode"/>
 
                 <org.qosp.notes.ui.utils.views.PreferenceView
                     android:id="@+id/setting_dark_theme_mode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:subTextId="@{model.prefs.darkThemeMode.nameResource}"
                     app:text="@string/preferences_dark_theme_mode"
                     app:iconSrc="@drawable/ic_dark_mode_variant"/>
 
@@ -64,7 +58,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:text="@string/preferences_color_scheme"
-                    app:subTextId="@{model.prefs.colorScheme.nameResource}"
                     app:iconSrc="@drawable/ic_color"/>
 
                 <View
@@ -97,7 +90,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:text="@string/preferences_layout_mode"
-                    app:subTextId="@{model.prefs.layoutMode.nameResource}"
                     app:iconSrc="@drawable/ic_grid"/>
 
                 <org.qosp.notes.ui.utils.views.PreferenceView
@@ -105,7 +97,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:text="@string/preferences_sort_method"
-                    app:subTextId="@{model.prefs.sortMethod.nameResource}"
                     app:iconSrc="@drawable/ic_sort"/>
 
             <!-- Note content -->
@@ -121,8 +112,7 @@
                 android:id="@+id/setting_font_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:subTextId="@{model.prefs.showDate.nameResource}"
-                    app:text="@string/preferences_font_size"
+                app:text="@string/preferences_font_size"
                 app:iconSrc="@drawable/ic_search"/>
 
             <org.qosp.notes.ui.utils.views.PreferenceView
@@ -204,7 +194,6 @@
                     android:id="@+id/setting_open_media"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:subTextId="@{model.prefs.openMediaIn.nameResource}"
                     app:text="@string/preferences_open_media_in"
                     app:iconSrc="@drawable/ic_music"/>
 
@@ -213,7 +202,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:text="@string/preferences_group_notes_without_notebook"
-                    app:subTextId="@{model.prefs.groupNotesWithoutNotebook.nameResource}"
                     app:iconSrc="@drawable/ic_notebook"/>
 
             <org.qosp.notes.ui.utils.views.PreferenceView
@@ -227,7 +215,6 @@
                     android:id="@+id/setting_note_deletion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:subTextId="@{model.prefs.noteDeletionTime.nameResource}"
                     app:text="@string/preferences_note_deletion_time"
                     app:iconSrc="@drawable/ic_bin"/>
 
@@ -267,7 +254,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:text="@string/preferences_backup_strategy"
-                    app:subTextId="@{model.prefs.backupStrategy.nameResource}"
                     app:iconSrc="@drawable/ic_backup_settings"/>
 
                 <View
@@ -296,4 +282,3 @@
         </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>

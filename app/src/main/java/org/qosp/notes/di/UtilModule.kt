@@ -28,8 +28,11 @@ class UtilModule {
         MediaStorageManager(context, noteRepository, App.MEDIA_FOLDER)
 
     @Single
-    fun provideReminderManager(context: Context, reminderRepository: ReminderRepository) =
-        ReminderManager(context, reminderRepository)
+    fun provideReminderManager(
+        context: Context,
+        reminderRepository: ReminderRepository,
+        noteRepository: NoteRepository,
+    ) = ReminderManager(context, reminderRepository, noteRepository)
 
     @Single
     fun provideSyncManager(

@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlinParcelize)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.kapt)
     alias(libs.plugins.navigationSafeArgs)
 }
 
@@ -90,7 +89,6 @@ android {
 
     buildFeatures {
         viewBinding = true
-        dataBinding = true
         compose = true
         buildConfig = true
     }

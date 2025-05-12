@@ -7,10 +7,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.Toolbar
+import androidx.core.net.toUri
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.qosp.notes.R
 import org.qosp.notes.databinding.FragmentSyncSettingsBinding
 import org.qosp.notes.preferences.AppPreferences
+import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.ui.common.BaseFragment
 import org.qosp.notes.ui.settings.SettingsViewModel
@@ -49,8 +51,6 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.model = model
-        binding.lifecycleOwner = this
         binding.scrollView.liftAppBarOnScroll(
             binding.layoutAppBar.appBar,
             requireContext().resources.getDimension(R.dimen.app_bar_elevation)
@@ -69,9 +69,25 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
         setupLocalLocationListener()
     }
 
+    private fun View.show(visible: Boolean) = if (visible) visibility = View.VISIBLE else visibility = View.GONE
 
     private fun setupPreferenceObservers() {
-        model.appPreferences.collect(viewLifecycleOwner) { appPreferences = it }
+        model.appPreferences.collect(viewLifecycleOwner) { prefs ->
+            appPreferences = prefs
+
+            // Update visibility of layouts based on cloud service
+            binding.layoutGenericSettings.show(prefs.cloudService == CloudService.NEXTCLOUD)
+            binding.layoutNextcloudSettings.show(prefs.cloudService == CloudService.NEXTCLOUD)
+            binding.layoutStorageSettings.show(prefs.cloudService == CloudService.FILE_STORAGE)
+            binding.settingSyncMode.show(prefs.cloudService == CloudService.NEXTCLOUD)
+            binding.settingBackgroundSync.show(prefs.cloudService == CloudService.NEXTCLOUD)
+            binding.settingNotesSyncableByDefault.show(prefs.cloudService == CloudService.NEXTCLOUD)
+
+            binding.settingSyncProvider.subText = getString(prefs.cloudService.nameResource)
+            binding.settingSyncMode.subText = getString(prefs.syncMode.nameResource)
+            binding.settingBackgroundSync.subText = getString(prefs.backgroundSync.nameResource)
+            binding.settingNotesSyncableByDefault.subText = getString(prefs.newNotesSyncable.nameResource)
+        }
 
         // ENCRYPTED
         model.getEncryptedString(PreferenceRepository.NEXTCLOUD_INSTANCE_URL).collect(viewLifecycleOwner) {
@@ -89,7 +105,7 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
         }
 
         model.getEncryptedString(PreferenceRepository.STORAGE_LOCATION).collect(viewLifecycleOwner) { u ->
-            val uri = Uri.parse(u)
+            val uri = u.toUri()
             val pm = context?.packageManager
             storageLocation = uri
             val appName = pm?.getInstalledPackages(PackageManager.GET_PROVIDERS)

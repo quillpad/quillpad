@@ -4,12 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.testing.MigrationTestHelper
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import dagger.hilt.testing.TestInstallIn
-import javax.inject.Singleton
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -28,13 +23,13 @@ import org.qosp.notes.data.sync.nextcloud.NextcloudBackend
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.ui.reminders.ReminderManager
 import org.qosp.notes.ui.utils.ConnectionManager
-import javax.inject.Provider
 
 const val TEST_MEDIA_FOLDER = "test_media"
 
 object TestUtilModule {
 
     // Manual module definition to ensure all dependencies are included
+    @OptIn(DelicateCoroutinesApi::class)
     val module = module {
         single {
             MediaStorageManager(
@@ -43,14 +38,22 @@ object TestUtilModule {
                 mediaFolder = TEST_MEDIA_FOLDER
             )
         }
-        single { ReminderManager(context = get<Context>(), reminderRepository = get<ReminderRepository>()) }
+        single {
+            ReminderManager(
+                context = get<Context>(),
+                reminderRepository = get<ReminderRepository>(),
+                noteRepository = get<NoteRepository>(),
+            )
+        }
         single {
             SyncManager(
                 preferenceRepository = get<PreferenceRepository>(),
                 idMappingRepository = get<IdMappingRepository>(),
                 connectionManager = ConnectionManager(get<Context>()),
-                nextcloudManager = get<NextcloudManager>(),
                 syncingScope = GlobalScope,
+                context = get<Context>(),
+                nextcloudBackend = get<NextcloudBackend>(),
+                storageBackend = get<StorageBackend>(),
             )
         }
         single {
