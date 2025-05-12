@@ -1,7 +1,6 @@
 package org.qosp.notes.ui.utils
 
 import android.view.View
-import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
@@ -38,14 +37,5 @@ class ViewBindingDelegate<T : ViewBinding>(
             throw IllegalStateException("Attempted to access binding of a destroyed fragment")
         }
         return bindMethod(thisRef.requireView()).also { this.value = it }
-    }
-}
-
-object DataBindingAdapters {
-
-    @JvmStatic
-    @BindingAdapter("app:visible")
-    fun setVisibility(view: View, visible: Boolean) {
-        view.visibility = if (visible) View.VISIBLE else View.GONE
     }
 }

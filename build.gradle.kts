@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlinSerialization) apply false
     alias(libs.plugins.kotlinParcelize) apply false
     alias(libs.plugins.ksp) apply false
-    alias(libs.plugins.kapt) apply false
     alias(libs.plugins.navigationSafeArgs) apply false
 }
 

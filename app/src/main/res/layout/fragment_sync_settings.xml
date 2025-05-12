@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-        <import type="org.qosp.notes.preferences.CloudService"/>
-        <variable name="model" type="org.qosp.notes.ui.settings.SettingsViewModel"/>
-    </data>
-
-    <LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -32,7 +26,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:text="@string/preferences_cloud_service"
-                    app:subTextId="@{model.prefs.cloudService.nameResource}"
                     app:iconSrc="@drawable/ic_sync_settings">
                 </org.qosp.notes.ui.utils.views.PreferenceView>
 
@@ -45,17 +38,13 @@
                         android:id="@+id/setting_sync_mode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:visible="@{model.prefs.cloudService == CloudService.NEXTCLOUD}"
                         app:text="@string/preferences_sync_when_on"
-                        app:subTextId="@{model.prefs.syncMode.nameResource}"
                         app:iconSrc="@drawable/ic_wifi"/>
 
                     <org.qosp.notes.ui.utils.views.PreferenceView
                         android:id="@+id/setting_background_sync"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:visible="@{model.prefs.cloudService == CloudService.NEXTCLOUD}"
-                        app:subTextId="@{model.prefs.backgroundSync.nameResource}"
                         app:text="@string/preferences_background_sync"
                         app:iconSrc="@drawable/ic_sync"/>
 
@@ -63,15 +52,12 @@
                         android:id="@+id/setting_notes_syncable_by_default"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:visible="@{model.prefs.cloudService == CloudService.NEXTCLOUD}"
                         app:text="@string/preferences_new_notes_synchronizable"
-                        app:subTextId="@{model.prefs.newNotesSyncable.nameResource}"
                         app:iconSrc="@drawable/ic_file"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/layout_nextcloud_settings"
-                    app:visible="@{model.selectedCloud == CloudService.NEXTCLOUD}"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -121,7 +107,6 @@
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layout_storage_settings"
-                    app:visible="@{model.selectedCloud == CloudService.FILE_STORAGE}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -159,4 +144,3 @@
         </ScrollView>
 
     </LinearLayout>
-</layout>

@@ -25,14 +25,6 @@ class PreferenceView(context: Context, attrs: AttributeSet?) : LinearLayout(cont
             subTextView.isVisible = value.isNotBlank()
             field = value
         }
-    var subTextId: Int = 0
-        set(id) {
-            if (id > 0) {
-                subTextView.text = context.getText(id)
-                subTextView.isVisible = context.getText(id).isNotBlank()
-            }
-            field = id
-        }
 
     init {
         inflate(context, R.layout.layout_about_item, this)

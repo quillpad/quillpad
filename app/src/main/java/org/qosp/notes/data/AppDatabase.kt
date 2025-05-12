@@ -1,6 +1,5 @@
 package org.qosp.notes.data
 
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
@@ -29,9 +28,6 @@ import org.qosp.notes.data.model.Tag
         IdMapping::class,
     ],
     version = 4,
-    autoMigrations = [
-        AutoMigration(from = 3, to = 4)
-    ],
     exportSchema = true
 )
 @TypeConverters(DatabaseConverters::class)
@@ -58,6 +54,13 @@ abstract class AppDatabase : RoomDatabase() {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.apply {
                     execSQL("ALTER TABLE notes ADD COLUMN screenAlwaysOn INTEGER NOT NULL DEFAULT (0)")
+                }
+            }
+        }
+        val Migration_3_4 = object : Migration(3, 4) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.apply {
+                    execSQL("ALTER TABLE cloud_ids ADD COLUMN storageUri TEXT")
                 }
             }
         }

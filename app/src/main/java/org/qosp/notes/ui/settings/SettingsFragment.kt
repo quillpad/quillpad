@@ -72,8 +72,6 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
             requireContext().resources.getDimension(R.dimen.app_bar_elevation)
         )
 
-        binding.model = model
-        binding.lifecycleOwner = this
         binding.settingRestoreNotes.setOnClickListener { loadBackupLauncher.launch(null) }
 
         binding.settingBackupNotes.setOnClickListener {
@@ -116,6 +114,12 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
                 with(DateTimeFormatter.ofPattern(getString(timeFormat.patternResource))) {
                     binding.settingTimeFormat.subText = format(LocalTime.now())
                 }
+
+                binding.settingThemeMode.subText = getString(themeMode.nameResource)
+                binding.settingDarkThemeMode.subText = getString(darkThemeMode.nameResource)
+                binding.settingColorScheme.subText = getString(colorScheme.nameResource)
+                binding.settingLayoutMode.subText = getString(layoutMode.nameResource)
+
             }
         }
     }
