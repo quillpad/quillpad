@@ -184,7 +184,7 @@ class EditorViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val note = data.value.note ?: return@launch
             val new = transform(note)
-            noteRepository.updateNotes(new, shouldSync = false)
+            noteRepository.updateNotes(new)
 
             if (new.isLocalOnly) return@launch
 

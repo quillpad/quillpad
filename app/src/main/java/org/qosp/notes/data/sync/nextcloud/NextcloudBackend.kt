@@ -15,7 +15,6 @@ import org.qosp.notes.data.sync.core.NextcloudNote
 import org.qosp.notes.data.sync.core.ServerNotSupported
 import org.qosp.notes.data.sync.core.ServerNotSupportedException
 import org.qosp.notes.data.sync.core.Success
-import org.qosp.notes.data.sync.core.SyncNote
 import org.qosp.notes.data.sync.core.SyncResult
 import org.qosp.notes.data.sync.nextcloud.model.asNewLocalNote
 import org.qosp.notes.data.sync.nextcloud.model.asNextcloudNote

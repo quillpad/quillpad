@@ -17,7 +17,7 @@ object StorageModule {
     fun provideStorageManager(
         preferenceRepository: PreferenceRepository,
         context: Context,
-        @Named(NO_SYNC) noteRepository: NoteRepository,
+        noteRepository: NoteRepository,
         @Named(NO_SYNC) notebookRepository: NotebookRepository,
         idMappingRepository: IdMappingRepository,
     ) = StorageBackend(preferenceRepository, context, noteRepository, notebookRepository, idMappingRepository)

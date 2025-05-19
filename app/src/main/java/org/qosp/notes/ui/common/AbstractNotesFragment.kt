@@ -256,7 +256,7 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
     }
 
     override fun onDestroyView() {
-        // Bug fix. See the the comments at the declaration of destinationChangedListener for more info.
+        // Bug fix. See the comments at the declaration of destinationChangedListener for more info.
         isListenerSet = false
         findNavController().removeOnDestinationChangedListener(destinationChangedListener)
 

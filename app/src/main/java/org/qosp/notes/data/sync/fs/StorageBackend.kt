@@ -147,8 +147,7 @@ class StorageBackend(
                 content = content,
                 modifiedDate = file.lastModified(),
                 isMarkdownEnabled = isMarkdown
-            ),
-            shouldSync = false
+            ), ,
         )
         idMappingRepository.insert(
             IdMapping(
@@ -233,7 +232,7 @@ class StorageBackend(
 
     @OptIn(ExperimentalTime::class)
     private inline fun <T> inStorage(config: StorageConfig, block: (DocumentFile, StorageConfig) -> T): SyncResult<T> {
-        val root = DocumentFile.fromTreeUri(config.context, config.location) ?: return SyncResult.Error(
+        val root = DocumentFile.fromTreeUri(context, config.location) ?: return SyncResult.Error(
             FileNotFoundException("Unable to find ${config.location}")
         )
         if (!hasPermissionsAt(config.location))

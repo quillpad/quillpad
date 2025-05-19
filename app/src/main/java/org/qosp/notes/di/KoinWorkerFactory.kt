@@ -10,14 +10,12 @@ import org.qosp.notes.components.MediaStorageManager
 import org.qosp.notes.components.workers.BinCleaningWorker
 import org.qosp.notes.components.workers.SyncWorker
 import org.qosp.notes.data.repo.NoteRepository
-import org.qosp.notes.data.sync.core.SyncManager
 import org.qosp.notes.preferences.PreferenceRepository
 
 class KoinWorkerFactory : WorkerFactory(), KoinComponent {
     private val preferenceRepository: PreferenceRepository by inject()
     private val noteRepository: NoteRepository by inject()
     private val mediaStorageManager: MediaStorageManager by inject()
-    private val syncManager: SyncManager by inject()
 
     override fun createWorker(
         appContext: Context,
@@ -37,7 +35,7 @@ class KoinWorkerFactory : WorkerFactory(), KoinComponent {
                 appContext,
                 workerParameters,
                 preferenceRepository,
-                syncManager
+                noteRepository,
             )
 
             else -> null

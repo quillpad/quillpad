@@ -1,15 +1,20 @@
 package org.qosp.notes.di
 
+import kotlinx.coroutines.CoroutineScope
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import org.qosp.notes.data.AppDatabase
 import org.qosp.notes.data.repo.IdMappingRepository
+import org.qosp.notes.data.repo.NewNoteRepository
 import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.data.repo.ReminderRepository
 import org.qosp.notes.data.repo.TagRepository
+import org.qosp.notes.data.sync.SYNC_SCOPE
 import org.qosp.notes.data.sync.core.SyncManager
+import org.qosp.notes.data.sync.neu.BackendProvider
+import org.qosp.notes.data.sync.neu.SynchronizeNotes
 
 const val NO_SYNC = "NO_SYNC"
 
@@ -26,21 +31,26 @@ class RepositoryModule {
     @Single
     fun provideNotebookRepositoryWithNullSyncManager(
         appDatabase: AppDatabase,
-        @Named(NO_SYNC) noteRepository: NoteRepository,
+        noteRepository: NoteRepository,
     ) = NotebookRepository(appDatabase.notebookDao, noteRepository, null)
 
     @Single
-    fun provideNoteRepository(
+    fun provideNewNoteRepository(
         appDatabase: AppDatabase,
-        syncManager: SyncManager,
-    ) = NoteRepository(appDatabase.noteDao, appDatabase.idMappingDao, appDatabase.reminderDao, syncManager)
-
-
-    @Named(NO_SYNC)
-    @Single
-    fun provideNoteRepositoryWithNullSyncManager(
-        appDatabase: AppDatabase,
-    ) = NoteRepository(appDatabase.noteDao, appDatabase.idMappingDao, appDatabase.reminderDao, null)
+        backendProvider: BackendProvider,
+        synchronizeNotes: SynchronizeNotes,
+        @Named(NO_SYNC) notebookRepository: NotebookRepository,
+        @Named(SYNC_SCOPE) syncingScope: CoroutineScope,
+    ): NoteRepository =
+        NewNoteRepository(
+            noteDao = appDatabase.noteDao,
+            idMappingDao = appDatabase.idMappingDao,
+            reminderDao = appDatabase.reminderDao,
+            backendProvider = backendProvider,
+            synchronizeNotes = synchronizeNotes,
+            notebookRepository = notebookRepository,
+            syncingScope = syncingScope
+        )
 
 
     @Single

@@ -16,6 +16,7 @@ class DatabaseModule {
             .addMigrations(AppDatabase.MIGRATION_1_2)
             .addMigrations(AppDatabase.MIGRATION_2_3)
             .addMigrations(AppDatabase.Migration_3_4)
+            .addMigrations(AppDatabase.MIGRATION_4_5)
             .build()
     }
 }

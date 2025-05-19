@@ -50,7 +50,7 @@ class SyncManager(
     val syncProvider: StateFlow<ISyncProvider?> = combine(
         syncService,
         NextcloudConfig.fromPreferences(preferenceRepository),
-        StorageConfig.storageLocation(preferenceRepository, context)
+        StorageConfig.storageLocation(preferenceRepository)
     ) { service, nextcloudConfig, storageConfig ->
         when (service) {
             DISABLED -> null
@@ -119,12 +119,6 @@ class SyncManager(
         Log.i(TAG, "sendMessage: Got result $result")
         return result
     }
-
-    suspend fun sync() = sendMessage { Sync() }
-
-    suspend fun createNote(note: Note) = sendMessage { CreateNote(note) }
-
-    suspend fun deleteNote(note: Note) = sendMessage { DeleteNote(note) }
 
     suspend fun updateNote(note: Note) = sendMessage { UpdateNote(note) }
 

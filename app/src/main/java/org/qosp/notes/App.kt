@@ -20,9 +20,6 @@ import coil.decode.ImageDecoderDecoder
 import coil.decode.VideoFrameDecoder
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androix.startup.KoinStartup
@@ -31,6 +28,7 @@ import org.koin.dsl.koinConfiguration
 import org.koin.ksp.generated.module
 import org.qosp.notes.components.workers.BinCleaningWorker
 import org.qosp.notes.components.workers.SyncWorker
+import org.qosp.notes.data.sync.SyncModule
 import org.qosp.notes.di.DatabaseModule
 import org.qosp.notes.di.KoinWorkerFactory
 import org.qosp.notes.di.MarkwonModule
@@ -44,7 +42,6 @@ import java.util.concurrent.TimeUnit
 
 @OptIn(KoinExperimentalAPI::class)
 class App : Application(), ImageLoaderFactory, Configuration.Provider, KoinStartup {
-    val syncingScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val workerFactory = KoinWorkerFactory()
 
     override val workManagerConfiguration: Configuration =
@@ -85,13 +82,14 @@ class App : Application(), ImageLoaderFactory, Configuration.Provider, KoinStart
         modules(
             listOf(
                 DatabaseModule().module,
-                RepositoryModule().module,
-                PreferencesModule().module,
-                UtilModule().module,
-                StorageModule.module,
-                NextcloudModule().module,
-                UIModule().module,
                 MarkwonModule().module,
+                NextcloudModule().module,
+                PreferencesModule().module,
+                RepositoryModule().module,
+                StorageModule.module,
+                SyncModule.module,
+                UIModule().module,
+                UtilModule().module,
             )
         )
     }

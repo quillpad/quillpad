@@ -24,14 +24,6 @@ android {
 
         // Enable per-app language preferences
         resourceConfigurations.addAll(listOf("ar", "ca", "cs", "de", "el", "en", "es", "fr", "it", "nb-rNO", "nl", "pl", "pt-rBR", "ru", "tr", "uk", "vi", "zh-rCN", "zh-rTW"))
-
-        // export schema
-        // https://stackoverflow.com/a/44645943/4594587
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-            arg("KOIN_CONFIG_CHECK", "true")
-            arg("KOIN_DEFAULT_MODULE", "true")
-        }
     }
 
     dependenciesInfo {
@@ -107,6 +99,14 @@ android {
     }
 }
 
+// export schema
+// https://stackoverflow.com/a/44645943/4594587
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("KOIN_CONFIG_CHECK", "true")
+    arg("KOIN_DEFAULT_MODULE", "true")
+}
+
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
@@ -122,6 +122,7 @@ dependencies {
 
     // Test
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockk.android)
     testImplementation(libs.mockk.agent)
     testImplementation(libs.roomTesting)

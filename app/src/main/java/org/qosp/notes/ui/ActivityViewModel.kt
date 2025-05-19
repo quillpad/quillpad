@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import me.msoul.datastore.defaultOf
 import org.koin.android.annotation.KoinViewModel
+import org.koin.core.annotation.Named
 import org.qosp.notes.components.MediaStorageManager
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.model.Notebook
@@ -24,8 +25,8 @@ import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.data.repo.ReminderRepository
 import org.qosp.notes.data.repo.TagRepository
+import org.qosp.notes.data.sync.SYNC_SCOPE
 import org.qosp.notes.data.sync.core.BaseResult
-import org.qosp.notes.data.sync.core.SyncManager
 import org.qosp.notes.preferences.GroupNotesWithoutNotebook
 import org.qosp.notes.preferences.LayoutMode
 import org.qosp.notes.preferences.NoteDeletionTime
@@ -45,7 +46,7 @@ class ActivityViewModel(
     private val reminderManager: ReminderManager,
     private val tagRepository: TagRepository,
     private val mediaStorageManager: MediaStorageManager,
-    private val syncManager: SyncManager,
+    @Named(SYNC_SCOPE) private val syncScope: CoroutineScope,
 ) : ViewModel() {
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -66,16 +67,11 @@ class ActivityViewModel(
     var tempPhotoUri: Uri? = null
 
     fun syncAsync(): Deferred<BaseResult> {
-        return syncManager.syncingScope.async {
-            syncManager.sync()
+        return syncScope.async {
+            noteRepository.syncNotes()
         }
     }
 
-    fun sync() {
-        syncManager.syncingScope.launch {
-            syncManager.sync()
-        }
-    }
 
     fun discardEmptyNotesAsync() = viewModelScope.async(Dispatchers.IO) {
         noteRepository.discardEmptyNotes()
@@ -95,6 +91,7 @@ class ActivityViewModel(
                     noteRepository.deleteNotes(*notes)
                     mediaStorageManager.cleanUpStorage()
                 }
+
                 else -> {
                     noteRepository.moveNotesToBin(*notes)
                 }

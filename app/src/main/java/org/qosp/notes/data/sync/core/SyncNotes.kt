@@ -8,6 +8,7 @@ import org.qosp.notes.preferences.CloudService.FILE_STORAGE
 import org.qosp.notes.preferences.CloudService.NEXTCLOUD
 
 interface SyncNote {
+    val remoteId: String
     val content: String?
     val title: String
     val modified: Long
@@ -24,6 +25,7 @@ data class NextcloudNote(
     val favorite: Boolean,
     override val modified: Long,
     val readOnly: Boolean? = null,
+    override val remoteId: String = id.toString(),
 ) : SyncNote {
     override fun getIdMappingFor(note: Note) = IdMapping(
         localNoteId = note.id,
@@ -38,7 +40,8 @@ data class NoteFile(
     override val modified: Long,
     override val content: String?,
     override val title: String,
-    val uri: Uri?
+    val uri: Uri?,
+    override val remoteId: String = uri?.toString().orEmpty(),
 ) : SyncNote {
     override fun getIdMappingFor(note: Note) = IdMapping(
         localNoteId = note.id,

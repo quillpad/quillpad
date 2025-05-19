@@ -16,7 +16,6 @@ import org.qosp.notes.di.KoinWorkerFactory
 import org.qosp.notes.preferences.NoteDeletionTime
 import org.qosp.notes.preferences.PreferenceRepository
 import java.time.Instant
-import javax.inject.Inject
 import kotlin.time.Duration.Companion.days
 
 class BinCleaningWorkerTest : KoinComponent {

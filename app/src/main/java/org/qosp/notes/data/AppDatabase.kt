@@ -27,7 +27,7 @@ import org.qosp.notes.data.model.Tag
         Reminder::class,
         IdMapping::class,
     ],
-    version = 4,
+    version = 5,
     exportSchema = true
 )
 @TypeConverters(DatabaseConverters::class)
@@ -61,6 +61,19 @@ abstract class AppDatabase : RoomDatabase() {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.apply {
                     execSQL("ALTER TABLE cloud_ids ADD COLUMN storageUri TEXT")
+                }
+            }
+        }
+
+        val MIGRATION_4_5 = object : Migration(4, 5) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.apply {
+                    execSQL(
+                        """
+                        CREATE INDEX IF NOT EXISTS cloud_ids_id_index ON cloud_ids (localNoteId);
+                        CREATE INDEX IF NOT EXISTS cloud_ids_id_provider_index ON cloud_ids (localNoteId, provider);
+                    """.trimIndent()
+                    )
                 }
             }
         }

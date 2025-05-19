@@ -19,22 +19,13 @@ import retrofit2.create
 class NextcloudModule {
     private val json = Json { ignoreUnknownKeys = true }
 
-    @OptIn(ExperimentalSerializationApi::class)
     @Single
-    fun provideNextcloud(): NextcloudAPI {
-        return Retrofit.Builder()
-            .baseUrl("http://localhost/") // Since the URL is configurable by the user we set it later during the request
-            .addConverterFactory(
-                json.asConverterFactory("application/json".toMediaType())
-            )
-            .build()
-            .create<NextcloudAPI>()
-    }
+    fun provideNextcloud() = getRetrofitted<NextcloudAPI>()
 
     @Single
     fun provideNextcloudManager(
         nextcloudAPI: NextcloudAPI,
-        @Named(NO_SYNC) noteRepository: NoteRepository,
+        noteRepository: NoteRepository,
         @Named(NO_SYNC) notebookRepository: NotebookRepository,
         idMappingRepository: IdMappingRepository,
     ) = NextcloudBackend(nextcloudAPI, noteRepository, notebookRepository, idMappingRepository)
