@@ -68,7 +68,7 @@
     <string name="preferences_cloud_service_disabled">Отключена</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
     <string name="preferences_sync_experimental_warning">Синхронизации находится в экспериментальном состоянии.\nМогут быть проблемы.</string>
-    <string name="preferences_nextcloud_limited_features">Помните, что заметки с Nextcloud не поддерживают меток, вложений, напоминаний, списков задач и др.</string>
+    <string name="preferences_nextcloud_limited_features">Помните, что заметки с Nextcloud не поддерживают меток, вложений, напоминаний, списков задач и прочее. На Nextcloud сервере нужно установить Nextcloud Notes или же вход не удастся с ошибкой Что-то пошло не так!</string>
     <string name="preferences_nextcloud_account">Уч.запись Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">URL сервера Nextcloud</string>
     <string name="preferences_nextcloud_set_your_credentials">Ввести данные</string>
@@ -79,14 +79,14 @@
     <string name="preferences_background_sync">Фоновая синх-ия</string>
     <string name="preferences_background_sync_enabled">Включено</string>
     <string name="preferences_background_sync_disabled">Выключено</string>
-    <string name="preferences_new_notes_synchronizable">Новые заметки готовы к синхр.</string>
+    <string name="preferences_new_notes_synchronizable">Новые заметки готовы к синхронизации</string>
     <!-- About -->
     <string name="about_version">Версия</string>
     <string name="about_website">Веб-сайт</string>
     <string name="about_developer">Разработчик</string>
     <string name="about_contribute">Внести вклад</string>
     <string name="about_support">Поддержать</string>
-    <string name="about_support_subtext">Создание и поддержка открытых проектов требует времени и труда.Поддержи разработчика!</string>
+    <string name="about_support_subtext">Создание и поддержка открытых проектов требует времени и труда.Поддержи разработчика!\nПодкиньте разработчику на кофе!</string>
     <string name="about_libraries">Библиотеки</string>
     <string name="about_libraries_subtext">Список используемых библиотек и лицезий.</string>
     <!-- General -->
@@ -125,7 +125,7 @@
     <string name="attachments_edit_description">Редактировать описание</string>
     <string name="attachments_hint_description">Описание вложения</string>
     <string name="action_record_audio">Запись аудио</string>
-    <string name="indicator_recording">Recording (%1$s)</string>
+    <string name="indicator_recording">Записывание (%1$s)</string>
     <string name="action_attach_files">Прикрепить файлы</string>
     <string name="action_take_photo">Сделать фото</string>
     <string name="indicator_recorded_clip">Записанный клип</string>
@@ -196,7 +196,7 @@
     <string name="indicator_archive_note">Архивированная заметка</string>
     <string name="indicator_moved_notes_to_bin">Заметки в корзине</string>
     <string name="indicator_moved_note_to_bin">Заметка в корзине</string>
-    <string name="indicator_empty_note_discarded">Заметка пустая!</string>
+    <string name="indicator_empty_note_discarded">Заметка пустая и была стёрта</string>
     <string name="action_insert_link">Вставить ссылку</string>
     <string name="action_insert">Вставить</string>
     <string name="action_insert_table">Вставить таблицу</string>
@@ -273,4 +273,17 @@
     <string name="preferences_header_view_navdrawer">Панель навигации</string>
     <string name="preferences_sort_navdrawer_method">Сортировать блокноты по</string>
     <string name="swipe_to_find_out_whats_new">Проведите пальцем, чтобы узнать, что нового</string>
+    <string name="preferences_header_view_notebook">Блокнот</string>
+    <string name="preferences_header_view_note_content">Текст заметки</string>
+    <string name="preferences_font_size">Размер шрифта редактора текста</string>
+    <string name="preferences_font_size_default">По умолчанию</string>
+    <string name="preferences_show_fab_change_mode">Позиция кнопок Просмотра/Правки</string>
+    <string name="preferences_fab">Плавающая кнопка</string>
+    <string name="preferences_top_bar">Верхняя панель</string>
+    <string name="preferences_move_checked_items">Переместить (не) выделенные элементы в списках</string>
+    <string name="action_change_mode">Режим Правки/Просмотра</string>
+    <string name="action_screen_always_on">Экран всегда включён</string>
+    <string name="action_enable_screen_always_on">Сделать экран всегда включённым</string>
+    <string name="action_disable_screen_always_on">Отключить экран всегда горящим</string>
+    <string name="action_uncheck_all_tasks">Снять флажок со всех элементов</string>
 </resources>
