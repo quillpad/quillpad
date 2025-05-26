@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Navigation drawer 導覽抽屜 -->
     <string name="nav_notes">筆記</string>
@@ -9,7 +10,6 @@
     <string name="nav_all_notes">所有筆記</string>
     <string name="nav_notebooks">筆記本</string>
     <string name="nav_your_notebooks">你的筆記本</string>
-
     <!-- Preferences 偏好 -->
     <!-- Preferences / General 偏好 / 一般-->
     <string name="preferences_header_general">一般</string>
@@ -17,11 +17,9 @@
     <string name="preferences_theme_mode_dark">深色</string>
     <string name="preferences_theme_mode_light">淺色</string>
     <string name="preferences_theme_mode_system">跟隨系統</string>
-
     <string name="preferences_dark_theme_mode">深色主題模式</string>
     <string name="preferences_theme_dark_mode_standard">標準</string>
     <string name="preferences_theme_dark_mode_black">黑</string>
-
     <string name="preferences_color_scheme">配色方案</string>
     <string name="preferences_color_scheme_blue">藍色</string>
     <string name="preferences_color_scheme_pink">粉色</string>
@@ -31,17 +29,13 @@
     <string name="preferences_color_scheme_yellow">黃色</string>
     <string name="preferences_color_scheme_red">紅色</string>
     <string name="preferences_color_scheme_system">跟隨系統</string>
-
     <!-- Preferences / View 偏好 / 檢視-->
     <string name="preferences_header_view">檢視</string>
-
     <!-- Preferences / View / Notebook 偏好 / 檢視 / 筆記本-->
     <string name="preferences_header_view_notebook">筆記本</string>
-
     <string name="preferences_layout_mode">布局模式</string>
     <string name="preferences_layout_mode_grid">網格</string>
     <string name="preferences_layout_mode_list">列表</string>
-
     <string name="preferences_sort_method">排序方式</string>
     <string name="preferences_sort_method_title_asc">標題 (升序)</string>
     <string name="preferences_sort_method_title_desc">標題 (降序)</string>
@@ -49,38 +43,28 @@
     <string name="preferences_sort_method_created_desc">製作日期 (降序)</string>
     <string name="preferences_sort_method_modified_asc">修改日期 (升序)</string>
     <string name="preferences_sort_method_modified_desc">修改日期 (降序)</string>
-
     <!-- Preferences / View / Note content 偏好 / 檢視 / 筆記內容-->
     <string name="preferences_header_view_note_content">筆記內容</string>
-
     <string name="preferences_font_size">文字編輯器/檢視字體大小</string>
     <string name="preferences_font_size_default">預設</string>
-
     <string name="preferences_show_fab_change_mode">編輯/檢視筆記按鈕位置</string>
     <string name="preferences_fab">浮動按鈕</string>
     <string name="preferences_top_bar">置頂橫幅</string>
     <string name="preferences_show_date">顯示製作/修改日期</string>
-
     <string name="preferences_date_format">日期格式</string>
     <string name="preferences_time_format">時間格式</string>
-
     <!-- Preferences / Other 偏好 / 其他-->
     <string name="preferences_header_other">其他</string>
-
     <string name="preferences_open_media_in">打開媒體於</string>
     <string name="preferences_open_media_in_internal">內部播放器</string>
     <string name="preferences_open_media_in_external">外部播放器</string>
-
     <string name="preferences_group_notes_without_notebook">將不屬於任何筆記本的筆記群組</string>
-
     <string name="preferences_move_checked_items">移動清單中已(未)勾選的項目</string>
-
     <string name="preferences_note_deletion_time">刪除垃圾桶中的筆記</string>
     <string name="preferences_note_deletion_time_instantly">立即</string>
     <string name="preferences_note_deletion_time_week">7天後</string>
     <string name="preferences_note_deletion_time_two_weeks">14天後</string>
     <string name="preferences_note_deletion_time_month">30天後</string>
-
     <!-- Preferences / Backup 偏好 / 備份-->
     <string name="preferences_header_backup">備份</string>
     <string name="preferences_create_backup">製作備份</string>
@@ -91,7 +75,6 @@
     <string name="preferences_backup_strategy_include_files">備份所有內容</string>
     <string name="preferences_backup_strategy_keep_info">僅備份說明和本地路徑</string>
     <string name="preferences_backup_strategy_keep_nothing">不備份附件</string>
-
     <!-- Preferences / Syncing 偏好 / 同步-->
     <string name="preferences_header_syncing">同步</string>
     <string name="preferences_go_to_sync_settings">移到同步設置</string>
@@ -102,7 +85,6 @@
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
     <string name="preferences_sync_experimental_warning">同步功能目前處於實驗階段。\n您可能會遇到錯誤。</string>
     <string name="preferences_nextcloud_limited_features">請留意Nextcloud Notes 不支援標籤、附件、提醒等功能。</string>
-
     <string name="preferences_nextcloud_account">Nextcloud 帳戶</string>
     <string name="preferences_nextcloud_instance_url">Nextcloud 實例網址</string>
     <string name="preferences_nextcloud_set_your_credentials">設置您的認證</string>
@@ -114,21 +96,15 @@
     <string name="preferences_background_sync_enabled">啟用</string>
     <string name="preferences_background_sync_disabled">停用</string>
     <string name="preferences_new_notes_synchronizable">可同步的新筆記</string>
-
-
     <!-- About 關於-->
     <string name="about_version">版本</string>
     <string name="about_website">網址</string>
     <string name="about_developer">開發者</string>
     <string name="about_contribute">貢獻</string>
     <string name="about_support">支援</string>
-    <string name="about_support_subtext">製作和維護開源項目非常耗時，而且不會帶來
-      任何利潤。\n請開發人員喝啤酒！
-    </string>
+    <string name="about_support_subtext">製作和維護開源項目非常耗時，而且不會帶來 任何利潤。\n請開發人員喝啤酒！</string>
     <string name="about_libraries">關於函式庫</string>
     <string name="about_libraries_subtext">查看第三方函式庫和授權。</string>
-
-
     <!-- General 一般-->
     <string name="default_string">預設</string>
     <string name="yes">是</string>
@@ -162,8 +138,6 @@
     <string name="action_select_more">選擇更多…</string>
     <string name="action_compact_preview">精簡預覽</string>
     <string name="action_full_preview">完整預覽</string>
-
-
     <!-- Attachments 附件-->
     <string name="attachments_edit_description">編輯說明</string>
     <string name="attachments_hint_description">附件說明</string>
@@ -172,8 +146,6 @@
     <string name="action_attach_files">附加文件</string>
     <string name="action_take_photo">拍照</string>
     <string name="indicator_recorded_clip">已錄製的聲音片段</string>
-
-
     <!-- Notebooks筆記本 -->
     <string name="default_notebook">其他</string>
     <string name="notebooks_new_notebook">新筆記本</string>
@@ -184,12 +156,8 @@
     <string name="action_rename_notebook">重新命名筆記本</string>
     <string name="action_new_notebook">新筆記本</string>
     <string name="indicator_notebook_already_exists">名稱為 %1$s 的筆記本已存在。</string>
-
-
     <!-- Archive 歸檔-->
     <string name="indicator_archive_empty">您歸檔的筆記將顯示在此處。</string>
-
-
     <!-- Deleted 已刪除-->
     <string name="action_empty_bin">清空垃圾桶</string>
     <string name="empty_bin_warning_title">是否確定？</string>
@@ -200,8 +168,6 @@
     <string name="indicator_bin_forever">筆記設置為永不刪除。\n您可以在設定中更改此設定。</string>
     <string name="indicator_deleted_notes_permanently">徹底刪除筆記。</string>
     <string name="indicator_deleted_note_permanently">徹底刪除筆記。</string>
-
-
     <!-- Reminders 提醒 -->
     <string name="reminders">提醒</string>
     <string name="reminder">提醒</string>
@@ -211,23 +177,17 @@
     <string name="action_new_reminder">新提醒</string>
     <string name="notification_reminder_fired">你有一個提醒。</string>
     <string name="indicator_cannot_set_past_reminder">無法為過去的日期設置提醒</string>
-
-
     <!-- Tags 標籤-->
     <string name="action_new_tag">新標籤</string>
     <string name="tags_hint_name">標籤名稱</string>
     <string name="indicator_tags_empty">未添加標籤。</string>
     <string name="action_rename_tag">重新命名標籤</string>
     <string name="indicator_tag_already_exists">名稱為 %1$s 的標籤已存在。</string>
-
-
     <!-- Search 搜索-->
     <string name="search_hint">搜索…</string>
     <string name="action_search">搜索</string>
     <string name="indicator_search_empty">搜索結果將顯示在此處。</string>
     <string name="indicator_no_results_found">未找到結果。</string>
-
-
     <!-- Editor 編輯器-->
     <string name="editor_hint_title">標題</string>
     <string name="editor_hint_content">寫點筆記!</string>
@@ -245,7 +205,6 @@
     <string name="action_insert_heading">插入Markdown標題</string>
     <string name="action_insert_quote">插入Markdown引文</string>
     <string name="action_insert_code">插入Markdown代碼</string>
-
     <string name="action_remove_all_checked_tasks">移除所有勾選的任務</string>
     <string name="indicator_note_date">製作於 %1$s\n上次修改時間 %2$s</string>
     <string name="indicator_restored_notes">還原的筆記</string>
@@ -267,7 +226,6 @@
     <string name="hint_number_columns">列數</string>
     <string name="hint_number_rows">行數</string>
     <string name="message_cannot_preview_table">無法預覽表格。</string>
-
     <!-- Backup / Restore 備份 / 還原-->
     <string name="notification_backing_up">備份您的筆記…</string>
     <string name="notification_backup_complete">備份完成</string>
@@ -275,13 +233,10 @@
     <string name="notification_restoring_notes">還原您的筆記…</string>
     <string name="notification_restore_complete">還原完成</string>
     <string name="notification_restore_failed">還原失敗</string>
-
-
     <!-- Notification channels 提醒頻道-->
     <string name="notifications_channel_reminders">提醒</string>
     <string name="notifications_channel_backups">備份</string>
     <string name="notifications_channel_playback">媒體播放</string>
-
     <!-- Syncing同步 -->
     <string name="message_not_valid_https">這不是有效的 HTTPS 網址。</string>
     <string name="indicator_nextcloud_currently_logged_in_as">您目前以 <b>%s</b> 身份登錄。</string>
@@ -296,32 +251,22 @@
     <string name="message_internet_not_available">無網際網路連線</string>
     <string name="message_credentials_cannot_be_blank">認證不能為空</string>
     <string name="preference_nextcloud_clear_credentials">清除認證和伺服器的網址</string>
-
     <string name="notification_media_play_pause">播放 / 暫停</string>
     <string name="notification_media_stop">停止</string>
-
     <!-- App shortcuts App捷徑-->
     <string name="shortcut_take_note">作筆記</string>
     <string name="shortcut_make_list">製作清單</string>
     <string name="never">從不</string>
-
     <plurals name="more_items">
-        <item quantity="one">+%d 個項目</item>
         <item quantity="other">+%d 個項目</item>
     </plurals>
-
     <plurals name="selected_notes">
-        <item quantity="one">選擇 %d 條筆記</item>
         <item quantity="other">選擇 %d 條筆記</item>
     </plurals>
-
     <plurals name="selected_notebooks">
-        <item quantity="one">選擇的 %d 本筆記本</item>
         <item quantity="other">選擇的 %d 本筆記本</item>
     </plurals>
-
     <plurals name="selected_tags">
-        <item quantity="one">選擇的 %d 個標籤</item>
         <item quantity="other">選擇的 %d 個標籤</item>
     </plurals>
     <string name="new_and_updated">全新更新！</string>
