@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Navigation drawer -->
     <string name="nav_notes">Notes</string>
@@ -9,7 +10,6 @@
     <string name="nav_all_notes">Totes les notes</string>
     <string name="nav_notebooks">Blocs de notes</string>
     <string name="nav_your_notebooks">Els teus blocs de notes</string>
-
     <!-- Preferences -->
     <string name="preferences_header_general">General</string>
     <string name="preferences_theme_mode">Mode del tema</string>
@@ -23,7 +23,7 @@
     <string name="preferences_layout_mode">Mode de disseny</string>
     <string name="preferences_layout_mode_grid">Graella</string>
     <string name="preferences_layout_mode_list">Llista</string>
-    <string name="preferences_color_scheme">Esquema de color </string>
+    <string name="preferences_color_scheme">Esquema de color</string>
     <string name="preferences_color_scheme_blue">Blau</string>
     <string name="preferences_color_scheme_pink">Rosa</string>
     <string name="preferences_color_scheme_green">Verd</string>
@@ -84,21 +84,15 @@
     <string name="preferences_background_sync_enabled">Activada</string>
     <string name="preferences_background_sync_disabled">Desactivada</string>
     <string name="preferences_new_notes_synchronizable">Noves notes sincronitzables</string>
-
-
     <!-- About -->
     <string name="about_version">Versió</string>
     <string name="about_website">Lloc web</string>
     <string name="about_developer">Desenvolupador</string>
     <string name="about_contribute">Col·labora</string>
     <string name="about_support">Suport</string>
-    <string name="about_support_subtext">Crear i mantenir projectes de codi obert requereix temps i no proporciona
-    cap guany.\nConvideu els desenvolupadors a una cervesa!
-  </string>
+    <string name="about_support_subtext">Crear i mantenir projectes de codi obert requereix temps i no proporciona cap guany.\nConvideu els desenvolupadors a una cervesa!</string>
     <string name="about_libraries">Biblioteques</string>
     <string name="about_libraries_subtext">Visualitza les llicències i biblioteques de tercers.</string>
-
-
     <!-- General -->
     <string name="default_string">Per defecte</string>
     <string name="yes">Sí</string>
@@ -132,8 +126,6 @@
     <string name="action_select_more">Selecciona més…</string>
     <string name="action_compact_preview">Vista preliminar compacta</string>
     <string name="action_full_preview">Vista preliminar completa</string>
-
-
     <!-- Attachments -->
     <string name="attachments_edit_description">Edita la descripció</string>
     <string name="attachments_hint_description">Descripció de l\'adjunt</string>
@@ -142,8 +134,6 @@
     <string name="action_attach_files">Adjunta fitxers</string>
     <string name="action_take_photo">Fes una foto</string>
     <string name="indicator_recorded_clip">Clip gravat</string>
-
-
     <!-- Notebooks -->
     <string name="default_notebook">Altres</string>
     <string name="notebooks_new_notebook">Bloc de notes nou</string>
@@ -154,12 +144,8 @@
     <string name="action_rename_notebook">Canvia el nom del bloc de notes</string>
     <string name="action_new_notebook">Bloc de notes nou</string>
     <string name="indicator_notebook_already_exists">Ja existeix un bloc de notes amb el nom %1$s.</string>
-
-
     <!-- Archive -->
     <string name="indicator_archive_empty">Les notes arxivades apareixeran aquí.</string>
-
-
     <!-- Deleted -->
     <string name="action_empty_bin">Buida la paperera</string>
     <string name="empty_bin_warning_title">Esteu segur?</string>
@@ -170,8 +156,6 @@
     <string name="indicator_bin_forever">Les notes estan programades per a no eliminar-se mai.\nPodeu canviar això a la configuració.</string>
     <string name="indicator_deleted_notes_permanently">Notes eliminades permanentment.</string>
     <string name="indicator_deleted_note_permanently">Nota eliminada permanentment.</string>
-
-
     <!-- Reminders -->
     <string name="reminders">Recordatoris</string>
     <string name="reminder">Recordatori</string>
@@ -181,23 +165,17 @@
     <string name="action_new_reminder">Recordatori nou</string>
     <string name="notification_reminder_fired">Teniu un recordatori.</string>
     <string name="indicator_cannot_set_past_reminder">No podeu establir un recordatori en una data passada</string>
-
-
     <!-- Tags -->
     <string name="action_new_tag">Nova etiqueta</string>
     <string name="tags_hint_name">Nom de l\'etiqueta</string>
     <string name="indicator_tags_empty">No teniu etiquetes.</string>
     <string name="action_rename_tag">Canvia el nom de l\'etiqueta</string>
     <string name="indicator_tag_already_exists">Ja existeix una etiqueta amb el nom %1$s.</string>
-
-
     <!-- Search -->
     <string name="search_hint">Cerca…</string>
     <string name="action_search">Cerca</string>
     <string name="indicator_search_empty">Els resultats de la cerca es mostren aquí.</string>
     <string name="indicator_no_results_found">No s\'han trobat resultats.</string>
-
-
     <!-- Editor -->
     <string name="editor_hint_title">Títol</string>
     <string name="editor_hint_content">Preneu nota</string>
@@ -236,7 +214,6 @@
     <string name="hint_number_columns">Nombre de columnes</string>
     <string name="hint_number_rows">Nombre de files</string>
     <string name="message_cannot_preview_table">No es pot previsualitzar la taula.</string>
-
     <!-- Backup / Restore -->
     <string name="notification_backing_up">Fent una còpia de seguretat de les notes…</string>
     <string name="notification_backup_complete">Còpia de seguretat completada!</string>
@@ -244,18 +221,13 @@
     <string name="notification_restoring_notes">Restaurant les teves notes…</string>
     <string name="notification_restore_complete">Restauració completada</string>
     <string name="notification_restore_failed">Ha fallat la restauració</string>
-
-
     <!-- Notification channels -->
     <string name="notifications_channel_reminders">Recordatoris</string>
     <string name="notifications_channel_backups">Còpies de seguretat</string>
     <string name="notifications_channel_playback">Reproducció multimèdia</string>
-
     <!-- Syncing -->
     <string name="message_not_valid_https">Això no és una adreça URL HTTPS vàlida.</string>
-    <string name="indicator_nextcloud_currently_logged_in_as">Heu iniciat sessió com a 
-<b>%s</b>.
-</string>
+    <string name="indicator_nextcloud_currently_logged_in_as">Heu iniciat sessió com a <b>%s</b>.</string>
     <string name="indicator_nextcloud_currently_not_logged_in">No heu iniciat sessió.</string>
     <string name="action_nextcloud_authenticate">Autentica</string>
     <string name="indicator_offline_account">Compte fora de línia</string>
@@ -269,25 +241,28 @@
     <string name="preference_nextcloud_clear_credentials">Esborra les credencials i l\'URL del servidor</string>
     <string name="notification_media_play_pause">Reprodueix/Pausa</string>
     <string name="notification_media_stop">Atura</string>
-
     <!-- App shortcuts -->
     <string name="shortcut_take_note">Creeu una nota</string>
     <string name="shortcut_make_list">Fes una llista</string>
     <string name="never">Mai</string>
     <plurals name="more_items">
         <item quantity="one">+%d element</item>
+        <item quantity="many"></item>
         <item quantity="other">+%d elements</item>
     </plurals>
     <plurals name="selected_notes">
         <item quantity="one">%d nota seleccionada</item>
+        <item quantity="many"></item>
         <item quantity="other">%d notes seleccionades</item>
     </plurals>
     <plurals name="selected_notebooks">
         <item quantity="one">%d bloc de notes seleccionat</item>
+        <item quantity="many"></item>
         <item quantity="other">%d blocs de notes seleccionats</item>
     </plurals>
     <plurals name="selected_tags">
         <item quantity="one">%d etiqueta seleccionada</item>
+        <item quantity="many"></item>
         <item quantity="other">%d etiquetes seleccionades</item>
     </plurals>
     <string name="preferences_sort_navdrawer_method">Ordena els quaderns per</string>
