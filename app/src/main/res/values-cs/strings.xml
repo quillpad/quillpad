@@ -1,334 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- Navigation drawer -->
+    <!-- Navigation drawer -->
 	<string name="nav_notes">Poznámky</string>
-	<string name="nav_archive">Archiv</string>
-	<string name="nav_deleted">Smazané</string>
-	<string name="nav_settings">Nastavení</string>
-	<string name="nav_about">O aplikaci</string>
-	<string name="nav_tags">Štítky</string>
-	<string name="nav_all_notes">Všechny poznámky</string>
-	<string name="nav_notebooks">Zápisníky</string>
-	<string name="nav_your_notebooks">Vaše Zápisníky</string>
-
-	<!-- Preferences -->
+    <string name="nav_archive">Archiv</string>
+    <string name="nav_deleted">Smazané</string>
+    <string name="nav_settings">Nastavení</string>
+    <string name="nav_about">O aplikaci</string>
+    <string name="nav_tags">Štítky</string>
+    <string name="nav_all_notes">Všechny poznámky</string>
+    <string name="nav_notebooks">Zápisníky</string>
+    <string name="nav_your_notebooks">Vaše Zápisníky</string>
+    <!-- Preferences -->
 	<!-- Preferences / General -->
 	<string name="preferences_header_general">Obecné</string>
-	<string name="preferences_theme_mode">Barevný režim</string>
-	<string name="preferences_theme_mode_dark">Tmavý</string>
-	<string name="preferences_theme_mode_light">Světlý</string>
-	<string name="preferences_theme_mode_system">Podle systému</string>
-
-	<string name="preferences_dark_theme_mode">Temný režim</string>
-	<string name="preferences_theme_dark_mode_standard">Standardní</string>
-	<string name="preferences_theme_dark_mode_black">Černý</string>
-
-	<string name="preferences_color_scheme">Barvy aplikace</string>
-	<string name="preferences_color_scheme_blue">Modré</string>
-	<string name="preferences_color_scheme_pink">Růžové</string>
-	<string name="preferences_color_scheme_green">Zelené</string>
-	<string name="preferences_color_scheme_orange">Oranžové</string>
-	<string name="preferences_color_scheme_purple">Fialové</string>
-	<string name="preferences_color_scheme_yellow">Žluté</string>
-	<string name="preferences_color_scheme_red">Červené</string>
-	<string name="preferences_color_scheme_system">Podle systému</string>
-
-	<!-- Preferences / View -->
+    <string name="preferences_theme_mode">Barevný režim</string>
+    <string name="preferences_theme_mode_dark">Tmavý</string>
+    <string name="preferences_theme_mode_light">Světlý</string>
+    <string name="preferences_theme_mode_system">Podle systému</string>
+    <string name="preferences_dark_theme_mode">Temný režim</string>
+    <string name="preferences_theme_dark_mode_standard">Standardní</string>
+    <string name="preferences_theme_dark_mode_black">Černý</string>
+    <string name="preferences_color_scheme">Barvy aplikace</string>
+    <string name="preferences_color_scheme_blue">Modré</string>
+    <string name="preferences_color_scheme_pink">Růžové</string>
+    <string name="preferences_color_scheme_green">Zelené</string>
+    <string name="preferences_color_scheme_orange">Oranžové</string>
+    <string name="preferences_color_scheme_purple">Fialové</string>
+    <string name="preferences_color_scheme_yellow">Žluté</string>
+    <string name="preferences_color_scheme_red">Červené</string>
+    <string name="preferences_color_scheme_system">Podle systému</string>
+    <!-- Preferences / View -->
 	<string name="preferences_header_view">Náhled</string>
-
-	<!-- Preferences / View / Notebook -->
+    <!-- Preferences / View / Notebook -->
 	<string name="preferences_header_view_notebook">Zápisník</string>
-
-	<string name="preferences_layout_mode">Rozložení</string>
-	<string name="preferences_layout_mode_grid">Mřížka</string>
-	<string name="preferences_layout_mode_list">Seznam</string>
-
-	<string name="preferences_sort_method">Seřadit podle</string>
-	<string name="preferences_sort_method_title_asc">Název (vzestupný)</string>
-	<string name="preferences_sort_method_title_desc">Název (sestupný)</string>
-	<string name="preferences_sort_method_created_asc">Datum vytvoření (vzestupný)</string>
-	<string name="preferences_sort_method_created_desc">Datum vytvoření (sestupný)</string>
-	<string name="preferences_sort_method_modified_asc">Datum změny (vzestupný)</string>
-	<string name="preferences_sort_method_modified_desc">Datum změny (sestupný)</string>
-
-	<!-- Preferences / View / Note content -->
+    <string name="preferences_layout_mode">Rozložení</string>
+    <string name="preferences_layout_mode_grid">Mřížka</string>
+    <string name="preferences_layout_mode_list">Seznam</string>
+    <string name="preferences_sort_method">Seřadit podle</string>
+    <string name="preferences_sort_method_title_asc">Název (vzestupný)</string>
+    <string name="preferences_sort_method_title_desc">Název (sestupný)</string>
+    <string name="preferences_sort_method_created_asc">Datum vytvoření (vzestupný)</string>
+    <string name="preferences_sort_method_created_desc">Datum vytvoření (sestupný)</string>
+    <string name="preferences_sort_method_modified_asc">Datum změny (vzestupný)</string>
+    <string name="preferences_sort_method_modified_desc">Datum změny (sestupný)</string>
+    <!-- Preferences / View / Note content -->
 	<string name="preferences_header_view_note_content">Obsah poznámky</string>
-
-	<string name="preferences_font_size">Velikost fontu v editoru a náhledu</string>
-	<string name="preferences_font_size_default">Výchozí</string>
-
-	<string name="preferences_show_fab_change_mode">Poloha tlačítka Editovat/Zobrazit</string>
-	<string name="preferences_fab">Plovoucí tlačítko</string>
-	<string name="preferences_top_bar">Horní panel</string>
-
-	<string name="preferences_show_date">Zobrazit datum vytvoření a změny</string>
-	<string name="preferences_date_format">Formát data</string>
-	<string name="preferences_time_format">Formát času</string>
-
-	<!-- Preferences / Other -->
+    <string name="preferences_font_size">Velikost fontu v editoru a náhledu</string>
+    <string name="preferences_font_size_default">Výchozí</string>
+    <string name="preferences_show_fab_change_mode">Poloha tlačítka Editovat/Zobrazit</string>
+    <string name="preferences_fab">Plovoucí tlačítko</string>
+    <string name="preferences_top_bar">Horní panel</string>
+    <string name="preferences_show_date">Zobrazit datum vytvoření a změny</string>
+    <string name="preferences_date_format">Formát data</string>
+    <string name="preferences_time_format">Formát času</string>
+    <!-- Preferences / Other -->
 	<string name="preferences_header_other">Ostatní</string>
-
-	<string name="preferences_open_media_in">Otevření médií</string>
-	<string name="preferences_open_media_in_internal">Interní přehrávač</string>
-	<string name="preferences_open_media_in_external">Externí přehrávač</string>
-
-	<string name="preferences_group_notes_without_notebook">Seskupit poznámky, které nejsou v zápisníku</string>
-
-	<string name="preferences_move_checked_items">Posunout (ne)odškrtnuté řádky v kontrolním seznamu</string>
-
-	<string name="preferences_note_deletion_time">Vymazání poznámek z koše</string>
-	<string name="preferences_note_deletion_time_instantly">Okamžitě</string>
-	<string name="preferences_note_deletion_time_week">Po 7 dnech</string>
-	<string name="preferences_note_deletion_time_two_weeks">Po 14 dnech</string>
-	<string name="preferences_note_deletion_time_month">Po 30 dnech</string>
-
-	<!-- Preferences / Backup -->
+    <string name="preferences_open_media_in">Otevření médií</string>
+    <string name="preferences_open_media_in_internal">Interní přehrávač</string>
+    <string name="preferences_open_media_in_external">Externí přehrávač</string>
+    <string name="preferences_group_notes_without_notebook">Seskupit poznámky, které nejsou v zápisníku</string>
+    <string name="preferences_move_checked_items">Posunout (ne)odškrtnuté řádky v kontrolním seznamu</string>
+    <string name="preferences_note_deletion_time">Vymazání poznámek z koše</string>
+    <string name="preferences_note_deletion_time_instantly">Okamžitě</string>
+    <string name="preferences_note_deletion_time_week">Po 7 dnech</string>
+    <string name="preferences_note_deletion_time_two_weeks">Po 14 dnech</string>
+    <string name="preferences_note_deletion_time_month">Po 30 dnech</string>
+    <!-- Preferences / Backup -->
 	<string name="preferences_header_backup">Záloha</string>
-	<string name="preferences_create_backup">Vytvořit zálohu</string>
-	<string name="preferences_create_backup_subtext">Exportovat poznámky do souboru.</string>
-	<string name="preferences_restore">Obnovit</string>
-	<string name="preferences_restore_subtext">Obnovit poznámky ze zálohy.</string>
-	<string name="preferences_backup_strategy">Jak zálohovat přílohy</string>
-	<string name="preferences_backup_strategy_include_files">Zálohovat vše</string>
-	<string name="preferences_backup_strategy_keep_info">Zálohovat pouze popisek a lokální cestu</string>
-	<string name="preferences_backup_strategy_keep_nothing">Nezálohovat přílohy</string>
-
-	<!-- Preferences / Syncing -->
+    <string name="preferences_create_backup">Vytvořit zálohu</string>
+    <string name="preferences_create_backup_subtext">Exportovat poznámky do souboru.</string>
+    <string name="preferences_restore">Obnovit</string>
+    <string name="preferences_restore_subtext">Obnovit poznámky ze zálohy.</string>
+    <string name="preferences_backup_strategy">Jak zálohovat přílohy</string>
+    <string name="preferences_backup_strategy_include_files">Zálohovat vše</string>
+    <string name="preferences_backup_strategy_keep_info">Zálohovat pouze popisek a lokální cestu</string>
+    <string name="preferences_backup_strategy_keep_nothing">Nezálohovat přílohy</string>
+    <!-- Preferences / Syncing -->
 	<string name="preferences_header_syncing">Synchronizace</string>
-	<string name="preferences_go_to_sync_settings">Nastavení synchronizace</string>
-	<string name="preferences_currently_syncing_with">Aktuálně synchronizováno s %s</string>
-	<string name="preferences_currently_not_syncing">Aktuálně není synchronizováno</string>
-	<string name="preferences_cloud_service">Služba pro synchronizaci</string>
-	<string name="preferences_cloud_service_disabled">Vypnuto</string>
-	<string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-	<string name="preferences_sync_experimental_warning">Služba synchronizace je aktuálně experimentální.\nMůžete se setkat s problémy.</string>
-	<string name="preferences_nextcloud_limited_features">Nezapomeňte, že Nextcloud Notes nepodporuje funkce jako štítky, přílohy, připomínky a další.</string>
-	<string name="preferences_nextcloud_account">Účet Nextcloud</string>
-	<string name="preferences_nextcloud_instance_url">Odkaz na Nextcloud</string>
-	<string name="preferences_nextcloud_set_your_credentials">Zadej své přihlašovací údaje.</string>
-	<string name="preferences_nextcloud_set_server_url">Zadej URL svého Nextcloud serveru.</string>
-	<string name="preferences_sync_on_wifi">Wi-Fi</string>
-	<string name="preferences_sync_on_wifi_data">Wi-Fi nebo Data</string>
-	<string name="preferences_sync_when_on">Synchronizace přes</string>
-	<string name="preferences_background_sync">Synchronizace na pozadí</string>
-	<string name="preferences_background_sync_enabled">Povoleno</string>
-	<string name="preferences_background_sync_disabled">Zakázáno</string>
-	<string name="preferences_new_notes_synchronizable">Synchronizovat nové poznámky</string>
-
-
-	<!-- About -->
+    <string name="preferences_go_to_sync_settings">Nastavení synchronizace</string>
+    <string name="preferences_currently_syncing_with">Aktuálně synchronizováno s %s</string>
+    <string name="preferences_currently_not_syncing">Aktuálně není synchronizováno</string>
+    <string name="preferences_cloud_service">Služba pro synchronizaci</string>
+    <string name="preferences_cloud_service_disabled">Vypnuto</string>
+    <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
+    <string name="preferences_sync_experimental_warning">Služba synchronizace je aktuálně experimentální.\nMůžete se setkat s problémy.</string>
+    <string name="preferences_nextcloud_limited_features">Nezapomeňte, že Nextcloud Notes nepodporuje funkce jako štítky, přílohy, připomínky a další.</string>
+    <string name="preferences_nextcloud_account">Účet Nextcloud</string>
+    <string name="preferences_nextcloud_instance_url">Odkaz na Nextcloud</string>
+    <string name="preferences_nextcloud_set_your_credentials">Zadej své přihlašovací údaje.</string>
+    <string name="preferences_nextcloud_set_server_url">Zadej URL svého Nextcloud serveru.</string>
+    <string name="preferences_sync_on_wifi">Wi-Fi</string>
+    <string name="preferences_sync_on_wifi_data">Wi-Fi nebo Data</string>
+    <string name="preferences_sync_when_on">Synchronizace přes</string>
+    <string name="preferences_background_sync">Synchronizace na pozadí</string>
+    <string name="preferences_background_sync_enabled">Povoleno</string>
+    <string name="preferences_background_sync_disabled">Zakázáno</string>
+    <string name="preferences_new_notes_synchronizable">Synchronizovat nové poznámky</string>
+    <!-- About -->
 	<string name="about_version">Version</string>
-	<string name="about_website">Web</string>
-	<string name="about_developer">Vývojář</string>
-	<string name="about_contribute">Přispět</string>
-	<string name="about_support">Podpora</string>
-	<string name="about_support_subtext">Vývoj a udržování open source projektu je časově náročná a bez finančního zisku.\nKup vývojářům pivo!</string>
-	<string name="about_libraries">Knihovny</string>
-	<string name="about_libraries_subtext">Zobrazit knihovny třetích stran a licence.</string>
-
-
-	<!-- General -->
+    <string name="about_website">Web</string>
+    <string name="about_developer">Vývojář</string>
+    <string name="about_contribute">Přispět</string>
+    <string name="about_support">Podpora</string>
+    <string name="about_support_subtext">Vývoj a udržování open source projektu je časově náročná a bez finančního zisku.\nKup vývojářům pivo!</string>
+    <string name="about_libraries">Knihovny</string>
+    <string name="about_libraries_subtext">Zobrazit knihovny třetích stran a licence.</string>
+    <!-- General -->
 	<string name="default_string">Výchozí</string>
-	<string name="yes">Ano</string>
-	<string name="no">Ne</string>
-	<string name="ok">Budiž</string>
-	<string name="indicator_notes_empty">Vaše poznámky se zobrazí zde.</string>
-	<string name="indicator_untitled">Bez názvu</string>
-	<string name="hint_username">Uživatelské jméno</string>
-	<string name="hint_password">Heslo</string>
-	<string name="action_save">Uložit</string>
-	<string name="action_cancel">Zrušit</string>
-	<string name="action_delete">Smazat</string>
-	<string name="action_done">Hotovo!</string>
-	<string name="action_delete_permanently">Smazat navždy</string>
-	<string name="action_select_all">Označit vše</string>
-	<string name="action_create_list">Vytvořit seznam</string>
-	<string name="action_show_hidden_notes">Zobrazit skryté poznámky</string>
-	<string name="action_unarchive">Vrátit z archivu</string>
-	<string name="action_export">Exportovat</string>
-	<string name="action_hide">Skrýt</string>
-	<string name="action_show">Zobrazit</string>
-	<string name="action_archive">Archivovat</string>
-	<string name="action_change_mode">Upravit / Zobrazit</string>
-	<string name="action_pin">Připnout</string>
-	<string name="action_unpin">Odepnout</string>
-	<string name="action_restore">Obnovit</string>
-	<string name="action_share">Sdílet</string>
-	<string name="action_pin_unpin">Připnout / Odepnout</string>
-	<string name="action_move_to">Přesunout do…</string>
-	<string name="action_duplicate">Duplikovat</string>
-	<string name="action_select_more">Vybrat další…</string>
-	<string name="action_compact_preview">Kompaktní náhled</string>
-	<string name="action_full_preview">Plný náhled</string>
-
-
-	<!-- Attachments -->
+    <string name="yes">Ano</string>
+    <string name="no">Ne</string>
+    <string name="ok">Budiž</string>
+    <string name="indicator_notes_empty">Vaše poznámky se zobrazí zde.</string>
+    <string name="indicator_untitled">Bez názvu</string>
+    <string name="hint_username">Uživatelské jméno</string>
+    <string name="hint_password">Heslo</string>
+    <string name="action_save">Uložit</string>
+    <string name="action_cancel">Zrušit</string>
+    <string name="action_delete">Smazat</string>
+    <string name="action_done">Hotovo!</string>
+    <string name="action_delete_permanently">Smazat navždy</string>
+    <string name="action_select_all">Označit vše</string>
+    <string name="action_create_list">Vytvořit seznam</string>
+    <string name="action_show_hidden_notes">Zobrazit skryté poznámky</string>
+    <string name="action_unarchive">Vrátit z archivu</string>
+    <string name="action_export">Exportovat</string>
+    <string name="action_hide">Skrýt</string>
+    <string name="action_show">Zobrazit</string>
+    <string name="action_archive">Archivovat</string>
+    <string name="action_change_mode">Upravit / Zobrazit</string>
+    <string name="action_pin">Připnout</string>
+    <string name="action_unpin">Odepnout</string>
+    <string name="action_restore">Obnovit</string>
+    <string name="action_share">Sdílet</string>
+    <string name="action_pin_unpin">Připnout / Odepnout</string>
+    <string name="action_move_to">Přesunout do…</string>
+    <string name="action_duplicate">Duplikovat</string>
+    <string name="action_select_more">Vybrat další…</string>
+    <string name="action_compact_preview">Kompaktní náhled</string>
+    <string name="action_full_preview">Plný náhled</string>
+    <!-- Attachments -->
 	<string name="attachments_edit_description">Upravit popisek</string>
-	<string name="attachments_hint_description">Popisek přílohy</string>
-	<string name="action_record_audio">Nahrát zvuk</string>
-	<string name="indicator_recording">Nahrávka (%1$s)</string>
-	<string name="action_attach_files">Přiložit soubory</string>
-	<string name="action_take_photo">Vyfotit</string>
-	<string name="indicator_recorded_clip">Zvukové nahrávky</string>
-
-
-	<!-- Notebooks -->
+    <string name="attachments_hint_description">Popisek přílohy</string>
+    <string name="action_record_audio">Nahrát zvuk</string>
+    <string name="indicator_recording">Nahrávka (%1$s)</string>
+    <string name="action_attach_files">Přiložit soubory</string>
+    <string name="action_take_photo">Vyfotit</string>
+    <string name="indicator_recorded_clip">Zvukové nahrávky</string>
+    <!-- Notebooks -->
 	<string name="default_notebook">Ostatní</string>
-	<string name="notebooks_new_notebook">Nový zápisník</string>
-	<string name="notebooks_hint_name">Jméno zápisníku</string>
-	<string name="notebooks_unassigned">Žádný zápisník</string>
-	<string name="indicator_notebook_empty">Nemáte žádný zápisník.</string>
-	<string name="action_create_notebook">Vytvořit zápisník</string>
-	<string name="action_rename_notebook">Přejmenovat zápisník</string>
-	<string name="action_new_notebook">Nový zápisník</string>
-	<string name="indicator_notebook_already_exists">Zápisník %1$s již existuje.</string>
-
-
-	<!-- Archive -->
+    <string name="notebooks_new_notebook">Nový zápisník</string>
+    <string name="notebooks_hint_name">Jméno zápisníku</string>
+    <string name="notebooks_unassigned">Žádný zápisník</string>
+    <string name="indicator_notebook_empty">Nemáte žádný zápisník.</string>
+    <string name="action_create_notebook">Vytvořit zápisník</string>
+    <string name="action_rename_notebook">Přejmenovat zápisník</string>
+    <string name="action_new_notebook">Nový zápisník</string>
+    <string name="indicator_notebook_already_exists">Zápisník %1$s již existuje.</string>
+    <!-- Archive -->
 	<string name="indicator_archive_empty">Zde se zobrazí vaše archivované poznámky.</string>
-
-
-	<!-- Deleted -->
+    <!-- Deleted -->
 	<string name="action_empty_bin">Vysypat koš</string>
-	<string name="empty_bin_warning_title">Jste si jisti?</string>
-	<string name="empty_bin_warning_text">Všechny smazané poznámky budou ztraceny.</string>
-	<string name="indicator_deleted_note_cannot_be_edited">Poznámky v koši nemohou být upravovány.</string>
-	<string name="indicator_deleted_empty">Vaše smazané poznámky zde budou po dobu %1$d dní.</string>
-	<string name="indicator_bin_disabled">Poznámky budou okamžitě smazány.\nToto chování změníte v Nastavení.</string>
-	<string name="indicator_bin_forever">Poznámky se nikdy nesmažou.\nToto chování změníte v Nastavení.</string>
-	<string name="indicator_deleted_notes_permanently">Poznámky navždy smazány..</string>
-	<string name="indicator_deleted_note_permanently">Poznámka navždy smazána.</string>
-
-
-	<!-- Reminders -->
+    <string name="empty_bin_warning_title">Jste si jisti?</string>
+    <string name="empty_bin_warning_text">Všechny smazané poznámky budou ztraceny.</string>
+    <string name="indicator_deleted_note_cannot_be_edited">Poznámky v koši nemohou být upravovány.</string>
+    <string name="indicator_deleted_empty">Vaše smazané poznámky zde budou po dobu %1$d dní.</string>
+    <string name="indicator_bin_disabled">Poznámky budou okamžitě smazány.\nToto chování změníte v Nastavení.</string>
+    <string name="indicator_bin_forever">Poznámky se nikdy nesmažou.\nToto chování změníte v Nastavení.</string>
+    <string name="indicator_deleted_notes_permanently">Poznámky navždy smazány..</string>
+    <string name="indicator_deleted_note_permanently">Poznámka navždy smazána.</string>
+    <!-- Reminders -->
 	<string name="reminders">Připomenutí</string>
-	<string name="reminder">Připomenutí</string>
-	<string name="reminders_hint_name">Název připomenutí</string>
-	<string name="action_set_date">Nastavit datum</string>
-	<string name="action_set_time">Nastavit čas</string>
-	<string name="action_new_reminder">Nové připomenutí</string>
-	<string name="notification_reminder_fired">Máte připomenutí.</string>
-	<string name="indicator_cannot_set_past_reminder">Nelze nastavit připomenutí v minulosti.</string>
-
-
-	<!-- Tags -->
+    <string name="reminder">Připomenutí</string>
+    <string name="reminders_hint_name">Název připomenutí</string>
+    <string name="action_set_date">Nastavit datum</string>
+    <string name="action_set_time">Nastavit čas</string>
+    <string name="action_new_reminder">Nové připomenutí</string>
+    <string name="notification_reminder_fired">Máte připomenutí.</string>
+    <string name="indicator_cannot_set_past_reminder">Nelze nastavit připomenutí v minulosti.</string>
+    <!-- Tags -->
 	<string name="action_new_tag">Nový štítek</string>
-	<string name="tags_hint_name">Název štítku</string>
-	<string name="indicator_tags_empty">Nemáte žádné štítky.</string>
-	<string name="action_rename_tag">Přejmenovat štítek</string>
-	<string name="indicator_tag_already_exists">Štítek s názvem %1$s již existuje.</string>
-
-
-	<!-- Search -->
+    <string name="tags_hint_name">Název štítku</string>
+    <string name="indicator_tags_empty">Nemáte žádné štítky.</string>
+    <string name="action_rename_tag">Přejmenovat štítek</string>
+    <string name="indicator_tag_already_exists">Štítek s názvem %1$s již existuje.</string>
+    <!-- Search -->
 	<string name="search_hint">Vyhledat…</string>
-	<string name="action_search">Vyhledat</string>
-	<string name="indicator_search_empty">Zde najdete výsledky hledání.</string>
-	<string name="indicator_no_results_found">Žádné výsledky.</string>
-
-
-	<!-- Editor -->
+    <string name="action_search">Vyhledat</string>
+    <string name="indicator_search_empty">Zde najdete výsledky hledání.</string>
+    <string name="indicator_no_results_found">Žádné výsledky.</string>
+    <!-- Editor -->
 	<string name="editor_hint_title">Název</string>
-	<string name="editor_hint_content">Poznamenej si!</string>
-	<string name="action_add_task">Úkol</string>
-	<string name="action_convert_to_note">Převézt na poznámku</string>
-	<string name="action_convert_to_list">Převézt na seznam</string>
-	<string name="action_do_not_sync">Nesynchronizovat</string>
-	<string name="action_change_color">Změnit barvu</string>
-	<string name="action_enable_markdown">Povolit markdown</string>
-	<string name="action_disable_markdown">Zakázat markdown</string>
-	<string name="action_insert_bold_text">Tučně</string>
-	<string name="action_insert_italics">Kurzíva</string>
-	<string name="action_insert_strikethrough">Přeškrtnutí</string>
-	<string name="action_insert_highlight">Zvýraznění</string>
-	<string name="action_insert_heading">Nadpis</string>
-	<string name="action_insert_quote">Uvozovky</string>
-	<string name="action_insert_code">Zdrojový kód</string>
-	<string name="action_remove_all_checked_tasks">Пур тӗрӗсленӗ задачӑсене те кӑларса пӑрахӑр</string>
-	<string name="indicator_note_date">Vytvořeno %1$s\nNaposledy upraveno %2$s</string>
-	<string name="indicator_restored_notes">Obnovené poznámky</string>
-	<string name="indicator_restored_note">Obnovená poznámka</string>
-	<string name="indicator_archived_notes">Poznámky archivovány</string>
-	<string name="indicator_archive_note">Poznámka archivována</string>
-	<string name="indicator_moved_notes_to_bin">Poznámky přesunuty do koše</string>
-	<string name="indicator_moved_note_to_bin">Poznámka přesunuta do koše</string>
-	<string name="indicator_empty_note_discarded">Prázdná poznámka odhozena</string>
-	<string name="action_insert_link">Vložit odkaz</string>
-	<string name="action_insert">Vložit</string>
-	<string name="action_insert_table">Vložit tabulku</string>
-	<string name="message_invalid_number_rows_columns">Neplatný počet řádků a sloupců</string>
-	<string name="action_insert_image">Vložit obrázek</string>
-	<string name="hint_image_description">Popisek</string>
-	<string name="hint_image_path">Cesta k obrázku</string>
-	<string name="hint_hyperlink_text">Text</string>
-	<string name="hint_hyperlink_url">URL</string>
-	<string name="hint_number_columns">Počet sloupců</string>
-	<string name="hint_number_rows">Počet řádek</string>
-	<string name="message_cannot_preview_table">Nelze zobrazit náhled tabulky.</string>
-
-	<!-- Backup / Restore -->
+    <string name="editor_hint_content">Poznamenej si!</string>
+    <string name="action_add_task">Úkol</string>
+    <string name="action_convert_to_note">Převézt na poznámku</string>
+    <string name="action_convert_to_list">Převézt na seznam</string>
+    <string name="action_do_not_sync">Nesynchronizovat</string>
+    <string name="action_change_color">Změnit barvu</string>
+    <string name="action_enable_markdown">Povolit markdown</string>
+    <string name="action_disable_markdown">Zakázat markdown</string>
+    <string name="action_insert_bold_text">Tučně</string>
+    <string name="action_insert_italics">Kurzíva</string>
+    <string name="action_insert_strikethrough">Přeškrtnutí</string>
+    <string name="action_insert_highlight">Zvýraznění</string>
+    <string name="action_insert_heading">Nadpis</string>
+    <string name="action_insert_quote">Uvozovky</string>
+    <string name="action_insert_code">Zdrojový kód</string>
+    <string name="action_remove_all_checked_tasks">Пур тӗрӗсленӗ задачӑсене те кӑларса пӑрахӑр</string>
+    <string name="indicator_note_date">Vytvořeno %1$s\nNaposledy upraveno %2$s</string>
+    <string name="indicator_restored_notes">Obnovené poznámky</string>
+    <string name="indicator_restored_note">Obnovená poznámka</string>
+    <string name="indicator_archived_notes">Poznámky archivovány</string>
+    <string name="indicator_archive_note">Poznámka archivována</string>
+    <string name="indicator_moved_notes_to_bin">Poznámky přesunuty do koše</string>
+    <string name="indicator_moved_note_to_bin">Poznámka přesunuta do koše</string>
+    <string name="indicator_empty_note_discarded">Prázdná poznámka odhozena</string>
+    <string name="action_insert_link">Vložit odkaz</string>
+    <string name="action_insert">Vložit</string>
+    <string name="action_insert_table">Vložit tabulku</string>
+    <string name="message_invalid_number_rows_columns">Neplatný počet řádků a sloupců</string>
+    <string name="action_insert_image">Vložit obrázek</string>
+    <string name="hint_image_description">Popisek</string>
+    <string name="hint_image_path">Cesta k obrázku</string>
+    <string name="hint_hyperlink_text">Text</string>
+    <string name="hint_hyperlink_url">URL</string>
+    <string name="hint_number_columns">Počet sloupců</string>
+    <string name="hint_number_rows">Počet řádek</string>
+    <string name="message_cannot_preview_table">Nelze zobrazit náhled tabulky.</string>
+    <!-- Backup / Restore -->
 	<string name="notification_backing_up">Zálohování vašich poznámek…</string>
-	<string name="notification_backup_complete">Zálohováno!</string>
-	<string name="notification_backup_failed">Záloha selhala</string>
-	<string name="notification_restoring_notes">Obnovování vašich poznámek…</string>
-	<string name="notification_restore_complete">Obnoveno!</string>
-	<string name="notification_restore_failed">Obnovování selhalo</string>
-
-
-	<!-- Notification channels -->
+    <string name="notification_backup_complete">Zálohováno!</string>
+    <string name="notification_backup_failed">Záloha selhala</string>
+    <string name="notification_restoring_notes">Obnovování vašich poznámek…</string>
+    <string name="notification_restore_complete">Obnoveno!</string>
+    <string name="notification_restore_failed">Obnovování selhalo</string>
+    <!-- Notification channels -->
 	<string name="notifications_channel_reminders">Připomenutí</string>
-	<string name="notifications_channel_backups">Zálohy</string>
-	<string name="notifications_channel_playback">Přehrávání medií</string>
-
-	<!-- Syncing -->
+    <string name="notifications_channel_backups">Zálohy</string>
+    <string name="notifications_channel_playback">Přehrávání medií</string>
+    <!-- Syncing -->
 	<string name="message_not_valid_https">Tohle není platná HTTPS adresa.</string>
-	<string name="indicator_nextcloud_currently_logged_in_as">Jste přihlášeni jako <b>%s</b>.</string>
-	<string name="indicator_nextcloud_currently_not_logged_in">Nejste přihlášeni.</string>
-	<string name="action_nextcloud_authenticate">Ověřit se</string>
-	<string name="indicator_offline_account">Offline účet</string>
-	<string name="indicator_connecting">Připojování…</string>
-	<string name="message_something_went_wrong">Něco se nepovedlo.</string>
-	<string name="message_invalid_credentials">Nelze se ověřit u serveru z důvodu chybných přihlašovacích údajů.</string>
-	<string name="message_logged_in_successfully">Přihlášení úspěšné!</string>
-	<string name="message_server_not_compatible">Verze serveru není kompatibilní s touto aplikací.</string>
-	<string name="message_internet_not_available">Připojení k internetu není k dispozici.</string>
-	<string name="message_credentials_cannot_be_blank">Přihlašovací údaje musí být vyplněné.</string>
-	<string name="preference_nextcloud_clear_credentials">Vymazat přihlašovací údaje a URL</string>
-	<string name="notification_media_play_pause">Přehrát / Pozastavit</string>
-	<string name="notification_media_stop">Zastavit</string>
-
-	<!-- App shortcuts -->
+    <string name="indicator_nextcloud_currently_logged_in_as">Jste přihlášeni jako <b>%s</b>.</string>
+    <string name="indicator_nextcloud_currently_not_logged_in">Nejste přihlášeni.</string>
+    <string name="action_nextcloud_authenticate">Ověřit se</string>
+    <string name="indicator_offline_account">Offline účet</string>
+    <string name="indicator_connecting">Připojování…</string>
+    <string name="message_something_went_wrong">Něco se nepovedlo.</string>
+    <string name="message_invalid_credentials">Nelze se ověřit u serveru z důvodu chybných přihlašovacích údajů.</string>
+    <string name="message_logged_in_successfully">Přihlášení úspěšné!</string>
+    <string name="message_server_not_compatible">Verze serveru není kompatibilní s touto aplikací.</string>
+    <string name="message_internet_not_available">Připojení k internetu není k dispozici.</string>
+    <string name="message_credentials_cannot_be_blank">Přihlašovací údaje musí být vyplněné.</string>
+    <string name="preference_nextcloud_clear_credentials">Vymazat přihlašovací údaje a URL</string>
+    <string name="notification_media_play_pause">Přehrát / Pozastavit</string>
+    <string name="notification_media_stop">Zastavit</string>
+    <!-- App shortcuts -->
 	<string name="shortcut_take_note">Poznamenej si</string>
-	<string name="shortcut_make_list">Vytvoř seznam</string>
-	<string name="never">Nikdy</string>
-
-	<plurals name="more_items">
-    	<item quantity="one">+%d položka</item>
-    	<item quantity="few">+%d položky</item>
-   	    <item quantity="many">+%d položek</item>
-	</plurals>
-
-	<plurals name="selected_notes">
-    	<item quantity="one">Označena %d poznámka</item>
-   	    <item quantity="few">Označeny %d poznámky</item>
-    	<item quantity="many">Označeno %d poznámek</item>
-	</plurals>
-
-	<plurals name="selected_notebooks">
-    	<item quantity="one">Označen %d zápisník</item>
-   	    <item quantity="few">Označeny %d zápisníky</item>
-    	<item quantity="many">Označeno %d zápisníků</item>
-	</plurals>
-
-	<plurals name="selected_tags">
-    	<item quantity="one">Označen %d štítek</item>
-    	<item quantity="few">Označeny %d štítky</item>
-   	    <item quantity="many">Označeno %d štítků</item>
-	</plurals>
-	<string name="new_and_updated">Ҫӗнӗ те ҫӗнетнӗ!</string>
-	<string name="what_is_new">Мӗн ҫӗнни пур?</string>
-	<string name="continue_next">Малалла тӑс</string>
-	<string name="preferences_header_view_tags">Тег списокӗ</string>
-	<string name="preferences_sort_tags_method">Тегсене тӑрӑх йӗркеле</string>
-	<string name="preferences_header_view_navdrawer">Навигаци ещӗкӗ</string>
-	<string name="preferences_sort_navdrawer_method">Тетрадьсене тӑрӑх уйӑрӑр</string>
-	<string name="swipe_to_find_out_whats_new">Ҫӗнӗ хыпарсене пӗлес тесен, ҫавӑрса илӗр</string>
+    <string name="shortcut_make_list">Vytvoř seznam</string>
+    <string name="never">Nikdy</string>
+    <plurals name="more_items">
+        <item quantity="one">+%d položka</item>
+        <item quantity="few">+%d položky</item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="selected_notes">
+        <item quantity="one">Označena %d poznámka</item>
+        <item quantity="few">Označeny %d poznámky</item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="selected_notebooks">
+        <item quantity="one">Označen %d zápisník</item>
+        <item quantity="few">Označeny %d zápisníky</item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="selected_tags">
+        <item quantity="one">Označen %d štítek</item>
+        <item quantity="few">Označeny %d štítky</item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="new_and_updated">Ҫӗнӗ те ҫӗнетнӗ!</string>
+    <string name="what_is_new">Мӗн ҫӗнни пур?</string>
+    <string name="continue_next">Малалла тӑс</string>
+    <string name="preferences_header_view_tags">Тег списокӗ</string>
+    <string name="preferences_sort_tags_method">Тегсене тӑрӑх йӗркеле</string>
+    <string name="preferences_header_view_navdrawer">Навигаци ещӗкӗ</string>
+    <string name="preferences_sort_navdrawer_method">Тетрадьсене тӑрӑх уйӑрӑр</string>
+    <string name="swipe_to_find_out_whats_new">Ҫӗнӗ хыпарсене пӗлес тесен, ҫавӑрса илӗр</string>
 </resources>
