@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Navigation drawer -->
     <string name="nav_notes">Anotações</string>
@@ -9,23 +10,19 @@
     <string name="nav_all_notes">Todas Anotações</string>
     <string name="nav_notebooks">Caderno de Notas</string>
     <string name="nav_your_notebooks">Seu Caderno de Notas</string>
-
     <!-- Preferences -->
     <string name="preferences_header_general">Geral</string>
     <string name="preferences_theme_mode">Modo de tema</string>
     <string name="preferences_theme_mode_dark">Escuro</string>
     <string name="preferences_theme_mode_light">Claro</string>
     <string name="preferences_theme_mode_system">Seguir tema do sistema</string>
-
     <string name="preferences_dark_theme_mode">Modo do tema escuro</string>
     <string name="preferences_theme_dark_mode_standard">Padrão</string>
     <string name="preferences_theme_dark_mode_black">Preto puro</string>
-
     <string name="preferences_header_view">Visualização</string>
     <string name="preferences_layout_mode">Modo de exibição</string>
     <string name="preferences_layout_mode_grid">Grelha</string>
     <string name="preferences_layout_mode_list">Lista</string>
-
     <string name="preferences_color_scheme">Esquema de cores</string>
     <string name="preferences_color_scheme_blue">Azul</string>
     <string name="preferences_color_scheme_pink">Rosa</string>
@@ -34,7 +31,6 @@
     <string name="preferences_color_scheme_purple">Roxo</string>
     <string name="preferences_color_scheme_yellow">Amarelo</string>
     <string name="preferences_color_scheme_red">Vermelho</string>
-
     <string name="preferences_sort_method">Ordenar por</string>
     <string name="preferences_sort_method_title_asc">Título (crescente)</string>
     <string name="preferences_sort_method_title_desc">Título (decrescente)</string>
@@ -42,11 +38,9 @@
     <string name="preferences_sort_method_created_desc">Data criado (decrescente)</string>
     <string name="preferences_sort_method_modified_asc">Data modificado (crescente)</string>
     <string name="preferences_sort_method_modified_desc">Data modificado (decrescente)</string>
-
     <string name="preferences_show_date">Mostrar data que foi criado/modificado</string>
     <string name="preferences_date_format">Formato de data</string>
     <string name="preferences_time_format">Formato de hora</string>
-
     <string name="preferences_header_other">Outro</string>
     <string name="preferences_group_notes_without_notebook">Agrupar anotações que não estão em nenhum caderno de notas</string>
     <string name="preferences_open_media_in">Abrir mídia em</string>
@@ -57,7 +51,6 @@
     <string name="preferences_note_deletion_time_week">Após 7 dias</string>
     <string name="preferences_note_deletion_time_two_weeks">Após 14 dias</string>
     <string name="preferences_note_deletion_time_month">Após 30 dias</string>
-
     <string name="preferences_header_backup">Cópia de segurança</string>
     <string name="preferences_create_backup">Criar uma cópia de segurança</string>
     <string name="preferences_create_backup_subtext">Exportar todas as anotações em um arquivo de cópia de segurança.</string>
@@ -67,7 +60,6 @@
     <string name="preferences_backup_strategy_include_files">Criar cópia de tudo</string>
     <string name="preferences_backup_strategy_keep_info">Criar cópia apenas da descrição e do caminho</string>
     <string name="preferences_backup_strategy_keep_nothing">Não criar cópia dos anexos</string>
-
     <string name="preferences_header_syncing">Sincronização</string>
     <string name="preferences_go_to_sync_settings">Ir para configurações de sincronização</string>
     <string name="preferences_currently_syncing_with">Sincronizando atualmente com %s</string>
@@ -88,21 +80,15 @@
     <string name="preferences_background_sync_enabled">Habilitado</string>
     <string name="preferences_background_sync_disabled">Desabilitado</string>
     <string name="preferences_new_notes_synchronizable">Novas anotações sincronizáveis</string>
-
-
     <!-- About -->
     <string name="about_version">Versão</string>
     <string name="about_website">Site</string>
     <string name="about_developer">Desenvolvedor</string>
     <string name="about_contribute">Contribua</string>
     <string name="about_support">Suporte</string>
-    <string name="about_support_subtext">Criar e manter projetos de código aberto consome tempo e
-        não gera renda.\nPague uma cerveja aos desenvolvedores!
-    </string>
+    <string name="about_support_subtext">Criar e manter projetos de código aberto consome tempo e não gera renda.\nPague uma cerveja aos desenvolvedores!</string>
     <string name="about_libraries">Bibliotecas</string>
     <string name="about_libraries_subtext">Veja as bibliotecas de terceiro e suas licenças.</string>
-
-
     <!-- General -->
     <string name="default_string">Padrão</string>
     <string name="yes">Sim</string>
@@ -135,8 +121,6 @@
     <string name="action_select_more">Selecionar mais…</string>
     <string name="action_compact_preview">"Visualização compacta "</string>
     <string name="action_full_preview">Visualização completa</string>
-
-
     <!-- Attachments -->
     <string name="attachments_edit_description">Editar descrição</string>
     <string name="attachments_hint_description">Descrição do anexo</string>
@@ -145,8 +129,6 @@
     <string name="action_attach_files">Anexar arquivos</string>
     <string name="action_take_photo">Tirar uma foto</string>
     <string name="indicator_recorded_clip">Clipe Gravado</string>
-
-
     <!-- Notebooks -->
     <string name="default_notebook">Outro</string>
     <string name="notebooks_new_notebook">Novo caderno de notas</string>
@@ -157,12 +139,8 @@
     <string name="action_rename_notebook">Renomear caderno de notas</string>
     <string name="action_new_notebook">Novo caderno de notas</string>
     <string name="indicator_notebook_already_exists">Caderno de notas com o nome %1$s já existe.</string>
-
-
     <!-- Archive -->
     <string name="indicator_archive_empty">Suas anotações arquivadas aparecerão aqui.</string>
-
-
     <!-- Deleted -->
     <string name="action_empty_bin">Esvaziar lixeira</string>
     <string name="empty_bin_warning_title">Tem certeza?</string>
@@ -173,8 +151,6 @@
     <string name="indicator_bin_forever">As notas são definidas para nunca serem excluídas.\nVocê pode alterar isso em Configurações.</string>
     <string name="indicator_deleted_notes_permanently">Anotações excluídas permanentemente.</string>
     <string name="indicator_deleted_note_permanently">Anotação excluída permanentemente.</string>
-
-
     <!-- Reminders -->
     <string name="reminders">Lembretes</string>
     <string name="reminder">Lembrete</string>
@@ -184,23 +160,17 @@
     <string name="action_new_reminder">Novo lembrete</string>
     <string name="notification_reminder_fired">Você tem um lembrete.</string>
     <string name="indicator_cannot_set_past_reminder">Não é possível definir um lembrete para uma data passada</string>
-
-
     <!-- Tags -->
     <string name="action_new_tag">Nova etiqueta</string>
     <string name="tags_hint_name">Nome da etiqueta</string>
     <string name="indicator_tags_empty">Você não tem etiquetas.</string>
     <string name="action_rename_tag">Renomear etiqueta</string>
     <string name="indicator_tag_already_exists">Etiqueta com o nome %1$s já existe.</string>
-
-
     <!-- Search -->
     <string name="search_hint">Pesquisar…</string>
     <string name="action_search">Pesquisar</string>
     <string name="indicator_search_empty">Resultados de busca aparecerão aqui.</string>
     <string name="indicator_no_results_found">Nenhum resultado encontrado.</string>
-
-
     <!-- Editor -->
     <string name="editor_hint_title">Título</string>
     <string name="editor_hint_content">Faça uma anotação!</string>
@@ -239,7 +209,6 @@
     <string name="hint_number_columns">Número de colunas</string>
     <string name="hint_number_rows">Número de linhas</string>
     <string name="message_cannot_preview_table">Não é possível visualizar a tabela.</string>
-
     <!-- Backup / Restore -->
     <string name="notification_backing_up">Criando cópia de segurança das suas anotações…</string>
     <string name="notification_backup_complete">Cópia de segurança concluída!</string>
@@ -247,13 +216,10 @@
     <string name="notification_restoring_notes">Restaurando suas anotações…</string>
     <string name="notification_restore_complete">Restauração concluída</string>
     <string name="notification_restore_failed">A restauração falhou</string>
-
-
     <!-- Notification channels -->
     <string name="notifications_channel_reminders">Lembrete</string>
     <string name="notifications_channel_backups">Cópias de segurança</string>
     <string name="notifications_channel_playback">Reprodução de mídia</string>
-
     <!-- Syncing -->
     <string name="message_not_valid_https">Isto não é uma URL HTTPS válida.</string>
     <string name="indicator_nextcloud_currently_logged_in_as">Você atualmente está conectado como <b>%s</b>.</string>
@@ -270,29 +236,28 @@
     <string name="preference_nextcloud_clear_credentials">Limpar credenciais e URL do servidor</string>
     <string name="notification_media_play_pause">Reproduzir / Pausar</string>
     <string name="notification_media_stop">Parar</string>
-
     <!-- App shortcuts -->
     <string name="shortcut_take_note">Fazer uma anotação</string>
     <string name="shortcut_make_list">Fazer uma lista</string>
-  <string name="never">Nunca</string>
-
+    <string name="never">Nunca</string>
     <plurals name="more_items">
         <item quantity="one">+%d item</item>
+        <item quantity="many"></item>
         <item quantity="other">+%d itens</item>
     </plurals>
-
     <plurals name="selected_notes">
         <item quantity="one">%d anotação selecionada</item>
+        <item quantity="many"></item>
         <item quantity="other">%d anotações selecionadas</item>
     </plurals>
-
     <plurals name="selected_notebooks">
         <item quantity="one">%d caderno de notas selecionado</item>
+        <item quantity="many"></item>
         <item quantity="other">%d cadernos de notas selecionados</item>
     </plurals>
-
     <plurals name="selected_tags">
         <item quantity="one">%d etiqueta selecionada</item>
+        <item quantity="many"></item>
         <item quantity="other">%d etiquetas selecionadas</item>
     </plurals>
     <string name="preferences_color_scheme_system">Seguir tema do sistema</string>
