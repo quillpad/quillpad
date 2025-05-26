@@ -80,8 +80,7 @@
     <string name="about_developer">Προγραμματιστής</string>
     <string name="about_contribute">Συνεισφέρετε</string>
     <string name="about_support">Υποστηρίξτε</string>
-    <string name="about_support_subtext">Η δημιουργία και η συντήρηση προγραμμάτων ανοιχτού κώδικα (ΕΛΛΑΚ) είναι χρονοβόρα και δεν αποφέρει κάποιο κέρδος.
-        \nΚεράστε τους προγραμματιστές μια μπύρα!</string>
+    <string name="about_support_subtext">Η δημιουργία και η συντήρηση προγραμμάτων ανοιχτού κώδικα (ΕΛΛΑΚ) είναι χρονοβόρα και δεν αποφέρει κάποιο κέρδος. \nΚεράστε τους προγραμματιστές μια μπύρα!</string>
     <string name="about_libraries">Βιβλιοθήκες</string>
     <string name="about_libraries_subtext">Προβολή βιβλιοθηκών και των αδειών τους.</string>
     <string name="yes">Ναι</string>
@@ -222,25 +221,21 @@
     <string name="preferences_dark_theme_mode">Απόχρωση σκούρου θέματος</string>
     <string name="preferences_theme_dark_mode_standard">Κανονική</string>
     <string name="preferences_theme_dark_mode_black">Μάυρη</string>
-  <string name="never">Ποτέ</string>
+    <string name="never">Ποτέ</string>
     <string name="action_compact_preview">Συμπαγής προεπισκόπηση</string>
     <string name="action_full_preview">Πλήρης προεπισκόπηση</string>
-
     <plurals name="more_items">
         <item quantity="one">+%d στοιχείο</item>
         <item quantity="other">+%d στοιχεία</item>
     </plurals>
-
     <plurals name="selected_notes">
         <item quantity="one">Επιλέχθηκε %d σημείωση</item>
         <item quantity="other">Επιλέχθηκαν %d σημειώσεις</item>
     </plurals>
-
     <plurals name="selected_notebooks">
         <item quantity="one">Επιλέχθηκε %d τετράδιο</item>
         <item quantity="other">Επιλέχθηκαν %d τετράδια</item>
     </plurals>
-
     <plurals name="selected_tags">
         <item quantity="one">Επιλέχθηκε %d ετικέτα</item>
         <item quantity="other">Επιλέχθηκαν %d ετικέτες</item>
