@@ -620,7 +620,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
             addTextChangedListener(object : TextWatcher {
                 var changedText = ""
                 private val listRegex = Regex("^((\\s*)([\\-+*] +)).*")
-                private val checkRegex = Regex("^((\\s*)- *\\[([ x])] +).*")
+                private val checkRegex = Regex("^((\\s*)[-+*] *\\[([ x])] +).*")
                 private val numListRegex = Regex("((\\s*)([1-9][0-9]*)[.] +).*")
                 private val indentedLine = Regex("((\\s+)).*")
 
