@@ -65,7 +65,7 @@ fun ExtendedEditText.toggleCheckmarkCurrentLine() {
             // .trimEnd() + " " seems to be fixing it
         }
 
-        line.matches(Regex("[-+*] *\\[x] +.*")) -> {
+        line.matches(Regex("[-+*] *\\[[xX]] +.*")) -> {
             line.replaceFirst("[x]", "[ ]").trimEnd() + " "
         }
 
