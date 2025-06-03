@@ -59,13 +59,13 @@ fun ExtendedEditText.toggleCheckmarkCurrentLine() {
     val oldLength = line.length
 
     line = when {
-        line.matches(Regex("- *\\[ ] +.*")) -> {
+        line.matches(Regex("[-+*] *\\[ ] +.*")) -> {
             line.replaceFirst("[ ]", "[x]").trimEnd() + " " // There's a strange bug which causes
             // text to be duplicated after pressing Enter
             // .trimEnd() + " " seems to be fixing it
         }
 
-        line.matches(Regex("- *\\[x] +.*")) -> {
+        line.matches(Regex("[-+*] *\\[x] +.*")) -> {
             line.replaceFirst("[x]", "[ ]").trimEnd() + " "
         }
 

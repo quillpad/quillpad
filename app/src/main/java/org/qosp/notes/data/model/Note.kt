@@ -105,7 +105,7 @@ data class Note(
     }
 
     fun mdToTaskList(content: String): List<NoteTask> {
-        val regex = Regex("^\\s*- \\[([ xX])](.*)$")
+        val regex = Regex("^\\s*[-+*] \\[([ xX])](.*)$")
         val tasks = mutableListOf<NoteTask>()
         content.lines().forEachIndexed { index, line ->
             val result = regex.find(line)
