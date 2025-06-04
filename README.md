@@ -61,6 +61,12 @@ Notes from [Google Keep](https://www.google.com/keep/) can be converted to Quill
 
 ## Translations
 
+Please help to with translations using the [Weblate](https://toolate.othing.xyz/projects/quillpad/).
+<a href="https://toolate.othing.xyz/projects/quillpad/">
+<img src="https://toolate.othing.xyz/widget/quillpad/multi-auto.svg" alt="Translation status" />
+</a>
+
+You may also manually change translation files.
 Follow these steps to add a new translation:
 
 1. Create an account on Github or use your Github account if you have one that already exists.
