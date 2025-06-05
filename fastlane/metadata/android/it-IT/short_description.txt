@@ -1,0 +1,1 @@
+Note, elenchi di attività, sincronizzazione Nextcloud e altro. Fork di Quillnote
