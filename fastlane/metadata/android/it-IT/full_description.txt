@@ -1,0 +1,19 @@
+Quillpad è un fork di una applicazione chiamata Quillnote. Quillpad è completamente libera e open-source. Non mostrerà mai annunci, né chiederà permessi non necessari o di caricare le proprie note da qualche parte senza che tu lo sappia.
+
+Scrivi bellissime note in markdown in qualunque momento ti senta ispirato, mettile in un taccuino ed etichettale come preferisci. Rimani organizzato creando elenchi di attvità, imposta promemoria e tieni tutto in unico posto allegando i ralativi file.
+
+Con Quillpad, puoi:
+- Prendere note con il supporto markdown
+- Creare elenchi di attività
+- Fissare le note preferite in cima all'elenco
+- Nascondere le note che non vuoi far vedere agli altri
+- Impostare promemoria per eventi che non vuoi perderti
+- Aggiunere registrazioni vocali e altri tipi di allegati
+- Raggruppare le note correlate in taccuini
+- Aggiungere etichette alle note
+- Archiviare le note che non ti servono
+- Cercare nelle note
+- Sincronizzare i contenuti con Nextcloud (richiede che l'app Note di Nextcloud Notes sia installata sul server Nextcloud utilizzato per la sincronizzazione)
+- Eseguire il backup delle note in un file .zip che può essere ripristinato in un secondo tempo
+- Scegliere tra le modalità Chiaro e Scuro
+- Scegliere tra molteplici schemi di colore
