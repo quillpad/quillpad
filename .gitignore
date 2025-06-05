@@ -19,3 +19,5 @@ output-metadata.json
 *.apk
 *.aab
 /build-cache/
+app/build/
+buildSrc/build/
