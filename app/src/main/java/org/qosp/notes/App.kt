@@ -7,7 +7,6 @@ import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.StrictMode
 import androidx.core.content.ContextCompat
-import androidx.work.Configuration
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
@@ -22,32 +21,26 @@ import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.androix.startup.KoinStartup
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.dsl.koinConfiguration
 import org.koin.ksp.generated.module
 import org.qosp.notes.components.workers.BinCleaningWorker
 import org.qosp.notes.components.workers.SyncWorker
-import org.qosp.notes.data.sync.SyncModule
+import org.qosp.notes.di.AppModule
 import org.qosp.notes.di.DatabaseModule
-import org.qosp.notes.di.KoinWorkerFactory
 import org.qosp.notes.di.MarkwonModule
 import org.qosp.notes.di.NextcloudModule
 import org.qosp.notes.di.PreferencesModule
 import org.qosp.notes.di.RepositoryModule
-import org.qosp.notes.di.StorageModule
+import org.qosp.notes.di.SyncModule
 import org.qosp.notes.di.UtilModule
 import org.qosp.notes.ui.UIModule
 import java.util.concurrent.TimeUnit
 
 @OptIn(KoinExperimentalAPI::class)
-class App : Application(), ImageLoaderFactory, Configuration.Provider, KoinStartup {
-    private val workerFactory = KoinWorkerFactory()
-
-    override val workManagerConfiguration: Configuration =
-        Configuration.Builder()
-            .setWorkerFactory(workerFactory)
-            .build()
+class App : Application(), ImageLoaderFactory, KoinStartup {
 
     override fun newImageLoader(): ImageLoader {
         return ImageLoader.Builder(applicationContext)
@@ -79,17 +72,18 @@ class App : Application(), ImageLoaderFactory, Configuration.Provider, KoinStart
     override fun onKoinStartup() = koinConfiguration {
         androidLogger()
         androidContext(this@App)
+        workManagerFactory()
         modules(
             listOf(
-                DatabaseModule().module,
+                AppModule.module,
+                DatabaseModule.module,
                 MarkwonModule().module,
                 NextcloudModule().module,
-                PreferencesModule().module,
-                RepositoryModule().module,
-                StorageModule.module,
-                SyncModule.module,
+                PreferencesModule.module,
+                RepositoryModule.module,
                 UIModule().module,
                 UtilModule().module,
+                SyncModule.module,
             )
         )
     }

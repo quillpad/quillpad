@@ -6,7 +6,6 @@ import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.data.repo.IdMappingRepository
-import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.data.sync.core.BaseResult
 import org.qosp.notes.data.sync.core.ISyncBackend
@@ -22,7 +21,6 @@ import org.qosp.notes.preferences.CloudService
 
 class NextcloudBackend(
     private val nextcloudAPI: NextcloudAPI,
-    private val noteRepository: NoteRepository,
     private val notebookRepository: NotebookRepository,
     private val idMappingRepository: IdMappingRepository,
 ) : ISyncBackend<NextcloudConfig, NextcloudNote> {

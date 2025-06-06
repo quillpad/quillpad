@@ -119,7 +119,7 @@ class NewStorageBackend(
         }
     }
 
-    override suspend fun validateConfig(): BackendValidationResult {
+    suspend fun validateConfig(): BackendValidationResult {
         return try {
             val root = getRootDocumentFile()
             if (root == null || !hasPermissionsAt(config.location)) {

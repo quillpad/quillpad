@@ -18,11 +18,7 @@ import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.data.repo.ReminderRepository
 import org.qosp.notes.data.repo.TagRepository
 import org.qosp.notes.data.sync.core.SyncManager
-import org.qosp.notes.data.sync.fs.StorageBackend
-import org.qosp.notes.data.sync.nextcloud.NextcloudBackend
-import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.ui.reminders.ReminderManager
-import org.qosp.notes.ui.utils.ConnectionManager
 
 const val TEST_MEDIA_FOLDER = "test_media"
 
@@ -47,13 +43,7 @@ object TestUtilModule {
         }
         single {
             SyncManager(
-                preferenceRepository = get<PreferenceRepository>(),
-                idMappingRepository = get<IdMappingRepository>(),
-                connectionManager = ConnectionManager(get<Context>()),
                 syncingScope = GlobalScope,
-                context = get<Context>(),
-                nextcloudBackend = get<NextcloudBackend>(),
-                storageBackend = get<StorageBackend>(),
             )
         }
         single {

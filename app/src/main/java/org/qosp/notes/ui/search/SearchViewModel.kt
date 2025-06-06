@@ -13,7 +13,7 @@ import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.data.repo.NotebookRepository
-import org.qosp.notes.data.sync.core.SyncManager
+import org.qosp.notes.data.sync.neu.BackendProvider
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.preferences.SortMethod
 import org.qosp.notes.ui.common.AbstractNotesViewModel
@@ -23,8 +23,8 @@ class SearchViewModel(
     noteRepository: NoteRepository,
     notebookRepository: NotebookRepository,
     preferenceRepository: PreferenceRepository,
-    syncManager: SyncManager,
-) : AbstractNotesViewModel(preferenceRepository, syncManager) {
+    backendProvider: BackendProvider,
+) : AbstractNotesViewModel(preferenceRepository, backendProvider) {
     private val searchKeyData: MutableStateFlow<String> = MutableStateFlow("")
 
     var isFirstLoad = true

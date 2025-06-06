@@ -1,9 +1,7 @@
 package org.qosp.notes.di
 
-import kotlinx.coroutines.CoroutineScope
-import org.koin.core.annotation.Module
-import org.koin.core.annotation.Named
-import org.koin.core.annotation.Single
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 import org.qosp.notes.data.AppDatabase
 import org.qosp.notes.data.repo.IdMappingRepository
 import org.qosp.notes.data.repo.NewNoteRepository
@@ -11,60 +9,54 @@ import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.data.repo.ReminderRepository
 import org.qosp.notes.data.repo.TagRepository
-import org.qosp.notes.data.sync.SYNC_SCOPE
-import org.qosp.notes.data.sync.core.SyncManager
-import org.qosp.notes.data.sync.neu.BackendProvider
-import org.qosp.notes.data.sync.neu.SynchronizeNotes
 
 const val NO_SYNC = "NO_SYNC"
 
-@Module
-class RepositoryModule {
-    @Single
-    fun provideNotebookRepository(
-        appDatabase: AppDatabase,
-        noteRepository: NoteRepository,
-        syncManager: SyncManager,
-    ) = NotebookRepository(appDatabase.notebookDao, noteRepository, syncManager)
+object RepositoryModule {
 
-    @Named(NO_SYNC)
-    @Single
-    fun provideNotebookRepositoryWithNullSyncManager(
-        appDatabase: AppDatabase,
-        noteRepository: NoteRepository,
-    ) = NotebookRepository(appDatabase.notebookDao, noteRepository, null)
+    val module = module {
+        includes(DatabaseModule.module)
 
-    @Single
-    fun provideNewNoteRepository(
-        appDatabase: AppDatabase,
-        backendProvider: BackendProvider,
-        synchronizeNotes: SynchronizeNotes,
-        @Named(NO_SYNC) notebookRepository: NotebookRepository,
-        @Named(SYNC_SCOPE) syncingScope: CoroutineScope,
-    ): NoteRepository =
-        NewNoteRepository(
-            noteDao = appDatabase.noteDao,
-            idMappingDao = appDatabase.idMappingDao,
-            reminderDao = appDatabase.reminderDao,
-            backendProvider = backendProvider,
-            synchronizeNotes = synchronizeNotes,
-            notebookRepository = notebookRepository,
-            syncingScope = syncingScope
-        )
+        single(named(NO_SYNC)) {
+            NotebookRepository(
+                notebookDao = get<AppDatabase>().notebookDao,
+                noteRepository = get(),
+                syncManager = null
+            )
+        }
+        single {
+            NotebookRepository(
+                notebookDao = get<AppDatabase>().notebookDao,
+                noteRepository = get(),
+                syncManager = get()
+            )
+        }
+        single<NoteRepository> {
+            NewNoteRepository(
+                noteDao = get<AppDatabase>().noteDao,
+                idMappingDao = get<AppDatabase>().idMappingDao,
+                reminderDao = get<AppDatabase>().reminderDao,
+                backendProvider = get(),
+                synchronizeNotes = get(),
+                notebookRepository = get(),
+                syncingScope = get()
+            )
+        }
 
+        single {
+            ReminderRepository(get<AppDatabase>().reminderDao)
+        }
 
-    @Single
-    fun provideReminderRepository(appDatabase: AppDatabase) = ReminderRepository(appDatabase.reminderDao)
-
-
-    @Single
-    fun provideTagRepository(
-        appDatabase: AppDatabase,
-        syncManager: SyncManager,
-        noteRepository: NoteRepository,
-    ) = TagRepository(appDatabase.tagDao, appDatabase.noteTagDao, noteRepository, syncManager)
-
-
-    @Single
-    fun provideCloudIdRepository(appDatabase: AppDatabase) = IdMappingRepository(appDatabase.idMappingDao)
+        single {
+            TagRepository(
+                tagDao = get<AppDatabase>().tagDao,
+                noteTagDao = get<AppDatabase>().noteTagDao,
+                noteRepository = get(),
+                syncManager = get()
+            )
+        }
+        single {
+            IdMappingRepository(get<AppDatabase>().idMappingDao)
+        }
+    }
 }

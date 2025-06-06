@@ -1,11 +1,9 @@
 package org.qosp.notes.data.sync.neu
 
-import org.koin.core.annotation.Single
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.repo.IdMappingRepository
 import org.qosp.notes.preferences.CloudService
 
-@Single
 class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
     suspend operator fun invoke(
         localNotes: List<Note>, remoteNotes: List<RemoteNoteMetaData>, service: CloudService

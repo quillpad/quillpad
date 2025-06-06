@@ -22,13 +22,10 @@ import androidx.navigation.ui.navigateUp
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.qosp.notes.R
 import org.qosp.notes.components.backup.BackupService
 import org.qosp.notes.data.model.Notebook
-import org.qosp.notes.data.sync.core.SyncManager
-import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
 import org.qosp.notes.databinding.ActivityMainBinding
 import org.qosp.notes.preferences.SortNavdrawerNotebooksMethod
 import org.qosp.notes.ui.utils.closeAndThen
@@ -62,8 +59,6 @@ class MainActivity : BaseActivity() {
         R.id.fragment_settings,
         R.id.fragment_tags,
     )
-
-    val syncManager: SyncManager by inject<SyncManager>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -157,13 +152,14 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        syncManager.config
-            .collect(this@MainActivity) { config ->
-                if (config is NextcloudConfig) {
-                    textViewUsername.text = config.username
-                    textViewProvider.text = getString(config.provider.nameResource)
-                }
-            }
+        // TODO: Check if this is really being used or can be removed
+//        syncManager.config
+//            .collect(this@MainActivity) { config ->
+//                if (config is NextcloudConfig) {
+//                    textViewUsername.text = config.username
+//                    textViewProvider.text = getString(config.provider.nameResource)
+//                }
+//            }
     }
 
     private fun selectCurrentDestinationMenuItem(

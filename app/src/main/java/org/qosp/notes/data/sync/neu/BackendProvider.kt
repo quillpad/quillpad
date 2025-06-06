@@ -9,11 +9,10 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import org.koin.core.annotation.Named
-import org.koin.core.annotation.Single
-import org.qosp.notes.data.sync.SYNC_SCOPE
 import org.qosp.notes.data.sync.fs.StorageConfig
 import org.qosp.notes.data.sync.nextcloud.NextcloudAPI
 import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
+import org.qosp.notes.di.SYNC_SCOPE
 import org.qosp.notes.preferences.AppPreferences
 import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.CloudService.DISABLED
@@ -22,7 +21,6 @@ import org.qosp.notes.preferences.CloudService.NEXTCLOUD
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.ui.utils.ConnectionManager
 
-@Single
 class BackendProvider(
     private val context: Context,
     private val nextcloudApi: NextcloudAPI,
@@ -47,6 +45,9 @@ class BackendProvider(
     }.stateIn(syncingScope, SharingStarted.Eagerly, null)
 
     val isSyncing: Boolean
-        get() = syncProvider.value != null && connectionManager.isConnectionAvailable(pref.value?.syncMode)
+        get() = syncProvider.value != null && connectionManager.isConnectionAvailable(
+            syncMode = pref.value?.syncMode,
+            cloudService = syncProvider.value?.type
+        )
 
 }

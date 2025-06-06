@@ -11,18 +11,4 @@ interface INewSyncBackend {
     suspend fun deleteNote(mapping: IdMapping): Boolean
     suspend fun getNote(mapping: IdMapping): NewSyncNote?
     suspend fun getAll(): List<NewSyncNote>
-    suspend fun validateConfig(): BackendValidationResult
-}
-
-
-data class RemoteNoteMetaData(
-    val id: String,
-    val title: String,
-    val lastModified: Long,
-)
-
-sealed class BackendValidationResult {
-    object Success : BackendValidationResult()
-    object InvalidConfig : BackendValidationResult()
-    object Incompatible : BackendValidationResult()
 }

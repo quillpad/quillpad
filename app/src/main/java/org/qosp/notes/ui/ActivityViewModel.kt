@@ -25,8 +25,8 @@ import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.data.repo.ReminderRepository
 import org.qosp.notes.data.repo.TagRepository
-import org.qosp.notes.data.sync.SYNC_SCOPE
 import org.qosp.notes.data.sync.core.BaseResult
+import org.qosp.notes.di.SYNC_SCOPE
 import org.qosp.notes.preferences.GroupNotesWithoutNotebook
 import org.qosp.notes.preferences.LayoutMode
 import org.qosp.notes.preferences.NoteDeletionTime

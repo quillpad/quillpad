@@ -3,15 +3,12 @@ package org.qosp.notes.data.sync.neu
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.sync.core.NextcloudNote
-import org.qosp.notes.data.sync.core.ServerNotSupportedException
 import org.qosp.notes.data.sync.nextcloud.NextcloudAPI
-import org.qosp.notes.data.sync.nextcloud.NextcloudBackend.Companion.MIN_SUPPORTED_VERSION
 import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
 import org.qosp.notes.data.sync.nextcloud.createNote
 import org.qosp.notes.data.sync.nextcloud.deleteNote
 import org.qosp.notes.data.sync.nextcloud.getNote
 import org.qosp.notes.data.sync.nextcloud.getNotes
-import org.qosp.notes.data.sync.nextcloud.getNotesCapabilities
 import org.qosp.notes.data.sync.nextcloud.model.asNextcloudNote
 import org.qosp.notes.data.sync.nextcloud.updateNote
 import org.qosp.notes.preferences.CloudService
@@ -58,18 +55,5 @@ class NewNextcloudBackend(
 
     override suspend fun getAll(): List<NewSyncNote> {
         return api.getNotes(config).map { note -> note.asNewSyncNote() }
-    }
-
-    override suspend fun validateConfig(): BackendValidationResult {
-        val result = runCatching {
-            val capabilities = api.getNotesCapabilities(config)!!
-            val maxServerVersion = capabilities.apiVersion.last().toFloat()
-            if (MIN_SUPPORTED_VERSION.toFloat() > maxServerVersion) throw ServerNotSupportedException
-        }
-        return when (result.exceptionOrNull()) {
-            null -> BackendValidationResult.Success
-            is ServerNotSupportedException -> BackendValidationResult.Incompatible
-            else -> BackendValidationResult.InvalidConfig
-        }
     }
 }

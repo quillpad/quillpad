@@ -12,10 +12,10 @@ import org.qosp.notes.preferences.BackgroundSync
 import org.qosp.notes.preferences.PreferenceRepository
 
 class SyncWorker(
-    context: Context,
-    params: WorkerParameters,
     private val preferenceRepository: PreferenceRepository,
     private val noteRepository: NoteRepository,
+    context: Context,
+    params: WorkerParameters,
 ) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {

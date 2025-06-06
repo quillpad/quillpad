@@ -8,8 +8,8 @@ import org.koin.core.annotation.Module
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import org.qosp.notes.data.repo.IdMappingRepository
-import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.data.repo.NotebookRepository
+import org.qosp.notes.data.sync.neu.ValidateNextcloud
 import org.qosp.notes.data.sync.nextcloud.NextcloudAPI
 import org.qosp.notes.data.sync.nextcloud.NextcloudBackend
 import retrofit2.Retrofit
@@ -25,10 +25,9 @@ class NextcloudModule {
     @Single
     fun provideNextcloudManager(
         nextcloudAPI: NextcloudAPI,
-        noteRepository: NoteRepository,
         @Named(NO_SYNC) notebookRepository: NotebookRepository,
         idMappingRepository: IdMappingRepository,
-    ) = NextcloudBackend(nextcloudAPI, noteRepository, notebookRepository, idMappingRepository)
+    ) = NextcloudBackend(nextcloudAPI, notebookRepository, idMappingRepository)
 
 
     @OptIn(ExperimentalSerializationApi::class)
@@ -41,4 +40,7 @@ class NextcloudModule {
             .build()
             .create()
     }
+
+    @Single
+    fun getValidator(nextcloudApi: NextcloudAPI) = ValidateNextcloud(nextcloudApi)
 }

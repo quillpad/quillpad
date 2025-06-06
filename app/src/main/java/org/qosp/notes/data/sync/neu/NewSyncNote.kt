@@ -1,6 +1,5 @@
 package org.qosp.notes.data.sync.neu
 
-import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.sync.core.NextcloudNote
 
 data class NewSyncNote(
@@ -39,10 +38,8 @@ fun NextcloudNote.asNewSyncNote(): NewSyncNote = NewSyncNote(
     readOnly = readOnly == true,
 )
 
-fun Note.asNewSyncNote(): NewSyncNote = NewSyncNote(
-    id = id,
-    idStr = "",
-    content = content,
-    title = title,
-    lastModified = modifiedDate,
+data class RemoteNoteMetaData(
+    val id: String,
+    val title: String,
+    val lastModified: Long,
 )
