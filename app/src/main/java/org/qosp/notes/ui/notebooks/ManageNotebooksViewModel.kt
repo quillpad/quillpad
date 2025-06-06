@@ -6,12 +6,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.koin.android.annotation.KoinViewModel
 import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.preferences.PreferenceRepository
 
-@KoinViewModel
 class ManageNotebooksViewModel(
     private val notebookRepository: NotebookRepository,
     private val preferenceRepository: PreferenceRepository

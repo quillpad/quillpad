@@ -9,9 +9,12 @@ import org.koin.androix.startup.KoinStartup
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.core.logger.Level
 import org.koin.dsl.koinConfiguration
-import org.koin.ksp.generated.module
-import org.qosp.notes.di.*
-import org.qosp.notes.ui.UIModule
+import org.qosp.notes.di.MarkwonModule
+import org.qosp.notes.di.NextcloudModule
+import org.qosp.notes.di.PreferencesModule
+import org.qosp.notes.di.RepositoryModule
+import org.qosp.notes.di.TestUtilModule
+import org.qosp.notes.di.UIModule
 
 class TestRunner : AndroidJUnitRunner() {
     override fun newApplication(
@@ -31,11 +34,11 @@ class TestApplication : Application(), KoinStartup {
         androidContext(this@TestApplication)
         modules(
             TestUtilModule.module,
-            RepositoryModule().module,
-            PreferencesModule().module,
-            NextcloudModule().module,
-            UIModule().module,
-            MarkwonModule().module,
+            RepositoryModule.repoModule,
+            PreferencesModule.prefModule,
+            NextcloudModule.nextcloudModule,
+            UIModule.uiModule,
+            MarkwonModule.markwonModule,
         )
     }
 }

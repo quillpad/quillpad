@@ -1,0 +1,27 @@
+package org.qosp.notes.di
+
+import org.junit.Test
+import org.koin.core.annotation.KoinExperimentalAPI
+import org.koin.test.KoinTest
+import org.koin.test.verify.verify
+
+class KoinModulesTest : KoinTest {
+
+    @OptIn(KoinExperimentalAPI::class)
+    @Test
+    fun testUiModule() {
+        UIModule.uiModule.verify()
+    }
+    @OptIn(KoinExperimentalAPI::class)
+    @Test
+    fun testRepositoryModule() {
+        RepositoryModule.repoModule.verify()
+    }
+
+    @OptIn(KoinExperimentalAPI::class)
+    @Test
+    fun testUtilModule() {
+        UtilModule.utilModule.verify()
+    }
+
+}

@@ -23,8 +23,8 @@ import io.noties.markwon.movement.MovementMethodPlugin.create
 import io.noties.markwon.simple.ext.SimpleExtPlugin
 import io.noties.markwon.simple.ext.SimpleExtPlugin.create
 import me.saket.bettermovementmethod.BetterLinkMovementMethod.getInstance
-import org.koin.core.annotation.Factory
-import org.koin.core.annotation.Module
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
 import org.qosp.notes.R.attr.colorBackground
 import org.qosp.notes.R.attr.colorMarkdownTask
 import org.qosp.notes.R.attr.colorNoteTextHighlight
@@ -37,11 +37,14 @@ import org.qosp.notes.ui.editor.markdown.StrikethroughHandler
 import org.qosp.notes.ui.utils.coil.CoilImagesPlugin
 import org.qosp.notes.ui.utils.resolveAttribute
 
-@Module
-class MarkwonModule {
+object MarkwonModule {
 
-    @Factory
-    fun getMarkwon(context: Context, syncManager: SyncManager): Markwon = builder(context)
+    val markwonModule = module {
+        factory<Markwon> { getMarkwon(context = androidContext(), syncManager = get()) }
+        factory<MarkwonEditor> { getMarkWonEditor(markwon = get()) }
+    }
+
+    private fun getMarkwon(context: Context, syncManager: SyncManager): Markwon = builder(context)
         .usePlugin(create(EMAIL_ADDRESSES or WEB_URLS))
         .usePlugin(SoftBreakAddsNewLinePlugin.create())
         .usePlugin(create(getInstance()))
@@ -72,8 +75,7 @@ class MarkwonModule {
         }
         .build()
 
-    @Factory
-    fun getMarkWonEditor(context: Context, markwon: Markwon): MarkwonEditor {
+    private fun getMarkWonEditor(markwon: Markwon): MarkwonEditor {
         return MarkwonEditor.builder(markwon)
             .useEditHandler(EmphasisEditHandler())
             .useEditHandler(StrongEmphasisEditHandler())

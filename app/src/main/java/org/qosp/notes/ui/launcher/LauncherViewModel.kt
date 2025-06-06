@@ -4,14 +4,10 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.koin.android.annotation.KoinViewModel
 import org.qosp.notes.BuildConfig
 import org.qosp.notes.preferences.PreferenceRepository
 
-@KoinViewModel
-class LauncherViewModel(
-    private val preferenceRepository: PreferenceRepository
-) : ViewModel() {
+class LauncherViewModel(private val preferenceRepository: PreferenceRepository) : ViewModel() {
 
     val isCurrentVersionInstalled: Flow<Boolean> = preferenceRepository
         .getEncryptedString(LAST_INSTALLED_VERSION)

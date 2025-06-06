@@ -24,7 +24,7 @@ const val TEST_MEDIA_FOLDER = "test_media"
 
 object TestUtilModule {
 
-    // Manual module definition to ensure all dependencies are included
+    // Manual syncModule definition to ensure all dependencies are included
     @OptIn(DelicateCoroutinesApi::class)
     val module = module {
         single {
@@ -43,7 +43,7 @@ object TestUtilModule {
         }
         single {
             SyncManager(
-                syncingScope = GlobalScope,
+                syncingScope = SyncScope(GlobalScope),
             )
         }
         single {

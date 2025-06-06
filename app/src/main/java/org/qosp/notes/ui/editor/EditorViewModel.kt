@@ -19,7 +19,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import me.msoul.datastore.defaultOf
-import org.koin.android.annotation.KoinViewModel
 import org.qosp.notes.data.model.Attachment
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.model.NoteColor
@@ -39,7 +38,6 @@ import org.qosp.notes.preferences.TimeFormat
 import java.time.Instant
 import kotlin.time.Duration.Companion.milliseconds
 
-@KoinViewModel
 class EditorViewModel(
     private val noteRepository: NoteRepository,
     private val notebookRepository: NotebookRepository,

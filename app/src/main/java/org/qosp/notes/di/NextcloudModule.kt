@@ -4,30 +4,21 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
-import org.koin.core.annotation.Module
-import org.koin.core.annotation.Named
-import org.koin.core.annotation.Single
-import org.qosp.notes.data.repo.IdMappingRepository
-import org.qosp.notes.data.repo.NotebookRepository
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.module
 import org.qosp.notes.data.sync.neu.ValidateNextcloud
 import org.qosp.notes.data.sync.nextcloud.NextcloudAPI
-import org.qosp.notes.data.sync.nextcloud.NextcloudBackend
 import retrofit2.Retrofit
 import retrofit2.create
 
-@Module
-class NextcloudModule {
+object NextcloudModule {
     private val json = Json { ignoreUnknownKeys = true }
 
-    @Single
-    fun provideNextcloud() = getRetrofitted<NextcloudAPI>()
+    val nextcloudModule = module {
+        single { getRetrofitted<NextcloudAPI>() }
 
-    @Single
-    fun provideNextcloudManager(
-        nextcloudAPI: NextcloudAPI,
-        @Named(NO_SYNC) notebookRepository: NotebookRepository,
-        idMappingRepository: IdMappingRepository,
-    ) = NextcloudBackend(nextcloudAPI, notebookRepository, idMappingRepository)
+        singleOf(::ValidateNextcloud)
+    }
 
 
     @OptIn(ExperimentalSerializationApi::class)
@@ -41,6 +32,4 @@ class NextcloudModule {
             .create()
     }
 
-    @Single
-    fun getValidator(nextcloudApi: NextcloudAPI) = ValidateNextcloud(nextcloudApi)
 }

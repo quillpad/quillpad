@@ -1,7 +1,6 @@
 package org.qosp.notes.data.repo
 
 import android.util.Log
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -12,7 +11,6 @@ import org.qosp.notes.data.dao.ReminderDao
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.model.NoteEntity
-import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.data.sync.core.BaseResult
 import org.qosp.notes.data.sync.core.GenericError
 import org.qosp.notes.data.sync.core.Success
@@ -22,6 +20,7 @@ import org.qosp.notes.data.sync.neu.NewSyncNote
 import org.qosp.notes.data.sync.neu.NoteAction
 import org.qosp.notes.data.sync.neu.RemoteNoteMetaData
 import org.qosp.notes.data.sync.neu.SynchronizeNotes
+import org.qosp.notes.di.SyncScope
 import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.SortMethod
 import java.time.Instant
@@ -32,8 +31,7 @@ class NewNoteRepository(
     private val reminderDao: ReminderDao,
     private val backendProvider: BackendProvider,
     private val synchronizeNotes: SynchronizeNotes,
-    private val notebookRepository: NotebookRepository,
-    private val syncingScope: CoroutineScope
+    private val syncingScope: SyncScope
 ) : NoteRepository {
 
     private val tag = NewNoteRepository::class.java.simpleName
@@ -293,14 +291,6 @@ class NewNoteRepository(
         val mappings = idMappingDao.getAllByCloudService(provider)
         Log.d(tag, "getNotesByCloudService: Found ${mappings.size} mappings for $provider")
         return mappings.associateWith { allNotes[it.localNoteId] }
-    }
-
-    private suspend fun getNotebookIdForCategory(category: String): Long? {
-        return category
-            .takeUnless { it.isBlank() }
-            ?.let {
-                notebookRepository.getByName(it).first()?.id ?: notebookRepository.insert(Notebook(name = category))
-            }
     }
 }
 

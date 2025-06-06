@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import me.msoul.datastore.defaultOf
-import org.koin.android.annotation.KoinViewModel
 import org.qosp.notes.data.model.Tag
 import org.qosp.notes.data.repo.TagRepository
 import org.qosp.notes.preferences.PreferenceRepository
@@ -19,9 +18,10 @@ import org.qosp.notes.preferences.SortTagsMethod
 
 data class TagData(val tag: Tag, val inNote: Boolean)
 
-@KoinViewModel
-class TagsViewModel(private val tagRepository: TagRepository, private val preferenceRepository: PreferenceRepository) :
-    ViewModel() {
+class TagsViewModel(
+    private val tagRepository: TagRepository,
+    private val preferenceRepository: PreferenceRepository
+) : ViewModel() {
 
     fun getData(noteId: Long? = null): Flow<List<TagData>> {
         return when (noteId) {

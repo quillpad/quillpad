@@ -2,15 +2,12 @@ package org.qosp.notes.data.repo
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import org.qosp.notes.data.dao.NotebookDao
 import org.qosp.notes.data.model.Notebook
-import org.qosp.notes.data.sync.core.SyncManager
 
 class NotebookRepository(
     private val notebookDao: NotebookDao,
     private val noteRepository: NoteRepository,
-    private val syncManager: SyncManager?,
 ) {
 
     suspend fun insert(notebook: Notebook): Long {
@@ -25,25 +22,25 @@ class NotebookRepository(
 
         notebookDao.delete(*notebooks)
 
-        if (shouldSync && syncManager != null) {
-            syncManager.syncingScope.launch {
-                affectedNotes.forEach { syncManager.updateNote(it) }
-            }
-        }
+//        if (shouldSync && syncManager != null) {
+//            syncManager.syncingScope.launch {
+//                affectedNotes.forEach { syncManager.updateNote(it) }
+//            }
+//        }
     }
 
     suspend fun update(vararg notebooks: Notebook, shouldSync: Boolean = true) {
         notebookDao.update(*notebooks)
 
-        if (shouldSync && syncManager != null) {
-            syncManager.syncingScope.launch {
-                notebooks
-                    .map { noteRepository.getByNotebook(it.id).first() }
-                    .flatten()
-                    .filterNot { it.isLocalOnly }
-                    .forEach { syncManager.updateNote(it) }
-            }
-        }
+//        if (shouldSync && syncManager != null) {
+//            syncManager.syncingScope.launch {
+//                notebooks
+//                    .map { noteRepository.getByNotebook(it.id).first() }
+//                    .flatten()
+//                    .filterNot { it.isLocalOnly }
+//                    .forEach { syncManager.updateNote(it) }
+//            }
+//        }
     }
 
     fun getById(notebookId: Long): Flow<Notebook?> {

@@ -25,18 +25,15 @@ import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.androix.startup.KoinStartup
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.dsl.koinConfiguration
-import org.koin.ksp.generated.module
 import org.qosp.notes.components.workers.BinCleaningWorker
 import org.qosp.notes.components.workers.SyncWorker
-import org.qosp.notes.di.AppModule
-import org.qosp.notes.di.DatabaseModule
 import org.qosp.notes.di.MarkwonModule
 import org.qosp.notes.di.NextcloudModule
 import org.qosp.notes.di.PreferencesModule
 import org.qosp.notes.di.RepositoryModule
 import org.qosp.notes.di.SyncModule
+import org.qosp.notes.di.UIModule
 import org.qosp.notes.di.UtilModule
-import org.qosp.notes.ui.UIModule
 import java.util.concurrent.TimeUnit
 
 @OptIn(KoinExperimentalAPI::class)
@@ -75,15 +72,13 @@ class App : Application(), ImageLoaderFactory, KoinStartup {
         workManagerFactory()
         modules(
             listOf(
-                AppModule.module,
-                DatabaseModule.module,
-                MarkwonModule().module,
-                NextcloudModule().module,
-                PreferencesModule.module,
-                RepositoryModule.module,
-                UIModule().module,
-                UtilModule().module,
-                SyncModule.module,
+                MarkwonModule.markwonModule,
+                NextcloudModule.nextcloudModule,
+                PreferencesModule.prefModule,
+                RepositoryModule.repoModule,
+                UIModule.uiModule,
+                UtilModule.utilModule,
+                SyncModule.syncModule,
             )
         )
     }

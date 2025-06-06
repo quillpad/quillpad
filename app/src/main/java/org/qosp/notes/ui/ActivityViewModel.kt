@@ -16,8 +16,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import me.msoul.datastore.defaultOf
-import org.koin.android.annotation.KoinViewModel
-import org.koin.core.annotation.Named
 import org.qosp.notes.components.MediaStorageManager
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.model.Notebook
@@ -26,7 +24,7 @@ import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.data.repo.ReminderRepository
 import org.qosp.notes.data.repo.TagRepository
 import org.qosp.notes.data.sync.core.BaseResult
-import org.qosp.notes.di.SYNC_SCOPE
+import org.qosp.notes.di.SyncScope
 import org.qosp.notes.preferences.GroupNotesWithoutNotebook
 import org.qosp.notes.preferences.LayoutMode
 import org.qosp.notes.preferences.NoteDeletionTime
@@ -37,7 +35,6 @@ import org.qosp.notes.preferences.SortTagsMethod
 import org.qosp.notes.ui.reminders.ReminderManager
 import java.time.Instant
 
-@KoinViewModel
 class ActivityViewModel(
     private val noteRepository: NoteRepository,
     private val notebookRepository: NotebookRepository,
@@ -46,7 +43,7 @@ class ActivityViewModel(
     private val reminderManager: ReminderManager,
     private val tagRepository: TagRepository,
     private val mediaStorageManager: MediaStorageManager,
-    @Named(SYNC_SCOPE) private val syncScope: CoroutineScope,
+    private val syncScope: SyncScope,
 ) : ViewModel() {
 
     @OptIn(ExperimentalCoroutinesApi::class)

@@ -7,13 +7,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.annotation.KoinViewModel
 import org.qosp.notes.data.sync.neu.BackendValidationResult
 import org.qosp.notes.data.sync.neu.ValidateNextcloud
 import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
 import org.qosp.notes.preferences.PreferenceRepository
 
-@KoinViewModel
 class NextcloudViewModel(
     private val preferenceRepository: PreferenceRepository,
     private val validateNextcloud: ValidateNextcloud,

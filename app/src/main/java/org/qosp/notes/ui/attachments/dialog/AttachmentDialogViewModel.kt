@@ -6,11 +6,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import org.koin.android.annotation.KoinViewModel
 import org.qosp.notes.data.repo.NoteRepository
 import java.time.Instant
 
-@KoinViewModel
 class AttachmentDialogViewModel(private val noteRepository: NoteRepository) : ViewModel() {
 
     fun getAttachment(noteId: Long, path: String) = noteRepository.getById(noteId).map { note ->

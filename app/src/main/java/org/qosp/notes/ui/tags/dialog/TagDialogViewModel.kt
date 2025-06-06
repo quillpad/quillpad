@@ -5,11 +5,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import org.koin.android.annotation.KoinViewModel
 import org.qosp.notes.data.model.Tag
 import org.qosp.notes.data.repo.TagRepository
 
-@KoinViewModel
 class TagDialogViewModel(private val tagRepository: TagRepository) : ViewModel() {
 
     fun insertTag(tag: Tag) {

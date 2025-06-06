@@ -1,64 +1,49 @@
 package org.qosp.notes.di
 
-import android.content.Context
-import kotlinx.coroutines.CoroutineScope
-import org.koin.core.annotation.Module
-import org.koin.core.annotation.Named
-import org.koin.core.annotation.Single
+import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.workmanager.dsl.workerOf
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.module
 import org.qosp.notes.App
 import org.qosp.notes.BuildConfig
 import org.qosp.notes.components.MediaStorageManager
 import org.qosp.notes.components.backup.BackupManager
-import org.qosp.notes.data.repo.IdMappingRepository
-import org.qosp.notes.data.repo.NoteRepository
-import org.qosp.notes.data.repo.NotebookRepository
-import org.qosp.notes.data.repo.ReminderRepository
-import org.qosp.notes.data.repo.TagRepository
+import org.qosp.notes.components.workers.BinCleaningWorker
+import org.qosp.notes.components.workers.SyncWorker
 import org.qosp.notes.data.sync.core.SyncManager
 import org.qosp.notes.ui.reminders.ReminderManager
 import org.qosp.notes.ui.utils.ConnectionManager
 
-@Module
-class UtilModule {
+object UtilModule {
 
-    @Single
-    fun provideMediaStorageManager(context: Context, noteRepository: NoteRepository) =
-        MediaStorageManager(context, noteRepository, App.MEDIA_FOLDER)
+    val utilModule = module {
+        includes(RepositoryModule.repoModule, SyncModule.syncModule)
 
-    @Single
-    fun provideReminderManager(
-        context: Context,
-        reminderRepository: ReminderRepository,
-        noteRepository: NoteRepository,
-    ) = ReminderManager(context, reminderRepository, noteRepository)
+        workerOf(::BinCleaningWorker)
+        workerOf(::SyncWorker)
 
-    @Single
-    fun provideSyncManager(@Named(SYNC_SCOPE) syncingScope: CoroutineScope) = SyncManager(
-        syncingScope,
-    )
+        single {
+            MediaStorageManager(
+                context = androidContext(),
+                noteRepository = get(),
+                mediaFolder = App.MEDIA_FOLDER
+            )
+        }
 
-    @Single
-    fun provideConnectionManager(
-        context: Context,
-    ) = ConnectionManager(context)
-
-    @Single
-    fun provideBackupManager(
-        noteRepository: NoteRepository,
-        notebookRepository: NotebookRepository,
-        tagRepository: TagRepository,
-        reminderRepository: ReminderRepository,
-        idMappingRepository: IdMappingRepository,
-        reminderManager: ReminderManager,
-        context: Context,
-    ) = BackupManager(
-        BuildConfig.VERSION_CODE,
-        noteRepository,
-        notebookRepository,
-        tagRepository,
-        reminderRepository,
-        idMappingRepository,
-        reminderManager,
-        context
-    )
+        single {
+            BackupManager(
+                BuildConfig.VERSION_CODE,
+                noteRepository = get(),
+                notebookRepository = get(),
+                tagRepository = get(),
+                reminderRepository = get(),
+                idMappingRepository = get(),
+                reminderManager = get(),
+                context = androidContext(),
+            )
+        }
+        singleOf(::ReminderManager)
+        singleOf(::ConnectionManager)
+        singleOf(::SyncManager)
+    }
 }

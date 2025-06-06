@@ -5,13 +5,11 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import org.koin.android.annotation.KoinViewModel
 import org.qosp.notes.data.model.Reminder
 import org.qosp.notes.data.repo.ReminderRepository
 import org.qosp.notes.preferences.PreferenceRepository
 import java.time.ZonedDateTime
 
-@KoinViewModel
 class EditReminderViewModel(
     private val reminderRepository: ReminderRepository,
     private val reminderManager: ReminderManager,

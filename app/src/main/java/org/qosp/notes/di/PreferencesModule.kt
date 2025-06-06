@@ -21,7 +21,7 @@ val Context.dataStore by preferencesDataStore("preferences")
 @OptIn(ExperimentalCoroutinesApi::class)
 object PreferencesModule {
 
-    val module = module {
+    val prefModule = module {
         single { androidContext().dataStore }
         single { encryptedSharedPreferences(androidContext()) }
         singleOf(::PreferenceRepository)

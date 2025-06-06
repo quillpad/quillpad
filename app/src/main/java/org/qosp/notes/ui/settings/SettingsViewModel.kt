@@ -7,13 +7,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import me.msoul.datastore.EnumPreference
-import org.koin.android.annotation.KoinViewModel
 import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
 import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.preferences.SyncMode
 
-@KoinViewModel
 class SettingsViewModel(private val preferenceRepository: PreferenceRepository) : ViewModel() {
 
     val appPreferences = preferenceRepository.getAll()

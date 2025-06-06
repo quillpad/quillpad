@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import org.koin.android.annotation.KoinViewModel
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.data.repo.NoteRepository
@@ -18,7 +17,6 @@ import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.preferences.SortMethod
 import org.qosp.notes.ui.common.AbstractNotesViewModel
 
-@KoinViewModel
 class SearchViewModel(
     noteRepository: NoteRepository,
     notebookRepository: NotebookRepository,

@@ -16,7 +16,7 @@ import java.io.IOException
 @OptIn(ExperimentalCoroutinesApi::class)
 class PreferenceRepository(
     val dataStore: DataStore<Preferences>,
-    private val sharedPreferences: FlowSharedPreferences,
+    private val sharedPreferences: FlowSharedPreferences
 ) {
     fun getEncryptedString(key: String): Flow<String> {
         return sharedPreferences.getString(key, "").asFlow()

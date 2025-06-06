@@ -1,13 +1,13 @@
 package org.qosp.notes.data.sync.core
 
 import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.koin.core.component.KoinComponent
 import org.qosp.notes.data.model.Note
+import org.qosp.notes.di.SyncScope
 
-class SyncManager(val syncingScope: CoroutineScope) : KoinComponent {
+class SyncManager(val syncingScope: SyncScope) : KoinComponent {
 
     val syncProvider: StateFlow<ISyncProvider?> = MutableStateFlow(null)
 

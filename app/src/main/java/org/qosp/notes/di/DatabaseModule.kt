@@ -7,7 +7,7 @@ import org.qosp.notes.data.AppDatabase
 
 object DatabaseModule {
 
-    val module = module {
+    val dbModule = module {
         single<AppDatabase> {
             Room.databaseBuilder(
                 context = androidContext(),
@@ -21,6 +21,25 @@ object DatabaseModule {
                 .addMigrations(AppDatabase.Migration_3_4)
                 .addMigrations(AppDatabase.MIGRATION_4_5)
                 .build()
+        }
+
+        single {
+            get<AppDatabase>().noteDao
+        }
+        single {
+            get<AppDatabase>().notebookDao
+        }
+        single {
+            get<AppDatabase>().tagDao
+        }
+        single {
+            get<AppDatabase>().noteTagDao
+        }
+        single {
+            get<AppDatabase>().reminderDao
+        }
+        single {
+            get<AppDatabase>().idMappingDao
         }
     }
 
