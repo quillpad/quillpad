@@ -1,13 +1,18 @@
 package org.qosp.notes.data.sync.neu
 
+import android.util.Log
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.repo.IdMappingRepository
 import org.qosp.notes.preferences.CloudService
+import kotlin.math.abs
 
 class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
+    private val tag = SynchronizeNotes::class.java.simpleName
+
     suspend operator fun invoke(
         localNotes: List<Note>, remoteNotes: List<RemoteNoteMetaData>, service: CloudService
     ): SyncNotesResult {
+        Log.d(tag, "SynchronizeNotes: Starting synchronization")
         // Fetch all mappings for this service at once to minimize idMapping queries (requirement #1)
         val allMappings = idMappingRepository.getAllByProvider(service)
 
@@ -39,11 +44,22 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
 
                 if (remoteNote != null) {
                     // Both local and remote notes exist, compare last modified times
-                    if (localNote.modifiedDate > remoteNote.lastModified) {
+                    if (abs(localNote.modifiedDate - remoteNote.lastModified) <= 1) {
+                        // no action
+                        Log.d(tag, "SynchronizeNotes: Not big diff in modified for ${localNote.title}")
+                    } else if (localNote.modifiedDate > remoteNote.lastModified) {
                         // Local note is newer, update remote
+                        Log.d(
+                            tag,
+                            "Local note (${localNote.title}) is newer ${localNote.modifiedDate}, ${remoteNote.lastModified}"
+                        )
                         remoteUpdates.add(NoteAction.Update(localNote, remoteNote))
                     } else if (localNote.modifiedDate < remoteNote.lastModified) {
                         // Remote note is newer, update local
+                        Log.d(
+                            tag,
+                            "Remote note(${remoteNote.title}) is newer ${remoteNote.lastModified}, ${localNote.modifiedDate}"
+                        )
                         localUpdates.add(NoteAction.Update(localNote, remoteNote))
                     }
                     // If equal, no action needed
@@ -54,7 +70,8 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
                         id = "", // Empty ID for new remote notes
                         title = localNote.title, lastModified = localNote.modifiedDate
                     )
-                    remoteUpdates.add(NoteAction.Create(localNote, remoteNoteMetaData))
+                    Log.d(tag, "May be deleted remotely: $remoteNoteMetaData")
+                    localUpdates.add(NoteAction.Delete(localNote, remoteNoteMetaData))
                 }
 
             } else {
@@ -63,6 +80,7 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
                     id = "", // Empty ID for new remote notes
                     title = localNote.title, lastModified = localNote.modifiedDate
                 )
+                Log.d(tag, "New local note: ${localNote.title}")
                 remoteUpdates.add(NoteAction.Create(localNote, remoteNoteMetaData))
             }
         }
@@ -77,6 +95,7 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
                 if (localNote == null || mapping.isDeletedLocally) {
                     // Local note doesn't exist anymore, delete the remote note
                     val dummyLocalNote = Note(id = mapping.localNoteId)
+                    Log.d(tag, "Local note deleted. Deleting remotely: ${remoteNote.title}")
                     remoteUpdates.add(NoteAction.Delete(dummyLocalNote, remoteNote))
                 }
                 // If local note exists, it was already handled in the local notes loop
@@ -85,6 +104,7 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
                 val newLocalNote = Note(
                     title = remoteNote.title, modifiedDate = remoteNote.lastModified
                 )
+                Log.d(tag, "Remote note has no mapping. New local note: ${remoteNote.title}")
                 localUpdates.add(NoteAction.Create(newLocalNote, remoteNote))
             }
         }

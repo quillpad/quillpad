@@ -8,12 +8,12 @@ import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
-import org.qosp.notes.data.sync.core.NoteFile
 import org.qosp.notes.data.sync.fs.StorageConfig
 import org.qosp.notes.preferences.CloudService
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
+import kotlin.time.measureTimedValue
 
 class NewStorageBackend(
     private val context: Context,
@@ -28,8 +28,9 @@ class NewStorageBackend(
 
     private val Note.filename: String
         get() {
+            val titleToSet = title.ifBlank { "Untitled" }
             val ext = if (isMarkdownEnabled) "md" else "txt"
-            return "${title.trim()}.$ext"
+            return "${titleToSet.trim()}.$ext"
         }
 
     override suspend fun createNote(note: Note): NewSyncNote {
@@ -41,7 +42,6 @@ class NewStorageBackend(
 
         return newDoc?.let {
             writeNoteToFile(it, note.content)
-            NoteFile(note.modifiedDate, note.content, note.title, newDoc.uri)
             NewSyncNote(
                 idStr = newDoc.uri.toString(),
                 title = note.title,
@@ -53,66 +53,51 @@ class NewStorageBackend(
     }
 
     override suspend fun updateNote(note: Note, mapping: IdMapping): IdMapping {
-        return mapping.storageUri?.toUri()?.let { uri ->
-            val file = DocumentFile.fromSingleUri(context, uri) ?: throw FileNotFoundException("URI not found")
-            writeNoteToFile(file, note.content)
-            val newUri = if (note.filename != file.name) {
-                val succeeded = file.renameTo(note.filename)
-                if (!succeeded) {
-                    throw IOException("Unable to rename file to ${file.name}")
-                }
-                file.uri
-            } else uri
-            mapping.copy(storageUri = newUri.toString())
-        } ?: throw IllegalArgumentException("URI cannot be null")
+        val uri = mapping.storageUri?.toUri() ?: throw IllegalArgumentException("URI cannot be null")
+        val rootDoc = getRootDocumentFile() ?: throw IOException("Unable to access storage location")
+        val file = DocumentFile.fromSingleUri(context, uri) ?: throw FileNotFoundException("URI not found")
+
+        writeNoteToFile(file, note.content)
+        val newUri = if (note.filename != file.name) renameFile(file, note.filename, rootDoc) else uri
+        return mapping.copy(storageUri = newUri.toString())
     }
 
     override suspend fun deleteNote(mapping: IdMapping): Boolean {
-        return mapping.storageUri?.toUri()?.let { uri ->
-            if (DocumentsContract.deleteDocument(context.contentResolver, uri)) {
-                Log.d(TAG, "deleteNote: Deleted the file ${uri.pathSegments.last()}")
-                true
-            } else {
-                Log.i(TAG, "deleteNote: Unable to delete ${uri.pathSegments.last()}")
-                false
-            }
-        } ?: false
+        val uri = mapping.storageUri?.toUri() ?: return false
+        val deletionResult = inStorage {
+            val result = DocumentsContract.deleteDocument(context.contentResolver, uri)
+            Log.d(TAG, "deleteNote: Deleted (${result}) the file: ${uri.pathSegments.last()}")
+            result
+        }
+        return deletionResult == true
     }
 
     override suspend fun getNote(mapping: IdMapping): NewSyncNote? {
         return try {
             val uri = mapping.storageUri?.toUri() ?: return null
             val file = DocumentFile.fromSingleUri(context, uri) ?: return null
-            NewSyncNote(
-                lastModified = file.lastModified(),
-                content = readFileContent(file),
-                title = getTitleFromUri(uri),
-                idStr = uri.toString(),
-                id = 0,
-            )
+            getFile(file)
         } catch (e: Exception) {
             Log.e(TAG, "getNote: Error getting note with id ${mapping.localNoteId}", e)
             null
         }
     }
 
+    private fun getFile(file: DocumentFile) = NewSyncNote(
+        id = 0,
+        idStr = file.uri.toString(),
+        content = readFileContent(file),
+        title = getTitleFromUri(file.uri),
+        lastModified = file.lastModified() / 1000, // Milliseconds to seconds
+    )
+
     override suspend fun getAll(): List<NewSyncNote> {
         val root = getRootDocumentFile() ?: return emptyList()
-
         return try {
             val files = root.listFiles()
                 .flatMap { if (it.isDirectory) it.listFiles().toList() else listOf(it) }
                 .filter { it.name?.endsWith(".md") == true || it.name?.endsWith(".txt") == true }
-
-            files.map { file ->
-                NewSyncNote(
-                    idStr = file.uri.toString(),
-                    title = getTitleFromUri(file.uri),
-                    lastModified = file.lastModified(),
-                    content = "",
-                    id = 0,
-                )
-            }
+            files.map { file -> getFile(file) }
         } catch (e: Exception) {
             Log.e(TAG, "getAll: Error listing files", e)
             emptyList()
@@ -165,6 +150,28 @@ class NewStorageBackend(
             fileName.endsWith(".md") -> fileName.removeSuffix(".md")
             fileName.endsWith(".txt") -> fileName.removeSuffix(".txt")
             else -> fileName
+        }
+    }
+
+    private fun renameFile(file: DocumentFile, newName: String, root: DocumentFile): String {
+        Log.d(TAG, "renameFile: Renaming ${file.name} to $newName")
+        val foundFile = root.listFiles().firstOrNull { it.name == file.name }
+            ?: throw FileNotFoundException("File ${file.name} not found")
+        val succeeded = foundFile.renameTo(newName)
+        Log.d(TAG, "renameFile: Renaming ${foundFile.name}, succeeded? $succeeded")
+        return foundFile.uri.toString()
+    }
+
+    private inline fun <reified T> inStorage(block: () -> T): T? {
+        return try {
+            val duration = measureTimedValue {
+                block()
+            }
+            Log.i(TAG, "inStorage: That took ${duration.duration} to complete")
+            duration.value
+        } catch (e: Exception) {
+            Log.e(TAG, "Exception while storing: ${e.message}", e)
+            null
         }
     }
 }

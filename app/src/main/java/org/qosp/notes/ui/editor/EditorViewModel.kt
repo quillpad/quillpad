@@ -190,7 +190,7 @@ class EditorViewModel(
             syncJob = launch {
                 delay(300.milliseconds) // To prevent multiple requests
                 Log.i(TAG, "update: Shouldn't multi update")
-                syncManager.updateOrCreate(new)
+//                syncManager.updateOrCreate(new)
             }
         }
     }

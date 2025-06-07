@@ -23,6 +23,7 @@ import org.qosp.notes.preferences.SortMethod.MODIFIED_ASC
 import org.qosp.notes.preferences.SortMethod.MODIFIED_DESC
 import org.qosp.notes.preferences.SortMethod.TITLE_ASC
 import org.qosp.notes.preferences.SortMethod.TITLE_DESC
+import java.time.Instant
 
 @Dao
 interface NoteDao {
@@ -31,6 +32,10 @@ interface NoteDao {
 
     @Update
     suspend fun update(vararg notes: NoteEntity)
+
+    @Transaction
+    @Query("UPDATE notes SET modifiedDate = :modified WHERE id = :id")
+    suspend fun updateLastModified(id: Long, modified: Long = Instant.now().epochSecond)
 
     @Delete
     suspend fun delete(vararg notes: NoteEntity)

@@ -53,7 +53,7 @@ class NewNoteRepository(
 
         try {
             // Get all local notes (excluding local-only ones)
-            val localNotes = getAll().first().filterNot { it.isLocalOnly }
+            val localNotes = getAll().first().filterNot { it.isLocalOnly || it.isDeleted }
             Log.d(tag, "syncNotes: Found ${localNotes.size} local notes to sync")
 
             // Get all remote notes and convert to metadata
@@ -68,14 +68,9 @@ class NewNoteRepository(
                 "syncNotes: ${syncResult.localUpdates.size} local updates, ${syncResult.remoteUpdates.size} remote updates"
             )
 
-            // Apply local updates efficiently
             applyLocalUpdates(syncResult.localUpdates, syncProvider, allRemoteNotes)
-
-            // Apply remote updates efficiently
             applyRemoteUpdates(syncResult.remoteUpdates)
-
             Log.d(tag, "syncNotes: Synchronization completed successfully")
-
         } catch (e: Exception) {
             Log.e(tag, "syncNotes: Synchronization failed: ${e.message}", e)
             return GenericError(e.message ?: "Unknown error")
@@ -102,16 +97,22 @@ class NewNoteRepository(
         for (action in localUpdates) {
             try {
                 when (action) {
-                    is NoteAction.Create -> insertNote(
-                        remoteNotesMap[action.remoteNoteMetaData.id]?.toLocalNote() ?: continue, sync = false
-                    )
+                    is NoteAction.Create -> {
+                        val syncNote = remoteNotesMap[action.remoteNoteMetaData.id] ?: continue
+                        val noteId = insertNote(syncNote.toLocalNote(), sync = false)
+                        idMappingDao.insert(syncNote.getMapping(noteId, syncProvider))
+                    }
 
-                    is NoteAction.Update -> updateNote(
-                        remoteNotesMap[action.remoteNoteMetaData.id]?.toLocalNote()?.copy(id = action.note.id)
-                            ?: continue, sync = false
-                    )
+                    is NoteAction.Update -> {
+                        val syncNote = remoteNotesMap[action.remoteNoteMetaData.id] ?: continue
+                        val note = syncNote.toLocalNote().copy(id = action.note.id)
+                        updateNote(note, sync = false)
+                    }
 
-                    is NoteAction.Delete -> deleteNotes(action.note, sync = false)
+                    is NoteAction.Delete -> {
+                        deleteNotes(action.note, sync = false)
+                        idMappingDao.deleteByLocalId(action.note.id)
+                    }
                 }
             } catch (e: Exception) {
                 Log.e(tag, "applyLocalUpdates: Failed to apply action $action: ${e.message}")
@@ -147,6 +148,7 @@ class NewNoteRepository(
                 try {
                     val created = syncProvider.createNote(note)
                     idMappingDao.insert(created.getMapping(noteId, syncProvider))
+                    noteDao.updateLastModified(noteId, created.lastModified)
                     Log.d(tag, "insertNote: Synced note to ${syncProvider.type}, local ID=$noteId")
                 } catch (e: Exception) {
                     Log.e(tag, "insertNote: Sync failed for note ID=$noteId: ${e.message}")
@@ -223,6 +225,7 @@ class NewNoteRepository(
                         .associateWith { syncProvider.createNote(it) }
                         .forEach { (n, syncNote) ->
                             idMappingDao.insert(syncNote.getMapping(n.id, syncProvider))
+                            noteDao.updateLastModified(n.id, syncNote.lastModified)
                         }
                 }
             }
