@@ -6,7 +6,6 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.serialization.json.jsonObject
 import okhttp3.ResponseBody
-import org.qosp.notes.data.sync.core.NextcloudNote
 import org.qosp.notes.data.sync.nextcloud.model.NextcloudCapabilities
 import retrofit2.http.Body
 import retrofit2.http.DELETE

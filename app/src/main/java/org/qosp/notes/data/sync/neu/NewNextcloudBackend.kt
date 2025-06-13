@@ -2,9 +2,10 @@ package org.qosp.notes.data.sync.neu
 
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
-import org.qosp.notes.data.sync.core.NextcloudNote
+import org.qosp.notes.data.sync.asNewSyncNote
 import org.qosp.notes.data.sync.nextcloud.NextcloudAPI
 import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
+import org.qosp.notes.data.sync.nextcloud.NextcloudNote
 import org.qosp.notes.data.sync.nextcloud.createNote
 import org.qosp.notes.data.sync.nextcloud.deleteNote
 import org.qosp.notes.data.sync.nextcloud.getNote

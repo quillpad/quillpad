@@ -2,7 +2,6 @@ package org.qosp.notes.data.sync.neu
 
 import org.qosp.notes.data.sync.core.ServerNotSupportedException
 import org.qosp.notes.data.sync.nextcloud.NextcloudAPI
-import org.qosp.notes.data.sync.nextcloud.NextcloudBackend.Companion.MIN_SUPPORTED_VERSION
 import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
 import org.qosp.notes.data.sync.nextcloud.getNotesCapabilities
 
@@ -18,6 +17,10 @@ class ValidateNextcloud(private val api: NextcloudAPI) {
             is ServerNotSupportedException -> BackendValidationResult.Incompatible
             else -> BackendValidationResult.InvalidConfig
         }
+    }
+
+    companion object {
+        const val MIN_SUPPORTED_VERSION = 1
     }
 }
 

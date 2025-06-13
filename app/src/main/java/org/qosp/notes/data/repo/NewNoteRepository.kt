@@ -23,6 +23,7 @@ import org.qosp.notes.data.sync.neu.NewSyncNote
 import org.qosp.notes.data.sync.neu.NoteAction
 import org.qosp.notes.data.sync.neu.RemoteNoteMetaData
 import org.qosp.notes.data.sync.neu.SynchronizeNotes
+import org.qosp.notes.data.sync.toLocalNote
 import org.qosp.notes.di.SyncScope
 import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.SortMethod
@@ -336,18 +337,5 @@ private fun NewSyncNote.toRemoteNoteMetaData(cloudService: CloudService): Remote
         id = remoteId,
         title = title,
         lastModified = lastModified
-    )
-}
-
-private fun NewSyncNote.toLocalNote(): Note {
-    // Convert NewSyncNote to local Note with full content
-    return Note(
-        id = 0L, // Will be assigned by database
-        title = title,
-        content = content ?: "",
-        isPinned = favorite,
-        modifiedDate = lastModified,
-        notebookId = null, // TODO: Handle category to notebook conversion if needed
-        isMarkdownEnabled = true // Default to markdown enabled
     )
 }

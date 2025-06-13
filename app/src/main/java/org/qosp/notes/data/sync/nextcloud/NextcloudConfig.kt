@@ -5,19 +5,16 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
-import org.qosp.notes.data.sync.core.ProviderConfig
-import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.PreferenceRepository
 
 data class NextcloudConfig(
     val remoteAddress: String,
     val username: String,
     private val password: String,
-) : ProviderConfig {
+) {
 
     val credentials = ("Basic " + Base64.encodeToString("$username:$password".toByteArray(), Base64.NO_WRAP)).trim()
 
-    override val provider: CloudService = CloudService.NEXTCLOUD
     val authenticationHeaders: Map<String, String>
         get() = mapOf("Authorization" to credentials)
 
