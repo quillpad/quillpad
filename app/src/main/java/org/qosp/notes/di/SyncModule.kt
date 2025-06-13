@@ -4,7 +4,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import org.koin.core.module.dsl.singleOf
-import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.qosp.notes.data.sync.neu.BackendProvider
 import org.qosp.notes.data.sync.neu.SynchronizeNotes
@@ -12,7 +11,7 @@ import org.qosp.notes.data.sync.neu.SynchronizeNotes
 object SyncModule {
 
     val syncModule = module {
-        single<SyncScope> { SyncScope(scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)) } bind CoroutineScope::class
+        single<SyncScope> { SyncScope(scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)) }
 
         singleOf(::BackendProvider)
 

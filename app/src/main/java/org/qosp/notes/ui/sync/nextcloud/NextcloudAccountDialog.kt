@@ -8,10 +8,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.qosp.notes.R
-import org.qosp.notes.data.sync.core.SyncManager
 import org.qosp.notes.data.sync.neu.BackendValidationResult.Incompatible
 import org.qosp.notes.data.sync.neu.BackendValidationResult.InvalidConfig
 import org.qosp.notes.data.sync.neu.BackendValidationResult.Success
@@ -25,8 +23,6 @@ class NextcloudAccountDialog : BaseDialog<DialogNextcloudAccountBinding>() {
 
     private var username = ""
     private var password = ""
-
-    val syncManager: SyncManager by inject()
 
     override fun createBinding(inflater: LayoutInflater) = DialogNextcloudAccountBinding.inflate(layoutInflater)
 

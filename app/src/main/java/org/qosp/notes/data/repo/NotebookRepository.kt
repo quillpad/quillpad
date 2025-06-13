@@ -14,33 +14,17 @@ class NotebookRepository(
         return notebookDao.insert(notebook)
     }
 
-    suspend fun delete(vararg notebooks: Notebook, shouldSync: Boolean = true) {
+    suspend fun delete(vararg notebooks: Notebook) {
         val affectedNotes = notebooks
             .map { noteRepository.getByNotebook(it.id).first() }
             .flatten()
             .filterNot { it.isLocalOnly }
 
         notebookDao.delete(*notebooks)
-
-//        if (shouldSync && syncManager != null) {
-//            syncManager.syncingScope.launch {
-//                affectedNotes.forEach { syncManager.updateNote(it) }
-//            }
-//        }
     }
 
     suspend fun update(vararg notebooks: Notebook, shouldSync: Boolean = true) {
         notebookDao.update(*notebooks)
-
-//        if (shouldSync && syncManager != null) {
-//            syncManager.syncingScope.launch {
-//                notebooks
-//                    .map { noteRepository.getByNotebook(it.id).first() }
-//                    .flatten()
-//                    .filterNot { it.isLocalOnly }
-//                    .forEach { syncManager.updateNote(it) }
-//            }
-//        }
     }
 
     fun getById(notebookId: Long): Flow<Notebook?> {

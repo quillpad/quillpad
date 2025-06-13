@@ -28,7 +28,7 @@ import org.koin.dsl.module
 import org.qosp.notes.R.attr.colorBackground
 import org.qosp.notes.R.attr.colorMarkdownTask
 import org.qosp.notes.R.attr.colorNoteTextHighlight
-import org.qosp.notes.data.sync.core.SyncManager
+import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.ui.editor.markdown.BlockQuoteHandler
 import org.qosp.notes.ui.editor.markdown.CodeBlockHandler
 import org.qosp.notes.ui.editor.markdown.CodeHandler
@@ -40,11 +40,11 @@ import org.qosp.notes.ui.utils.resolveAttribute
 object MarkwonModule {
 
     val markwonModule = module {
-        factory<Markwon> { getMarkwon(context = androidContext(), syncManager = get()) }
+        factory<Markwon> { getMarkwon(context = androidContext(), preferenceRepository = get()) }
         factory<MarkwonEditor> { getMarkWonEditor(markwon = get()) }
     }
 
-    private fun getMarkwon(context: Context, syncManager: SyncManager): Markwon = builder(context)
+    private fun getMarkwon(context: Context, preferenceRepository: PreferenceRepository): Markwon = builder(context)
         .usePlugin(create(EMAIL_ADDRESSES or WEB_URLS))
         .usePlugin(SoftBreakAddsNewLinePlugin.create())
         .usePlugin(create(getInstance()))
@@ -63,11 +63,10 @@ object MarkwonModule {
                     SpanFactory { _, _ ->
                         val typedValue = TypedValue()
                         context.theme.resolveAttribute(colorNoteTextHighlight, typedValue, true)
-                        val color = typedValue.data
-                        return@SpanFactory BackgroundColorSpan(color)
+                        return@SpanFactory BackgroundColorSpan(typedValue.data)
                     })
         })
-        .usePlugin(CoilImagesPlugin.create(context, syncManager))
+        .usePlugin(CoilImagesPlugin.create(context, preferenceRepository))
         .apply {
             val mainColor = context.resolveAttribute(colorMarkdownTask) ?: return@apply
             val backgroundColor = context.resolveAttribute(colorBackground) ?: return@apply

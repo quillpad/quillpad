@@ -7,13 +7,13 @@ import org.qosp.notes.data.dao.NoteTagDao
 import org.qosp.notes.data.dao.TagDao
 import org.qosp.notes.data.model.NoteTagJoin
 import org.qosp.notes.data.model.Tag
-import org.qosp.notes.data.sync.core.SyncManager
+import org.qosp.notes.di.SyncScope
 
 class TagRepository(
     private val tagDao: TagDao,
     private val noteTagDao: NoteTagDao,
     private val noteRepository: NoteRepository,
-    private val syncManager: SyncManager,
+    private val syncScope: SyncScope,
 ) {
 
     fun getAll(): Flow<List<Tag>> {
@@ -45,8 +45,8 @@ class TagRepository(
         tagDao.delete(*tags)
 
         if (shouldSync) {
-            syncManager.syncingScope.launch {
-                affectedNotes.forEach { syncManager.updateNote(it) }
+            syncScope.launch {
+                affectedNotes.forEach { noteRepository.updateNotes(it) }
             }
         }
     }
@@ -59,9 +59,9 @@ class TagRepository(
         noteTagDao.insert(NoteTagJoin(tagId, noteId))
 
         if (shouldSync) {
-            syncManager.syncingScope.launch {
+            syncScope.launch {
                 val note = noteRepository.getById(noteId).first()?.takeUnless { it.isLocalOnly } ?: return@launch
-                syncManager.updateNote(note)
+                noteRepository.updateNotes(note)
             }
         }
     }
@@ -70,9 +70,9 @@ class TagRepository(
         noteTagDao.delete(NoteTagJoin(tagId, noteId))
 
         if (shouldSync) {
-            syncManager.syncingScope.launch {
+            syncScope.launch {
                 val note = noteRepository.getById(noteId).first()?.takeUnless { it.isLocalOnly } ?: return@launch
-                syncManager.updateNote(note)
+                noteRepository.updateNotes(note)
             }
         }
     }

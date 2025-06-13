@@ -5,7 +5,6 @@ import androidx.room.Room
 import androidx.room.testing.MigrationTestHelper
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import org.qosp.notes.BuildConfig.VERSION_CODE
@@ -17,7 +16,6 @@ import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.data.repo.ReminderRepository
 import org.qosp.notes.data.repo.TagRepository
-import org.qosp.notes.data.sync.core.SyncManager
 import org.qosp.notes.ui.reminders.ReminderManager
 
 const val TEST_MEDIA_FOLDER = "test_media"
@@ -39,11 +37,6 @@ object TestUtilModule {
                 context = get<Context>(),
                 reminderRepository = get<ReminderRepository>(),
                 noteRepository = get<NoteRepository>(),
-            )
-        }
-        single {
-            SyncManager(
-                syncingScope = SyncScope(GlobalScope),
             )
         }
         single {

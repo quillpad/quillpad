@@ -1,6 +1,9 @@
 package org.qosp.notes.data.repo
 
 import android.util.Log
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -35,6 +38,9 @@ class NewNoteRepository(
 ) : NoteRepository {
 
     private val tag = NewNoteRepository::class.java.simpleName
+
+    // Map to track pending remote update jobs by noteId
+    private val pendingUpdateJobs = mutableMapOf<Long, Job>()
 
     private suspend fun cleanMappingsForLocalNotes(vararg notes: Note) {
         val n = notes.filter { it.isLocalOnly }
@@ -165,8 +171,15 @@ class NewNoteRepository(
 
     private fun updateRemoteNote(note: Note) {
         backendProvider.syncProvider.value?.let { syncProvider ->
-            syncingScope.launch {
+            // Cancel any existing job for this noteId
+            pendingUpdateJobs[note.id]?.cancel()
+
+            // Create a new job with debouncing
+            val job = syncingScope.launch {
                 try {
+                    // Debounce for 500ms
+                    delay(500)
+
                     // Get the existing mapping for this note
                     val mapping = idMappingDao.getByLocalIdAndProvider(note.id, syncProvider.type)
                     if (mapping != null) {
@@ -175,10 +188,17 @@ class NewNoteRepository(
                         idMappingDao.update(updatedMapping)
                         Log.d(tag, "updateNote: Successfully synced update to ${syncProvider.type}")
                     }
+                } catch (_: CancellationException) {
                 } catch (e: Exception) {
                     Log.e(tag, "Failed to sync note update: ${e.message}", e)
+                } finally {
+                    // Remove the job from the map when it's done
+                    pendingUpdateJobs.remove(note.id)
                 }
             }
+
+            // Store the job in the map
+            pendingUpdateJobs[note.id] = job
         }
     }
 

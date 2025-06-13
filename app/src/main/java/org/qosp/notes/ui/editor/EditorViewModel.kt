@@ -1,12 +1,9 @@
 package org.qosp.notes.ui.editor
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -26,7 +23,6 @@ import org.qosp.notes.data.model.NoteTask
 import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.data.repo.NotebookRepository
-import org.qosp.notes.data.sync.core.SyncManager
 import org.qosp.notes.preferences.DateFormat
 import org.qosp.notes.preferences.MoveCheckedItems
 import org.qosp.notes.preferences.NewNotesSyncable
@@ -36,22 +32,17 @@ import org.qosp.notes.preferences.ShowDate
 import org.qosp.notes.preferences.ShowFabChangeMode
 import org.qosp.notes.preferences.TimeFormat
 import java.time.Instant
-import kotlin.time.Duration.Companion.milliseconds
 
 class EditorViewModel(
     private val noteRepository: NoteRepository,
     private val notebookRepository: NotebookRepository,
-    private val syncManager: SyncManager,
     private val preferenceRepository: PreferenceRepository,
 ) : ViewModel() {
 
     var inEditMode: Boolean = false
     var isNotInitialized = true
     var moveCheckedItems: Boolean = true
-
-    private var syncJob: Job? = null
     private val noteIdFlow: MutableStateFlow<Long?> = MutableStateFlow(null)
-
     var selectedRange = 0 to 0
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -183,15 +174,6 @@ class EditorViewModel(
             val note = data.value.note ?: return@launch
             val new = transform(note)
             noteRepository.updateNotes(new)
-
-            if (new.isLocalOnly) return@launch
-
-            syncJob?.cancel()
-            syncJob = launch {
-                delay(300.milliseconds) // To prevent multiple requests
-                Log.i(TAG, "update: Shouldn't multi update")
-//                syncManager.updateOrCreate(new)
-            }
         }
     }
 

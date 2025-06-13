@@ -20,11 +20,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.qosp.notes.R
 import org.qosp.notes.data.model.Attachment
-import org.qosp.notes.data.sync.core.SyncManager
 import org.qosp.notes.databinding.FragmentMainBinding
 import org.qosp.notes.databinding.LayoutNoteBinding
 import org.qosp.notes.preferences.LayoutMode
@@ -92,8 +90,6 @@ open class MainFragment : AbstractNotesFragment(R.layout.fragment_main) {
     override val secondaryToolbar: Toolbar
         get() = binding.layoutAppBar.toolbarSelection
     override val secondaryToolbarMenuRes: Int = R.menu.main_selected_notes
-
-    val syncManager: SyncManager by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
