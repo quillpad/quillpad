@@ -1,4 +1,4 @@
-package org.qosp.notes.data.sync.neu
+package org.qosp.notes.data.sync.fs
 
 import android.content.Context
 import android.net.Uri
@@ -8,20 +8,19 @@ import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
-import org.qosp.notes.data.sync.fs.StorageConfig
+import org.qosp.notes.data.sync.core.ISyncBackend
+import org.qosp.notes.data.sync.core.SyncNote
+import org.qosp.notes.data.sync.nextcloud.BackendValidationResult
 import org.qosp.notes.preferences.CloudService
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import kotlin.time.measureTimedValue
 
-class NewStorageBackend(
-    private val context: Context,
-    private val config: StorageConfig
-) : INewSyncBackend {
+class StorageBackend(private val context: Context, private val config: StorageConfig) : ISyncBackend {
 
     companion object {
-        private const val TAG = "NewStorageBackend"
+        private const val TAG = "StorageBackend"
     }
 
     override val type: CloudService = CloudService.FILE_STORAGE
@@ -33,7 +32,7 @@ class NewStorageBackend(
             return "${titleToSet.trim()}.$ext"
         }
 
-    override suspend fun createNote(note: Note): NewSyncNote {
+    override suspend fun createNote(note: Note): SyncNote {
         val root = getRootDocumentFile() ?: throw IOException("Unable to access storage location")
 
         Log.d(TAG, "createNote: $note")
@@ -42,7 +41,7 @@ class NewStorageBackend(
 
         return newDoc?.let {
             writeNoteToFile(it, note.content)
-            NewSyncNote(
+            SyncNote(
                 idStr = newDoc.uri.toString(),
                 title = note.title,
                 content = note.content,
@@ -72,7 +71,7 @@ class NewStorageBackend(
         return deletionResult == true
     }
 
-    override suspend fun getNote(mapping: IdMapping): NewSyncNote? {
+    override suspend fun getNote(mapping: IdMapping): SyncNote? {
         return try {
             val uri = mapping.storageUri?.toUri() ?: return null
             val file = DocumentFile.fromSingleUri(context, uri) ?: return null
@@ -83,7 +82,7 @@ class NewStorageBackend(
         }
     }
 
-    private fun getFile(file: DocumentFile) = NewSyncNote(
+    private fun getFile(file: DocumentFile) = SyncNote(
         id = 0,
         idStr = file.uri.toString(),
         content = readFileContent(file),
@@ -91,7 +90,7 @@ class NewStorageBackend(
         lastModified = file.lastModified() / 1000, // Milliseconds to seconds
     )
 
-    override suspend fun getAll(): List<NewSyncNote> {
+    override suspend fun getAll(): List<SyncNote> {
         val root = getRootDocumentFile() ?: return emptyList()
         return try {
             val files = root.listFiles()

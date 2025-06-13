@@ -6,8 +6,8 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
-import org.qosp.notes.data.sync.neu.ValidateNextcloud
 import org.qosp.notes.data.sync.nextcloud.NextcloudAPI
+import org.qosp.notes.data.sync.nextcloud.ValidateNextcloud
 import retrofit2.Retrofit
 import retrofit2.create
 

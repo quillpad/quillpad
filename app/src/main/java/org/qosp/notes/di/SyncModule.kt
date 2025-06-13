@@ -5,8 +5,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
-import org.qosp.notes.data.sync.neu.BackendProvider
-import org.qosp.notes.data.sync.neu.SynchronizeNotes
+import org.qosp.notes.data.sync.core.BackendProvider
+import org.qosp.notes.data.sync.core.SynchronizeNotes
 
 object SyncModule {
 

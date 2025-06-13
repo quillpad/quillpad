@@ -1,4 +1,4 @@
-package org.qosp.notes.data.sync.neu
+package org.qosp.notes.data.sync.core
 
 import android.util.Log
 import org.qosp.notes.data.model.Note
@@ -46,7 +46,6 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
                     // Both local and remote notes exist, compare last modified times
                     if (abs(localNote.modifiedDate - remoteNote.lastModified) <= 1) {
                         // no action
-                        Log.d(tag, "SynchronizeNotes: Not big diff in modified for ${localNote.title}")
                     } else if (localNote.modifiedDate > remoteNote.lastModified) {
                         // Local note is newer, update remote
                         Log.d(

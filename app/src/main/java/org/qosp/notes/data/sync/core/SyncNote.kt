@@ -1,6 +1,6 @@
-package org.qosp.notes.data.sync.neu
+package org.qosp.notes.data.sync.core
 
-data class NewSyncNote(
+data class SyncNote(
     val id: Long,
     val idStr: String,
     val content: String?,

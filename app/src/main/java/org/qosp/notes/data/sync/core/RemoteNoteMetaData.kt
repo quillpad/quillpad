@@ -1,4 +1,4 @@
-package org.qosp.notes.data.sync.neu
+package org.qosp.notes.data.sync.core
 
 data class RemoteNoteMetaData(
     val id: String,

@@ -12,9 +12,6 @@ import org.junit.Test
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.repo.IdMappingRepository
-import org.qosp.notes.data.sync.neu.NoteAction
-import org.qosp.notes.data.sync.neu.RemoteNoteMetaData
-import org.qosp.notes.data.sync.neu.SynchronizeNotes
 import org.qosp.notes.preferences.CloudService
 
 class SynchronizeNotesTest {

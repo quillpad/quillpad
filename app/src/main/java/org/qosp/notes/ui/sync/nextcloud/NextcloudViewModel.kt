@@ -7,9 +7,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.qosp.notes.data.sync.neu.BackendValidationResult
-import org.qosp.notes.data.sync.neu.ValidateNextcloud
+import org.qosp.notes.data.sync.nextcloud.BackendValidationResult
 import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
+import org.qosp.notes.data.sync.nextcloud.ValidateNextcloud
 import org.qosp.notes.preferences.PreferenceRepository
 
 class NextcloudViewModel(

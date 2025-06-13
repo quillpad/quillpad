@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.qosp.notes.R
-import org.qosp.notes.data.sync.neu.BackendValidationResult.Incompatible
-import org.qosp.notes.data.sync.neu.BackendValidationResult.InvalidConfig
-import org.qosp.notes.data.sync.neu.BackendValidationResult.Success
+import org.qosp.notes.data.sync.nextcloud.BackendValidationResult.Incompatible
+import org.qosp.notes.data.sync.nextcloud.BackendValidationResult.InvalidConfig
+import org.qosp.notes.data.sync.nextcloud.BackendValidationResult.Success
 import org.qosp.notes.databinding.DialogNextcloudAccountBinding
 import org.qosp.notes.ui.common.BaseDialog
 import org.qosp.notes.ui.common.setButton

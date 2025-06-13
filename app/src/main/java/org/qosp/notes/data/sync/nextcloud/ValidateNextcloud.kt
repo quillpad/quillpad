@@ -1,9 +1,6 @@
-package org.qosp.notes.data.sync.neu
+package org.qosp.notes.data.sync.nextcloud
 
 import org.qosp.notes.data.sync.core.ServerNotSupportedException
-import org.qosp.notes.data.sync.nextcloud.NextcloudAPI
-import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
-import org.qosp.notes.data.sync.nextcloud.getNotesCapabilities
 
 class ValidateNextcloud(private val api: NextcloudAPI) {
     suspend operator fun invoke(config: NextcloudConfig): BackendValidationResult {

@@ -8,28 +8,29 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import me.msoul.datastore.defaultOf
+import org.qosp.notes.Config
 import org.qosp.notes.data.dao.IdMappingDao
 import org.qosp.notes.data.dao.NoteDao
 import org.qosp.notes.data.dao.ReminderDao
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.model.NoteEntity
+import org.qosp.notes.data.sync.core.BackendProvider
 import org.qosp.notes.data.sync.core.BaseResult
 import org.qosp.notes.data.sync.core.GenericError
+import org.qosp.notes.data.sync.core.ISyncBackend
+import org.qosp.notes.data.sync.core.NoteAction
+import org.qosp.notes.data.sync.core.RemoteNoteMetaData
 import org.qosp.notes.data.sync.core.Success
-import org.qosp.notes.data.sync.neu.BackendProvider
-import org.qosp.notes.data.sync.neu.INewSyncBackend
-import org.qosp.notes.data.sync.neu.NewSyncNote
-import org.qosp.notes.data.sync.neu.NoteAction
-import org.qosp.notes.data.sync.neu.RemoteNoteMetaData
-import org.qosp.notes.data.sync.neu.SynchronizeNotes
+import org.qosp.notes.data.sync.core.SyncNote
+import org.qosp.notes.data.sync.core.SynchronizeNotes
 import org.qosp.notes.data.sync.toLocalNote
 import org.qosp.notes.di.SyncScope
 import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.SortMethod
 import java.time.Instant
 
-class NewNoteRepository(
+class NoteRepositoryImpl(
     private val noteDao: NoteDao,
     private val idMappingDao: IdMappingDao,
     private val reminderDao: ReminderDao,
@@ -38,7 +39,7 @@ class NewNoteRepository(
     private val syncingScope: SyncScope
 ) : NoteRepository {
 
-    private val tag = NewNoteRepository::class.java.simpleName
+    private val tag = NoteRepositoryImpl::class.java.simpleName
 
     // Map to track pending remote update jobs by noteId
     private val pendingUpdateJobs = mutableMapOf<Long, Job>()
@@ -87,8 +88,8 @@ class NewNoteRepository(
 
     private suspend fun applyLocalUpdates(
         localUpdates: List<NoteAction>,
-        syncProvider: INewSyncBackend,
-        remoteNotes: List<NewSyncNote>
+        syncProvider: ISyncBackend,
+        remoteNotes: List<SyncNote>
     ) {
         if (localUpdates.isEmpty()) return
 
@@ -178,8 +179,7 @@ class NewNoteRepository(
             // Create a new job with debouncing
             val job = syncingScope.launch {
                 try {
-                    // Debounce for 500ms
-                    delay(500)
+                    delay(Config.RemoteUpdateDebounceTime)
 
                     // Get the existing mapping for this note
                     val mapping = idMappingDao.getByLocalIdAndProvider(note.id, syncProvider.type)
@@ -318,7 +318,7 @@ class NewNoteRepository(
     }
 }
 
-private fun NewSyncNote.getMapping(noteId: Long, syncProvider: INewSyncBackend) = IdMapping(
+private fun SyncNote.getMapping(noteId: Long, syncProvider: ISyncBackend) = IdMapping(
     localNoteId = noteId,
     remoteNoteId = id,
     provider = syncProvider.type,
@@ -327,7 +327,7 @@ private fun NewSyncNote.getMapping(noteId: Long, syncProvider: INewSyncBackend) 
     storageUri = idStr
 )
 
-private fun NewSyncNote.toRemoteNoteMetaData(cloudService: CloudService): RemoteNoteMetaData {
+private fun SyncNote.toRemoteNoteMetaData(cloudService: CloudService): RemoteNoteMetaData {
     val remoteId = when (cloudService) {
         CloudService.NEXTCLOUD -> id.toString()
         CloudService.FILE_STORAGE -> idStr
