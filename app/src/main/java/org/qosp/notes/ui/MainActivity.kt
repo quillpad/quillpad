@@ -14,6 +14,9 @@ import androidx.core.view.children
 import androidx.core.view.get
 import androidx.core.view.size
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.fragment.NavHostFragment
@@ -21,14 +24,20 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.qosp.notes.R
 import org.qosp.notes.components.backup.BackupService
 import org.qosp.notes.data.model.Notebook
+import org.qosp.notes.data.sync.core.BackendProvider
+import org.qosp.notes.data.sync.fs.StorageConfig
 import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
 import org.qosp.notes.databinding.ActivityMainBinding
+import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.SortNavdrawerNotebooksMethod
 import org.qosp.notes.ui.utils.closeAndThen
 import org.qosp.notes.ui.utils.collect
@@ -42,6 +51,7 @@ class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val activityModel: ActivityViewModel by viewModel()
+    private val backendProvider by inject<BackendProvider>()
 
     private val topLevelMenu get() = binding.navigationView.menu
     private val notebooksMenu get() = topLevelMenu.findItem(R.id.menu_notebooks).subMenu
@@ -154,12 +164,36 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        NextcloudConfig.fromPreferences(preferenceRepository)
-            .filterNotNull()
-            .collect(this@MainActivity) { config ->
-                textViewUsername.text = config.username
-                textViewProvider.text = getString(R.string.preferences_cloud_service_nextcloud)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                backendProvider.syncProvider.collect { backend ->
+                    when (backend?.type) {
+                        CloudService.NEXTCLOUD -> {
+                            NextcloudConfig.fromPreferences(preferenceRepository)
+                                .filterNotNull().firstOrNull()?.let { config ->
+                                    textViewUsername.text = config.username
+                                    textViewProvider.text = getString(R.string.preferences_cloud_service_nextcloud)
+                                }
+                        }
+
+                        CloudService.FILE_STORAGE -> {
+                            StorageConfig.storageLocation(preferenceRepository)
+                                .filterNotNull().firstOrNull()?.let { config ->
+                                    textViewUsername.text =
+                                        config.getFriendlyLocation(this@MainActivity.applicationContext)
+                                    textViewProvider.text = getString(R.string.preferences_cloud_service_files)
+                                }
+                        }
+
+                        CloudService.DISABLED, null -> {
+                            textViewUsername.text = getString(R.string.preferences_cloud_service)
+                            textViewProvider.text = getString(R.string.preferences_cloud_service_disabled)
+                        }
+                    }
+                }
             }
+        }
+
     }
 
     private fun selectCurrentDestinationMenuItem(

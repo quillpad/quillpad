@@ -1,7 +1,6 @@
 package org.qosp.notes.ui.sync
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +9,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.net.toUri
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.qosp.notes.R
+import org.qosp.notes.data.sync.fs.toFriendlyString
 import org.qosp.notes.databinding.FragmentSyncSettingsBinding
 import org.qosp.notes.preferences.AppPreferences
 import org.qosp.notes.preferences.CloudService
@@ -106,12 +106,8 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
 
         model.getEncryptedString(PreferenceRepository.STORAGE_LOCATION).collect(viewLifecycleOwner) { u ->
             val uri = u.toUri()
-            val pm = context?.packageManager
             storageLocation = uri
-            val appName = pm?.getInstalledPackages(PackageManager.GET_PROVIDERS)
-                ?.firstOrNull { it?.providers?.any { p -> p?.authority == uri.authority } ?: false }
-                ?.applicationInfo
-                ?.let { pm.getApplicationLabel(it) }?.toString() ?: uri.authority
+            val appName = context?.let { uri.toFriendlyString(it) }
             binding.settingStorageLocation.subText = appName ?: getString(R.string.preferences_file_storage_select)
         }
     }
