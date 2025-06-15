@@ -24,7 +24,7 @@ import org.qosp.notes.data.sync.core.RemoteOperation.Update
 import org.qosp.notes.data.sync.core.Success
 import org.qosp.notes.data.sync.core.SyncNote
 import org.qosp.notes.data.sync.core.SynchronizeNotes
-import org.qosp.notes.data.sync.core.getMapping
+import org.qosp.notes.data.sync.getMapping
 import org.qosp.notes.data.sync.toLocalNote
 import org.qosp.notes.di.SyncScope
 import org.qosp.notes.preferences.CloudService

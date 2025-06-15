@@ -10,7 +10,7 @@ data class NextcloudNote(
     val title: String,
     val category: String,
     val favorite: Boolean,
-    val modified: Long,
+    val modified: Long, // seconds
     val readOnly: Boolean? = null,
     val remoteId: String = id.toString(),
 )

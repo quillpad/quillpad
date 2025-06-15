@@ -12,6 +12,7 @@ import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.sync.core.RemoteOperation.Create
 import org.qosp.notes.data.sync.core.RemoteOperation.Delete
 import org.qosp.notes.data.sync.core.RemoteOperation.Update
+import org.qosp.notes.data.sync.getMapping
 import org.qosp.notes.di.SyncScope
 import java.util.concurrent.ConcurrentHashMap
 

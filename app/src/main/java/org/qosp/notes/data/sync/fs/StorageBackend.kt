@@ -45,7 +45,7 @@ class StorageBackend(private val context: Context, private val config: StorageCo
                 idStr = newDoc.uri.toString(),
                 title = note.title,
                 content = note.content,
-                lastModified = newDoc.lastModified(),
+                lastModified = newDoc.lastModified() / 1000, // Epoch milliseconds to seconds
                 id = 0
             )
         } ?: throw IOException("Unable to create file for ${note.filename}")

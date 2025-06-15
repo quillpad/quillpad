@@ -103,7 +103,7 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
                 val newLocalNote = Note(
                     title = remoteNote.title, modifiedDate = remoteNote.lastModified
                 )
-                Log.d(tag, "Remote note has no mapping. New local note: ${remoteNote.title}")
+                Log.d(tag, "New Remote note: ${remoteNote.title}")
                 localUpdates.add(NoteAction.Create(newLocalNote, remoteNote))
             }
         }

@@ -3,7 +3,7 @@ package org.qosp.notes.data.sync.nextcloud
 import android.util.Log
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
-import org.qosp.notes.data.sync.asNewSyncNote
+import org.qosp.notes.data.sync.asSyncNote
 import org.qosp.notes.data.sync.core.ISyncBackend
 import org.qosp.notes.data.sync.core.SyncNote
 import org.qosp.notes.data.sync.nextcloud.model.asNextcloudNote
@@ -29,7 +29,7 @@ class NextcloudBackend(
                 modified = note.modifiedDate,
                 readOnly = null
             ), config
-        ).asNewSyncNote()
+        ).asSyncNote()
     }
 
     override suspend fun updateNote(note: Note, mapping: IdMapping): IdMapping {
@@ -52,11 +52,11 @@ class NextcloudBackend(
 
     override suspend fun getNote(mapping: IdMapping): SyncNote? {
         requireNotNull(mapping.remoteNoteId) { "Remote note id is null." }
-        return api.getNote(mapping.remoteNoteId, config).asNewSyncNote()
+        return api.getNote(mapping.remoteNoteId, config).asSyncNote()
     }
 
     override suspend fun getAll(): List<SyncNote> {
         Log.d(tag, "getAll() from Nextcloud")
-        return api.getNotes(config).map { note -> note.asNewSyncNote() }
+        return api.getNotes(config).map { note -> note.asSyncNote() }
     }
 }
