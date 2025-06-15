@@ -6,6 +6,7 @@ import kotlinx.coroutines.SupervisorJob
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import org.qosp.notes.data.sync.core.BackendProvider
+import org.qosp.notes.data.sync.core.ProcessRemoteActions
 import org.qosp.notes.data.sync.core.SynchronizeNotes
 
 object SyncModule {
@@ -14,7 +15,7 @@ object SyncModule {
         single<SyncScope> { SyncScope(scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)) }
 
         singleOf(::BackendProvider)
-
+        singleOf(::ProcessRemoteActions)
         singleOf(::SynchronizeNotes)
     }
 }

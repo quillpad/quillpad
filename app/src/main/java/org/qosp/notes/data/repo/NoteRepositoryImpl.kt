@@ -1,14 +1,10 @@
 package org.qosp.notes.data.repo
 
 import android.util.Log
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import me.msoul.datastore.defaultOf
-import org.qosp.notes.Config
 import org.qosp.notes.data.dao.IdMappingDao
 import org.qosp.notes.data.dao.NoteDao
 import org.qosp.notes.data.dao.ReminderDao
@@ -20,10 +16,15 @@ import org.qosp.notes.data.sync.core.BaseResult
 import org.qosp.notes.data.sync.core.GenericError
 import org.qosp.notes.data.sync.core.ISyncBackend
 import org.qosp.notes.data.sync.core.NoteAction
+import org.qosp.notes.data.sync.core.ProcessRemoteActions
 import org.qosp.notes.data.sync.core.RemoteNoteMetaData
+import org.qosp.notes.data.sync.core.RemoteOperation.Create
+import org.qosp.notes.data.sync.core.RemoteOperation.Delete
+import org.qosp.notes.data.sync.core.RemoteOperation.Update
 import org.qosp.notes.data.sync.core.Success
 import org.qosp.notes.data.sync.core.SyncNote
 import org.qosp.notes.data.sync.core.SynchronizeNotes
+import org.qosp.notes.data.sync.core.getMapping
 import org.qosp.notes.data.sync.toLocalNote
 import org.qosp.notes.di.SyncScope
 import org.qosp.notes.preferences.CloudService
@@ -36,13 +37,11 @@ class NoteRepositoryImpl(
     private val reminderDao: ReminderDao,
     private val backendProvider: BackendProvider,
     private val synchronizeNotes: SynchronizeNotes,
+    private val processRemoteActions: ProcessRemoteActions,
     private val syncingScope: SyncScope
 ) : NoteRepository {
 
     private val tag = NoteRepositoryImpl::class.java.simpleName
-
-    // Map to track pending remote update jobs by noteId
-    private val pendingUpdateJobs = mutableMapOf<Long, Job>()
 
     private suspend fun cleanMappingsForLocalNotes(vararg notes: Note) {
         val n = notes.filter { it.isLocalOnly }
@@ -71,10 +70,7 @@ class NoteRepositoryImpl(
 
             // Use SynchronizeNotes to determine what updates are needed
             val syncResult = synchronizeNotes(localNotes, remoteNotes, syncProvider.type)
-            Log.d(
-                tag,
-                "syncNotes: ${syncResult.localUpdates.size} local updates, ${syncResult.remoteUpdates.size} remote updates"
-            )
+            Log.d(tag, "sync updates: ${syncResult.localUpdates.size} local, ${syncResult.remoteUpdates.size} remote")
 
             applyLocalUpdates(syncResult.localUpdates, syncProvider, allRemoteNotes)
             applyRemoteUpdates(syncResult.remoteUpdates)
@@ -93,7 +89,7 @@ class NoteRepositoryImpl(
     ) {
         if (localUpdates.isEmpty()) return
 
-        // Create a map for quick lookup of remote notes by ID
+        // Create a map for a quick lookup of remote notes by ID
         val remoteNotesMap = remoteNotes.associateBy {
             when (syncProvider.type) {
                 CloudService.NEXTCLOUD -> it.id.toString()
@@ -133,9 +129,9 @@ class NoteRepositoryImpl(
         for (action in remoteUpdates) {
             try {
                 when (action) {
-                    is NoteAction.Create -> insertRemoteNote(action.note, action.note.id)
-                    is NoteAction.Update -> updateRemoteNote(action.note)
-                    is NoteAction.Delete -> deleteRemoteNotes(listOf(action.note))
+                    is NoteAction.Create -> processRemoteActions(action.note.id, Create(action.note))
+                    is NoteAction.Update -> processRemoteActions(action.note.id, Update(action.note))
+                    is NoteAction.Delete -> processRemoteActions(action.note.id, Delete(action.note))
                 }
             } catch (e: Exception) {
                 Log.e(tag, "applyRemoteUpdates: Failed to apply action $action: ${e.message}")
@@ -146,64 +142,22 @@ class NoteRepositoryImpl(
     override suspend fun insertNote(note: Note, sync: Boolean): Long {
         Log.d(tag, "insertNote: Creating note '${note.title}', isLocalOnly=${note.isLocalOnly}")
         val noteId = noteDao.insert(note.toEntity())
-        if (note.isLocalOnly.not() && backendProvider.isSyncing && sync) insertRemoteNote(note, noteId)
+        if (note.isLocalOnly.not() && backendProvider.isSyncing && sync) {
+            val note1 = note.copy(id = noteId)
+            processRemoteActions(note1.id, Create(note1))
+        }
         return noteId
     }
 
-    private fun insertRemoteNote(note: Note, noteId: Long) {
-        backendProvider.syncProvider.value?.let { syncProvider ->
-            syncingScope.launch {
-                try {
-                    val created = syncProvider.createNote(note)
-                    idMappingDao.insert(created.getMapping(noteId, syncProvider))
-                    noteDao.updateLastModified(noteId, created.lastModified)
-                    Log.d(tag, "insertNote: Synced note to ${syncProvider.type}, local ID=$noteId")
-                } catch (e: Exception) {
-                    Log.e(tag, "insertNote: Sync failed for note ID=$noteId: ${e.message}")
-                }
-            }
-        }
-    }
+    override suspend fun updateNotes(vararg notes: Note, sync: Boolean) = notes.forEach { updateNote(it, sync) }
 
     private suspend fun updateNote(note: Note, sync: Boolean) {
         Log.d(tag, "updateNote: Updating note ID=${note.id}, title='${note.title}'")
         noteDao.update(note.toEntity())
-        if (note.isLocalOnly.not() && backendProvider.isSyncing && sync) updateRemoteNote(note)
-    }
-
-    private fun updateRemoteNote(note: Note) {
-        backendProvider.syncProvider.value?.let { syncProvider ->
-            // Cancel any existing job for this noteId
-            pendingUpdateJobs[note.id]?.cancel()
-
-            // Create a new job with debouncing
-            val job = syncingScope.launch {
-                try {
-                    delay(Config.RemoteUpdateDebounceTime)
-
-                    // Get the existing mapping for this note
-                    val mapping = idMappingDao.getByLocalIdAndProvider(note.id, syncProvider.type)
-                    if (mapping != null) {
-                        // Update the note on the remote backend
-                        val updatedMapping = syncProvider.updateNote(note, mapping)
-                        idMappingDao.update(updatedMapping)
-                        Log.d(tag, "updateNote: Successfully synced update to ${syncProvider.type}")
-                    }
-                } catch (_: CancellationException) {
-                } catch (e: Exception) {
-                    Log.e(tag, "Failed to sync note update: ${e.message}", e)
-                } finally {
-                    // Remove the job from the map when it's done
-                    pendingUpdateJobs.remove(note.id)
-                }
-            }
-
-            // Store the job in the map
-            pendingUpdateJobs[note.id] = job
+        if (note.isLocalOnly.not() && backendProvider.isSyncing && sync) {
+            processRemoteActions(note.id, Update(note))
         }
     }
-
-    override suspend fun updateNotes(vararg notes: Note, sync: Boolean) = notes.forEach { updateNote(it, sync) }
 
     override suspend fun moveNotesToBin(vararg notes: Note) {
         Log.d(tag, "moveNotesToBin: Moving ${notes.size} notes to bin")
@@ -213,20 +167,8 @@ class NoteRepositoryImpl(
         noteDao.update(*entities)
         reminderDao.deleteIfNoteIdIn(notes.map { it.id })
         cleanMappingsForLocalNotes(*notes)
-        deleteRemoteNotes(notes.toList())
-    }
-
-    private fun deleteRemoteNotes(notes: List<Note>) {
-        if (backendProvider.isSyncing) {
-            backendProvider.syncProvider.value?.let { syncProvider ->
-                syncingScope.launch {
-                    val noteIds = notes.filterNot { it.isLocalOnly }.map { it.id }.toLongArray()
-                    val mappings = idMappingDao.getByLocalIds(*noteIds).filter { it.provider == syncProvider.type }
-                    Log.d(tag, "deleteRemoteNotes: Deleting ${mappings.size} remote notes from ${syncProvider.type}")
-                    mappings.forEach { syncProvider.deleteNote(it) }
-                    idMappingDao.deleteByLocalId(*noteIds)
-                }
-            }
+        notes.filterNot { it.isLocalOnly }.forEach {
+            processRemoteActions(it.id, Delete(it))
         }
     }
 
@@ -257,7 +199,9 @@ class NoteRepositoryImpl(
         Log.d(tag, "deleteNotes: Permanently deleting ${notes.size} notes")
         val array = notes.map { it.toEntity() }.toTypedArray()
         noteDao.delete(*array)
-        if (sync) deleteRemoteNotes(notes.toList())
+        if (sync) notes.filterNot { it.isLocalOnly }.forEach {
+            processRemoteActions(it.id, Delete(it))
+        }
     }
 
     override suspend fun discardEmptyNotes(): Boolean {
@@ -317,15 +261,6 @@ class NoteRepositoryImpl(
         return mappings.associateWith { allNotes[it.localNoteId] }
     }
 }
-
-private fun SyncNote.getMapping(noteId: Long, syncProvider: ISyncBackend) = IdMapping(
-    localNoteId = noteId,
-    remoteNoteId = id,
-    provider = syncProvider.type,
-    extras = extra,
-    isDeletedLocally = false,
-    storageUri = idStr
-)
 
 private fun SyncNote.toRemoteNoteMetaData(cloudService: CloudService): RemoteNoteMetaData {
     val remoteId = when (cloudService) {

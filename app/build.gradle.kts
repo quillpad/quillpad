@@ -159,7 +159,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.workTesting)
 
-    implementation(libs.okhttp)
     // AndroidX
     implementation(libs.bundles.kotlin.androidX)
 
@@ -220,6 +219,8 @@ dependencies {
     implementation(libs.exoplayerUi)
 
     // Retrofit
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
     implementation(libs.retrofit)
     implementation(libs.retrofit2Convertor)
 
