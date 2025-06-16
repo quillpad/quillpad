@@ -63,16 +63,9 @@ class ActivityViewModel(
     var notesToBackup: Set<Note>? = null
     var tempPhotoUri: Uri? = null
 
-    fun syncAsync(): Deferred<BaseResult> {
-        return syncScope.async {
-            noteRepository.syncNotes()
-        }
-    }
+    fun syncAsync(): Deferred<BaseResult> = syncScope.async { noteRepository.syncNotes() }
 
-
-    fun discardEmptyNotesAsync() = viewModelScope.async(Dispatchers.IO) {
-        noteRepository.discardEmptyNotes()
-    }
+    fun discardEmptyNotesAsync() = viewModelScope.async(Dispatchers.IO) { noteRepository.discardEmptyNotes() }
 
     fun deleteNotesPermanently(vararg notes: Note) = viewModelScope.launch(Dispatchers.IO) {
         notes.forEach { reminderManager.cancelAllRemindersForNote(it.id) }
@@ -102,104 +95,40 @@ class ActivityViewModel(
         }
     }
 
-    fun archiveNotes(vararg notes: Note) = update(*notes) { note ->
-        note.copy(
-            isArchived = true,
-        )
-    }
+    fun archiveNotes(vararg notes: Note) = update(*notes) { it.copy(isArchived = true) }
 
-    fun unarchiveNotes(vararg notes: Note) = update(*notes) { note ->
-        note.copy(
-            isArchived = false,
-        )
-    }
+    fun unarchiveNotes(vararg notes: Note) = update(*notes) { it.copy(isArchived = false) }
 
-    fun showNotes(vararg notes: Note) = update(*notes) { note ->
-        note.copy(
-            isHidden = false,
-        )
-    }
+    fun showNotes(vararg notes: Note) = update(*notes) { it.copy(isHidden = false) }
 
-    fun hideNotes(vararg notes: Note) = update(*notes) { note ->
-        note.copy(
-            isHidden = true,
-        )
-    }
+    fun hideNotes(vararg notes: Note) = update(*notes) { it.copy(isHidden = true) }
 
-    fun pinNotes(vararg notes: Note) = update(*notes) { note ->
-        note.copy(
-            isPinned = !note.isPinned,
-        )
-    }
+    fun pinNotes(vararg notes: Note) = update(*notes) { it.copy(isPinned = !it.isPinned) }
 
-    fun compactPreviewNotes(vararg notes: Note) = update(*notes) { note ->
-        note.copy(
-            isCompactPreview = true,
-        )
-    }
+    fun compactPreviewNotes(vararg notes: Note) = update(*notes) { it.copy(isCompactPreview = true) }
 
-    fun fullPreviewNotes(vararg notes: Note) = update(*notes) { note ->
-        note.copy(
-            isCompactPreview = false,
-        )
-    }
+    fun fullPreviewNotes(vararg notes: Note) = update(*notes) { it.copy(isCompactPreview = false) }
 
-    fun moveNotes(notebookId: Long?, vararg notes: Note) = update(*notes) { note ->
-        note.copy(
-            notebookId = notebookId,
-            modifiedDate = Instant.now().epochSecond,
-        )
-    }
+    fun moveNotes(notebookId: Long?, vararg notes: Note) =
+        update(*notes) { it.copy(notebookId = notebookId, modifiedDate = Instant.now().epochSecond) }
 
-    fun makeNotesSyncable(vararg notes: Note) = update(*notes) { note ->
-        note.copy(
-            isLocalOnly = false,
-        )
-    }
+    fun makeNotesSyncable(vararg notes: Note) = update(*notes) { it.copy(isLocalOnly = false) }
 
-    fun makeNotesLocal(vararg notes: Note) = update(*notes) { note ->
-        note.copy(
-            isLocalOnly = true,
-        )
-    }
+    fun makeNotesLocal(vararg notes: Note) = update(*notes) { it.copy(isLocalOnly = true) }
 
-    fun makeNotesFullPreview(vararg notes: Note) = update(*notes) { note ->
-        note.copy(
-            isCompactPreview = false,
-        )
-    }
+    fun makeNotesFullPreview(vararg notes: Note) = update(*notes) { it.copy(isCompactPreview = false) }
 
-    fun makeNotesCompactPreview(vararg notes: Note) = update(*notes) { note ->
-        note.copy(
-            isCompactPreview = true,
-        )
-    }
+    fun makeNotesCompactPreview(vararg notes: Note) = update(*notes) { it.copy(isCompactPreview = true) }
 
-    fun disableScreenAlwaysOn(vararg notes: Note) = update(*notes) { note ->
-        note.copy(
-            screenAlwaysOn = false,
-        )
-    }
+    fun disableScreenAlwaysOn(vararg notes: Note) = update(*notes) { it.copy(screenAlwaysOn = false) }
 
-    fun enableScreenAlwaysOn(vararg notes: Note) = update(*notes) { note ->
-        note.copy(
-            screenAlwaysOn = true,
-        )
-    }
+    fun enableScreenAlwaysOn(vararg notes: Note) = update(*notes) { it.copy(screenAlwaysOn = true) }
 
-    fun disableMarkdown(vararg notes: Note) = update(*notes) { note ->
-        note.copy(
-            isMarkdownEnabled = false,
-            modifiedDate = Instant.now().epochSecond,
-        )
-    }
+    fun disableMarkdown(vararg notes: Note) =
+        update(*notes) { it.copy(isMarkdownEnabled = false, modifiedDate = Instant.now().epochSecond) }
 
-    fun enableMarkdown(vararg notes: Note) = update(*notes) { note ->
-        note.copy(
-            isMarkdownEnabled = true,
-            modifiedDate = Instant.now().epochSecond,
-        )
-    }
+    fun enableMarkdown(vararg notes: Note) =
+        update(*notes) { it.copy(isMarkdownEnabled = true, modifiedDate = Instant.now().epochSecond) }
 
     fun duplicateNotes(vararg notes: Note) = notes.forEachAsync { note ->
         val oldId = note.id
@@ -223,27 +152,19 @@ class ActivityViewModel(
     }
 
     fun setLayoutMode(layoutMode: LayoutMode) {
-        viewModelScope.launch(Dispatchers.IO) {
-            preferenceRepository.set(layoutMode)
-        }
+        viewModelScope.launch(Dispatchers.IO) { preferenceRepository.set(layoutMode) }
     }
 
     fun setSortMethod(method: SortMethod) {
-        viewModelScope.launch(Dispatchers.IO) {
-            preferenceRepository.set(method)
-        }
+        viewModelScope.launch(Dispatchers.IO) { preferenceRepository.set(method) }
     }
 
     fun setSortTagsMethod(method: SortTagsMethod) {
-        viewModelScope.launch(Dispatchers.IO) {
-            preferenceRepository.set(method)
-        }
+        viewModelScope.launch(Dispatchers.IO) { preferenceRepository.set(method) }
     }
 
     fun setSortNavdrawerNotebooksMethod(method: SortNavdrawerNotebooksMethod) {
-        viewModelScope.launch(Dispatchers.IO) {
-            preferenceRepository.set(method)
-        }
+        viewModelScope.launch(Dispatchers.IO) { preferenceRepository.set(method) }
     }
 
     suspend fun createImageFile(): Uri? {
@@ -264,8 +185,6 @@ class ActivityViewModel(
     }
 
     private inline fun Array<out Note>.forEachAsync(crossinline block: suspend CoroutineScope.(Note) -> Unit) {
-        viewModelScope.launch(Dispatchers.IO) {
-            forEach { block(it) }
-        }
+        viewModelScope.launch(Dispatchers.IO) { forEach { block(it) } }
     }
 }

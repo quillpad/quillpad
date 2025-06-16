@@ -35,6 +35,7 @@ import org.qosp.notes.components.backup.BackupService
 import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.data.sync.core.BackendProvider
 import org.qosp.notes.data.sync.fs.StorageConfig
+import org.qosp.notes.data.sync.fs.toFriendlyString
 import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
 import org.qosp.notes.databinding.ActivityMainBinding
 import org.qosp.notes.preferences.CloudService
@@ -163,7 +164,6 @@ class MainActivity : BaseActivity() {
                 navController.navigateSafely(R.id.fragment_sync_settings)
             }
         }
-
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 backendProvider.syncProvider.collect { backend ->
@@ -177,12 +177,16 @@ class MainActivity : BaseActivity() {
                         }
 
                         CloudService.FILE_STORAGE -> {
-                            StorageConfig.storageLocation(preferenceRepository)
-                                .filterNotNull().firstOrNull()?.let { config ->
-                                    textViewUsername.text =
-                                        config.getFriendlyLocation(this@MainActivity.applicationContext)
-                                    textViewProvider.text = getString(R.string.preferences_cloud_service_files)
-                                }
+                            val uri = StorageConfig.storageLocation(preferenceRepository)
+                                .filterNotNull().firstOrNull()?.location
+                            if (uri != null && uri.toString().isNotEmpty()) {
+                                textViewUsername.text =
+                                    uri.toFriendlyString(applicationContext)
+                                textViewProvider.text = getString(R.string.preferences_cloud_service_files)
+                            } else {
+                                textViewUsername.text = getString(R.string.preferences_cloud_service)
+                                textViewProvider.text = getString(R.string.preferences_cloud_service_disabled)
+                            }
                         }
 
                         CloudService.DISABLED, null -> {
@@ -193,7 +197,6 @@ class MainActivity : BaseActivity() {
                 }
             }
         }
-
     }
 
     private fun selectCurrentDestinationMenuItem(

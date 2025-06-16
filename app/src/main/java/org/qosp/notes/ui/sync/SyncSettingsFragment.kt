@@ -107,7 +107,7 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
         model.getEncryptedString(PreferenceRepository.STORAGE_LOCATION).collect(viewLifecycleOwner) { u ->
             val uri = u.toUri()
             storageLocation = uri
-            val appName = context?.let { uri.toFriendlyString(it) }
+            val appName = if (u.isNotBlank()) context?.let { uri.toFriendlyString(it) } else null
             binding.settingStorageLocation.subText = appName ?: getString(R.string.preferences_file_storage_select)
         }
     }

@@ -11,8 +11,6 @@ import org.qosp.notes.preferences.PreferenceRepository
 
 data class StorageConfig(val location: Uri) {
 
-    fun getFriendlyLocation(context: Context) = location.toFriendlyString(context)
-
     companion object {
         fun storageLocation(prefRepo: PreferenceRepository): Flow<StorageConfig?> =
             prefRepo.getEncryptedString(PreferenceRepository.STORAGE_LOCATION).map {
