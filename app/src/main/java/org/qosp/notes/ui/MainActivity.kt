@@ -3,6 +3,7 @@ package org.qosp.notes.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatImageButton
@@ -15,21 +16,27 @@ import androidx.core.view.children
 import androidx.core.view.get
 import androidx.core.view.size
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.runBlocking
 import org.qosp.notes.R
 import org.qosp.notes.components.backup.BackupService
+import org.qosp.notes.data.model.Attachment
 import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.data.sync.core.SyncManager
 import org.qosp.notes.databinding.ActivityMainBinding
 import org.qosp.notes.preferences.SortNavdrawerNotebooksMethod
+import org.qosp.notes.ui.attachments.fromUri
 import org.qosp.notes.ui.utils.closeAndThen
 import org.qosp.notes.ui.utils.collect
 import org.qosp.notes.ui.utils.hideKeyboard
@@ -114,26 +121,117 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    /**
+     * Copies shared media from a URI to the app's private storage.
+     * @param uri The source URI of the media file to copy
+     * @return The new URI in app's private storage, or null if copy failed
+     */
+    private suspend fun copySharedMedia(uri: Uri): Uri? = withContext(Dispatchers.IO) {
+        try {
+            val mimeType = contentResolver.getType(uri) ?: return@withContext null
+            val newUri = activityModel.copyMediaToPrivateStorage(uri, mimeType) ?: return@withContext null
+
+            contentResolver.openInputStream(uri)?.use { input ->
+                contentResolver.openOutputStream(newUri)?.use { output ->
+                    input.copyTo(output)
+                }
+            }
+            newUri
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     private fun handleIntent(intent: Intent) {
         when (intent.action) {
             Intent.ACTION_SEND -> {
                 val title = intent.getStringExtra(Intent.EXTRA_TITLE) ?: ""
                 val content = intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
+                var uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
+                } else {
+                    @Suppress("DEPRECATION")
+                    intent.getParcelableExtra(Intent.EXTRA_STREAM)
+                }
 
-                val link = NavDeepLinkBuilder(this)
-                    .setGraph(R.navigation.nav_graph)
-                    .setDestination(R.id.fragment_editor)
-                    .setArguments(
-                        bundleOf(
-                            "transitionName" to "",
-                            "newNoteTitle" to title,
-                            "newNoteContent" to content,
-                        )
+                // Try getting URI from ClipData if not in EXTRA_STREAM
+                if (uri == null && intent.clipData != null && intent.clipData!!.itemCount > 0) {
+                    uri = intent.clipData!!.getItemAt(0).uri
+                }
+
+                lifecycleScope.launch {
+                    val args = bundleOf(
+                        "transitionName" to "",
+                        "newNoteTitle" to title,
+                        "newNoteContent" to content,
                     )
-                    .createTaskStackBuilder()
-                    .first()
 
-                navController.handleDeepLink(link)
+                    if (uri != null) {
+                        val newUri = copySharedMedia(uri)
+                        if (newUri != null) {
+                            withContext(Dispatchers.IO) {
+                                val attachment = Attachment.fromUri(this@MainActivity, newUri)
+                                args.putParcelableArray("newNoteAttachments", arrayOf(attachment))
+                            }
+                        }
+                    }
+
+                    val link = NavDeepLinkBuilder(this@MainActivity)
+                        .setGraph(R.navigation.nav_graph)
+                        .setDestination(R.id.fragment_editor)
+                        .setArguments(args)
+                        .createTaskStackBuilder()
+                        .first()
+
+                    navController.handleDeepLink(link)
+                }
+            }
+            Intent.ACTION_SEND_MULTIPLE -> {
+                var uris = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM, Uri::class.java)
+                } else {
+                    @Suppress("DEPRECATION")
+                    intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM)
+                }
+
+                // Try getting URIs from ClipData if not in EXTRA_STREAM
+                if (uris == null && intent.clipData != null) {
+                    uris = ArrayList()
+                    for (i in 0 until intent.clipData!!.itemCount) {
+                        intent.clipData!!.getItemAt(i).uri?.let { uris.add(it) }
+                    }
+                }
+
+                if (!uris.isNullOrEmpty()) {
+                    lifecycleScope.launch {
+                        val args = bundleOf(
+                            "transitionName" to "",
+                            "newNoteTitle" to (intent.getStringExtra(Intent.EXTRA_TITLE) ?: ""),
+                            "newNoteContent" to (intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""),
+                        )
+
+                        withContext(Dispatchers.IO) {
+                            val attachments = uris.mapNotNull { uri ->
+                                copySharedMedia(uri)?.let { newUri ->
+                                    Attachment.fromUri(this@MainActivity, newUri)
+                                }
+                            }.toTypedArray()
+
+                            if (attachments.isNotEmpty()) {
+                                args.putParcelableArray("newNoteAttachments", attachments)
+                            }
+                        }
+
+                        val link = NavDeepLinkBuilder(this@MainActivity)
+                            .setGraph(R.navigation.nav_graph)
+                            .setDestination(R.id.fragment_editor)
+                            .setArguments(args)
+                            .createTaskStackBuilder()
+                            .first()
+
+                        navController.handleDeepLink(link)
+                    }
+                }
             }
             else -> navController.handleDeepLink(intent)
         }
