@@ -8,11 +8,10 @@ Take beautiful markdown notes whenever you feel inspired. Place them in notebook
 ## Available at
 
 <a href="https://f-droid.org/packages/io.github.quillpad">
-    <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-    alt="Get it on F-Droid"
-    height="80">
-</a>
-<a href='https://play.google.com/store/apps/details?id=io.github.quillpad'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height="80"/></a>
+<img alt="Get it on F-Droid" src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="80"></a>
+
+<a href='https://play.google.com/store/apps/details?id=io.github.quillpad'>
+<img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height="80"/></a>
 
 ## Features
 With Quillpad, you can:
@@ -61,9 +60,10 @@ Notes from [Google Keep](https://www.google.com/keep/) can be converted to Quill
 
 ## Translations
 
-Please help to with translations using the [Weblate](https://toolate.othing.xyz/projects/quillpad/).
+Please help with translations using the [Weblate](https://toolate.othing.xyz/projects/quillpad/).
+
 <a href="https://toolate.othing.xyz/projects/quillpad/">
-<img src="https://toolate.othing.xyz/widget/quillpad/multi-auto.svg" alt="Translation status" />
+<img alt="Translation status" src="https://toolate.othing.xyz/widget/quillpad/multi-auto.svg"/>
 </a>
 
 You may also manually change translation files.

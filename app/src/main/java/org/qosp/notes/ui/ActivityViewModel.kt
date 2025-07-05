@@ -1,6 +1,7 @@
 package org.qosp.notes.ui
 
 import android.net.Uri
+import android.webkit.MimeTypeMap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
@@ -15,6 +16,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import me.msoul.datastore.defaultOf
 import org.qosp.notes.components.MediaStorageManager
 import org.qosp.notes.data.model.Note
@@ -171,6 +173,26 @@ class ActivityViewModel(
         val (uri, _) = mediaStorageManager.createMediaFile(type = MediaStorageManager.MediaType.IMAGE) ?: return null
         tempPhotoUri = uri
         return uri
+    }
+
+    /**
+     * Creates a file for the shared media in app's private storage
+     * @param uri The source URI of the media file
+     * @param mimeType The MIME type of the media
+     * @return The new URI in app's private storage, or null if creation failed
+     */
+    suspend fun copyMediaToPrivateStorage(uri: Uri, mimeType: String): Uri? = withContext(Dispatchers.IO) {
+        val mediaType = when {
+            mimeType.startsWith("image/") -> MediaStorageManager.MediaType.IMAGE
+            mimeType.startsWith("video/") -> MediaStorageManager.MediaType.VIDEO
+            mimeType.startsWith("audio/") -> MediaStorageManager.MediaType.AUDIO
+            else -> return@withContext null
+        }
+
+        val extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType)?.let { ".$it" }
+            ?: mediaType.defaultExtension
+
+        mediaStorageManager.createMediaFile(mediaType, extension)?.first
     }
 
     private inline fun update(
