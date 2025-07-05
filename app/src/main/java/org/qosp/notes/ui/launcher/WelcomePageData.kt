@@ -69,19 +69,6 @@ fun WelcomeContent(content: @Composable () -> Unit) {
     ) { content() }
 }
 
-// The first page that shows "New and updated. Swipe through to find out what is new"
-@Composable
-fun NewAndUpdated() {
-    Text(
-        text = stringResource(id = R.string.new_and_updated),
-        style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold, fontSize = 30.sp)
-    )
-    Text(
-        text = stringResource(id = R.string.swipe_to_find_out_whats_new),
-        style = MaterialTheme.typography.bodyLarge
-    )
-}
-
 @Composable
 fun WhatIsNew() {
     val context = LocalContext.current

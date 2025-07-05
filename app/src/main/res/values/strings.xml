@@ -322,7 +322,10 @@
     <string name="what_is_new">What\'s new?</string>
     <string name="continue_next">Continue</string>
     <string name="swipe_to_find_out_whats_new">Swipe through to find out what\'s new</string>
-    <string name="what_is_new_content" translatable="false">Fixed bugs related to reminders</string>
+    <string name="what_is_new_content" translatable="false">Ability to share photo/video/audio from other
+        apps.\nRemember: Backup
+        your notes before updating Quillpad the next time
+    </string>
 
     <plurals name="more_items">
         <item quantity="one">+%d item</item>
