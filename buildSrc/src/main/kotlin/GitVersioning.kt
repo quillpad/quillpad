@@ -1,7 +1,9 @@
 import org.gradle.api.Project
 import java.io.ByteArrayOutputStream
 
-private const val VERSION_BOOST = 1
+// Every time you make a mistake in uploading the AppBundle to Google play console & can't reuse the version code,
+// increate the below number.
+private const val VERSION_BOOST = 2
 
 /**
  * Get the version code from the count of git tags
