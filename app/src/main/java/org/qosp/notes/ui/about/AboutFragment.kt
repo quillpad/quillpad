@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
-import dagger.hilt.android.AndroidEntryPoint
 import io.noties.markwon.Markwon
+import org.koin.android.ext.android.inject
 import org.qosp.notes.BuildConfig
 import org.qosp.notes.R
 import org.qosp.notes.databinding.FragmentAboutBinding
@@ -15,9 +15,7 @@ import org.qosp.notes.ui.common.BaseDialog
 import org.qosp.notes.ui.common.BaseFragment
 import org.qosp.notes.ui.utils.liftAppBarOnScroll
 import org.qosp.notes.ui.utils.viewBinding
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class AboutFragment : BaseFragment(resId = R.layout.fragment_about) {
     private val binding by viewBinding(FragmentAboutBinding::bind)
 
@@ -27,8 +25,7 @@ class AboutFragment : BaseFragment(resId = R.layout.fragment_about) {
     override val toolbarTitle: String
         get() = getString(R.string.nav_about)
 
-    @Inject
-    lateinit var markwon: Markwon
+    val markwon: Markwon by inject()
 
     private fun launchUrl(url: String) {
         val intent = Intent(Intent.ACTION_VIEW)

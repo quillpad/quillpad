@@ -3,10 +3,13 @@ package org.qosp.notes.data
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.qosp.notes.data.model.*
+import org.qosp.notes.data.model.IdMapping
+import org.qosp.notes.data.model.Note
+import org.qosp.notes.data.model.NoteTagJoin
+import org.qosp.notes.data.model.Notebook
+import org.qosp.notes.data.model.Reminder
+import org.qosp.notes.data.model.Tag
 
 @Serializable
 @Parcelize

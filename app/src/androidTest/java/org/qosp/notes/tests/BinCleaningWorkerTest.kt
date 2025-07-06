@@ -1,53 +1,28 @@
 package org.qosp.notes.tests
 
 import android.content.Context
-import androidx.hilt.work.HiltWorkerFactory
-import androidx.work.testing.TestListenableWorkerBuilder
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertTrue
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import org.qosp.notes.components.workers.BinCleaningWorker
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.preferences.NoteDeletionTime
 import org.qosp.notes.preferences.PreferenceRepository
 import java.time.Instant
-import javax.inject.Inject
 import kotlin.time.Duration.Companion.days
 
-@HiltAndroidTest
-class BinCleaningWorkerTest {
-    private lateinit var worker: BinCleaningWorker
+class BinCleaningWorkerTest : KoinComponent {
+    val worker: BinCleaningWorker by inject()
 
-    @Inject
-    @ApplicationContext
-    lateinit var context: Context
+    val context: Context by inject()
 
-    @Inject
-    lateinit var preferenceRepository: PreferenceRepository
+    val preferenceRepository: PreferenceRepository by inject()
 
-    @Inject
-    lateinit var noteRepository: NoteRepository
-
-    @Inject
-    lateinit var workerFactory: HiltWorkerFactory
-
-    @get:Rule
-    var hiltRule = HiltAndroidRule(this)
-
-    @Before
-    fun prepare() {
-        hiltRule.inject()
-        worker = TestListenableWorkerBuilder<BinCleaningWorker>(context)
-            .setWorkerFactory(workerFactory)
-            .build()
-    }
+    val noteRepository: NoteRepository by inject()
 
     @Test
     @Throws(Exception::class)

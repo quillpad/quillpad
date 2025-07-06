@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.os.bundleOf
@@ -16,41 +15,49 @@ import androidx.core.view.children
 import androidx.core.view.get
 import androidx.core.view.size
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.runBlocking
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.qosp.notes.R
 import org.qosp.notes.components.backup.BackupService
 import org.qosp.notes.data.model.Attachment
 import org.qosp.notes.data.model.Notebook
-import org.qosp.notes.data.sync.core.SyncManager
+import org.qosp.notes.data.sync.core.BackendProvider
+import org.qosp.notes.data.sync.fs.StorageConfig
+import org.qosp.notes.data.sync.fs.toFriendlyString
+import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
 import org.qosp.notes.databinding.ActivityMainBinding
+import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.SortNavdrawerNotebooksMethod
 import org.qosp.notes.ui.attachments.fromUri
 import org.qosp.notes.ui.utils.closeAndThen
 import org.qosp.notes.ui.utils.collect
 import org.qosp.notes.ui.utils.hideKeyboard
 import org.qosp.notes.ui.utils.navigateSafely
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navController: NavController
 
     private lateinit var binding: ActivityMainBinding
-    private val activityModel: ActivityViewModel by viewModels()
+    private val activityModel: ActivityViewModel by viewModel()
+    private val backendProvider by inject<BackendProvider>()
 
     private val topLevelMenu get() = binding.navigationView.menu
     private val notebooksMenu get() = topLevelMenu.findItem(R.id.menu_notebooks).subMenu
@@ -70,9 +77,6 @@ class MainActivity : BaseActivity() {
         R.id.fragment_settings,
         R.id.fragment_tags,
     )
-
-    @Inject
-    lateinit var syncManager: SyncManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -233,6 +237,7 @@ class MainActivity : BaseActivity() {
                     }
                 }
             }
+
             else -> navController.handleDeepLink(intent)
         }
     }
@@ -255,15 +260,39 @@ class MainActivity : BaseActivity() {
                 navController.navigateSafely(R.id.fragment_sync_settings)
             }
         }
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                backendProvider.syncProvider.collect { backend ->
+                    when (backend?.type) {
+                        CloudService.NEXTCLOUD -> {
+                            NextcloudConfig.fromPreferences(preferenceRepository)
+                                .filterNotNull().firstOrNull()?.let { config ->
+                                    textViewUsername.text = config.username
+                                    textViewProvider.text = getString(R.string.preferences_cloud_service_nextcloud)
+                                }
+                        }
 
-        syncManager.config
-            .collect(this@MainActivity) { config ->
-                textViewUsername.text =
-                    config?.username ?: getString(R.string.indicator_offline_account)
-                textViewProvider.text = getString(
-                    config?.provider?.nameResource ?: R.string.preferences_currently_not_syncing
-                )
+                        CloudService.FILE_STORAGE -> {
+                            val uri = StorageConfig.storageLocation(preferenceRepository)
+                                .filterNotNull().firstOrNull()?.location
+                            if (uri != null && uri.toString().isNotEmpty()) {
+                                textViewUsername.text =
+                                    uri.toFriendlyString(applicationContext)
+                                textViewProvider.text = getString(R.string.preferences_cloud_service_files)
+                            } else {
+                                textViewUsername.text = getString(R.string.preferences_cloud_service)
+                                textViewProvider.text = getString(R.string.preferences_cloud_service_disabled)
+                            }
+                        }
+
+                        CloudService.DISABLED, null -> {
+                            textViewUsername.text = getString(R.string.preferences_cloud_service)
+                            textViewProvider.text = getString(R.string.preferences_cloud_service_disabled)
+                        }
+                    }
+                }
             }
+        }
     }
 
     private fun selectCurrentDestinationMenuItem(

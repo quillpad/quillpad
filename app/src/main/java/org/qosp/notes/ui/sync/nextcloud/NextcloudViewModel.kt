@@ -3,22 +3,18 @@ package org.qosp.notes.ui.sync.nextcloud
 import android.webkit.URLUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.qosp.notes.data.sync.core.BaseResult
-import org.qosp.notes.data.sync.core.Success
-import org.qosp.notes.data.sync.core.SyncManager
+import org.qosp.notes.data.sync.nextcloud.BackendValidationResult
 import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
+import org.qosp.notes.data.sync.nextcloud.ValidateNextcloud
 import org.qosp.notes.preferences.PreferenceRepository
-import javax.inject.Inject
 
-@HiltViewModel
-class NextcloudViewModel @Inject constructor(
+class NextcloudViewModel(
     private val preferenceRepository: PreferenceRepository,
-    private val syncManager: SyncManager,
+    private val validateNextcloud: ValidateNextcloud,
 ) : ViewModel() {
 
     val username = preferenceRepository.getEncryptedString(PreferenceRepository.NEXTCLOUD_USERNAME)
@@ -33,20 +29,20 @@ class NextcloudViewModel @Inject constructor(
         )
     }
 
-    suspend fun authenticate(username: String, password: String): BaseResult {
+    suspend fun authenticate(username: String, password: String): BackendValidationResult {
         val config = NextcloudConfig(
             username = username,
             password = password,
             remoteAddress = preferenceRepository.getEncryptedString(PreferenceRepository.NEXTCLOUD_INSTANCE_URL).first()
         )
 
-        val response: BaseResult = withContext(Dispatchers.IO) {
-            val loginResult = syncManager.authenticate(config)
-            if (loginResult == Success) syncManager.isServerCompatible(config) else loginResult
+        val response: BackendValidationResult = withContext(Dispatchers.IO) {
+            val loginResult = validateNextcloud(config)
+            loginResult
         }
 
         return response.also {
-            if (it == Success) {
+            if (it == BackendValidationResult.Success) {
                 preferenceRepository.putEncryptedStrings(
                     PreferenceRepository.NEXTCLOUD_USERNAME to username,
                     PreferenceRepository.NEXTCLOUD_PASSWORD to password,

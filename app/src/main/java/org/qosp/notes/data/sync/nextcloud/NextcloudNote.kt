@@ -1,4 +1,4 @@
-package org.qosp.notes.data.sync.nextcloud.model
+package org.qosp.notes.data.sync.nextcloud
 
 import kotlinx.serialization.Serializable
 
@@ -6,10 +6,11 @@ import kotlinx.serialization.Serializable
 data class NextcloudNote(
     val id: Long,
     val etag: String? = null,
-    val content: String,
+    val content: String?,
     val title: String,
     val category: String,
     val favorite: Boolean,
-    val modified: Long,
+    val modified: Long, // seconds
     val readOnly: Boolean? = null,
+    val remoteId: String = id.toString(),
 )

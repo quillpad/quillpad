@@ -1,35 +1,21 @@
 package org.qosp.notes.tests
 
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import org.qosp.notes.components.MediaStorageManager
 import org.qosp.notes.data.model.Attachment
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.repo.NoteRepository
 import java.io.IOException
-import javax.inject.Inject
 
-@HiltAndroidTest
-class MediaStorageManagerTest {
-    @Inject
-    lateinit var noteRepository: NoteRepository
-    @Inject
-    lateinit var mediaStorageManager: MediaStorageManager
-
-    @get:Rule
-    var hiltRule = HiltAndroidRule(this)
-
-    @Before
-    fun init() {
-        hiltRule.inject()
-    }
+class MediaStorageManagerTest: KoinComponent {
+    val noteRepository: NoteRepository by inject()
+    val mediaStorageManager: MediaStorageManager by inject()
 
     @Test
     @Throws(Exception::class)

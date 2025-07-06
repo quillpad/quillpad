@@ -1,3 +1,4 @@
+# indicate this is the root of the project
 root = true
 
 [*]
@@ -5,6 +6,13 @@ charset = utf-8
 end_of_line = lf
 # indent_size = 2
 indent_style = space
+indent_size = 4
+
+[{*.yml,*.yaml}]
+indent_size = 2
+
+[*.{kt,java,gradle,md}]
+trim_trailing_whitespace = true
 insert_final_newline = true
 max_line_length = 120
 # tab_width = 2
@@ -13,10 +21,10 @@ max_line_length = 120
 # ij_formatter_on_tag = @formatter:on
 # ij_formatter_tags_enabled = true
 # ij_smart_tabs = false
-# ij_visual_guides = 
+# ij_visual_guides =
 # ij_wrap_on_typing = false
 
-[{*.ant,*.fxml,*.jhm,*.jnlp,*.jrxml,*.rng,*.tld,*.wsdl,*.xml,*.xsd,*.xsl,*.xslt,*.xul}]
+[*.xml]
 ij_continuation_indent_size = 4
 ij_xml_align_attributes = true
 # ij_xml_align_text = false
@@ -38,7 +46,6 @@ ij_xml_text_wrap = normal
 # ij_xml_use_custom_settings = true
 
 [{*.kt,*.kts}]
-indent_size = 4
 tab_width = 4
 # ij_continuation_indent_size = 8
 # ij_kotlin_align_in_columns_case_branch = false
@@ -75,7 +82,7 @@ tab_width = 4
 # ij_kotlin_finally_on_new_line = false
 # ij_kotlin_if_rparen_on_new_line = true
 # ij_kotlin_import_nested_classes = false
-# ij_kotlin_imports_layout = *,java.**,javax.**,kotlin.**,^
+ij_kotlin_imports_layout = *,java.**,javax.**,kotlin.**,^
 # ij_kotlin_insert_whitespaces_in_simple_one_line_method = true
 # ij_kotlin_keep_blank_lines_before_right_brace = 2
 # ij_kotlin_keep_blank_lines_in_code = 2
@@ -93,9 +100,9 @@ tab_width = 4
 # ij_kotlin_method_parameters_new_line_after_left_paren = true
 # ij_kotlin_method_parameters_right_paren_on_new_line = true
 # ij_kotlin_method_parameters_wrap = on_every_item
-ij_kotlin_name_count_to_use_star_import = 2147483647
-ij_kotlin_name_count_to_use_star_import_for_members = 2147483647
-# ij_kotlin_packages_to_use_import_on_demand = 
+ij_kotlin_name_count_to_use_star_import = 1000
+ij_kotlin_name_count_to_use_star_import_for_members = 1000
+# ij_kotlin_packages_to_use_import_on_demand =
 # ij_kotlin_parameter_annotation_wrap = off
 # ij_kotlin_space_after_comma = true
 # ij_kotlin_space_after_extend_colon = true

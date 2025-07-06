@@ -1,7 +1,6 @@
 package org.qosp.notes.ui.search
 
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.debounce
@@ -13,19 +12,17 @@ import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.data.repo.NotebookRepository
-import org.qosp.notes.data.sync.core.SyncManager
+import org.qosp.notes.data.sync.core.BackendProvider
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.preferences.SortMethod
 import org.qosp.notes.ui.common.AbstractNotesViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class SearchViewModel @Inject constructor(
+class SearchViewModel(
     noteRepository: NoteRepository,
     notebookRepository: NotebookRepository,
     preferenceRepository: PreferenceRepository,
-    syncManager: SyncManager,
-) : AbstractNotesViewModel(preferenceRepository, syncManager) {
+    backendProvider: BackendProvider,
+) : AbstractNotesViewModel(preferenceRepository, backendProvider) {
     private val searchKeyData: MutableStateFlow<String> = MutableStateFlow("")
 
     var isFirstLoad = true

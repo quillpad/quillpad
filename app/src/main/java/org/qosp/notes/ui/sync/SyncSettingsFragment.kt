@@ -1,12 +1,15 @@
 package org.qosp.notes.ui.sync
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
-import dagger.hilt.android.AndroidEntryPoint
+import androidx.core.net.toUri
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.qosp.notes.R
+import org.qosp.notes.data.sync.fs.toFriendlyString
 import org.qosp.notes.databinding.FragmentSyncSettingsBinding
 import org.qosp.notes.preferences.AppPreferences
 import org.qosp.notes.preferences.CloudService
@@ -16,14 +19,14 @@ import org.qosp.notes.ui.settings.SettingsViewModel
 import org.qosp.notes.ui.settings.showPreferenceDialog
 import org.qosp.notes.ui.sync.nextcloud.NextcloudAccountDialog
 import org.qosp.notes.ui.sync.nextcloud.NextcloudServerDialog
+import org.qosp.notes.ui.utils.StorageLocationContract
 import org.qosp.notes.ui.utils.collect
 import org.qosp.notes.ui.utils.liftAppBarOnScroll
 import org.qosp.notes.ui.utils.viewBinding
 
-@AndroidEntryPoint
 class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
     private val binding by viewBinding(FragmentSyncSettingsBinding::bind)
-    private val model: SettingsViewModel by activityViewModels()
+    private val model: SettingsViewModel by activityViewModel()
 
     override val hasMenu = false
     override val toolbar: Toolbar
@@ -32,8 +35,18 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
         get() = getString(R.string.preferences_header_syncing)
 
     private var appPreferences = AppPreferences()
-
     private var nextcloudUrl = ""
+    private var storageLocation: Uri? = null
+
+    private val locationListener = registerForActivityResult(StorageLocationContract) { uri ->
+        uri?.let {
+            model.setEncryptedString(PreferenceRepository.STORAGE_LOCATION, it.toString())
+            Log.i(TAG, "Storing location: $it")
+            val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            context?.contentResolver?.takePersistableUriPermission(it, takeFlags)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,8 +55,6 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
             binding.layoutAppBar.appBar,
             requireContext().resources.getDimension(R.dimen.app_bar_elevation)
         )
-
-        setProviderSettingsVisibility(appPreferences.cloudService)
 
         setupPreferenceObservers()
         setupSyncServiceListener()
@@ -54,25 +65,35 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
         setupNextcloudServerListener()
         setupNextcloudAccountListener()
         setupClearNextcloudCredentialsListener()
+
+        setupLocalLocationListener()
     }
 
-    private fun setupPreferenceObservers() {
-        model.appPreferences.collect(viewLifecycleOwner) {
-            appPreferences = it
+    private fun View.show(visible: Boolean) = if (visible) visibility = View.VISIBLE else visibility = View.GONE
 
-            with(appPreferences) {
-                binding.settingSyncProvider.subText = getString(cloudService.nameResource)
-                setProviderSettingsVisibility(cloudService)
-                binding.settingSyncMode.subText = getString(syncMode.nameResource)
-                binding.settingBackgroundSync.subText = getString(backgroundSync.nameResource)
-                binding.settingNotesSyncableByDefault.subText = getString(newNotesSyncable.nameResource)
-            }
+    private fun setupPreferenceObservers() {
+        model.appPreferences.collect(viewLifecycleOwner) { prefs ->
+            appPreferences = prefs
+
+            // Update visibility of layouts based on cloud service
+            binding.layoutGenericSettings.show(prefs.cloudService == CloudService.NEXTCLOUD)
+            binding.layoutNextcloudSettings.show(prefs.cloudService == CloudService.NEXTCLOUD)
+            binding.layoutStorageSettings.show(prefs.cloudService == CloudService.FILE_STORAGE)
+            binding.settingSyncMode.show(prefs.cloudService == CloudService.NEXTCLOUD)
+            binding.settingBackgroundSync.show(prefs.cloudService == CloudService.NEXTCLOUD)
+            binding.settingNotesSyncableByDefault.show(prefs.cloudService == CloudService.NEXTCLOUD)
+
+            binding.settingSyncProvider.subText = getString(prefs.cloudService.nameResource)
+            binding.settingSyncMode.subText = getString(prefs.syncMode.nameResource)
+            binding.settingBackgroundSync.subText = getString(prefs.backgroundSync.nameResource)
+            binding.settingNotesSyncableByDefault.subText = getString(prefs.newNotesSyncable.nameResource)
         }
 
         // ENCRYPTED
         model.getEncryptedString(PreferenceRepository.NEXTCLOUD_INSTANCE_URL).collect(viewLifecycleOwner) {
             nextcloudUrl = it
-            binding.settingNextcloudServer.subText = nextcloudUrl.ifEmpty { getString(R.string.preferences_nextcloud_set_server_url) }
+            binding.settingNextcloudServer.subText =
+                nextcloudUrl.ifEmpty { getString(R.string.preferences_nextcloud_set_server_url) }
         }
 
         model.loggedInUsername.collect(viewLifecycleOwner) {
@@ -82,6 +103,17 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
                 getString(R.string.preferences_nextcloud_set_your_credentials)
             }
         }
+
+        model.getEncryptedString(PreferenceRepository.STORAGE_LOCATION).collect(viewLifecycleOwner) { u ->
+            val uri = u.toUri()
+            storageLocation = uri
+            val appName = if (u.isNotBlank()) context?.let { uri.toFriendlyString(it) } else null
+            binding.settingStorageLocation.subText = appName ?: getString(R.string.preferences_file_storage_select)
+        }
+    }
+
+    private fun setupLocalLocationListener() = binding.settingStorageLocation.setOnClickListener {
+        locationListener.launch(storageLocation)
     }
 
     private fun setupNextcloudServerListener() = binding.settingNextcloudServer.setOnClickListener {
@@ -111,16 +143,15 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
     }
 
     private fun setupNewNotesSyncableListener() = binding.settingNotesSyncableByDefault.setOnClickListener {
-        showPreferenceDialog(R.string.preferences_new_notes_synchronizable, appPreferences.newNotesSyncable) { selected ->
+        showPreferenceDialog(
+            R.string.preferences_new_notes_synchronizable,
+            appPreferences.newNotesSyncable
+        ) { selected ->
             model.setPreference(selected)
         }
     }
 
     private fun setupClearNextcloudCredentialsListener() = binding.settingNextcloudClearCredentials.setOnClickListener {
         model.clearNextcloudCredentials()
-    }
-    private fun setProviderSettingsVisibility(currentProvider: CloudService) {
-        binding.layoutNextcloudSettings.isVisible = currentProvider == CloudService.NEXTCLOUD
-        binding.layoutGenericSettings.isVisible = currentProvider != CloudService.DISABLED
     }
 }

@@ -17,8 +17,11 @@ import io.noties.markwon.image.AsyncDrawableLoader
 import io.noties.markwon.image.AsyncDrawableScheduler
 import io.noties.markwon.image.DrawableUtils
 import io.noties.markwon.image.ImageSpanFactory
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.runBlocking
 import org.commonmark.node.Image
-import org.qosp.notes.data.sync.core.SyncManager
+import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
+import org.qosp.notes.preferences.PreferenceRepository
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -125,15 +128,17 @@ class CoilImagesPlugin internal constructor(coilStore: CoilStore, imageLoader: I
     }
 
     companion object {
-        fun create(context: Context, syncManager: SyncManager): CoilImagesPlugin {
+        fun create(context: Context, preferenceRepository: PreferenceRepository): CoilImagesPlugin {
             return create(
                 object : CoilStore {
                     override fun load(drawable: AsyncDrawable): ImageRequest {
                         return ImageRequest.Builder(context)
                             .data(drawable.destination)
                             .apply {
-                                syncManager.config.value?.authenticationHeaders?.forEach { (key, value) ->
-                                    addHeader(key, value)
+                                runBlocking {
+                                    (NextcloudConfig.fromPreferences(preferenceRepository).firstOrNull())
+                                    ?.authenticationHeaders
+                                    ?.forEach { (key, value) -> addHeader(key, value) }
                                 }
                             }
                             .build()

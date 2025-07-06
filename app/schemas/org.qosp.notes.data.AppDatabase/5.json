@@ -1,0 +1,427 @@
+{
+    "formatVersion": 1,
+    "database": {
+        "version": 5,
+        "identityHash": "39f0553b6701ada1e9c87863b6de49a0",
+        "entities": [
+            {
+                "tableName": "notes",
+                "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`title` TEXT NOT NULL, `content` TEXT NOT NULL, `isList` INTEGER NOT NULL, `taskList` TEXT NOT NULL, `isArchived` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `isPinned` INTEGER NOT NULL, `isHidden` INTEGER NOT NULL, `isMarkdownEnabled` INTEGER NOT NULL, `isLocalOnly` INTEGER NOT NULL, `isCompactPreview` INTEGER NOT NULL, `screenAlwaysOn` INTEGER NOT NULL, `creationDate` INTEGER NOT NULL, `modifiedDate` INTEGER NOT NULL, `deletionDate` INTEGER, `attachments` TEXT NOT NULL, `color` TEXT NOT NULL, `notebookId` INTEGER, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`notebookId`) REFERENCES `notebooks`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL )",
+                "fields": [
+                    {
+                        "fieldPath": "title",
+                        "columnName": "title",
+                        "affinity": "TEXT",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "content",
+                        "columnName": "content",
+                        "affinity": "TEXT",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "isList",
+                        "columnName": "isList",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "taskList",
+                        "columnName": "taskList",
+                        "affinity": "TEXT",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "isArchived",
+                        "columnName": "isArchived",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "isDeleted",
+                        "columnName": "isDeleted",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "isPinned",
+                        "columnName": "isPinned",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "isHidden",
+                        "columnName": "isHidden",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "isMarkdownEnabled",
+                        "columnName": "isMarkdownEnabled",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "isLocalOnly",
+                        "columnName": "isLocalOnly",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "isCompactPreview",
+                        "columnName": "isCompactPreview",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "screenAlwaysOn",
+                        "columnName": "screenAlwaysOn",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "creationDate",
+                        "columnName": "creationDate",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "modifiedDate",
+                        "columnName": "modifiedDate",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "deletionDate",
+                        "columnName": "deletionDate",
+                        "affinity": "INTEGER",
+                        "notNull": false
+                    },
+                    {
+                        "fieldPath": "attachments",
+                        "columnName": "attachments",
+                        "affinity": "TEXT",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "color",
+                        "columnName": "color",
+                        "affinity": "TEXT",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "notebookId",
+                        "columnName": "notebookId",
+                        "affinity": "INTEGER",
+                        "notNull": false
+                    },
+                    {
+                        "fieldPath": "id",
+                        "columnName": "id",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    }
+                ],
+                "primaryKey": {
+                    "autoGenerate": true,
+                    "columnNames": [
+                        "id"
+                    ]
+                },
+                "indices": [
+                    {
+                        "name": "index_notes_notebookId",
+                        "unique": false,
+                        "columnNames": [
+                            "notebookId"
+                        ],
+                        "orders": [],
+                        "createSql": "CREATE INDEX IF NOT EXISTS `index_notes_notebookId` ON `${TABLE_NAME}` (`notebookId`)"
+                    }
+                ],
+                "foreignKeys": [
+                    {
+                        "table": "notebooks",
+                        "onDelete": "SET NULL",
+                        "onUpdate": "NO ACTION",
+                        "columns": [
+                            "notebookId"
+                        ],
+                        "referencedColumns": [
+                            "id"
+                        ]
+                    }
+                ]
+            },
+            {
+                "tableName": "note_tags",
+                "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tagId` INTEGER NOT NULL, `noteId` INTEGER NOT NULL, PRIMARY KEY(`noteId`, `tagId`), FOREIGN KEY(`noteId`) REFERENCES `notes`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`tagId`) REFERENCES `tags`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+                "fields": [
+                    {
+                        "fieldPath": "tagId",
+                        "columnName": "tagId",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "noteId",
+                        "columnName": "noteId",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    }
+                ],
+                "primaryKey": {
+                    "autoGenerate": false,
+                    "columnNames": [
+                        "noteId",
+                        "tagId"
+                    ]
+                },
+                "indices": [
+                    {
+                        "name": "index_note_tags_tagId",
+                        "unique": false,
+                        "columnNames": [
+                            "tagId"
+                        ],
+                        "orders": [],
+                        "createSql": "CREATE INDEX IF NOT EXISTS `index_note_tags_tagId` ON `${TABLE_NAME}` (`tagId`)"
+                    },
+                    {
+                        "name": "index_note_tags_noteId",
+                        "unique": false,
+                        "columnNames": [
+                            "noteId"
+                        ],
+                        "orders": [],
+                        "createSql": "CREATE INDEX IF NOT EXISTS `index_note_tags_noteId` ON `${TABLE_NAME}` (`noteId`)"
+                    }
+                ],
+                "foreignKeys": [
+                    {
+                        "table": "notes",
+                        "onDelete": "CASCADE",
+                        "onUpdate": "NO ACTION",
+                        "columns": [
+                            "noteId"
+                        ],
+                        "referencedColumns": [
+                            "id"
+                        ]
+                    },
+                    {
+                        "table": "tags",
+                        "onDelete": "CASCADE",
+                        "onUpdate": "CASCADE",
+                        "columns": [
+                            "tagId"
+                        ],
+                        "referencedColumns": [
+                            "id"
+                        ]
+                    }
+                ]
+            },
+            {
+                "tableName": "notebooks",
+                "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`notebookName` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+                "fields": [
+                    {
+                        "fieldPath": "name",
+                        "columnName": "notebookName",
+                        "affinity": "TEXT",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "id",
+                        "columnName": "id",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    }
+                ],
+                "primaryKey": {
+                    "autoGenerate": true,
+                    "columnNames": [
+                        "id"
+                    ]
+                },
+                "indices": [],
+                "foreignKeys": []
+            },
+            {
+                "tableName": "tags",
+                "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+                "fields": [
+                    {
+                        "fieldPath": "name",
+                        "columnName": "name",
+                        "affinity": "TEXT",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "id",
+                        "columnName": "id",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    }
+                ],
+                "primaryKey": {
+                    "autoGenerate": true,
+                    "columnNames": [
+                        "id"
+                    ]
+                },
+                "indices": [],
+                "foreignKeys": []
+            },
+            {
+                "tableName": "reminders",
+                "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `noteId` INTEGER NOT NULL, `date` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`noteId`) REFERENCES `notes`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+                "fields": [
+                    {
+                        "fieldPath": "name",
+                        "columnName": "name",
+                        "affinity": "TEXT",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "noteId",
+                        "columnName": "noteId",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "date",
+                        "columnName": "date",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "id",
+                        "columnName": "id",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    }
+                ],
+                "primaryKey": {
+                    "autoGenerate": true,
+                    "columnNames": [
+                        "id"
+                    ]
+                },
+                "indices": [
+                    {
+                        "name": "index_reminders_noteId",
+                        "unique": false,
+                        "columnNames": [
+                            "noteId"
+                        ],
+                        "orders": [],
+                        "createSql": "CREATE INDEX IF NOT EXISTS `index_reminders_noteId` ON `${TABLE_NAME}` (`noteId`)"
+                    }
+                ],
+                "foreignKeys": [
+                    {
+                        "table": "notes",
+                        "onDelete": "CASCADE",
+                        "onUpdate": "NO ACTION",
+                        "columns": [
+                            "noteId"
+                        ],
+                        "referencedColumns": [
+                            "id"
+                        ]
+                    }
+                ]
+            },
+            {
+                "tableName": "cloud_ids",
+                "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mappingId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `localNoteId` INTEGER NOT NULL, `remoteNoteId` INTEGER, `provider` TEXT, `extras` TEXT, `isDeletedLocally` INTEGER NOT NULL, `isBeingUpdated` INTEGER NOT NULL, `storageUri` TEXT)",
+                "fields": [
+                    {
+                        "fieldPath": "mappingId",
+                        "columnName": "mappingId",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "localNoteId",
+                        "columnName": "localNoteId",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "remoteNoteId",
+                        "columnName": "remoteNoteId",
+                        "affinity": "INTEGER",
+                        "notNull": false
+                    },
+                    {
+                        "fieldPath": "provider",
+                        "columnName": "provider",
+                        "affinity": "TEXT",
+                        "notNull": false
+                    },
+                    {
+                        "fieldPath": "extras",
+                        "columnName": "extras",
+                        "affinity": "TEXT",
+                        "notNull": false
+                    },
+                    {
+                        "fieldPath": "isDeletedLocally",
+                        "columnName": "isDeletedLocally",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "isBeingUpdated",
+                        "columnName": "isBeingUpdated",
+                        "affinity": "INTEGER",
+                        "notNull": true
+                    },
+                    {
+                        "fieldPath": "storageUri",
+                        "columnName": "storageUri",
+                        "affinity": "TEXT",
+                        "notNull": false
+                    }
+                ],
+                "primaryKey": {
+                    "autoGenerate": true,
+                    "columnNames": [
+                        "mappingId"
+                    ]
+                },
+                "indices": [
+                    {
+                        "name": "cloud_ids_id_index",
+                        "unique": false,
+                        "columnNames": [
+                            "localNoteId"
+                        ],
+                        "orders": [],
+                        "createSql": "CREATE INDEX IF NOT EXISTS `cloud_ids_id_index` ON `${TABLE_NAME}` (`localNoteId`)"
+                    },
+                    {
+                        "name": "cloud_ids_id_provider_index",
+                        "unique": false,
+                        "columnNames": [
+                            "localNoteId",
+                            "provider"
+                        ],
+                        "orders": [],
+                        "createSql": "CREATE INDEX IF NOT EXISTS `cloud_ids_id_provider_index` ON `${TABLE_NAME}` (`localNoteId`, `provider`)"
+                    }
+                ],
+                "foreignKeys": []
+            }
+        ],
+        "views": [],
+        "setupQueries": [
+            "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+            "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '39f0553b6701ada1e9c87863b6de49a0')"
+        ]
+    }
+}

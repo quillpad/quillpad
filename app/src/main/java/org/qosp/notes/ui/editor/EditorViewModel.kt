@@ -2,11 +2,8 @@ package org.qosp.notes.ui.editor
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -26,26 +23,26 @@ import org.qosp.notes.data.model.NoteTask
 import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.data.repo.NotebookRepository
-import org.qosp.notes.data.sync.core.SyncManager
-import org.qosp.notes.preferences.*
+import org.qosp.notes.preferences.DateFormat
+import org.qosp.notes.preferences.MoveCheckedItems
+import org.qosp.notes.preferences.NewNotesSyncable
+import org.qosp.notes.preferences.OpenMediaIn
+import org.qosp.notes.preferences.PreferenceRepository
+import org.qosp.notes.preferences.ShowDate
+import org.qosp.notes.preferences.ShowFabChangeMode
+import org.qosp.notes.preferences.TimeFormat
 import java.time.Instant
-import javax.inject.Inject
 
-@HiltViewModel
-class EditorViewModel @Inject constructor(
+class EditorViewModel(
     private val noteRepository: NoteRepository,
     private val notebookRepository: NotebookRepository,
-    private val syncManager: SyncManager,
     private val preferenceRepository: PreferenceRepository,
 ) : ViewModel() {
 
     var inEditMode: Boolean = false
     var isNotInitialized = true
     var moveCheckedItems: Boolean = true
-
-    private var syncJob: Job? = null
     private val noteIdFlow: MutableStateFlow<Long?> = MutableStateFlow(null)
-
     var selectedRange = 0 to 0
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -176,15 +173,7 @@ class EditorViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val note = data.value.note ?: return@launch
             val new = transform(note)
-            noteRepository.updateNotes(new, shouldSync = false)
-
-            if (new.isLocalOnly) return@launch
-
-            syncJob?.cancel()
-            syncJob = launch {
-                delay(300L) // To prevent multiple requests
-                syncManager.updateOrCreate(new)
-            }
+            noteRepository.updateNotes(new)
         }
     }
 
@@ -200,3 +189,5 @@ class EditorViewModel @Inject constructor(
         val moveCheckedItems: Boolean = true,
     )
 }
+
+private const val TAG = "EditorViewModel"

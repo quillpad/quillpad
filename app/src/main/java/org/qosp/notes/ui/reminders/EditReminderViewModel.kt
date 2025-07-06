@@ -2,7 +2,6 @@ package org.qosp.notes.ui.reminders
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -10,10 +9,8 @@ import org.qosp.notes.data.model.Reminder
 import org.qosp.notes.data.repo.ReminderRepository
 import org.qosp.notes.preferences.PreferenceRepository
 import java.time.ZonedDateTime
-import javax.inject.Inject
 
-@HiltViewModel
-class EditReminderViewModel @Inject constructor(
+class EditReminderViewModel(
     private val reminderRepository: ReminderRepository,
     private val reminderManager: ReminderManager,
     preferenceRepository: PreferenceRepository

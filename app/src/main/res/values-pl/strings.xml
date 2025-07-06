@@ -64,8 +64,7 @@
     <string name="preferences_cloud_service">Usługa synchronizacji</string>
     <string name="preferences_cloud_service_disabled">Wyłączona</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_sync_experimental_warning">Synchronizacja jest w fazie eksperynetalnej.\nMożesz napotkać błędy.</string>
-    <string name="preferences_nextcloud_limited_features">Pamiętaj że notatki Nextcloud nie wspierają funkcji takich jak znaczniki, załączniki, przypomnienia, listy zadań itd.</string>
+  <string name="preferences_nextcloud_limited_features">Pamiętaj że notatki Nextcloud nie wspierają funkcji takich jak znaczniki, załączniki, przypomnienia, listy zadań itd.</string>
     <string name="preferences_nextcloud_account">Konto Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">Adres URL instancji Nextcloud</string>
     <string name="preferences_nextcloud_set_your_credentials">Ustaw dane logowania</string>
@@ -264,6 +263,12 @@
         <item quantity="many"></item>
         <item quantity="other"></item>
     </plurals>
+  <string name="preferences_cloud_service_files">Nośnik danych</string>
+  <string name="preferences_file_storage_info">Wybierz folder z pamięci lokalnej lub od dostawcy usług w chmurze.
+    Wszystkie notatki będą przechowywane jako pliki Markdown.
+  </string>
+  <string name="preferences_file_storage_location">Miejsce przechowywania</string>
+  <string name="preferences_file_storage_select">Wybierz lokalizację przechowywania</string>
     <string name="preferences_color_scheme_system">Zgodny z systemem</string>
     <string name="new_and_updated">Nytt og oppdatert!</string>
     <string name="what_is_new">Hva er nytt?</string>

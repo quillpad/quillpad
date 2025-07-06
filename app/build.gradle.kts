@@ -1,13 +1,11 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.kapt)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinParcelize)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.navigationSafeArgs)
-    alias(libs.plugins.hiltAndroid)
 }
 
 android {
@@ -48,12 +46,6 @@ android {
                 "zh-rTW"
             )
         )
-
-        // export schema
-        // https://stackoverflow.com/a/44645943/4594587
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
     }
 
     dependenciesInfo {
@@ -115,17 +107,26 @@ android {
         buildConfig = true
     }
 
-    kapt {
-        javacOptions {
-            option("-Adagger.fastInit=ENABLED")
-            option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
-        }
+    packaging {
+        resources.excludes.addAll(
+            listOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+            )
+        )
     }
-
     sourceSets {
         // Adds exported schema location as test app assets.
         getByName("androidTest").assets.srcDirs(files("$projectDir/schemas"))
     }
+}
+
+// export schema
+// https://stackoverflow.com/a/44645943/4594587
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("KOIN_CONFIG_CHECK", "true")
+    arg("KOIN_DEFAULT_MODULE", "true")
 }
 
 dependencies {
@@ -139,12 +140,25 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(libs.monitor)
     implementation(libs.junit.ktx)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     coreLibraryDesugaring(libs.coreLibraryDesugaring)
 
-    implementation(libs.okhttp)
+    // Test
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk.android)
+    testImplementation(libs.mockk.agent)
+    testImplementation(libs.roomTesting)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.koin.test.junit4)
+    androidTestImplementation(libs.roomTesting)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.mockk.android)
+    androidTestImplementation(libs.mockk.agent)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.workTesting)
+
     // AndroidX
     implementation(libs.bundles.kotlin.androidX)
 
@@ -162,8 +176,6 @@ dependencies {
     ksp(libs.roomCompiler)
     implementation(libs.roomRuntime)
     implementation(libs.roomKtx)
-    testImplementation(libs.roomTesting)
-    androidTestImplementation(libs.roomTesting)
 
     // Lifecycle
     implementation(libs.bundles.kotlin.lifecycle)
@@ -183,7 +195,16 @@ dependencies {
 
     // Work Manager
     implementation(libs.workRuntimeKtx)
-    androidTestImplementation(libs.workTesting)
+
+    // Koin
+    implementation(project.dependencies.platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.core.coroutines)
+    implementation(libs.koin.android)
+    implementation(libs.koin.android.compat)
+    implementation(libs.koin.androidx.workmanager)
+    implementation(libs.koin.androidx.navigation)
+    implementation(libs.koin.androidx.startup)
 
     // Coil
     implementation(libs.coil)
@@ -193,19 +214,13 @@ dependencies {
     // PhotoView
     implementation(libs.photoview)
 
-    // Hilt
-    implementation(libs.androidxHiltWork)
-    implementation(libs.hiltAndroid)
-    androidTestImplementation(libs.hiltAndroidTesting)
-    kaptAndroidTest(libs.hiltAndroidCompiler)
-    kapt(libs.hiltCompiler)
-    kapt(libs.androidxHiltCompiler)
-
     // ExoPlayer
     implementation(libs.exoplayerCore)
     implementation(libs.exoplayerUi)
 
     // Retrofit
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
     implementation(libs.retrofit)
     implementation(libs.retrofit2Convertor)
 
