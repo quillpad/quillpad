@@ -277,4 +277,5 @@
     <string name="preferences_header_view_navdrawer">導航抽屜</string>
     <string name="preferences_sort_navdrawer_method">筆記本排序依據</string>
     <string name="swipe_to_find_out_whats_new">滑動螢幕查看最新動態</string>
+    <string name="action_screen_always_on">防止休眠</string>
 </resources>
