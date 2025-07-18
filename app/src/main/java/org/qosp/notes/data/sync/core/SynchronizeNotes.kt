@@ -10,7 +10,10 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
     private val tag = SynchronizeNotes::class.java.simpleName
 
     suspend operator fun invoke(
-        localNotes: List<Note>, remoteNotes: List<RemoteNoteMetaData>, service: CloudService
+        localNotes: List<Note>,
+        remoteNotes: List<RemoteNoteMetaData>,
+        service: CloudService,
+        methode: SyncMethod = SyncMethod.MAPPING
     ): SyncNotesResult {
         Log.d(tag, "SynchronizeNotes: Starting synchronization")
         // Fetch all mappings for this service at once to minimize idMapping queries (requirement #1)
@@ -97,7 +100,7 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
                     Log.d(tag, "Local note deleted. Deleting remotely: ${remoteNote.title}")
                     remoteUpdates.add(NoteAction.Delete(dummyLocalNote, remoteNote))
                 }
-                // If local note exists, it was already handled in the local notes loop
+                // If the local note exists, it was already handled in the local notes loop
             } else {
                 // Remote note has no mapping, create a new local note
                 val newLocalNote = Note(

@@ -40,8 +40,17 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
 
     private val locationListener = registerForActivityResult(StorageLocationContract) { uri ->
         uri?.let {
-            model.setEncryptedString(PreferenceRepository.STORAGE_LOCATION, it.toString())
+            // Get the previous location before setting the new one
+            val previousLocation = storageLocation?.toString() ?: ""
+            val newLocation = it.toString()
+
+            // Set the new location
+            model.setEncryptedString(PreferenceRepository.STORAGE_LOCATION, newLocation)
             Log.i(TAG, "Storing location: $it")
+
+            // Remove IdMappings if needed
+            model.removeFileStorageIdMappingsIfNeeded(newLocation, previousLocation)
+
             val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or
                 Intent.FLAG_GRANT_WRITE_URI_PERMISSION
             context?.contentResolver?.takePersistableUriPermission(it, takeFlags)

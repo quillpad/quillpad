@@ -5,6 +5,7 @@ import me.msoul.datastore.defaultOf
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.sync.core.BaseResult
+import org.qosp.notes.data.sync.core.SyncMethod
 import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.SortMethod
 
@@ -17,7 +18,7 @@ interface NoteRepository {
     suspend fun discardEmptyNotes(): Boolean
     suspend fun permanentlyDeleteNotesInBin()
 
-    suspend fun syncNotes(): BaseResult
+    suspend fun syncNotes(method: SyncMethod = SyncMethod.MAPPING): BaseResult
     fun getById(noteId: Long): Flow<Note?>
     fun getDeleted(sortMethod: SortMethod = defaultOf()): Flow<List<Note>>
     fun getArchived(sortMethod: SortMethod = defaultOf()): Flow<List<Note>>
@@ -28,4 +29,5 @@ interface NoteRepository {
     fun getNonRemoteNotes(provider: CloudService, sortMethod: SortMethod = defaultOf()): Flow<List<Note>>
     fun getNotesWithoutNotebook(sortMethod: SortMethod = defaultOf()): Flow<List<Note>>
     suspend fun getNotesByCloudService(provider: CloudService): Map<IdMapping, Note?>
+    suspend fun deleteIdMappingsForCloudService(cloudService: CloudService)
 }

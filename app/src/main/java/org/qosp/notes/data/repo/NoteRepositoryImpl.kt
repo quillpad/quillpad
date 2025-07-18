@@ -22,6 +22,7 @@ import org.qosp.notes.data.sync.core.RemoteOperation.Create
 import org.qosp.notes.data.sync.core.RemoteOperation.Delete
 import org.qosp.notes.data.sync.core.RemoteOperation.Update
 import org.qosp.notes.data.sync.core.Success
+import org.qosp.notes.data.sync.core.SyncMethod
 import org.qosp.notes.data.sync.core.SyncNote
 import org.qosp.notes.data.sync.core.SynchronizeNotes
 import org.qosp.notes.data.sync.getMapping
@@ -49,7 +50,7 @@ class NoteRepositoryImpl(
         idMappingDao.setNotesToBeDeleted(*n.map { it.id }.toLongArray())
     }
 
-    override suspend fun syncNotes(): BaseResult {
+    override suspend fun syncNotes(method: SyncMethod): BaseResult {
         Log.d(tag, "syncNotes: Starting synchronization")
 
         val syncProvider = backendProvider.syncProvider.value
@@ -69,7 +70,8 @@ class NoteRepositoryImpl(
             Log.d(tag, "syncNotes: Found ${remoteNotes.size} remote notes")
 
             // Use SynchronizeNotes to determine what updates are needed
-            val syncResult = synchronizeNotes(localNotes, remoteNotes, syncProvider.type)
+            val syncResult =
+                synchronizeNotes(localNotes, remoteNotes, service = syncProvider.type, firstImport = firstImport)
             Log.d(tag, "sync updates: ${syncResult.localUpdates.size} local, ${syncResult.remoteUpdates.size} remote")
 
             applyLocalUpdates(syncResult.localUpdates, syncProvider, allRemoteNotes)
@@ -260,6 +262,9 @@ class NoteRepositoryImpl(
         Log.d(tag, "getNotesByCloudService: Found ${mappings.size} mappings for $provider")
         return mappings.associateWith { allNotes[it.localNoteId] }
     }
+
+    override suspend fun deleteIdMappingsForCloudService(cloudService: CloudService) =
+        idMappingDao.deleteAllMappingsFor(cloudService)
 }
 
 private fun SyncNote.toRemoteNoteMetaData(cloudService: CloudService): RemoteNoteMetaData {
