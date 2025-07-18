@@ -97,7 +97,7 @@
     <string name="preferences_background_sync_disabled">Zakázáno</string>
     <string name="preferences_new_notes_synchronizable">Synchronizovat nové poznámky</string>
     <!-- About -->
-	<string name="about_version">Version</string>
+	<string name="about_version">Verze</string>
     <string name="about_website">Web</string>
     <string name="about_developer">Vývojář</string>
     <string name="about_contribute">Přispět</string>
@@ -205,7 +205,7 @@
     <string name="action_insert_heading">Nadpis</string>
     <string name="action_insert_quote">Uvozovky</string>
     <string name="action_insert_code">Zdrojový kód</string>
-    <string name="action_remove_all_checked_tasks">Пур тӗрӗсленӗ задачӑсене те кӑларса пӑрахӑр</string>
+    <string name="action_remove_all_checked_tasks">Odstranit vybrané úkoly</string>
     <string name="indicator_note_date">Vytvořeno %1$s\nNaposledy upraveno %2$s</string>
     <string name="indicator_restored_notes">Obnovené poznámky</string>
     <string name="indicator_restored_note">Obnovená poznámka</string>
@@ -278,11 +278,11 @@
         <item quantity="other"></item>
     </plurals>
     <string name="new_and_updated">Ҫӗнӗ те ҫӗнетнӗ!</string>
-    <string name="what_is_new">Мӗн ҫӗнни пур?</string>
-    <string name="continue_next">Малалла тӑс</string>
-    <string name="preferences_header_view_tags">Тег списокӗ</string>
-    <string name="preferences_sort_tags_method">Тегсене тӑрӑх йӗркеле</string>
-    <string name="preferences_header_view_navdrawer">Навигаци ещӗкӗ</string>
-    <string name="preferences_sort_navdrawer_method">Тетрадьсене тӑрӑх уйӑрӑр</string>
-    <string name="swipe_to_find_out_whats_new">Ҫӗнӗ хыпарсене пӗлес тесен, ҫавӑрса илӗр</string>
+    <string name="what_is_new">Co je nového?</string>
+    <string name="continue_next">Pokračovat</string>
+    <string name="preferences_header_view_tags">Tagy</string>
+    <string name="preferences_sort_tags_method">Řadit tagy podle</string>
+    <string name="preferences_header_view_navdrawer">Zápisníky</string>
+    <string name="preferences_sort_navdrawer_method">Řadit zápisníky podle</string>
+    <string name="swipe_to_find_out_whats_new">Potažením zjistíte, co je nového</string>
 </resources>
