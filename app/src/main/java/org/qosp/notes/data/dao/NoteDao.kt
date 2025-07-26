@@ -23,6 +23,7 @@ import org.qosp.notes.preferences.SortMethod.MODIFIED_ASC
 import org.qosp.notes.preferences.SortMethod.MODIFIED_DESC
 import org.qosp.notes.preferences.SortMethod.TITLE_ASC
 import org.qosp.notes.preferences.SortMethod.TITLE_DESC
+import java.time.Instant
 
 @Dao
 interface NoteDao {
@@ -31,6 +32,10 @@ interface NoteDao {
 
     @Update
     suspend fun update(vararg notes: NoteEntity)
+
+    @Transaction
+    @Query("UPDATE notes SET modifiedDate = :modified WHERE id = :id")
+    suspend fun updateLastModified(id: Long, modified: Long = Instant.now().epochSecond)
 
     @Delete
     suspend fun delete(vararg notes: NoteEntity)
@@ -45,7 +50,7 @@ interface NoteDao {
     @Query(
         """
         UPDATE notes SET isDeleted = 1 WHERE id IN (
-            SELECT localNoteId FROM cloud_ids 
+            SELECT localNoteId FROM cloud_ids
             WHERE remoteNoteId IS NOT NULL AND isDeletedLocally = 0 AND remoteNoteId NOT IN (:idsInUse)
             AND provider = :provider
         )"""
@@ -68,10 +73,10 @@ interface NoteDao {
         return rawGetQuery(
             SimpleSQLiteQuery(
                 """
-                SELECT * FROM notes 
+                SELECT * FROM notes
                 WHERE isDeleted = 0 AND isLocalOnly = 0
                 AND id NOT IN (
-                    SELECT localNoteId FROM cloud_ids 
+                    SELECT localNoteId FROM cloud_ids
                     WHERE provider = '${provider.name}'
                 )
                 ORDER BY isPinned DESC, $column $order
@@ -85,7 +90,7 @@ interface NoteDao {
         return rawGetQuery(
             SimpleSQLiteQuery(
                 """
-                SELECT * FROM notes WHERE isDeleted = 1 
+                SELECT * FROM notes WHERE isDeleted = 1
                 ORDER BY isPinned DESC, $column $order
             """
             )
@@ -97,7 +102,7 @@ interface NoteDao {
         return rawGetQuery(
             SimpleSQLiteQuery(
                 """
-                SELECT * FROM notes WHERE isArchived = 1 AND isDeleted = 0 
+                SELECT * FROM notes WHERE isArchived = 1 AND isDeleted = 0
                 ORDER BY isPinned DESC, $column $order
             """
             )
@@ -109,7 +114,7 @@ interface NoteDao {
         return rawGetQuery(
             SimpleSQLiteQuery(
                 """
-                SELECT * FROM notes WHERE isDeleted = 0 
+                SELECT * FROM notes WHERE isDeleted = 0
                 ORDER BY isPinned DESC, $column $order
             """
             )
@@ -121,7 +126,7 @@ interface NoteDao {
         return rawGetQuery(
             SimpleSQLiteQuery(
                 """
-                SELECT * FROM notes WHERE isArchived = 0 AND isDeleted = 0 
+                SELECT * FROM notes WHERE isArchived = 0 AND isDeleted = 0
                 ORDER BY isPinned DESC, $column $order
             """
             )
@@ -139,13 +144,22 @@ interface NoteDao {
             )
         )
     }
+    fun getAllBlankTitleNotes(): Flow<List<Note>> {
+        return rawGetQuery(
+            SimpleSQLiteQuery(
+                """
+                SELECT * FROM notes WHERE title IS NULL OR trim(title) = ''
+                """
+            )
+        )
+    }
 
     fun getByNotebook(notebookId: Long, sortMethod: SortMethod): Flow<List<Note>> {
         val (column, order) = getOrderByMethod(sortMethod)
         return rawGetQuery(
             SimpleSQLiteQuery(
                 """
-                SELECT * FROM notes WHERE isArchived = 0 AND isDeleted = 0 AND notebookId = $notebookId 
+                SELECT * FROM notes WHERE isArchived = 0 AND isDeleted = 0 AND notebookId = $notebookId
                 ORDER BY isPinned DESC, $column $order
             """
             )
@@ -170,7 +184,7 @@ interface NoteDao {
         return rawGetQuery(
             SimpleSQLiteQuery(
                 """
-                SELECT * FROM notes WHERE isArchived = 0 AND isDeleted = 0 AND notebookId IS NULL 
+                SELECT * FROM notes WHERE isArchived = 0 AND isDeleted = 0 AND notebookId IS NULL
                 ORDER BY isPinned DESC, $column $order
             """
             )

@@ -7,7 +7,6 @@ import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.serialization.json.jsonObject
 import okhttp3.ResponseBody
 import org.qosp.notes.data.sync.nextcloud.model.NextcloudCapabilities
-import org.qosp.notes.data.sync.nextcloud.model.NextcloudNote
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -87,6 +86,13 @@ suspend fun NextcloudAPI.deleteNote(note: NextcloudNote, config: NextcloudConfig
     )
 }
 
+suspend fun NextcloudAPI.deleteNote(noteId: Long, config: NextcloudConfig) {
+    deleteNoteAPI(
+        url = config.remoteAddress + baseURL + "notes/${noteId}",
+        auth = config.credentials,
+    )
+}
+
 suspend fun NextcloudAPI.updateNote(note: NextcloudNote, etag: String, config: NextcloudConfig): NextcloudNote {
     return updateNoteAPI(
         note = note,
@@ -101,6 +107,13 @@ suspend fun NextcloudAPI.createNote(note: NextcloudNote, config: NextcloudConfig
         note = note,
         url = config.remoteAddress + baseURL + "notes",
         auth = config.credentials,
+    )
+}
+
+suspend fun NextcloudAPI.getNote(id: Long, config: NextcloudConfig): NextcloudNote {
+    return getNoteAPI(
+        url = config.remoteAddress + baseURL + "notes" + "/$id",
+        auth = config.credentials
     )
 }
 

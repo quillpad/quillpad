@@ -3,7 +3,7 @@ activityCompose = "1.10.0"
 activityKtx = "1.10.0"
 androidGradlePlugin = "8.7.3"
 androidxComposeBom = "2025.02.00"
-androidxHilt = "1.2.0"
+androidxTest = "1.6.1"
 appcompat = "1.7.0"
 betterLinkMovementMethod = "2.2.0"
 coil = "2.2.2"
@@ -19,12 +19,13 @@ espressoCore = "3.6.1"
 exoplayer = "2.19.1"
 flowPreferences = "1.4.0"
 fragmentKtx = "1.8.6"
-hilt = "2.55"
 junit = "4.13.2"
 junitVersion = "1.2.1"
+koin = "4.0.4"
 kotlin = "2.1.10"
 kotlinSerialization = "2.0.0"
 kotlinSerializationJson = "1.8.0"
+kotlinxCoroutines = "1.10.2"
 ksp = "2.1.10-1.0.30"
 leakcanaryAndroid = "2.10"
 lifecycle = "2.8.7"
@@ -32,9 +33,10 @@ lifecycleViewmodelCompose = "2.8.7"
 markwon = "4.6.2"
 material = "1.12.0"
 media = "1.7.0"
+mockk = "1.13.17"
 nav = "2.8.7"
 navigationSafeArgs = "2.8.7"
-okhttp = "4.11.0"
+okhttp = "4.12.0"
 paletteKtx = "1.0.0"
 photoview = "2.3.0"
 recyclerview = "1.4.0"
@@ -61,10 +63,10 @@ androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lif
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 androidx-material = { module = "androidx.compose.material3:material3" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxTest" }
+androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidxTest" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "ui" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "uiToolingPreview" }
-androidxHiltCompiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidxHilt" }
-androidxHiltWork = { module = "androidx.hilt:hilt-work", version.ref = "androidxHilt" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 betterLinkMovementMethod = { module = "me.saket:better-link-movement-method", version.ref = "betterLinkMovementMethod" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
@@ -80,13 +82,20 @@ exoplayerCore = { module = "com.google.android.exoplayer:exoplayer-core", versio
 exoplayerUi = { module = "com.google.android.exoplayer:exoplayer-ui", version.ref = "exoplayer" }
 flowPreferences = { module = "com.github.tfcporciuncula.flow-preferences:flow-preferences", version.ref = "flowPreferences" }
 fragmentKtx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
-hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
-hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
-hiltAndroidTesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
-hiltCompiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 junit = { module = "junit:junit", version.ref = "junit" }
 junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
+koin-core = { module = "io.insert-koin:koin-core" }
+koin-core-coroutines = { module = "io.insert-koin:koin-core-coroutines" }
+koin-android = { module = "io.insert-koin:koin-android" }
+koin-android-compat = { module = "io.insert-koin:koin-android-compat" }
+koin-androidx-workmanager = { module = "io.insert-koin:koin-androidx-workmanager" }
+koin-androidx-navigation = { module = "io.insert-koin:koin-androidx-navigation" }
+koin-androidx-startup = { module = "io.insert-koin:koin-androidx-startup" }
+koin-test = { module = "io.insert-koin:koin-test" }
+koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4" }
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerializationJson" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 leakcanaryAndroid = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
 lifecycleCommonJava8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "lifecycle" }
 lifecycleLiveDataKtx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
@@ -102,10 +111,13 @@ markwonTable = { module = "io.noties.markwon:ext-tables", version.ref = "markwon
 markwonTasklist = { module = "io.noties.markwon:ext-tasklist", version.ref = "markwon" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 media = { module = "androidx.media:media", version.ref = "media" }
+mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
+mockk-agent = { module = "io.mockk:mockk-agent", version.ref = "mockk" }
 monitor = { group = "androidx.test", name = "monitor", version.ref = "monitor" }
 navigationFragmentKtx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "nav" }
 navigationUiKtx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "nav" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 paletteKtx = { module = "androidx.palette:palette-ktx", version.ref = "paletteKtx" }
 photoview = { module = "com.github.chrisbanes:PhotoView", version.ref = "photoview" }
 recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
@@ -157,8 +169,6 @@ markwon = [
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinParcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }

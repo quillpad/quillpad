@@ -10,3 +10,9 @@ pluginManagement {
 
 include ':app'
 rootProject.name = "quillpad"
+
+buildCache {
+    local {
+        directory = new File(rootDir, 'build-cache')
+    }
+}

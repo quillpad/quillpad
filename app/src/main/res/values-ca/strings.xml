@@ -71,7 +71,6 @@
     <string name="preferences_cloud_service">Servei de sincronització</string>
     <string name="preferences_cloud_service_disabled">Desactivat</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_sync_experimental_warning">La funcionalitat de sincronització és experimental.\nPots trobar errors.</string>
     <string name="preferences_nextcloud_limited_features">Tingueu en compte que Notes del Nextcloud no admet funcions com etiquetes, adjunts, recordatoris, etc.</string>
     <string name="preferences_nextcloud_account">Compte de Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">URL de la instància Nextcloud</string>

@@ -17,8 +17,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.qosp.notes.R
 import org.qosp.notes.components.MediaStorageManager
 import org.qosp.notes.data.model.Attachment
@@ -26,18 +26,15 @@ import org.qosp.notes.databinding.DialogRecordAudioBinding
 import org.qosp.notes.ui.attachments.fromUri
 import org.qosp.notes.ui.common.BaseDialog
 import org.qosp.notes.ui.utils.collect
-import javax.inject.Inject
 
 const val RECORD_CODE = "RECORD"
 const val RECORDED_ATTACHMENT = "RECORDED_ATTACHMENT"
 
-@AndroidEntryPoint
 class RecordAudioDialog : BaseDialog<DialogRecordAudioBinding>() {
     private var recorderService: RecorderServiceBinder? = null
     private var isPermissionGranted = false
 
-    @Inject
-    lateinit var mediaStorageManager: MediaStorageManager
+    val mediaStorageManager: MediaStorageManager by inject()
 
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {

@@ -7,8 +7,6 @@ import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.StrictMode
 import androidx.core.content.ContextCompat
-import androidx.hilt.work.HiltWorkerFactory
-import androidx.work.Configuration
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
@@ -21,32 +19,25 @@ import coil.decode.ImageDecoderDecoder
 import coil.decode.VideoFrameDecoder
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
-import dagger.hilt.EntryPoint
-import dagger.hilt.EntryPoints
-import dagger.hilt.InstallIn
-import dagger.hilt.android.HiltAndroidApp
-import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.workmanager.koin.workManagerFactory
+import org.koin.androix.startup.KoinStartup
+import org.koin.core.annotation.KoinExperimentalAPI
+import org.koin.dsl.koinConfiguration
 import org.qosp.notes.components.workers.BinCleaningWorker
 import org.qosp.notes.components.workers.SyncWorker
+import org.qosp.notes.di.MarkwonModule
+import org.qosp.notes.di.NextcloudModule
+import org.qosp.notes.di.PreferencesModule
+import org.qosp.notes.di.RepositoryModule
+import org.qosp.notes.di.SyncModule
+import org.qosp.notes.di.UIModule
+import org.qosp.notes.di.UtilModule
 import java.util.concurrent.TimeUnit
 
-@HiltAndroidApp
-class App : Application(), ImageLoaderFactory, Configuration.Provider {
-    val syncingScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-
-    @EntryPoint
-    @InstallIn(SingletonComponent::class)
-    interface HiltWorkerFactoryEntryPoint {
-        fun workerFactory(): HiltWorkerFactory
-    }
-
-    override val workManagerConfiguration: Configuration =
-        Configuration.Builder()
-            .setWorkerFactory(EntryPoints.get(this, HiltWorkerFactoryEntryPoint::class.java).workerFactory())
-            .build()
+@OptIn(KoinExperimentalAPI::class)
+class App : Application(), ImageLoaderFactory, KoinStartup {
 
     override fun newImageLoader(): ImageLoader {
         return ImageLoader.Builder(applicationContext)
@@ -70,8 +61,26 @@ class App : Application(), ImageLoaderFactory, Configuration.Provider {
             enableStrictMode()
         }
         super.onCreate()
+
         createNotificationChannels()
         enqueueWorkers()
+    }
+
+    override fun onKoinStartup() = koinConfiguration {
+        androidLogger()
+        androidContext(this@App)
+        workManagerFactory()
+        modules(
+            listOf(
+                MarkwonModule.markwonModule,
+                NextcloudModule.nextcloudModule,
+                PreferencesModule.prefModule,
+                RepositoryModule.repoModule,
+                UIModule.uiModule,
+                UtilModule.utilModule,
+                SyncModule.syncModule,
+            )
+        )
     }
 
     private fun createNotificationChannels() {
@@ -125,14 +134,16 @@ class App : Application(), ImageLoaderFactory, Configuration.Provider {
                 .penaltyLog()
                 .build()
         )
-        val vmPolicy = StrictMode.VmPolicy.Builder()
+        val vmPolicyBuilder = StrictMode.VmPolicy.Builder()
             .detectLeakedSqlLiteObjects()
             .detectLeakedClosableObjects()
             .penaltyLog()
-        if (SDK_INT >= Build.VERSION_CODES.S) {
-            vmPolicy.detectUnsafeIntentLaunch()
+
+        if (SDK_INT >= 31) {
+            vmPolicyBuilder.detectUnsafeIntentLaunch()
         }
-        StrictMode.setVmPolicy(vmPolicy.build())
+
+        StrictMode.setVmPolicy(vmPolicyBuilder.build())
     }
 
     companion object {

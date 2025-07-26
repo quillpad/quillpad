@@ -2,26 +2,29 @@ package org.qosp.notes.ui.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import me.msoul.datastore.EnumPreference
-import org.qosp.notes.data.sync.core.SyncManager
+import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
+import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.PreferenceRepository
-import javax.inject.Inject
+import org.qosp.notes.preferences.SyncMode
 
-@HiltViewModel
-class SettingsViewModel @Inject constructor(
-    private val preferenceRepository: PreferenceRepository,
-    syncManager: SyncManager,
-) : ViewModel() {
+class SettingsViewModel(private val preferenceRepository: PreferenceRepository) : ViewModel() {
 
     val appPreferences = preferenceRepository.getAll()
-    val loggedInUsername = syncManager.config.map { it?.username }
+    val loggedInUsername = NextcloudConfig.fromPreferences(preferenceRepository).map { it?.username }
 
     fun <T> setPreference(pref: T) where T : Enum<T>, T : EnumPreference {
+        when (pref) {
+            is CloudService -> {
+                if (pref in listOf(CloudService.FILE_STORAGE, CloudService.DISABLED)) {
+                    setPreference(SyncMode.ALWAYS)
+                }
+            }
+        }
         viewModelScope.launch(Dispatchers.IO) {
             preferenceRepository.set(pref)
         }
@@ -34,6 +37,9 @@ class SettingsViewModel @Inject constructor(
     fun getEncryptedString(key: String): Flow<String> {
         return preferenceRepository.getEncryptedString(key)
     }
+
+    fun setEncryptedString(key: String, value: String) =
+        viewModelScope.launch { preferenceRepository.putEncryptedStrings(key to value) }
 
     fun clearNextcloudCredentials() = viewModelScope.launch {
         preferenceRepository.putEncryptedStrings(

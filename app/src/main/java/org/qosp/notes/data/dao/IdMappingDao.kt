@@ -26,6 +26,9 @@ interface IdMappingDao {
     @Query("UPDATE cloud_ids SET isDeletedLocally = 1 WHERE localNoteId IN (:ids)")
     suspend fun setNotesToBeDeleted(vararg ids: Long)
 
+    @Query("SELECT * from cloud_ids WHERE localNoteId IN (:ids)")
+    suspend fun getByLocalIds(vararg ids: Long): List<IdMapping>
+
     @Query("SELECT * FROM cloud_ids WHERE remoteNoteId = :remoteId AND provider = :provider LIMIT 1")
     suspend fun getByRemoteId(remoteId: Long, provider: CloudService): IdMapping?
 
@@ -52,6 +55,9 @@ interface IdMappingDao {
 
     @Query("SELECT * FROM cloud_ids WHERE localNoteId = :localId AND provider IS NOT NULL AND remoteNoteId IS NOT NULL")
     suspend fun getAllByLocalId(localId: Long): List<IdMapping>
+
+    @Query("SELECT * FROM cloud_ids WHERE provider = :provider")
+    suspend fun getAllByCloudService(provider: CloudService): List<IdMapping>
 
     @Query("UPDATE cloud_ids SET isBeingUpdated = :isBeingUpdated WHERE localNoteId = :id")
     suspend fun setNoteIsBeingUpdated(id: Long, isBeingUpdated: Boolean)

@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.qosp.notes.R
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.databinding.FragmentSearchBinding
@@ -24,7 +24,7 @@ class SearchFragment : AbstractNotesFragment(resId = R.layout.fragment_search) {
     private val args: SearchFragmentArgs by navArgs()
 
     override val currentDestinationId: Int = R.id.fragment_search
-    override val model: SearchViewModel by viewModels()
+    override val model: SearchViewModel by viewModel()
 
     override val isSelectionEnabled = false
     override val hasMenu: Boolean = false

@@ -1,29 +1,46 @@
 package org.qosp.notes.di
 
-import android.content.Context
 import androidx.room.Room
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
 import org.qosp.notes.data.AppDatabase
-import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
-    @Provides
-    @Singleton
-    fun provideRoomDatabase(
-        @ApplicationContext context: Context,
-    ): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.DB_NAME)
-            // we don't want to silently wipe user data in case DB migration fails,
-            // rather let the app crash
-            .addMigrations(AppDatabase.MIGRATION_1_2)
-            .addMigrations(AppDatabase.MIGRATION_2_3)
-            .build()
+    val dbModule = module {
+        single<AppDatabase> {
+            Room.databaseBuilder(
+                context = androidContext(),
+                klass = AppDatabase::class.java,
+                name = AppDatabase.DB_NAME
+            )
+                // we don't want to silently wipe user data in case DB migration fails,
+                // rather let the app crash
+                .addMigrations(AppDatabase.MIGRATION_1_2)
+                .addMigrations(AppDatabase.MIGRATION_2_3)
+                .addMigrations(AppDatabase.Migration_3_4)
+                .addMigrations(AppDatabase.MIGRATION_4_5)
+                .build()
+        }
+
+        single {
+            get<AppDatabase>().noteDao
+        }
+        single {
+            get<AppDatabase>().notebookDao
+        }
+        single {
+            get<AppDatabase>().tagDao
+        }
+        single {
+            get<AppDatabase>().noteTagDao
+        }
+        single {
+            get<AppDatabase>().reminderDao
+        }
+        single {
+            get<AppDatabase>().idMappingDao
+        }
     }
+
 }

@@ -67,8 +67,7 @@
     <string name="preferences_cloud_service">Synkroniseringstjeneste</string>
     <string name="preferences_cloud_service_disabled">Avskrudd</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_sync_experimental_warning">Synkronisering er eksperimentelt.\nDet kan hende du opplever feil.</string>
-    <string name="preferences_nextcloud_limited_features">Husk at Nextcloud ikke støtter etiketter, vedlegg, påminnelser, gjøremålslister, osv.</string>
+  <string name="preferences_nextcloud_limited_features">Husk at Nextcloud ikke støtter etiketter, vedlegg, påminnelser, gjøremålslister, osv.</string>
     <string name="preferences_nextcloud_account">Nextcloud-konto</string>
     <string name="preferences_nextcloud_instance_url">Nettadresse til Nextcloud-instans</string>
     <string name="preferences_nextcloud_set_your_credentials">Sett opp dine identitetsdetaljer</string>
@@ -256,6 +255,12 @@
         <item quantity="one">%d etikett valgt</item>
         <item quantity="other">%d etiketter valgt</item>
     </plurals>
+  <string name="preferences_cloud_service_files">Fillagring</string>
+  <string name="preferences_file_storage_info">Velg en mappe fra lokal lagring eller fra en skyleverandør. Alle notater
+    vil bli lagret som Markdown-filer.
+  </string>
+  <string name="preferences_file_storage_location">Lagringssted</string>
+  <string name="preferences_file_storage_select">Velg Lagringssted</string>
     <string name="preferences_color_scheme_system">System</string>
     <string name="new_and_updated">Nytt og oppdatert!</string>
     <string name="what_is_new">Hva er nytt?</string>
