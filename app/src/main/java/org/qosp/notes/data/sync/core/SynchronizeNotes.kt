@@ -4,6 +4,7 @@ import android.util.Log
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.repo.IdMappingRepository
+import org.qosp.notes.data.sync.getMapping
 import org.qosp.notes.preferences.CloudService
 import kotlin.math.abs
 
@@ -14,7 +15,7 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
 
     suspend operator fun invoke(
         localNotes: List<Note>,
-        remoteNotes: List<RemoteNoteMetaData>,
+        remoteNotes: List<SyncNote>,
         service: CloudService,
         method: SyncMethod = SyncMethod.MAPPING
     ): SyncNotesResult {
@@ -31,7 +32,7 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
 
                 // Create maps for faster lookups
                 val localNotesMap = localNotes.associateBy { it.id }
-                val remoteNotesMap = remoteNotes.associateBy { it.id }
+                val remoteNotesMap = remoteNotes.associateBy { it.idStr }
 
                 // Maps for local note ID to remote note ID and vice versa
                 val localToRemoteMap = allMappings.associateBy { it.localNoteId }
@@ -68,18 +69,22 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
                         } else {
                             // Remote note doesn't exist, create it with empty ID
                             // This happens when the remote note was deleted
-                            val remoteNoteMetaData = RemoteNoteMetaData(
-                                id = "", // Empty ID for new remote notes
-                                title = localNote.title, lastModified = localNote.modifiedDate
+                            val syncNote = SyncNote(
+                                title = localNote.title,
+                                lastModified = localNote.modifiedDate,
+                                content = localNote.content,
+                                idStr = "", // Empty ID for new remote notes
+                                id = 0,
                             )
-                            logDebug("May be deleted remotely: $remoteNoteMetaData")
-                            remoteUpdates.add(NoteAction.Create(localNote, remoteNoteMetaData))
+                            logDebug("May be deleted remotely: $syncNote")
+                            remoteUpdates.add(NoteAction.Create(localNote, syncNote))
                         }
 
                     } else {
                         // Local note has no mapping, create a new remote note
-                        val remoteNoteMetaData = RemoteNoteMetaData(
-                            id = "", // Empty ID for new remote notes
+                        val remoteNoteMetaData = SyncNote(
+                            id = 0, // Empty ID for new remote notes
+                            idStr = "", content = localNote.content,
                             title = localNote.title, lastModified = localNote.modifiedDate
                         )
                         logDebug("New local note: ${localNote.title}")
@@ -89,7 +94,7 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
 
                 // Process remote notes
                 for (remoteNote in remoteNotes) {
-                    val mapping = remoteToLocalMap[remoteNote.id]
+                    val mapping = remoteToLocalMap[remoteNote.idStr]
                     if (mapping != null) {
                         // Remote note has a mapping to a local note
                         val localNote = localNotesMap[mapping.localNoteId]
@@ -125,16 +130,7 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
                         // Both local and remote notes exist with the same title, compare last modified times
                         if (abs(localNote.modifiedDate - remoteNote.lastModified) <= 1) {
                             // About the same note, just create mapping
-                            val mapping = IdMapping(
-                                localNoteId = localNote.id,
-                                remoteNoteId = if (service == CloudService.NEXTCLOUD) remoteNote.id.toLong() else null,
-                                provider = service,
-                                extras = null,
-                                isDeletedLocally = false,
-                                isBeingUpdated = false,
-                                storageUri = if (service == CloudService.FILE_STORAGE) remoteNote.id else null
-                            )
-                            mappingUpdates.add(mapping)
+                            mappingUpdates.add(remoteNote.getMapping(localNote.id, service))
                         } else if (localNote.modifiedDate > remoteNote.lastModified) {
                             // Local note is newer, update remote
                             logDebug("Local note (${localNote.title}) is newer ${localNote.modifiedDate}, ${remoteNote.lastModified}")
@@ -147,12 +143,13 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
                         // If equal, no action needed
                     } else {
                         // No remote note with this title, create a new remote note
-                        val remoteNoteMetaData = RemoteNoteMetaData(
-                            id = "", // Empty ID for new remote notes
+                        val syncNote = SyncNote(
+                            id = 0, // Empty ID for new remote notes
+                            idStr = "", content = localNote.content,
                             title = localNote.title, lastModified = localNote.modifiedDate
                         )
                         logDebug("New local note: ${localNote.title}")
-                        remoteUpdates.add(NoteAction.Create(localNote, remoteNoteMetaData))
+                        remoteUpdates.add(NoteAction.Create(localNote, syncNote))
                     }
                 }
 
@@ -177,9 +174,9 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
 }
 
 sealed interface NoteAction {
-    data class Create(val note: Note, val remoteNoteMetaData: RemoteNoteMetaData) : NoteAction
-    data class Update(val note: Note, val remoteNoteMetaData: RemoteNoteMetaData) : NoteAction
-    data class Delete(val note: Note, val remoteNoteMetaData: RemoteNoteMetaData) : NoteAction
+    data class Create(val note: Note, val remoteNote: SyncNote) : NoteAction
+    data class Update(val note: Note, val remoteNote: SyncNote) : NoteAction
+    data class Delete(val note: Note, val remoteNote: SyncNote) : NoteAction
 }
 
 data class SyncNotesResult(

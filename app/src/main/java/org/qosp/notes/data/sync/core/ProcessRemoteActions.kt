@@ -98,7 +98,7 @@ class ProcessRemoteActions(
 
     private suspend fun insertRemote(syncProvider: ISyncBackend, note: Note) = try {
         val created = syncProvider.createNote(note)
-        idMappingDao.insert(created.getMapping(note.id, syncProvider))
+        idMappingDao.insert(created.getMapping(note.id, syncProvider.type))
         noteDao.updateLastModified(note.id, created.lastModified)
     } catch (e: Exception) {
         Log.e(tag, "processRemoteOperation: Failed to create note ID=${note.id}: ${e.message}", e)

@@ -71,17 +71,16 @@ class NoteRepositoryImpl(
             val remoteNotes = allRemoteNotes.map { it.toRemoteNoteMetaData(syncProvider.type) }
             Log.d(
                 tag, "syncNotes: Syncing by $syncMethod. " +
-                    "Found ${remoteNotes.size} remote notes, " +
-                    "and ${localNotes.size} local notes"
+                    "Found ${remoteNotes.size} remote notes, and ${localNotes.size} local notes"
             )
 
             // Use SynchronizeNotes to determine what updates are needed
             val syncResult =
-                synchronizeNotes(localNotes, remoteNotes, service = syncProvider.type, syncMethod)
+                synchronizeNotes(localNotes, allRemoteNotes, service = syncProvider.type, syncMethod)
             Log.d(tag, "sync updates: ${syncResult.localUpdates.size} local, ${syncResult.remoteUpdates.size} remote")
 
             if (syncMethod == SyncMethod.TITLE) applyMappingChanges(syncResult, syncProvider) // Initial import
-            applyLocalUpdates(syncResult.localUpdates, syncProvider, allRemoteNotes)
+            applyLocalUpdates(syncResult.localUpdates, syncProvider)
             applyRemoteUpdates(syncResult.remoteUpdates)
             Log.d(tag, "syncNotes: Synchronization completed successfully")
         } catch (e: Exception) {
@@ -91,34 +90,18 @@ class NoteRepositoryImpl(
         return Success
     }
 
-    private suspend fun applyLocalUpdates(
-        localUpdates: List<NoteAction>,
-        syncProvider: ISyncBackend,
-        remoteNotes: List<SyncNote>
-    ) {
-        if (localUpdates.isEmpty()) return
-
-        // Create a map for a quick lookup of remote notes by ID
-        val remoteNotesMap = remoteNotes.associateBy {
-            when (syncProvider.type) {
-                CloudService.NEXTCLOUD -> it.id.toString()
-                CloudService.FILE_STORAGE -> it.idStr
-                else -> it.idStr
-            }
-        }
-
+    private suspend fun applyLocalUpdates(localUpdates: List<NoteAction>, syncProvider: ISyncBackend) {
         for (action in localUpdates) {
             try {
                 when (action) {
                     is NoteAction.Create -> {
-                        val syncNote = remoteNotesMap[action.remoteNoteMetaData.id] ?: continue
+                        val syncNote = action.remoteNote
                         val noteId = insertNote(syncNote.toLocalNote(), sync = false)
-                        idMappingDao.insert(syncNote.getMapping(noteId, syncProvider))
+                        idMappingDao.insert(syncNote.getMapping(noteId, syncProvider.type))
                     }
 
                     is NoteAction.Update -> {
-                        val syncNote = remoteNotesMap[action.remoteNoteMetaData.id] ?: continue
-                        val localNote = syncNote.toLocalNote()
+                        val localNote = action.remoteNote.toLocalNote()
                         val note = if (action.note.isList) {
                             val tasks = localNote.mdToTaskList(localNote.content)
                             localNote.copy(id = action.note.id, content = "", taskList = tasks, isList = true)
@@ -140,7 +123,6 @@ class NoteRepositoryImpl(
     }
 
     private fun applyRemoteUpdates(remoteUpdates: List<NoteAction>) {
-        if (remoteUpdates.isEmpty()) return
         for (action in remoteUpdates) {
             try {
                 when (action) {
@@ -157,26 +139,10 @@ class NoteRepositoryImpl(
     private suspend fun applyMappingChanges(syncResult: SyncNotesResult, syncProvider: ISyncBackend) {
         syncResult.newMappings.forEach { idMappingDao.insert(it) }
         syncResult.localUpdates.filterIsInstance<NoteAction.Update>().map {
-            IdMapping(
-                localNoteId = it.note.id,
-                remoteNoteId = if (syncProvider.type == CloudService.NEXTCLOUD) it.remoteNoteMetaData.id.toLong() else null,
-                provider = syncProvider.type,
-                extras = null, // TODO: get from nextcloud
-                isDeletedLocally = false,
-                isBeingUpdated = false,
-                storageUri = if (syncProvider.type == CloudService.FILE_STORAGE) it.remoteNoteMetaData.id else null
-            )
+            it.remoteNote.getMapping(it.note.id, syncProvider.type)
         }.forEach { idMappingDao.insert(it) }
         syncResult.remoteUpdates.filterIsInstance<NoteAction.Update>().map {
-            IdMapping(
-                localNoteId = it.note.id,
-                remoteNoteId = if (syncProvider.type == CloudService.NEXTCLOUD) it.remoteNoteMetaData.id.toLong() else null,
-                provider = syncProvider.type,
-                extras = null, // TODO: get from nextcloud
-                isDeletedLocally = false,
-                isBeingUpdated = false,
-                storageUri = if (syncProvider.type == CloudService.FILE_STORAGE) it.remoteNoteMetaData.id else null
-            )
+            it.remoteNote.getMapping(it.note.id, syncProvider.type)
         }.forEach { idMappingDao.insert(it) }
     }
 
@@ -228,7 +194,7 @@ class NoteRepositoryImpl(
                     syncableNotes
                         .associateWith { syncProvider.createNote(it) }
                         .forEach { (n, syncNote) ->
-                            idMappingDao.insert(syncNote.getMapping(n.id, syncProvider))
+                            idMappingDao.insert(syncNote.getMapping(n.id, syncProvider.type))
                             noteDao.updateLastModified(n.id, syncNote.lastModified)
                         }
                 }

@@ -57,9 +57,9 @@ class SynchronizeNotesTest {
         assertEquals(1, result.remoteUpdates.size)
         val action = result.remoteUpdates[0] as NoteAction.Create
         assertEquals(localNote, action.note)
-        assertEquals("", action.remoteNoteMetaData.id)
-        assertEquals(localNote.title, action.remoteNoteMetaData.title)
-        assertEquals(localNote.modifiedDate, action.remoteNoteMetaData.lastModified)
+        assertEquals("", action.remoteNote.id)
+        assertEquals(localNote.title, action.remoteNote.title)
+        assertEquals(localNote.modifiedDate, action.remoteNote.lastModified)
     }
 
     @Test
@@ -79,7 +79,7 @@ class SynchronizeNotesTest {
         val action = result.localUpdates[0] as NoteAction.Create
         assertEquals(remoteNote.title, action.note.title)
         assertEquals(remoteNote.lastModified, action.note.modifiedDate)
-        assertEquals(remoteNote, action.remoteNoteMetaData)
+        assertEquals(remoteNote, action.remoteNote)
     }
 
     @Test
@@ -105,7 +105,7 @@ class SynchronizeNotesTest {
         assertEquals(1, result.remoteUpdates.size)
         val action = result.remoteUpdates[0] as NoteAction.Update
         assertEquals(localNote, action.note)
-        assertEquals(remoteNote, action.remoteNoteMetaData)
+        assertEquals(remoteNote, action.remoteNote)
     }
 
     @Test
@@ -131,7 +131,7 @@ class SynchronizeNotesTest {
         assertEquals(0, result.remoteUpdates.size)
         val action = result.localUpdates[0] as NoteAction.Update
         assertEquals(localNote, action.note)
-        assertEquals(remoteNote, action.remoteNoteMetaData)
+        assertEquals(remoteNote, action.remoteNote)
     }
 
     @Test
@@ -156,7 +156,7 @@ class SynchronizeNotesTest {
         assertEquals(1, result.remoteUpdates.size)
         val action = result.remoteUpdates[0] as NoteAction.Delete
         assertEquals(1L, action.note.id)
-        assertEquals(remoteNote, action.remoteNoteMetaData)
+        assertEquals(remoteNote, action.remoteNote)
     }
 
     @Test
@@ -181,7 +181,7 @@ class SynchronizeNotesTest {
         assertEquals(1, result.remoteUpdates.size)
         val action = result.remoteUpdates[0] as NoteAction.Create
         assertEquals(localNote, action.note)
-        assertEquals("", action.remoteNoteMetaData.id)
+        assertEquals("", action.remoteNote.id)
     }
 
     @Test
@@ -208,7 +208,7 @@ class SynchronizeNotesTest {
         assertEquals(1, result.remoteUpdates.size)
         val action = result.remoteUpdates[0] as NoteAction.Update
         assertEquals(localNote, action.note)
-        assertEquals(remoteNote, action.remoteNoteMetaData)
+        assertEquals(remoteNote, action.remoteNote)
     }
     // Tests for TITLE sync method
 
@@ -241,9 +241,9 @@ class SynchronizeNotesTest {
         assertEquals(1, result.remoteUpdates.size)
         val action = result.remoteUpdates[0] as NoteAction.Create
         assertEquals(localNote, action.note)
-        assertEquals("", action.remoteNoteMetaData.id)
-        assertEquals(localNote.title, action.remoteNoteMetaData.title)
-        assertEquals(localNote.modifiedDate, action.remoteNoteMetaData.lastModified)
+        assertEquals("", action.remoteNote.id)
+        assertEquals(localNote.title, action.remoteNote.title)
+        assertEquals(localNote.modifiedDate, action.remoteNote.lastModified)
     }
 
     @Test
@@ -262,7 +262,7 @@ class SynchronizeNotesTest {
         val action = result.localUpdates[0] as NoteAction.Create
         assertEquals(remoteNote.title, action.note.title)
         assertEquals(remoteNote.lastModified, action.note.modifiedDate)
-        assertEquals(remoteNote, action.remoteNoteMetaData)
+        assertEquals(remoteNote, action.remoteNote)
     }
 
     @Test
@@ -279,7 +279,7 @@ class SynchronizeNotesTest {
         assertEquals(1, result.remoteUpdates.size)
         val action = result.remoteUpdates[0] as NoteAction.Update
         assertEquals(localNote, action.note)
-        assertEquals(remoteNote, action.remoteNoteMetaData)
+        assertEquals(remoteNote, action.remoteNote)
     }
 
     @Test
@@ -296,7 +296,7 @@ class SynchronizeNotesTest {
         assertEquals(0, result.remoteUpdates.size)
         val action = result.localUpdates[0] as NoteAction.Update
         assertEquals(localNote, action.note)
-        assertEquals(remoteNote, action.remoteNoteMetaData)
+        assertEquals(remoteNote, action.remoteNote)
     }
 
     @Test

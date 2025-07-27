@@ -2,13 +2,13 @@ package org.qosp.notes.data.sync
 
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
-import org.qosp.notes.data.sync.core.ISyncBackend
 import org.qosp.notes.data.sync.core.SyncNote
 import org.qosp.notes.data.sync.nextcloud.NextcloudNote
+import org.qosp.notes.preferences.CloudService
 
 fun NextcloudNote.asSyncNote() = SyncNote(
     id = id,
-    idStr = "",
+    idStr = id.toString(),
     content = content,
     title = title,
     lastModified = modified, // Nextcloud already uses epoch seconds.
@@ -29,11 +29,10 @@ fun SyncNote.toLocalNote() = Note(
     isMarkdownEnabled = true // Default to Markdown enabled
 )
 
-
-fun SyncNote.getMapping(noteId: Long, syncProvider: ISyncBackend) = IdMapping(
+fun SyncNote.getMapping(noteId: Long, service: CloudService) = IdMapping(
     localNoteId = noteId,
     remoteNoteId = id,
-    provider = syncProvider.type,
+    provider = service,
     extras = extra,
     isDeletedLocally = false,
     storageUri = idStr
