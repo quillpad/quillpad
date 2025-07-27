@@ -128,8 +128,6 @@ class App : Application(), ImageLoaderFactory, KoinStartup {
     private fun enableStrictMode() {
         StrictMode.setThreadPolicy(
             StrictMode.ThreadPolicy.Builder()
-                .detectDiskReads()
-                .detectDiskWrites()
                 .detectNetwork()
                 .penaltyLog()
                 .build()

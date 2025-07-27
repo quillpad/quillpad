@@ -24,6 +24,7 @@ import org.qosp.notes.data.sync.core.RemoteOperation.Update
 import org.qosp.notes.data.sync.core.Success
 import org.qosp.notes.data.sync.core.SyncMethod
 import org.qosp.notes.data.sync.core.SyncNote
+import org.qosp.notes.data.sync.core.SyncNotesResult
 import org.qosp.notes.data.sync.core.SynchronizeNotes
 import org.qosp.notes.data.sync.getMapping
 import org.qosp.notes.data.sync.toLocalNote
@@ -50,7 +51,7 @@ class NoteRepositoryImpl(
         idMappingDao.setNotesToBeDeleted(*n.map { it.id }.toLongArray())
     }
 
-    override suspend fun syncNotes(method: SyncMethod): BaseResult {
+    override suspend fun syncNotes(): BaseResult {
         Log.d(tag, "syncNotes: Starting synchronization")
 
         val syncProvider = backendProvider.syncProvider.value
@@ -58,22 +59,28 @@ class NoteRepositoryImpl(
             Log.d(tag, "syncNotes: Sync not available or disabled")
             return Success
         }
-
+        val syncMethod =
+            if (idMappingDao.getCountByCloudService(syncProvider.type) == 0)
+                SyncMethod.TITLE else SyncMethod.MAPPING
         try {
             // Get all local notes (excluding local-only ones)
             val localNotes = getAll().first().filterNot { it.isLocalOnly || it.isDeleted }
-            Log.d(tag, "syncNotes: Found ${localNotes.size} local notes to sync")
 
             // Get all remote notes and convert to metadata
             val allRemoteNotes = syncProvider.getAll()
             val remoteNotes = allRemoteNotes.map { it.toRemoteNoteMetaData(syncProvider.type) }
-            Log.d(tag, "syncNotes: Found ${remoteNotes.size} remote notes")
+            Log.d(
+                tag, "syncNotes: Syncing by $syncMethod. " +
+                    "Found ${remoteNotes.size} remote notes, " +
+                    "and ${localNotes.size} local notes"
+            )
 
             // Use SynchronizeNotes to determine what updates are needed
             val syncResult =
-                synchronizeNotes(localNotes, remoteNotes, service = syncProvider.type, firstImport = firstImport)
+                synchronizeNotes(localNotes, remoteNotes, service = syncProvider.type, syncMethod)
             Log.d(tag, "sync updates: ${syncResult.localUpdates.size} local, ${syncResult.remoteUpdates.size} remote")
 
+            if (syncMethod == SyncMethod.TITLE) applyMappingChanges(syncResult, syncProvider) // Initial import
             applyLocalUpdates(syncResult.localUpdates, syncProvider, allRemoteNotes)
             applyRemoteUpdates(syncResult.remoteUpdates)
             Log.d(tag, "syncNotes: Synchronization completed successfully")
@@ -111,7 +118,13 @@ class NoteRepositoryImpl(
 
                     is NoteAction.Update -> {
                         val syncNote = remoteNotesMap[action.remoteNoteMetaData.id] ?: continue
-                        val note = syncNote.toLocalNote().copy(id = action.note.id)
+                        val localNote = syncNote.toLocalNote()
+                        val note = if (action.note.isList) {
+                            val tasks = localNote.mdToTaskList(localNote.content)
+                            localNote.copy(id = action.note.id, content = "", taskList = tasks, isList = true)
+                        } else {
+                            localNote.copy(id = action.note.id)
+                        }
                         updateNote(note, sync = false)
                     }
 
@@ -139,6 +152,32 @@ class NoteRepositoryImpl(
                 Log.e(tag, "applyRemoteUpdates: Failed to apply action $action: ${e.message}")
             }
         }
+    }
+
+    private suspend fun applyMappingChanges(syncResult: SyncNotesResult, syncProvider: ISyncBackend) {
+        syncResult.newMappings.forEach { idMappingDao.insert(it) }
+        syncResult.localUpdates.filterIsInstance<NoteAction.Update>().map {
+            IdMapping(
+                localNoteId = it.note.id,
+                remoteNoteId = if (syncProvider.type == CloudService.NEXTCLOUD) it.remoteNoteMetaData.id.toLong() else null,
+                provider = syncProvider.type,
+                extras = null, // TODO: get from nextcloud
+                isDeletedLocally = false,
+                isBeingUpdated = false,
+                storageUri = if (syncProvider.type == CloudService.FILE_STORAGE) it.remoteNoteMetaData.id else null
+            )
+        }.forEach { idMappingDao.insert(it) }
+        syncResult.remoteUpdates.filterIsInstance<NoteAction.Update>().map {
+            IdMapping(
+                localNoteId = it.note.id,
+                remoteNoteId = if (syncProvider.type == CloudService.NEXTCLOUD) it.remoteNoteMetaData.id.toLong() else null,
+                provider = syncProvider.type,
+                extras = null, // TODO: get from nextcloud
+                isDeletedLocally = false,
+                isBeingUpdated = false,
+                storageUri = if (syncProvider.type == CloudService.FILE_STORAGE) it.remoteNoteMetaData.id else null
+            )
+        }.forEach { idMappingDao.insert(it) }
     }
 
     override suspend fun insertNote(note: Note, sync: Boolean): Long {

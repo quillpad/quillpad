@@ -210,4 +210,106 @@ class SynchronizeNotesTest {
         assertEquals(localNote, action.note)
         assertEquals(remoteNote, action.remoteNoteMetaData)
     }
+    // Tests for TITLE sync method
+
+    @Test
+    fun `title sync - empty local and remote notes returns empty result`() = runTest {
+        // Given
+        val localNotes = emptyList<Note>()
+        val remoteNotes = emptyList<RemoteNoteMetaData>()
+
+        // When
+        val result = synchronizeNotes(localNotes, remoteNotes, CloudService.NEXTCLOUD, SyncMethod.TITLE)
+
+        // Then
+        assertEquals(0, result.localUpdates.size)
+        assertEquals(0, result.remoteUpdates.size)
+    }
+
+    @Test
+    fun `title sync - local notes without matching remote title should be created remotely`() = runTest {
+        // Given
+        val localNote = Note(id = 1L, title = "Local Note", modifiedDate = 100L)
+        val localNotes = listOf(localNote)
+        val remoteNotes = emptyList<RemoteNoteMetaData>()
+
+        // When
+        val result = synchronizeNotes(localNotes, remoteNotes, CloudService.NEXTCLOUD, SyncMethod.TITLE)
+
+        // Then
+        assertEquals(0, result.localUpdates.size)
+        assertEquals(1, result.remoteUpdates.size)
+        val action = result.remoteUpdates[0] as NoteAction.Create
+        assertEquals(localNote, action.note)
+        assertEquals("", action.remoteNoteMetaData.id)
+        assertEquals(localNote.title, action.remoteNoteMetaData.title)
+        assertEquals(localNote.modifiedDate, action.remoteNoteMetaData.lastModified)
+    }
+
+    @Test
+    fun `title sync - remote notes without matching local title should be created locally`() = runTest {
+        // Given
+        val remoteNote = RemoteNoteMetaData(id = "remote1", title = "Remote Note", lastModified = 100L)
+        val localNotes = emptyList<Note>()
+        val remoteNotes = listOf(remoteNote)
+
+        // When
+        val result = synchronizeNotes(localNotes, remoteNotes, CloudService.NEXTCLOUD, SyncMethod.TITLE)
+
+        // Then
+        assertEquals(1, result.localUpdates.size)
+        assertEquals(0, result.remoteUpdates.size)
+        val action = result.localUpdates[0] as NoteAction.Create
+        assertEquals(remoteNote.title, action.note.title)
+        assertEquals(remoteNote.lastModified, action.note.modifiedDate)
+        assertEquals(remoteNote, action.remoteNoteMetaData)
+    }
+
+    @Test
+    fun `title sync - local note newer than remote note with same title should update remote`() = runTest {
+        // Given
+        val localNote = Note(id = 1L, title = "Same Title", modifiedDate = 200L)
+        val remoteNote = RemoteNoteMetaData(id = "remote1", title = "Same Title", lastModified = 100L)
+
+        // When
+        val result = synchronizeNotes(listOf(localNote), listOf(remoteNote), CloudService.NEXTCLOUD, SyncMethod.TITLE)
+
+        // Then
+        assertEquals(0, result.localUpdates.size)
+        assertEquals(1, result.remoteUpdates.size)
+        val action = result.remoteUpdates[0] as NoteAction.Update
+        assertEquals(localNote, action.note)
+        assertEquals(remoteNote, action.remoteNoteMetaData)
+    }
+
+    @Test
+    fun `title sync - remote note newer than local note with same title should update local`() = runTest {
+        // Given
+        val localNote = Note(id = 1L, title = "Same Title", modifiedDate = 100L)
+        val remoteNote = RemoteNoteMetaData(id = "remote1", title = "Same Title", lastModified = 200L)
+
+        // When
+        val result = synchronizeNotes(listOf(localNote), listOf(remoteNote), CloudService.NEXTCLOUD, SyncMethod.TITLE)
+
+        // Then
+        assertEquals(1, result.localUpdates.size)
+        assertEquals(0, result.remoteUpdates.size)
+        val action = result.localUpdates[0] as NoteAction.Update
+        assertEquals(localNote, action.note)
+        assertEquals(remoteNote, action.remoteNoteMetaData)
+    }
+
+    @Test
+    fun `title sync - notes with same title and similar timestamps should not create actions`() = runTest {
+        // Given
+        val localNote = Note(id = 1L, title = "Same Title", modifiedDate = 100L)
+        val remoteNote = RemoteNoteMetaData(id = "remote1", title = "Same Title", lastModified = 100L)
+
+        // When
+        val result = synchronizeNotes(listOf(localNote), listOf(remoteNote), CloudService.NEXTCLOUD, SyncMethod.TITLE)
+
+        // Then
+        assertEquals(0, result.localUpdates.size)
+        assertEquals(0, result.remoteUpdates.size)
+    }
 }
