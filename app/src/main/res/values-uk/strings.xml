@@ -32,12 +32,12 @@
     <string name="preferences_color_scheme_yellow">Жовтий</string>
     <string name="preferences_color_scheme_red">Червоний</string>
     <string name="preferences_sort_method">Упорядкувати за</string>
-    <string name="preferences_sort_method_title_asc">Назвою (висхідне)</string>
-    <string name="preferences_sort_method_title_desc">Назвою (низхідне)</string>
-    <string name="preferences_sort_method_created_asc">Часом створення (висхідне)</string>
-    <string name="preferences_sort_method_created_desc">Часом створення (низхідне)</string>
-    <string name="preferences_sort_method_modified_asc">Часом останньої зміни (висхідне)</string>
-    <string name="preferences_sort_method_modified_desc">Часом останньої зміни (низхідне)</string>
+    <string name="preferences_sort_method_title_asc">Назвою (за зростанням)</string>
+    <string name="preferences_sort_method_title_desc">Назвою (за спаданням)</string>
+    <string name="preferences_sort_method_created_asc">Часом створення (за зростанням)</string>
+    <string name="preferences_sort_method_created_desc">Часом створення (за спаданням)</string>
+    <string name="preferences_sort_method_modified_asc">Часом останньої зміни (за зростанням)</string>
+    <string name="preferences_sort_method_modified_desc">Часом останньої зміни (за спаданням)</string>
     <string name="preferences_show_date">Показувати час створення та зміни</string>
     <string name="preferences_date_format">Величінь дати</string>
     <string name="preferences_time_format">Величінь часу</string>
@@ -241,27 +241,27 @@
     <string name="never">Ніколи</string>
     <plurals name="more_items">
         <item quantity="one">+%d елемент</item>
-        <item quantity="few"></item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
+        <item quantity="few"/>
+        <item quantity="many"/>
+        <item quantity="other"/>
     </plurals>
     <plurals name="selected_notes">
         <item quantity="one">Обрано %d нотаток</item>
-        <item quantity="few"></item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
+        <item quantity="few"/>
+        <item quantity="many"/>
+        <item quantity="other"/>
     </plurals>
     <plurals name="selected_notebooks">
         <item quantity="one">Обрано %d записник</item>
-        <item quantity="few"></item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
+        <item quantity="few"/>
+        <item quantity="many"/>
+        <item quantity="other"/>
     </plurals>
     <plurals name="selected_tags">
         <item quantity="one">Обрано %d помітку</item>
-        <item quantity="few"></item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
+        <item quantity="few"/>
+        <item quantity="many"/>
+        <item quantity="other"/>
     </plurals>
    <string name="preferences_cloud_service_files">Зберігання файлів</string>
    <string name="preferences_file_storage_info">Виберіть папку з локального сховища або з хмарного постачальника. Усі
@@ -278,4 +278,7 @@
     <string name="preferences_header_view_navdrawer">Панель навігації</string>
     <string name="preferences_sort_navdrawer_method">Розсортуйте зошити за</string>
     <string name="swipe_to_find_out_whats_new">Гортайте, щоб дізнатися, що нового</string>
+    <string name="preferences_header_view_notebook">Записник</string>
+    <string name="preferences_header_view_note_content">Зміст нотатки</string>
+    <string name="preferences_font_size_default">Звичайний</string>
 </resources>
