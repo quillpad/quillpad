@@ -17,13 +17,11 @@ import org.qosp.notes.data.sync.core.GenericError
 import org.qosp.notes.data.sync.core.ISyncBackend
 import org.qosp.notes.data.sync.core.NoteAction
 import org.qosp.notes.data.sync.core.ProcessRemoteActions
-import org.qosp.notes.data.sync.core.RemoteNoteMetaData
 import org.qosp.notes.data.sync.core.RemoteOperation.Create
 import org.qosp.notes.data.sync.core.RemoteOperation.Delete
 import org.qosp.notes.data.sync.core.RemoteOperation.Update
 import org.qosp.notes.data.sync.core.Success
 import org.qosp.notes.data.sync.core.SyncMethod
-import org.qosp.notes.data.sync.core.SyncNote
 import org.qosp.notes.data.sync.core.SyncNotesResult
 import org.qosp.notes.data.sync.core.SynchronizeNotes
 import org.qosp.notes.data.sync.getMapping
@@ -68,10 +66,9 @@ class NoteRepositoryImpl(
 
             // Get all remote notes and convert to metadata
             val allRemoteNotes = syncProvider.getAll()
-            val remoteNotes = allRemoteNotes.map { it.toRemoteNoteMetaData(syncProvider.type) }
             Log.d(
                 tag, "syncNotes: Syncing by $syncMethod. " +
-                    "Found ${remoteNotes.size} remote notes, and ${localNotes.size} local notes"
+                    "Found ${allRemoteNotes.size} remote notes, and ${localNotes.size} local notes"
             )
 
             // Use SynchronizeNotes to determine what updates are needed
@@ -270,17 +267,4 @@ class NoteRepositoryImpl(
 
     override suspend fun deleteIdMappingsForCloudService(cloudService: CloudService) =
         idMappingDao.deleteAllMappingsFor(cloudService)
-}
-
-private fun SyncNote.toRemoteNoteMetaData(cloudService: CloudService): RemoteNoteMetaData {
-    val remoteId = when (cloudService) {
-        CloudService.NEXTCLOUD -> id.toString()
-        CloudService.FILE_STORAGE -> idStr
-        else -> idStr
-    }
-    return RemoteNoteMetaData(
-        id = remoteId,
-        title = title,
-        lastModified = lastModified
-    )
 }
