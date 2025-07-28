@@ -40,11 +40,11 @@ class StorageBackend(private val context: Context, private val config: StorageCo
         val newDoc = root.createFile(mimeType, note.filename)
 
         return newDoc?.let {
-            writeNoteToFile(it, note.content)
+            writeNoteToFile(it, note.toStorableContent())
             SyncNote(
                 idStr = newDoc.uri.toString(),
                 title = note.title,
-                content = note.content,
+                content = note.toStorableContent(),
                 lastModified = newDoc.lastModified() / 1000, // Epoch milliseconds to seconds
                 id = 0
             )
@@ -56,7 +56,7 @@ class StorageBackend(private val context: Context, private val config: StorageCo
         val rootDoc = getRootDocumentFile() ?: throw IOException("Unable to access storage location")
         val file = DocumentFile.fromSingleUri(context, uri) ?: throw FileNotFoundException("URI not found")
 
-        writeNoteToFile(file, content = if (note.isList) note.taskListToMd() else note.content)
+        writeNoteToFile(file, content = note.toStorableContent())
         val newUri = if (note.filename != file.name) renameFile(file, note.filename, rootDoc) else uri
         return mapping.copy(storageUri = newUri.toString())
     }

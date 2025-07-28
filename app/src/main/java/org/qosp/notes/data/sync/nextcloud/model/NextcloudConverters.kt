@@ -6,7 +6,7 @@ import org.qosp.notes.data.sync.nextcloud.NextcloudNote
 fun Note.asNextcloudNote(id: Long, category: String): NextcloudNote = NextcloudNote(
     id = id,
     title = title,
-    content = if (isList) taskListToMd() else content,
+    content = toStorableContent(),
     category = category,
     favorite = isPinned,
     modified = modifiedDate

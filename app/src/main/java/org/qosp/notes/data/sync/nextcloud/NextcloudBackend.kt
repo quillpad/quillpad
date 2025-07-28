@@ -19,17 +19,7 @@ class NextcloudBackend(
 
     override suspend fun createNote(note: Note): SyncNote {
         Log.d(tag, "createNote() called with: note = ${note.title}")
-        return api.createNote(
-            NextcloudNote(
-                id = 0L, // The server will assign ID
-                content = note.content,
-                title = note.title,
-                category = note.notebookId?.toString() ?: "",
-                favorite = note.isPinned,
-                modified = note.modifiedDate,
-                readOnly = null
-            ), config
-        ).asSyncNote()
+        return api.createNote(note.asNextcloudNote(0, ""), config).asSyncNote()
     }
 
     override suspend fun updateNote(note: Note, mapping: IdMapping): IdMapping {

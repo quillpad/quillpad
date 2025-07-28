@@ -79,13 +79,6 @@ suspend fun NextcloudAPI.getNotesCapabilities(config: NextcloudConfig): Nextclou
     return element?.let { Json.decodeFromJsonElement<NextcloudCapabilities>(it) }
 }
 
-suspend fun NextcloudAPI.deleteNote(note: NextcloudNote, config: NextcloudConfig) {
-    deleteNoteAPI(
-        url = config.remoteAddress + baseURL + "notes/${note.id}",
-        auth = config.credentials,
-    )
-}
-
 suspend fun NextcloudAPI.deleteNote(noteId: Long, config: NextcloudConfig) {
     deleteNoteAPI(
         url = config.remoteAddress + baseURL + "notes/${noteId}",
@@ -124,9 +117,3 @@ suspend fun NextcloudAPI.getNotes(config: NextcloudConfig): List<NextcloudNote> 
     )
 }
 
-suspend fun NextcloudAPI.testCredentials(config: NextcloudConfig) {
-    getNotesAPI(
-        url = config.remoteAddress + baseURL + "notes",
-        auth = config.credentials,
-    )
-}

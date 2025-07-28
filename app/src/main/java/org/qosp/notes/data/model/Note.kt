@@ -118,6 +118,13 @@ data class Note(
         return tasks.toList()
     }
 
+    fun toStorableContent(): String {
+        return when {
+            isList -> taskListToMd()
+            else -> content
+        }
+    }
+
     fun taskListToMd(): String {
         return taskList.joinToString("\n") {
             val prefix = if (it.isDone) "- [x]" else "- [ ]"
