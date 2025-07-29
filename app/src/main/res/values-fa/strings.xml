@@ -1,3 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="nav_archive">بایگانی</string>
+    <string name="nav_notes">یادداشت‌ها</string>
+    <string name="nav_deleted">فروسِتُردگان</string>
+    <string name="nav_settings">پیکربندی</string>
+    <string name="nav_about">درباره</string>
 </resources>
