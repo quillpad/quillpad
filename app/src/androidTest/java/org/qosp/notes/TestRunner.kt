@@ -13,8 +13,10 @@ import org.qosp.notes.di.MarkwonModule
 import org.qosp.notes.di.NextcloudModule
 import org.qosp.notes.di.PreferencesModule
 import org.qosp.notes.di.RepositoryModule
+import org.qosp.notes.di.SyncModule
 import org.qosp.notes.di.TestUtilModule
 import org.qosp.notes.di.UIModule
+import org.qosp.notes.di.UtilModule
 
 class TestRunner : AndroidJUnitRunner() {
     override fun newApplication(
@@ -34,11 +36,13 @@ class TestApplication : Application(), KoinStartup {
         androidContext(this@TestApplication)
         modules(
             TestUtilModule.module,
-            RepositoryModule.repoModule,
-            PreferencesModule.prefModule,
-            NextcloudModule.nextcloudModule,
-            UIModule.uiModule,
             MarkwonModule.markwonModule,
+            NextcloudModule.nextcloudModule,
+            PreferencesModule.prefModule,
+            RepositoryModule.repoModule,
+            SyncModule.syncModule,
+            UIModule.uiModule,
+            UtilModule.utilModule,
         )
     }
 }

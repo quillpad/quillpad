@@ -57,7 +57,7 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
         }
-        val Migration_3_4 = object : Migration(3, 4) {
+        val MIGRATION_3_4 = object : Migration(3, 4) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.apply {
                     execSQL("ALTER TABLE cloud_ids ADD COLUMN storageUri TEXT")
@@ -68,12 +68,8 @@ abstract class AppDatabase : RoomDatabase() {
         val MIGRATION_4_5 = object : Migration(4, 5) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.apply {
-                    execSQL(
-                        """
-                        CREATE INDEX IF NOT EXISTS cloud_ids_id_index ON cloud_ids (localNoteId);
-                        CREATE INDEX IF NOT EXISTS cloud_ids_id_provider_index ON cloud_ids (localNoteId, provider);
-                    """.trimIndent()
-                    )
+                    execSQL("CREATE INDEX IF NOT EXISTS cloud_ids_id_index ON cloud_ids (localNoteId)")
+                    execSQL("CREATE INDEX IF NOT EXISTS cloud_ids_id_provider_index ON cloud_ids (localNoteId, provider)")
                 }
             }
         }
