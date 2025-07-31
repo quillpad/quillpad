@@ -28,7 +28,7 @@ jobs:
           - language: actions
             build-mode: none
           - language: java-kotlin
-            build-mode: manual
+            build-mode: autobuild
 
     steps:
       - name: Checkout repository
@@ -58,7 +58,7 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
-          build-mode: manual  # Required for Android/Kotlin
+          build-mode: ${{ matrix.build-mode }}
 
       - name: Build project
         run: ./gradlew assembleDebug --stacktrace
