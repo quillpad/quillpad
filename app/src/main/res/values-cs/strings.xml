@@ -83,7 +83,6 @@
     <string name="preferences_cloud_service">Služba pro synchronizaci</string>
     <string name="preferences_cloud_service_disabled">Vypnuto</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_sync_experimental_warning">Služba synchronizace je aktuálně experimentální.\nMůžete se setkat s problémy.</string>
     <string name="preferences_nextcloud_limited_features">Nezapomeňte, že Nextcloud Notes nepodporuje funkce jako štítky, přílohy, připomínky a další.</string>
     <string name="preferences_nextcloud_account">Účet Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">Odkaz na Nextcloud</string>

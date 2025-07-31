@@ -92,7 +92,6 @@
     <string name="preferences_cloud_service">Senkronizasyon servisi</string>
     <string name="preferences_cloud_service_disabled">Devre dışı</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_sync_experimental_warning">Senkronizasyon özelliği şu anda deneysel.\nHatalarla karşılaşabilirsiniz.</string>
     <string name="preferences_nextcloud_limited_features">Nextcloud Notes’un etiketler, ekler, hatırlatıcılar gibi özellikleri desteklemediğini unutmayın. Nextcloud Notes’un Nextcloud Sunucusuna yüklenmiş olması gerekir, aksi takdirde giriş Bir şeyler ters gitti hatasıyla başarısız olur!</string>
     <string name="preferences_nextcloud_account">Nextcloud hesabı</string>
     <string name="preferences_nextcloud_instance_url">Nextcloud örnek URL’si</string>

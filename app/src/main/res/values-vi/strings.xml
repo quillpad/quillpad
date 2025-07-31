@@ -83,7 +83,6 @@
     <string name="preferences_cloud_service">Dịch vụ đồng bộ hóa</string>
     <string name="preferences_cloud_service_disabled">Đã tắt</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_sync_experimental_warning">Chức năng đồng bộ hóa hiện đang thử nghiệm.\nBạn có thể gặp lỗi.</string>
     <string name="preferences_nextcloud_limited_features">Hãy nhớ rằng Nextcloud Notes không hỗ trợ các tính năng như thẻ, tệp đính kèm, lời nhắc và hơn thế nữa.</string>
     <string name="preferences_nextcloud_account">Tài khoản Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">URL phiên bản Nextcloud</string>

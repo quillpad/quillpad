@@ -4,7 +4,8 @@
   <string name="app_website" translatable="false">https://quillpad.github.io</string>
     <string name="app_developer_name" translatable="false">Arumugam J, Michael Soultanidis &amp; Open Source Devs
     </string>
-    <string name="app_developer_repo" translatable="false">https://github.com/msoultanidis</string>
+    <string name="app_developer_repo" translatable="false">https://github.com/quillpad/quillpad/graphs/contributors
+    </string>
     <string name="app_repo" translatable="false">https://github.com/quillpad/quillpad</string>
     <string name="app_support_page" translatable="false">https://buymeacoffee.com/quillpad</string>
     <string name="hint_nextcloud_url" translatable="false">https://…</string>

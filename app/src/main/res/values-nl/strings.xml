@@ -83,7 +83,6 @@
     <string name="preferences_cloud_service">Synchronisatieservice</string>
     <string name="preferences_cloud_service_disabled">Uitgeschakeld</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_sync_experimental_warning">De synchronisatiefunctie is momenteel experimenteel. Er zijn mogelijk nog bugs.</string>
     <string name="preferences_nextcloud_limited_features">Houd er rekening mee dat Nextcloud Notes geen ondersteuning biedt voor functies zoals o.a. labels, bijlagen en herinneringen.</string>
     <string name="preferences_nextcloud_account">Nextcloud account</string>
     <string name="preferences_nextcloud_instance_url">URL van Nextcloud server</string>

@@ -54,7 +54,7 @@ class NoteRepositoryImpl(
 
         val syncProvider = backendProvider.syncProvider.value
         if (syncProvider == null || !backendProvider.isSyncing) {
-            Log.d(tag, "syncNotes: Sync not available or disabled")
+            Log.i(tag, "syncNotes: Sync not available or disabled")
             return Success
         }
         val syncMethod =
@@ -79,7 +79,7 @@ class NoteRepositoryImpl(
             if (syncMethod == SyncMethod.TITLE) applyMappingChanges(syncResult, syncProvider) // Initial import
             applyLocalUpdates(syncResult.localUpdates, syncProvider)
             applyRemoteUpdates(syncResult.remoteUpdates)
-            Log.d(tag, "syncNotes: Synchronization completed successfully")
+            Log.i(tag, "syncNotes: Synchronization completed successfully")
         } catch (e: Exception) {
             Log.e(tag, "syncNotes: Synchronization failed: ${e.message}", e)
             return GenericError(e.message ?: "Unknown error")

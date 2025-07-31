@@ -64,7 +64,6 @@
     <string name="preferences_cloud_service">Servizio di sincronizzazione</string>
     <string name="preferences_cloud_service_disabled">Disabilitato</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_sync_experimental_warning">Funzione di sincronizzazione in fase sperimentale.\nSi potrebbero riscontrare degli errori.</string>
     <string name="preferences_nextcloud_limited_features">Tenere presente che Note di Nextcloud non supporta funzionaltà come etichette, allegati, promemoria, compiti e altro. Note di Nextcloud necessita di una installazione sul server Nextcloud altrimenti l\'accesso non potrà essere eseguito con il messaggio \"Qualcosa non ha funzionato\".</string>
     <string name="preferences_nextcloud_account">Account Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">URL dell\'istanza Nextcloud</string>
