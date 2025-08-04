@@ -26,6 +26,7 @@ With Quillpad, you can:
 - Add tags to notes
 - Archive notes you want out of your way
 - Search through notes
+- Sync notes to the file system (store notes as markdown files in a local or cloud folder)
 - Sync with Nextcloud (experimental, requires the Nextcloud Notes app installed on the Nextcloud server used for syncing)
 - Backup your notes to a zip file which you can restore at a later time
 - Toggle between Light and Dark mode
@@ -75,13 +76,21 @@ Follow these steps to add a new translation:
 4. Now you can translate the strings.xml file in your language value folder.
 
 ## Roadmap
-The major features that are currently planned for this app are listed below in a series of milestones. In additional to these major features, there will be bug fixes and other enhancements will be added as we go. 
 
-### Milestone 1.5 (General cloud syncing)
-- Store the notes as markdown files in the device. 
-- If the folder chosen is under a cloud storage provider, Android will sync the markdown files with the respective cloud. For e.g. Google Drive, Dropbox and even Nextcloud. Syncing this way to the cloud does not deal with the Nextcloud API.
-- This will be the easiest way for users to sync the notes without having to self-host a NextCloud instance.
-- Update to the latest version of Android API and Dependency Libraries.
+The major features that are currently planned for this app are listed below in a series of milestones. In additional to
+these major features, there will be bug fixes and other enhancements will be added as we go.
+
+### Milestone 1.5 (General cloud syncing) ✓
+
+- ✓ Store the notes as markdown files in the device.
+- ✓ If the folder chosen is under a cloud storage provider, Android will sync the markdown files with the respective
+  cloud. For e.g. ~~Google Drive, Dropbox~~, pCloud and even Nextcloud. Syncing this way to the cloud does not deal with
+  the Nextcloud API.
+- ✓ This will be the easiest way for users to sync the notes without having to self-host a NextCloud instance.
+- ✓ Update to the latest version of Android API and Dependency Libraries.
+
+This milestone has been completed. Users can now select file storage as a sync mechanism and sync their notes to a
+folder of their choice, which can be a local folder or a cloud folder in the files app.
 
 ### Milestone 1.6 (Jetpack Compose)
 ~~- Introduce Compose and Kotlin multiplatform. The main app views like the list of notes, edit view and the todo list view will be migrated to Compose.~~
@@ -112,5 +121,9 @@ Furthermore, this approach ensures that the current app remains stable and usabl
 ~~- Try an iOS version since the kotlin multiplatform code does the heavy lifting of notes management and syncing. Leverage the same storage API equivalent in iOS.~~
 
 ### Milestone 2.0 (Encryption)
-- Now we have the ability to sync notes using cloud providers like ~~Google Drive and Dropbox~~ pCloud. The cloud providers _may_ to go through the notes and _may_ index them and _may_ profile the user. This is the primary reason for the encryption feature. Which means, the notes won't be staying as markdown files, and cannot be edited by other text editors. 
+
+- Now we have the ability to sync notes using cloud providers like ~~Google Drive and Dropbox~~ pCloud. The cloud
+  providers _may_ to go through the notes and _may_ index them and _may_ profile the user. This is the primary reason
+  for the encryption feature. Which means, the notes won't be staying as markdown files, and cannot be edited by other
+  text editors.
 - Encryption will be optional. The user can switch between having the notes encrypted vs stored them as plain markdown files.
