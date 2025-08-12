@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.compose.compiler)
@@ -10,7 +12,6 @@ plugins {
 
 android {
     compileSdk = 35
-    buildToolsVersion = "30.0.3"
     namespace = "org.qosp.notes"
 
     val currentVersionCode = project.getVersionCode()
@@ -95,10 +96,6 @@ android {
         }
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
-    }
-
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
@@ -122,6 +119,12 @@ android {
     sourceSets {
         // Adds exported schema location as test app assets.
         getByName("androidTest").assets.srcDirs(files("$projectDir/schemas"))
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_11
     }
 }
 
