@@ -28,8 +28,8 @@ android {
         testInstrumentationRunner = "org.qosp.notes.TestRunner"
 
         // Enable per-app language preferences
-        resourceConfigurations.addAll(
-            listOf(
+        androidResources {
+            localeFilters += listOf(
                 "ar",
                 "ca",
                 "cs",
@@ -50,7 +50,8 @@ android {
                 "zh-rCN",
                 "zh-rTW"
             )
-        )
+
+        }
     }
 
     dependenciesInfo {
