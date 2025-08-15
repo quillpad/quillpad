@@ -5,4 +5,12 @@
     <string name="nav_deleted">فروسِتُردگان</string>
     <string name="nav_settings">پیکربندی</string>
     <string name="nav_about">درباره</string>
+    <string name="nav_all_notes">همه یادداشت‌ها</string>
+    <string name="nav_notebooks">دفترچه‌ها</string>
+    <string name="nav_your_notebooks">دفترچه‌های شما</string>
+    <string name="preferences_header_general">کلی</string>
+    <string name="preferences_color_scheme_yellow">زرد</string>
+    <string name="preferences_color_scheme_red">قرمز</string>
+    <string name="preferences_header_view_notebook">دفترچه</string>
+    <string name="preferences_color_scheme_system">سیستم</string>
 </resources>
