@@ -14,16 +14,12 @@ android {
     compileSdk = 35
     namespace = "org.qosp.notes"
 
-    val currentVersionCode = project.getVersionCode()
-    val currentVersionName = project.getVersionName()
-    println("Version code: $currentVersionCode; Version name: $currentVersionName")
-
     defaultConfig {
         applicationId = "io.github.quillpad"
         minSdk = 24
         targetSdk = 35
-        versionCode = currentVersionCode
-        versionName = currentVersionName
+        versionCode = 43
+        versionName = "1.5.1"
 
         testInstrumentationRunner = "org.qosp.notes.TestRunner"
 
