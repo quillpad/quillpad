@@ -1264,12 +1264,17 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         get() = getString(
             when (this) {
                 NoteColor.Default -> R.string.default_string
-                NoteColor.Green -> R.string.preferences_color_scheme_green
-                NoteColor.Pink -> R.string.preferences_color_scheme_pink
-                NoteColor.Blue -> R.string.preferences_color_scheme_blue
                 NoteColor.Red -> R.string.preferences_color_scheme_red
                 NoteColor.Orange -> R.string.preferences_color_scheme_orange
                 NoteColor.Yellow -> R.string.preferences_color_scheme_yellow
+                NoteColor.Green -> R.string.preferences_color_scheme_green
+                NoteColor.Teal -> R.string.preferences_color_scheme_teal
+                NoteColor.Cyan -> R.string.preferences_color_scheme_cyan
+                NoteColor.Blue -> R.string.preferences_color_scheme_blue
+                NoteColor.Purple -> R.string.preferences_color_scheme_purple
+                NoteColor.Pink -> R.string.preferences_color_scheme_pink
+                NoteColor.Brown -> R.string.preferences_color_scheme_brown
+                NoteColor.Gray -> R.string.preferences_color_scheme_gray
             }
         )
 

@@ -36,12 +36,17 @@
         <item name="colorHighlightMask">#1F000000</item>
 
         <item name="colorNoteDefault">#FFFFFF</item>
-        <item name="colorNoteGreen">#C5E1A5</item>
-        <item name="colorNotePink">#F48FB1</item>
-        <item name="colorNoteBlue">#81D4FA</item>
         <item name="colorNoteRed">#EF9A9A</item>
-        <item name="colorNoteOrange">#FFAB91</item>
+        <item name="colorNoteOrange">#F29F75</item>
         <item name="colorNoteYellow">#FFF59D</item>
+        <item name="colorNoteGreen">#C5E1A5</item>
+        <item name="colorNoteTeal">#B4DED3</item>
+        <item name="colorNoteCyan">#8CC9DB</item>
+        <item name="colorNoteBlue">#AFCCDC</item>
+        <item name="colorNotePurple">#C8AED2</item>
+        <item name="colorNotePink">#F9BED2</item>
+        <item name="colorNoteBrown">#BEB6AB</item>
+        <item name="colorNoteGray">#B8BAC1</item>
 
         <item name="colorNoteTextHighlight">#96FFFF00</item>
 
@@ -79,6 +84,26 @@
 
     </style>
 
+    <style name="Red">
+        <item name="colorPrimary">#ea4235</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="colorSecondary">#ea4235</item>
+
+        <item name="colorDrawerHeaderBackground">#99EA4235</item>
+        <item name="colorPrimaryTranscluent">#26EA4235</item>
+
+    </style>
+
+    <style name="Yellow">
+        <item name="colorPrimary">#fbbc04</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="colorSecondary">#fbbc04</item>
+
+        <item name="colorDrawerHeaderBackground">#99FBBC04</item>
+        <item name="colorPrimaryTranscluent">#26FBBC04</item>
+
+    </style>
+
     <style name="Green">
         <item name="colorPrimary">#7CB342</item>
         <item name="colorPrimaryDark">@android:color/transparent</item>
@@ -102,10 +127,10 @@
     <style name="Orange">
         <item name="colorPrimary">#E47400</item>
         <item name="colorPrimaryDark">@android:color/transparent</item>
-        <item name="colorSecondary">#FFB300</item>
+        <item name="colorSecondary">#E47400</item>
 
-        <item name="colorDrawerHeaderBackground">#99FFB300</item>
-        <item name="colorPrimaryTranscluent">#29E39F00</item>
+        <item name="colorDrawerHeaderBackground">#99E47400</item>
+        <item name="colorPrimaryTranscluent">#29E47400</item>
 
     </style>
 
