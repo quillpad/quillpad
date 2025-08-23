@@ -25,10 +25,10 @@ I have also added two themes for the app:
 - **PURPLE**
 
 <br>
-<img width="216" height="480" alt="photo_1" src="https://github.com/user-attachments/assets/68785633-f97a-4368-9810-a7be57262683" />
-<img width="216" height="480" alt="photo_2" src="https://github.com/user-attachments/assets/76339be6-8a44-4d9e-92d6-b6fe894912af" />
-<img width="216" height="480" alt="photo_3" src="https://github.com/user-attachments/assets/85217a56-0ff5-415e-85f7-4c38a1b247d7" />
-<img width="216" height="480" alt="photo_4" src="https://github.com/user-attachments/assets/82b07ffd-575a-4246-bc1e-8270df42aecb" />
+<img width="180" height="400" alt="photo_1" src="https://github.com/user-attachments/assets/68785633-f97a-4368-9810-a7be57262683" />
+<img width="180" height="400" alt="photo_2" src="https://github.com/user-attachments/assets/76339be6-8a44-4d9e-92d6-b6fe894912af" />
+<img width="180" height="400" alt="photo_3" src="https://github.com/user-attachments/assets/85217a56-0ff5-415e-85f7-4c38a1b247d7" />
+<img width="180" height="400" alt="photo_4" src="https://github.com/user-attachments/assets/82b07ffd-575a-4246-bc1e-8270df42aecb" />
 <br>
 <br>
 
