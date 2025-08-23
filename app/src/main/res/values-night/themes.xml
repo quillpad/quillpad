@@ -38,12 +38,17 @@
         <item name="colorHighlightMask">#1FFFFFFF</item>
 
         <item name="colorNoteDefault">#1C1C1C</item>
-        <item name="colorNoteGreen">#38573A</item>
-        <item name="colorNotePink">#5C2940</item>
-        <item name="colorNoteBlue">#273749</item>
-        <item name="colorNoteRed">#6A3333</item>
-        <item name="colorNoteOrange">#65452A</item>
-        <item name="colorNoteYellow">#68643A</item>
+        <item name="colorNoteRed">#761725</item>
+        <item name="colorNoteOrange">#693618</item>
+        <item name="colorNoteYellow">#7C5603</item>
+        <item name="colorNoteGreen">#264D3B</item>
+        <item name="colorNoteTeal">#0C635D</item>
+        <item name="colorNoteCyan">#2B7489</item>
+        <item name="colorNoteBlue">#274255</item>
+        <item name="colorNotePurple">#482E5B</item>
+        <item name="colorNotePink">#6D394F</item>
+        <item name="colorNoteBrown">#4B443A</item>
+        <item name="colorNoteGray">#383A41</item>
 
         <item name="colorNoteTextHighlight">#96FFFF00</item>
 
@@ -62,6 +67,26 @@
 
         <item name="colorDrawerHeaderBackground">#3390CAF9</item>
         <item name="colorPrimaryTranscluent">#2690CAF9</item>
+
+    </style>
+
+    <style name="Red">
+        <item name="colorPrimary">#EE6E63</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="colorSecondary">#EE6E63</item>
+
+        <item name="colorDrawerHeaderBackground">#33EE6E63</item>
+        <item name="colorPrimaryTranscluent">#26EE6E63</item>
+
+    </style>
+
+    <style name="Yellow">
+        <item name="colorPrimary">#FCCF4F</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="colorSecondary">#FCCF4F</item>
+
+        <item name="colorDrawerHeaderBackground">#33FCCF4F</item>
+        <item name="colorPrimaryTranscluent">#26FCCF4F</item>
 
     </style>
 
@@ -86,12 +111,12 @@
     </style>
 
     <style name="Orange">
-        <item name="colorPrimary">#FFCC80</item>
+        <item name="colorPrimary">#FFB84D</item>
         <item name="colorPrimaryDark">@android:color/transparent</item>
-        <item name="colorSecondary">#FFCC80</item>
+        <item name="colorSecondary">#FFB84D</item>
 
-        <item name="colorDrawerHeaderBackground">#33FFCC80</item>
-        <item name="colorPrimaryTranscluent">#26FFCC80</item>
+        <item name="colorDrawerHeaderBackground">#33FFB84D</item>
+        <item name="colorPrimaryTranscluent">#26FFB84D</item>
 
     </style>
 

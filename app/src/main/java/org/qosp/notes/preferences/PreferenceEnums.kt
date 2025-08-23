@@ -28,10 +28,12 @@ enum class ColorScheme(
     val styleResource: Int,
 ) : HasNameResource, HasSupportRequirement, EnumPreference by key("color_scheme") {
     BLUE(R.string.preferences_color_scheme_blue, R.style.Blue) { override val isDefault = true },
+    RED(R.string.preferences_color_scheme_red, R.style.Red),
+    YELLOW(R.string.preferences_color_scheme_yellow, R.style.Yellow),
     GREEN(R.string.preferences_color_scheme_green, R.style.Green),
     PINK(R.string.preferences_color_scheme_pink, R.style.Pink),
-    YELLOW(R.string.preferences_color_scheme_orange, R.style.Orange),
-    RED(R.string.preferences_color_scheme_purple, R.style.Purple),
+    ORANGE(R.string.preferences_color_scheme_orange, R.style.Orange),
+    PURPLE(R.string.preferences_color_scheme_purple, R.style.Purple),
     SYSTEM(R.string.preferences_color_scheme_system, R.style.System) {
         override fun isSupported(): Boolean {
             return Build.VERSION.SDK_INT >= 31
