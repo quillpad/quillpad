@@ -1,28 +1,29 @@
 ## Hello!
-I have created this fork that adds extra color options for notes as i recently migrated from Google Keep and found the options lacking for me.. 
+I have created this fork that adds extra color options for notes, as I recently migrated from Google Keep to Quillpad and found the available options lacking for me..
 
-These are all the colors listed in order that they appear in this fork, all were adjusted to be as similar to the 12 available in Google Keep:
-- **DEFAULT** (White and Black)
-- **RED**
-- **ORANGE**
-- **YELLOW**
-- **GREEN**
-- **TEAL**
-- **CYAN**
-- **BLUE**
-- **PURPLE**
-- **PINK**
-- **BROWN**
-- **GRAY**
+These are all the color options listed in order as they appear like in the app, I tried to make them as similar to the 12 colors available in Google Keep:
+- **DEFAULT** (White and Black) -- ![#1C1C1C](https://placehold.co/15x15/1C1C1C/1C1C1C.png) `#1C1C1C`
+- **RED** -- ![#761725](https://placehold.co/15x15/761725/761725.png) `#761725`
+- **ORANGE** -- ![#693618](https://placehold.co/15x15/693618/693618.png) `#693618`
+- **YELLOW** -- ![#7C5603](https://placehold.co/15x15/7C5603/7C5603.png) `#7C5603`
+- **GREEN** -- ![#264D3B](https://placehold.co/15x15/264D3B/264D3B.png) `#264D3B`
+- **TEAL** -- ![#0C635D](https://placehold.co/15x15/0C635D/0C635D.png) `#0C635D`
+- **CYAN** -- ![#2B7489](https://placehold.co/15x15/2B7489/2B7489.png) `#2B7489`
+- **BLUE** -- ![#274255](https://placehold.co/15x15/274255/274255.png) `#274255`
+- **PURPLE** -- ![#482E5B](https://placehold.co/15x15/482E5B/482E5B.png) `#482E5B`
+- **PINK** -- ![#6D394F](https://placehold.co/15x15/6D394F/6D394F.png) `#6D394F`
+- **BROWN** -- ![#4B443A](https://placehold.co/15x15/4B443A/4B443A.png) `#4B443A`
+- **GRAY** -- ![#383A41](https://placehold.co/15x15/383A41/383A41.png) `#383A41`
 
-
-I have also added two themes for the app:
+I have also added two new themes for the app:
 - **BLUE**
 - **RED** -- NEW!
 - **YELLOW** -- NEW!
+- **GREEN**
 - **PINK**
 - **ORANGE**
 - **PURPLE**
+- **SYSTEM**
 
 <br>
 <img width="150" alt="photo_1" src="https://github.com/user-attachments/assets/68785633-f97a-4368-9810-a7be57262683" />
@@ -32,11 +33,12 @@ I have also added two themes for the app:
 <br>
 <br>
 
-*(The edit was performed and tested in Android Studio)*
+*(This edit was performed and tested in Android Studio)*
 <br>
 <br>
 <br>
-^^^^^^^^^^^^^^^ <br>
+^^^^^^^^^^^^^^^
+
 ^^^^^^^^^^^^^^^
 <br>
 <br>
