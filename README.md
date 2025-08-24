@@ -1,7 +1,7 @@
 ## Hello!
 I have created this fork that adds extra color options for notes as i recently migrated from Google Keep and found the options lacking for me.. 
 
-These are all the colors listed in order that they appear in this fork, all where adjusted to be as similar to the 12 available in Google Keep:
+These are all the colors listed in order that they appear in this fork, all were adjusted to be as similar to the 12 available in Google Keep:
 - **DEFAULT** (White and Black)
 - **RED**
 - **ORANGE**
@@ -21,7 +21,7 @@ I have also added two themes for the app:
 - **RED** -- NEW!
 - **YELLOW** -- NEW!
 - **PINK**
-- **ORANGE** (color slightly adjusted to be more orange)
+- **ORANGE**
 - **PURPLE**
 
 <br>
