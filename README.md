@@ -1,3 +1,48 @@
+## Hello!
+I have created this fork that adds extra color options for notes as i recently migrated from Google Keep and found the options lacking for me.. 
+
+These are all the colors listed in order that they appear in this fork, all were adjusted to be as similar to the 12 available in Google Keep:
+- **DEFAULT** (White and Black)
+- **RED**
+- **ORANGE**
+- **YELLOW**
+- **GREEN**
+- **TEAL**
+- **CYAN**
+- **BLUE**
+- **PURPLE**
+- **PINK**
+- **BROWN**
+- **GRAY**
+
+
+I have also added two themes for the app:
+- **BLUE**
+- **RED** -- NEW!
+- **YELLOW** -- NEW!
+- **PINK**
+- **ORANGE**
+- **PURPLE**
+
+<br>
+<img width="150" alt="photo_1" src="https://github.com/user-attachments/assets/68785633-f97a-4368-9810-a7be57262683" />
+<img width="150" alt="photo_2" src="https://github.com/user-attachments/assets/76339be6-8a44-4d9e-92d6-b6fe894912af" />
+<img width="150" alt="photo_3" src="https://github.com/user-attachments/assets/85217a56-0ff5-415e-85f7-4c38a1b247d7" />
+<img width="150" alt="photo_4" src="https://github.com/user-attachments/assets/82b07ffd-575a-4246-bc1e-8270df42aecb" />
+<br>
+<br>
+
+*(The edit was performed and tested in Android Studio)*
+<br>
+<br>
+<br>
+^^^^^^^^^^^^^^^ <br>
+^^^^^^^^^^^^^^^
+<br>
+<br>
+<br>
+Original description below:
+
 [![Gitter](https://badges.gitter.im/quillpad/community.svg)](https://gitter.im/quillpad/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Android Build Release](https://github.com/quillpad/quillpad/actions/workflows/android.yml/badge.svg?branch=master)](https://github.com/quillpad/quillpad/actions/workflows/android.yml)
 # Quillpad
