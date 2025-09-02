@@ -78,8 +78,8 @@
     <string name="preferences_currently_not_syncing">当前未同步</string>
     <string name="preferences_cloud_service">同步服务</string>
     <string name="preferences_cloud_service_disabled">禁用</string>
-    <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_nextcloud_limited_features">请记住，Nextcloud Notes 不支持标签、附件、提醒等功能。</string>
+    <string name="preferences_cloud_service_nextcloud">Nextcloud云服务</string>
+    <string name="preferences_nextcloud_limited_features">请记住，Nextcloud Notes 不支持标签、附件、提醒等功能。并且这个功能需要Nextcloud服务端装有Nextcloud Notes插件！</string>
     <string name="preferences_nextcloud_account">Nextcloud 帐户</string>
     <string name="preferences_nextcloud_instance_url">Nextcloud 实例网址</string>
     <string name="preferences_nextcloud_set_your_credentials">设置您的证书</string>
@@ -207,7 +207,7 @@
     <string name="indicator_archive_note">已存档的笔记</string>
     <string name="indicator_moved_notes_to_bin">把笔记移至废纸篓</string>
     <string name="indicator_moved_note_to_bin">把笔记移至废纸篓</string>
-    <string name="indicator_empty_note_discarded">丢弃的空笔记</string>
+    <string name="indicator_empty_note_discarded">已自动丢弃空白笔记</string>
     <string name="action_insert_link">插入链接</string>
     <string name="action_insert">插入</string>
     <string name="action_insert_table">插入表格</string>
@@ -271,4 +271,14 @@
     <string name="preferences_header_view_navdrawer">导航抽屉</string>
     <string name="preferences_sort_navdrawer_method">按以下方式对笔记本进行排序</string>
     <string name="swipe_to_find_out_whats_new">滑动查看新内容</string>
+    <string name="preferences_file_storage_location">存储位置</string>
+    <string name="preferences_file_storage_select">选择存储位置</string>
+    <string name="action_enable_screen_always_on">保持屏幕常亮</string>
+    <string name="action_disable_screen_always_on">取消屏幕常亮</string>
+    <string name="action_screen_always_on">设置屏幕常亮</string>
+    <string name="action_uncheck_all_tasks">取消勾选所有项</string>
+    <string name="preferences_move_checked_items">勾选项目时动态移动所在列表</string>
+    <string name="action_change_mode">编辑/查看模式</string>
+    <string name="preferences_cloud_service_files">本地存储</string>
+    <string name="preferences_file_storage_info">可以选择本地存储或者云存储的文件夹来同步笔记。所有笔记将以Markdown格式进行存储。</string>
 </resources>
