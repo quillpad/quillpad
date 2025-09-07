@@ -324,8 +324,7 @@
     <string name="what_is_new">What\'s new?</string>
     <string name="continue_next">Continue</string>
     <string name="swipe_to_find_out_whats_new">Swipe through to find out what\'s new</string>
-    <string name="what_is_new_content" translatable="false">"Exciting feature: Now you can save notes as files in a
-        folder. You can access this feature by choosing Sync -> File Storage in the settings."
+    <string name="what_is_new_content" translatable="false">New error reporting feature via email for better support
     </string>
 
     <plurals name="more_items">
