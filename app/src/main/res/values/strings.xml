@@ -348,4 +348,10 @@
         <item quantity="other">Selected %d tags</item>
     </plurals>
     <string name="preferences_cloud_service_files">File Storage</string>
+    <string name="error_report_title" translatable="false">Report Errors</string>
+    <string name="error_report_description" translatable="false">There has been an error. Please report this to the
+        developers.
+    </string>
+    <string name="error_report_comment" translatable="false">You can add comments here:</string>
+    <string name="error_report_email" translatable="false">sixface@msn.com</string>
 </resources>

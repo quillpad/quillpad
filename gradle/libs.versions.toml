@@ -1,4 +1,5 @@
 [versions]
+acra = "5.12.0"
 activityCompose = "1.10.1"
 activityKtx = "1.10.1"
 androidGradlePlugin = "8.11.0"
@@ -54,6 +55,8 @@ lifecycleRuntimeCompose = "2.9.2"
 navigationCompose = "2.9.3"
 
 [libraries]
+acra-sender-mail = { module = "ch.acra:acra-mail", version.ref = "acra" }
+acra-dialog = { module = "ch.acra:acra-dialog", version.ref = "acra" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
@@ -91,7 +94,6 @@ koin-android = { module = "io.insert-koin:koin-android" }
 koin-android-compat = { module = "io.insert-koin:koin-android-compat" }
 koin-androidx-workmanager = { module = "io.insert-koin:koin-androidx-workmanager" }
 koin-androidx-navigation = { module = "io.insert-koin:koin-androidx-navigation" }
-koin-androidx-startup = { module = "io.insert-koin:koin-androidx-startup" }
 koin-test = { module = "io.insert-koin:koin-test" }
 koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4" }
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerializationJson" }
@@ -133,6 +135,7 @@ workRuntimeKtx = { module = "androidx.work:work-runtime-ktx", version.ref = "wor
 workTesting = { module = "androidx.work:work-testing", version.ref = "work" }
 
 [bundles]
+acra = ["acra-dialog", "acra-sender-mail"]
 kotlin-deps = ["kotlin-serialization-json"]
 kotlin-androidX = [
     "androidx-activity-ktx",
