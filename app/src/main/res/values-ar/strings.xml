@@ -323,8 +323,6 @@
     <string name="what_is_new">ما الجديد؟</string>
     <string name="continue_next">متابعة</string>
     <string name="swipe_to_find_out_whats_new">اسحب لمعرفة ما الجديد</string>
-    <string name="what_is_new_content" translatable="false">"ميزة مثيرة: يمكنك الآن حفظ الملاحظات كملفات في مجلد. يمكنك الوصول إلى هذه الميزة عن طريق اختيار المزامنة -> تخزين الملفات في الإعدادات."
-    </string>
 
     <plurals name="more_items">
         <item quantity="zero">+%d عناصر</item>
