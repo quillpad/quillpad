@@ -171,9 +171,9 @@ class SynchronizeNotesTest {
     }
 
     @Test
-    fun `deleted remote note should delete local note mapping`() = runTest {
+    fun `deleted remote note should trigger local delete action`() = runTest {
         // Given
-        val localNote = Note(id = 1L, title = "Local Note", modifiedDate = 100L)
+        val localNote = Note(id = 1L, title = "Local Note", modifiedDate = 100L, content = "Some content")
         val mapping = IdMapping(
             localNoteId = 1L,
             remoteNoteId = 2L,
@@ -188,11 +188,15 @@ class SynchronizeNotesTest {
         val result = synchronizeNotes(listOf(localNote), emptyList(), CloudService.NEXTCLOUD)
 
         // Then
-        assertEquals(0, result.localUpdates.size)
-        assertEquals(1, result.remoteUpdates.size)
-        val action = result.remoteUpdates[0] as NoteAction.Create
+        assertEquals(1, result.localUpdates.size)
+        assertEquals(0, result.remoteUpdates.size)
+        val action = result.localUpdates[0] as NoteAction.Delete
         assertEquals(localNote, action.note)
+        // Check that the remoteNote in the action is a placeholder, as the actual remote note is gone
         assertEquals("", action.remoteNote.idStr)
+        assertEquals(localNote.title, action.remoteNote.title)
+        assertEquals(localNote.modifiedDate, action.remoteNote.lastModified)
+        assertEquals(localNote.content, action.remoteNote.content)
     }
 
     @Test
