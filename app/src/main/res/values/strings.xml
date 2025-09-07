@@ -328,8 +328,7 @@
     <string name="what_is_new">What\'s new?</string>
     <string name="continue_next">Continue</string>
     <string name="swipe_to_find_out_whats_new">Swipe through to find out what\'s new</string>
-    <string name="what_is_new_content" translatable="false">"Exciting feature: Now you can save notes as files in a
-        folder. You can access this feature by choosing Sync -> File Storage in the settings."
+    <string name="what_is_new_content" translatable="false">New error reporting feature via email for better support
     </string>
 
     <plurals name="more_items">
@@ -352,4 +351,10 @@
         <item quantity="other">Selected %d tags</item>
     </plurals>
     <string name="preferences_cloud_service_files">File Storage</string>
+    <string name="error_report_title" translatable="false">Report Errors</string>
+    <string name="error_report_description" translatable="false">There has been an error. Please report this to the
+        developers.
+    </string>
+    <string name="error_report_comment" translatable="false">You can add comments here:</string>
+    <string name="error_report_email" translatable="false">sixface@msn.com</string>
 </resources>

@@ -1,5 +1,7 @@
 package org.qosp.notes.data.sync.nextcloud
 
+import android.util.Log
+import org.acra.ktx.sendWithAcra
 import org.qosp.notes.data.sync.core.ServerNotSupportedException
 
 class ValidateNextcloud(private val api: NextcloudAPI) {
@@ -8,6 +10,10 @@ class ValidateNextcloud(private val api: NextcloudAPI) {
             val capabilities = api.getNotesCapabilities(config)!!
             val maxServerVersion = capabilities.apiVersion.last().toFloat()
             if (MIN_SUPPORTED_VERSION.toFloat() > maxServerVersion) throw ServerNotSupportedException
+        }
+        result.exceptionOrNull()?.let {
+            Log.e("ValidateNextcloud", "invoke: Error validating config", it)
+            it.sendWithAcra()
         }
         return when (result.exceptionOrNull()) {
             null -> BackendValidationResult.Success

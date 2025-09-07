@@ -3,9 +3,11 @@ package org.qosp.notes
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Context
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.StrictMode
+import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -19,12 +21,15 @@ import coil.decode.ImageDecoderDecoder
 import coil.decode.VideoFrameDecoder
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
+import org.acra.ReportField
+import org.acra.config.dialog
+import org.acra.config.mailSender
+import org.acra.data.StringFormat
+import org.acra.ktx.initAcra
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.workmanager.koin.workManagerFactory
-import org.koin.androix.startup.KoinStartup
-import org.koin.core.annotation.KoinExperimentalAPI
-import org.koin.dsl.koinConfiguration
+import org.koin.core.context.startKoin
 import org.qosp.notes.components.workers.BinCleaningWorker
 import org.qosp.notes.components.workers.SyncWorker
 import org.qosp.notes.di.MarkwonModule
@@ -36,8 +41,7 @@ import org.qosp.notes.di.UIModule
 import org.qosp.notes.di.UtilModule
 import java.util.concurrent.TimeUnit
 
-@OptIn(KoinExperimentalAPI::class)
-class App : Application(), ImageLoaderFactory, KoinStartup {
+class App : Application(), ImageLoaderFactory {
 
     override fun newImageLoader(): ImageLoader {
         return ImageLoader.Builder(applicationContext)
@@ -62,25 +66,63 @@ class App : Application(), ImageLoaderFactory, KoinStartup {
         }
         super.onCreate()
 
+        startKoin {
+            androidLogger()
+            androidContext(this@App)
+            workManagerFactory()
+            modules(
+                listOf(
+                    MarkwonModule.markwonModule,
+                    NextcloudModule.nextcloudModule,
+                    PreferencesModule.prefModule,
+                    RepositoryModule.repoModule,
+                    UIModule.uiModule,
+                    UtilModule.utilModule,
+                    SyncModule.syncModule,
+                )
+            )
+        }
+
         createNotificationChannels()
         enqueueWorkers()
     }
 
-    override fun onKoinStartup() = koinConfiguration {
-        androidLogger()
-        androidContext(this@App)
-        workManagerFactory()
-        modules(
-            listOf(
-                MarkwonModule.markwonModule,
-                NextcloudModule.nextcloudModule,
-                PreferencesModule.prefModule,
-                RepositoryModule.repoModule,
-                UIModule.uiModule,
-                UtilModule.utilModule,
-                SyncModule.syncModule,
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        Log.d("App", "attachBaseContext: Initializing ACRA")
+        initAcra {
+            buildConfigClass = BuildConfig::class.java
+            reportFormat = StringFormat.JSON
+            reportContent = listOf(
+                ReportField.REPORT_ID,
+                ReportField.APP_VERSION_CODE,
+                ReportField.APP_VERSION_NAME,
+                ReportField.ANDROID_VERSION,
+                ReportField.PRODUCT,
+                ReportField.BRAND,
+                ReportField.PHONE_MODEL,
+                ReportField.BUILD_CONFIG,
+                ReportField.CUSTOM_DATA,
+                ReportField.STACK_TRACE,
+                ReportField.USER_COMMENT,
+                ReportField.USER_APP_START_DATE,
+                ReportField.USER_CRASH_DATE,
+                ReportField.LOGCAT,
             )
-        )
+            logcatFilterByPid = true
+
+            dialog {
+                text = getString(R.string.error_report_description)
+                title = getString(R.string.error_report_title)
+                commentPrompt = getString(R.string.error_report_comment)
+            }
+
+            mailSender {
+                mailTo = getString(R.string.error_report_email)
+                reportAsFile = true
+                reportFileName = "error_report.json"
+            }
+        }
     }
 
     private fun createNotificationChannels() {

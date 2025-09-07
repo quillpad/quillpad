@@ -18,8 +18,8 @@ android {
         applicationId = "io.github.quillpad"
         minSdk = 24
         targetSdk = 35
-        versionCode = 43
-        versionName = "1.5.1"
+        versionCode = 44
+        versionName = "1.5.2"
 
         testInstrumentationRunner = "org.qosp.notes.TestRunner"
 
@@ -208,7 +208,6 @@ dependencies {
     implementation(libs.koin.android.compat)
     implementation(libs.koin.androidx.workmanager)
     implementation(libs.koin.androidx.navigation)
-    implementation(libs.koin.androidx.startup)
 
     // Coil
     implementation(libs.coil)
@@ -228,6 +227,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit2Convertor)
 
-    // LeakCanary
+    // Software Quality
     debugImplementation(libs.leakcanaryAndroid)
+    implementation(libs.bundles.acra)
 }
