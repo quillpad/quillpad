@@ -281,4 +281,8 @@
     <string name="action_enable_screen_always_on">Abilita schermo sempre acceso</string>
     <string name="action_disable_screen_always_on">Disabilita schermo sempre acceso</string>
     <string name="action_uncheck_all_tasks">Deseleziona tutti gli elementi</string>
+    <string name="preferences_cloud_service_files">Archivio file</string>
+    <string name="preferences_file_storage_info">Selezionare una cartella dall\'archivio locale o da un fornitore di servizi cloud. Tutte le note verranno memorizzate in Markdown.</string>
+    <string name="preferences_file_storage_location">Posizione dell\'archivio</string>
+    <string name="preferences_file_storage_select">Selezionare la posizione dell\'archivio</string>
 </resources>
