@@ -1,6 +1,5 @@
 package org.qosp.notes.ui.launcher
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -63,7 +62,9 @@ fun WelcomeScreen(onNextClicked: () -> Unit) {
 @Composable
 fun WelcomeContent(content: @Composable () -> Unit) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) { content() }
@@ -78,13 +79,12 @@ fun WhatIsNew() {
         style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold, fontSize = 30.sp)
     )
     val lines = context.getString(R.string.what_is_new_content).split("\n")
+        .map { it.trim() }.filter { it.isNotBlank() }
     LazyColumn {
         items(lines) {
-            Row(Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
-                Canvas(modifier = Modifier.padding(start = 8.dp, end = 8.dp).size(6.dp)) {
-                    drawCircle(Color.Black)
-                }
-                Text(text = it)
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Absolute.Left) {
+                Text(text = "🟢", modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp), fontSize = 15.sp)
+                Text(text = it, modifier = Modifier.padding(8.dp))
             }
         }
     }
@@ -95,7 +95,9 @@ fun WhatIsNew() {
 fun FinalPage(onNextClicked: () -> Unit) {
     LocalContext.current
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center) {

@@ -17,11 +17,10 @@ import io.noties.markwon.editor.handler.EmphasisEditHandler
 import io.noties.markwon.editor.handler.StrongEmphasisEditHandler
 import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
 import io.noties.markwon.ext.tables.TablePlugin
-import io.noties.markwon.ext.tasklist.TaskListPlugin.create
-import io.noties.markwon.linkify.LinkifyPlugin.create
-import io.noties.markwon.movement.MovementMethodPlugin.create
+import io.noties.markwon.ext.tasklist.TaskListPlugin
+import io.noties.markwon.linkify.LinkifyPlugin
+import io.noties.markwon.movement.MovementMethodPlugin
 import io.noties.markwon.simple.ext.SimpleExtPlugin
-import io.noties.markwon.simple.ext.SimpleExtPlugin.create
 import me.saket.bettermovementmethod.BetterLinkMovementMethod.getInstance
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -45,9 +44,9 @@ object MarkwonModule {
     }
 
     private fun getMarkwon(context: Context, preferenceRepository: PreferenceRepository): Markwon = builder(context)
-        .usePlugin(create(EMAIL_ADDRESSES or WEB_URLS))
+        .usePlugin(LinkifyPlugin.create(EMAIL_ADDRESSES or WEB_URLS))
         .usePlugin(SoftBreakAddsNewLinePlugin.create())
-        .usePlugin(create(getInstance()))
+        .usePlugin(MovementMethodPlugin.create(getInstance()))
         .usePlugin(StrikethroughPlugin.create())
         .usePlugin(TablePlugin.create(context))
         .usePlugin(object : AbstractMarkwonPlugin() {
@@ -55,12 +54,12 @@ object MarkwonModule {
                 builder.linkResolver(LinkResolverDef())
             }
         })
-        .usePlugin(create { plugin: SimpleExtPlugin ->
+        .usePlugin(SimpleExtPlugin.create { plugin: SimpleExtPlugin ->
             plugin
                 .addExtension(
-                    2,
-                    '=',
-                    SpanFactory { _, _ ->
+                    /* length = */ 2,
+                    /* character = */ '=',
+                    /* spanFactory = */ SpanFactory { _, _ ->
                         val typedValue = TypedValue()
                         context.theme.resolveAttribute(colorNoteTextHighlight, typedValue, true)
                         return@SpanFactory BackgroundColorSpan(typedValue.data)
@@ -68,9 +67,12 @@ object MarkwonModule {
         })
         .usePlugin(CoilImagesPlugin.create(context, preferenceRepository))
         .apply {
-            val mainColor = context.resolveAttribute(colorMarkdownTask) ?: return@apply
-            val backgroundColor = context.resolveAttribute(colorBackground) ?: return@apply
-            usePlugin(create(mainColor, mainColor, backgroundColor))
+            val mainColor = context.resolveAttribute(colorMarkdownTask)
+            val backgroundColor = context.resolveAttribute(colorBackground)
+            val taskPlugin = if (mainColor != null && backgroundColor != null)
+                TaskListPlugin.create(mainColor, mainColor, backgroundColor)
+            else TaskListPlugin.create(context)
+            usePlugin(taskPlugin)
         }
         .build()
 

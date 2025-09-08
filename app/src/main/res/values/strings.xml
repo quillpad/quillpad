@@ -325,7 +325,7 @@
     <string name="continue_next">Continue</string>
     <string name="swipe_to_find_out_whats_new">Swipe through to find out what\'s new</string>
     <string name="what_is_new_content"
-            translatable="false">"New Feature: Report errors and crashes via email\nFix: Deleting a file remotely re-creates the file on sync\n "
+            translatable="false">"Fix: The checkbox in markdown lists are now displayed properly."
     </string>
 
     <plurals name="more_items">
