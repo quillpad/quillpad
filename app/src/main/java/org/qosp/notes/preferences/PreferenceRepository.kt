@@ -54,6 +54,7 @@ class PreferenceRepository(
                     syncMode = prefs.getEnum(),
                     backgroundSync = prefs.getEnum(),
                     newNotesSyncable = prefs.getEnum(),
+                    trustSelfSignedCertificate = prefs.getEnum(),
                 )
             }
     }

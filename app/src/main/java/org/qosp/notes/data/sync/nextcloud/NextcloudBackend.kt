@@ -10,7 +10,7 @@ import org.qosp.notes.data.sync.nextcloud.model.asNextcloudNote
 import org.qosp.notes.preferences.CloudService
 
 class NextcloudBackend(
-    private val api: NextcloudAPI,
+    private val apiProvider: NextcloudAPIProvider,
     private val config: NextcloudConfig
 ) : ISyncBackend {
 
@@ -19,12 +19,14 @@ class NextcloudBackend(
 
     override suspend fun createNote(note: Note): SyncNote {
         Log.d(tag, "createNote() called with: note = ${note.title}")
+        val api = apiProvider.getAPI()
         return api.createNote(note.asNextcloudNote(0, ""), config).asSyncNote()
     }
 
     override suspend fun updateNote(note: Note, mapping: IdMapping): IdMapping {
         requireNotNull(mapping.remoteNoteId) { "Remote note id is null." }
         Log.d(tag, "updateNote: ${note.title}")
+        val api = apiProvider.getAPI()
         val nNote = note.asNextcloudNote(mapping.remoteNoteId, "")
         val updatedNote = api.updateNote(nNote, mapping.extras ?: "", config)
         return mapping.copy(remoteNoteId = updatedNote.id, extras = updatedNote.etag)
@@ -34,6 +36,7 @@ class NextcloudBackend(
         // Delete the note on the server
         Log.d(tag, "deleteNote() called with: mapping = $mapping")
         requireNotNull(mapping.remoteNoteId) { "Remote note id is null." }
+        val api = apiProvider.getAPI()
         api.deleteNote(mapping.remoteNoteId, config)
         true
     } catch (_: Exception) {
@@ -42,11 +45,13 @@ class NextcloudBackend(
 
     override suspend fun getNote(mapping: IdMapping): SyncNote? {
         requireNotNull(mapping.remoteNoteId) { "Remote note id is null." }
+        val api = apiProvider.getAPI()
         return api.getNote(mapping.remoteNoteId, config).asSyncNote()
     }
 
     override suspend fun getAll(): List<SyncNote> {
         Log.d(tag, "getAll() from Nextcloud")
+        val api = apiProvider.getAPI()
         return api.getNotes(config).map { note -> note.asSyncNote() }
     }
 }

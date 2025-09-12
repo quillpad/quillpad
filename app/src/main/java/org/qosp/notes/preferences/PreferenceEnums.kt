@@ -159,3 +159,11 @@ enum class NewNotesSyncable(override val nameResource: Int) : HasNameResource, E
     YES(R.string.yes) { override val isDefault = true },
     NO(R.string.no),
 }
+
+enum class TrustSelfSignedCertificate(override val nameResource: Int) : HasNameResource,
+    EnumPreference by key("trust_self_signed_certificate") {
+    NO(R.string.no) {
+        override val isDefault = true
+    },
+    YES(R.string.yes),
+}
