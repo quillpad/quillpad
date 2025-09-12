@@ -104,6 +104,14 @@
                         android:layout_height="wrap_content"
                         app:text="@string/preference_nextcloud_clear_credentials"
                         app:iconSrc="@drawable/ic_logout"/>
+
+                    <org.qosp.notes.ui.utils.views.PreferenceView
+                        android:id="@+id/setting_trust_self_signed_certificate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:text="@string/preferences_trust_self_signed_certificate"
+                        app:iconSrc="@drawable/ic_person"
+                        android:visibility="visible"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layout_storage_settings"
