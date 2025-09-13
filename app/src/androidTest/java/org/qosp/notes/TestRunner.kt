@@ -5,10 +5,9 @@ import android.content.Context
 import androidx.test.runner.AndroidJUnitRunner
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
-import org.koin.androix.startup.KoinStartup
 import org.koin.core.annotation.KoinExperimentalAPI
+import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
-import org.koin.dsl.koinConfiguration
 import org.qosp.notes.di.MarkwonModule
 import org.qosp.notes.di.NextcloudModule
 import org.qosp.notes.di.PreferencesModule
@@ -29,20 +28,23 @@ class TestRunner : AndroidJUnitRunner() {
 }
 
 @OptIn(KoinExperimentalAPI::class)
-class TestApplication : Application(), KoinStartup {
+class TestApplication : Application() {
 
-    override fun onKoinStartup() = koinConfiguration {
-        androidLogger(level = Level.DEBUG)
-        androidContext(this@TestApplication)
-        modules(
-            TestUtilModule.module,
-            MarkwonModule.markwonModule,
-            NextcloudModule.nextcloudModule,
-            PreferencesModule.prefModule,
-            RepositoryModule.repoModule,
-            SyncModule.syncModule,
-            UIModule.uiModule,
-            UtilModule.utilModule,
-        )
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidLogger(level = Level.DEBUG)
+            androidContext(this@TestApplication)
+            modules(
+                TestUtilModule.module,
+                MarkwonModule.markwonModule,
+                NextcloudModule.nextcloudModule,
+                PreferencesModule.prefModule,
+                RepositoryModule.repoModule,
+                SyncModule.syncModule,
+                UIModule.uiModule,
+                UtilModule.utilModule,
+            )
+        }
     }
 }

@@ -128,7 +128,7 @@
     <string name="preferences_background_sync_enabled">Enabled</string>
     <string name="preferences_background_sync_disabled">Disabled</string>
     <string name="preferences_new_notes_synchronizable">New notes synchronizable</string>
-
+    <string name="preferences_trust_self_signed_certificate">Trust self-signed certificate</string>
 
     <!-- About -->
     <string name="about_version">Version</string>
@@ -308,6 +308,9 @@
     <string name="indicator_connecting">Connecting…</string>
     <string name="message_something_went_wrong">Something went wrong.</string>
     <string name="message_invalid_credentials">Could not authenticate with server due to invalid credentials.</string>
+    <string
+        name="message_certificates_invalid">Certificate error. Please enable \"Trust self-signed certificate\" to continue..
+    </string>
     <string name="message_logged_in_successfully">Logged in successfully!</string>
     <string name="message_server_not_compatible">Server version is not compatible with this app.</string>
     <string name="message_internet_not_available">Internet connection is not available.</string>
@@ -328,7 +331,8 @@
     <string name="what_is_new">What\'s new?</string>
     <string name="continue_next">Continue</string>
     <string name="swipe_to_find_out_whats_new">Swipe through to find out what\'s new</string>
-    <string name="what_is_new_content" translatable="false">New error reporting feature via email for better support
+    <string name="what_is_new_content"
+            translatable="false">The checkbox in markdown lists are now displayed properly.\nNextcloud instances now work with Self-signed certificates.
     </string>
 
     <plurals name="more_items">

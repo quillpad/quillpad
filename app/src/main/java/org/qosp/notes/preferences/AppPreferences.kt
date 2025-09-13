@@ -24,4 +24,5 @@ data class AppPreferences(
     val syncMode: SyncMode = defaultOf(),
     val backgroundSync: BackgroundSync = defaultOf(),
     val newNotesSyncable: NewNotesSyncable = defaultOf(),
+    val trustSelfSignedCertificate: TrustSelfSignedCertificate = defaultOf(),
 )

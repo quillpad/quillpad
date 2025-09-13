@@ -109,8 +109,7 @@ class NoteRepositoryImpl(
                     }
 
                     is NoteAction.Delete -> {
-                        deleteNotes(action.note, sync = false)
-                        idMappingDao.deleteByLocalId(action.note.id)
+                        moveNotesToBin(action.note, sync = false)
                     }
                 }
             } catch (e: Exception) {
@@ -163,16 +162,17 @@ class NoteRepositoryImpl(
         }
     }
 
-    override suspend fun moveNotesToBin(vararg notes: Note) {
+    override suspend fun moveNotesToBin(vararg notes: Note, sync: Boolean) {
         Log.d(tag, "moveNotesToBin: Moving ${notes.size} notes to bin")
         val entities = notes.map { it.toEntity().copy(isDeleted = true, deletionDate = Instant.now().epochSecond) }
             .toTypedArray<NoteEntity>()
 
         noteDao.update(*entities)
         reminderDao.deleteIfNoteIdIn(notes.map { it.id })
+        idMappingDao.deleteByLocalId(*notes.map { it.id }.toLongArray())
         cleanMappingsForLocalNotes(*notes)
         notes.filterNot { it.isLocalOnly }.forEach {
-            processRemoteActions(it.id, Delete(it))
+            if (sync) processRemoteActions(it.id, Delete(it))
         }
     }
 

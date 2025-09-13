@@ -67,7 +67,7 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
                             }
                             // If equal, no action needed
                         } else {
-                            // Remote note doesn't exist, create it with empty ID
+                            // Remote note doesn't exist
                             // This happens when the remote note was deleted
                             val syncNote = SyncNote(
                                 title = localNote.title,
@@ -77,7 +77,7 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
                                 id = 0,
                             )
                             logDebug("May be deleted remotely: $syncNote")
-                            remoteUpdates.add(NoteAction.Create(localNote, syncNote))
+                            localUpdates.add(NoteAction.Delete(localNote, syncNote))
                         }
 
                     } else {

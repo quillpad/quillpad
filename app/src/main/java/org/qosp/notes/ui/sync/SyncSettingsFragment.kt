@@ -74,6 +74,7 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
         setupNextcloudServerListener()
         setupNextcloudAccountListener()
         setupClearNextcloudCredentialsListener()
+        setupTrustCertificatesListener()
 
         setupLocalLocationListener()
     }
@@ -91,11 +92,13 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
             binding.settingSyncMode.show(prefs.cloudService == CloudService.NEXTCLOUD)
             binding.settingBackgroundSync.show(prefs.cloudService == CloudService.NEXTCLOUD)
             binding.settingNotesSyncableByDefault.show(prefs.cloudService == CloudService.NEXTCLOUD)
+            binding.settingTrustSelfSignedCertificate.show(prefs.cloudService == CloudService.NEXTCLOUD)
 
             binding.settingSyncProvider.subText = getString(prefs.cloudService.nameResource)
             binding.settingSyncMode.subText = getString(prefs.syncMode.nameResource)
             binding.settingBackgroundSync.subText = getString(prefs.backgroundSync.nameResource)
             binding.settingNotesSyncableByDefault.subText = getString(prefs.newNotesSyncable.nameResource)
+            binding.settingTrustSelfSignedCertificate.subText = getString(prefs.trustSelfSignedCertificate.nameResource)
         }
 
         // ENCRYPTED
@@ -155,6 +158,14 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
         showPreferenceDialog(
             R.string.preferences_new_notes_synchronizable,
             appPreferences.newNotesSyncable
+        ) { selected ->
+            model.setPreference(selected)
+        }
+    }
+    private fun setupTrustCertificatesListener() = binding.settingTrustSelfSignedCertificate.setOnClickListener {
+        showPreferenceDialog(
+            R.string.preferences_trust_self_signed_certificate,
+            appPreferences.trustSelfSignedCertificate
         ) { selected ->
             model.setPreference(selected)
         }

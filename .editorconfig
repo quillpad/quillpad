@@ -25,7 +25,7 @@ max_line_length = 120
 # ij_wrap_on_typing = false
 
 [*.xml]
-ij_continuation_indent_size = 4
+# ij_continuation_indent_size = 4
 ij_xml_align_attributes = true
 # ij_xml_align_text = false
 # ij_xml_attribute_wrap = normal
@@ -42,7 +42,7 @@ ij_xml_keep_blank_lines = 2
 # ij_xml_space_after_tag_name = false
 # ij_xml_space_around_equals_in_attribute = false
 # ij_xml_space_inside_empty_tag = true
-ij_xml_text_wrap = normal
+ij_xml_text_wrap = off
 # ij_xml_use_custom_settings = true
 
 [{*.kt,*.kts}]
