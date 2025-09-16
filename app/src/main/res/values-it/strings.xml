@@ -285,4 +285,6 @@
     <string name="preferences_file_storage_info">Selezionare una cartella dall\'archivio locale o da un fornitore di servizi cloud. Tutte le note verranno memorizzate in Markdown.</string>
     <string name="preferences_file_storage_location">Posizione dell\'archivio</string>
     <string name="preferences_file_storage_select">Selezionare la posizione dell\'archivio</string>
+    <string name="preferences_trust_self_signed_certificate">Considera attendibile in certificato autofirmato</string>
+    <string name="message_certificates_invalid">Errore del certificato: abilitare \"Considera attendibile in certificato autofirmato\" per continuare.</string>
 </resources>
