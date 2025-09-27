@@ -284,10 +284,12 @@
         <item quantity="one">%d Tag ausgewählt</item>
         <item quantity="other">%d Tags ausgewählt</item>
     </plurals>
-  <string name="preferences_cloud_service_files">Dateispeicher</string>
-  <string name="preferences_file_storage_info">Wählen Sie einen Ordner aus dem lokalen Speicher oder von einem
+    <string name="preferences_cloud_service_files">Dateispeicher</string>
+    <string name="preferences_file_storage_info">Wählen Sie einen Ordner aus dem lokalen Speicher oder von einem
     Cloud-Anbieter aus. Alle Notizen werden als Markdown-Dateien gespeichert.
   </string>
-  <string name="preferences_file_storage_location">Speicherort</string>
+    <string name="preferences_file_storage_location">Speicherort</string>
     <string name="preferences_file_storage_select">Speicherort auswählen</string>
+    <string name="preferences_trust_self_signed_certificate">Selbst-signierten Zertifikaten vertrauen</string>
+    <string name="message_certificates_invalid">Zertifikatsfehler. Bitte aktivieren Sie \"Selbst-signierten Zertifikaten vertrauen\", um fortzufahren.</string>
 </resources>
