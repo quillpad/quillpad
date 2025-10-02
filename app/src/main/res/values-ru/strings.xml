@@ -67,7 +67,7 @@
     <string name="preferences_cloud_service">Служба синхронизации</string>
     <string name="preferences_cloud_service_disabled">Отключена</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-  <string name="preferences_nextcloud_limited_features">Помните, что заметки с Nextcloud не поддерживают меток, вложений, напоминаний, списков задач и прочее. На Nextcloud сервере нужно установить Nextcloud Notes или же вход не удастся с ошибкой Что-то пошло не так!</string>
+    <string name="preferences_nextcloud_limited_features">Помните, что заметки с Nextcloud не поддерживают меток, вложений, напоминаний, списков задач и прочее. На Nextcloud сервере нужно установить Nextcloud Notes или же вход не удастся с ошибкой Что-то пошло не так!</string>
     <string name="preferences_nextcloud_account">Уч.запись Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">URL сервера Nextcloud</string>
     <string name="preferences_nextcloud_set_your_credentials">Ввести данные</string>
@@ -263,12 +263,12 @@
         <item quantity="many">Выбрано %d меток</item>
         <item quantity="other">Выбрано %d меток</item>
     </plurals>
-  <string name="preferences_cloud_service_files">Файловое хранилище</string>
-  <string name="preferences_file_storage_info">Выберите папку из локального хранилища или из облачного провайдера. Все
+    <string name="preferences_cloud_service_files">Файловое хранилище</string>
+    <string name="preferences_file_storage_info">Выберите папку из локального хранилища или из облачного провайдера. Все
     заметки будут храниться в виде файлов Markdown.
   </string>
-  <string name="preferences_file_storage_location">Место хранения</string>
-  <string name="preferences_file_storage_select">Выберите место хранения</string>
+    <string name="preferences_file_storage_location">Место хранения</string>
+    <string name="preferences_file_storage_select">Выберите место хранения</string>
     <string name="preferences_color_scheme_system">Системная</string>
     <string name="new_and_updated">Новое и обновленное!</string>
     <string name="what_is_new">Что нового?</string>
@@ -291,4 +291,6 @@
     <string name="action_enable_screen_always_on">Сделать экран всегда включённым</string>
     <string name="action_disable_screen_always_on">Отключить экран всегда горящим</string>
     <string name="action_uncheck_all_tasks">Снять флажок со всех элементов</string>
+    <string name="preferences_trust_self_signed_certificate">Доверьтесь самоподписанному сертификату</string>
+    <string name="message_certificates_invalid">Ошибка сертификата. Пожалуйста, включите «Доверить самоподписанному сертификату» для продолжения.</string>
 </resources>
