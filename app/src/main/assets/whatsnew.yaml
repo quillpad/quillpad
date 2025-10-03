@@ -1,0 +1,10 @@
+updates:
+  - id: 3
+    title: What's New in Quillpad
+    items:
+      - No more swipe in the welcome screen.
+      - Welcome screen doesn't show on every update. It will only appear with major changes.
+  - id: 2
+    title: Bug Fixes
+    items:
+      - The bugs are fixed

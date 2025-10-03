@@ -53,6 +53,7 @@ ui = "1.8.3"
 uiToolingPreview = "1.8.3"
 lifecycleRuntimeCompose = "2.9.2"
 navigationCompose = "2.9.3"
+yamlkt = "0.13.0"
 
 [libraries]
 acra-sender-mail = { module = "ch.acra:acra-mail", version.ref = "acra" }
@@ -133,6 +134,7 @@ securityCrypto = { module = "androidx.security:security-crypto", version.ref = "
 swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 workRuntimeKtx = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
 workTesting = { module = "androidx.work:work-testing", version.ref = "work" }
+yamlkt = { module = "net.mamoe.yamlkt:yamlkt", version.ref = "yamlkt" }
 
 [bundles]
 acra = ["acra-dialog", "acra-sender-mail"]
