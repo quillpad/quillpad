@@ -263,14 +263,11 @@
     <plurals name="selected_tags">
         <item quantity="other">选定的 %d 个标签</item>
     </plurals>
-    <string name="new_and_updated">新增和更新！</string>
-    <string name="what_is_new">有什么新内容？</string>
     <string name="continue_next">继续</string>
     <string name="preferences_header_view_tags">标签列表</string>
     <string name="preferences_sort_tags_method">按以下方式对标签进行排序</string>
     <string name="preferences_header_view_navdrawer">导航抽屉</string>
     <string name="preferences_sort_navdrawer_method">按以下方式对笔记本进行排序</string>
-    <string name="swipe_to_find_out_whats_new">滑动查看新内容</string>
     <string name="preferences_file_storage_location">存储位置</string>
     <string name="preferences_file_storage_select">选择存储位置</string>
     <string name="action_enable_screen_always_on">保持屏幕常亮</string>

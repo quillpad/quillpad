@@ -276,12 +276,9 @@
         <item quantity="few">Označeny %d štítky</item>
         <item quantity="other"></item>
     </plurals>
-    <string name="new_and_updated">Ҫӗнӗ те ҫӗнетнӗ!</string>
-    <string name="what_is_new">Co je nového?</string>
     <string name="continue_next">Pokračovat</string>
     <string name="preferences_header_view_tags">Tagy</string>
     <string name="preferences_sort_tags_method">Řadit tagy podle</string>
     <string name="preferences_header_view_navdrawer">Zápisníky</string>
     <string name="preferences_sort_navdrawer_method">Řadit zápisníky podle</string>
-    <string name="swipe_to_find_out_whats_new">Potažením zjistíte, co je nového</string>
 </resources>

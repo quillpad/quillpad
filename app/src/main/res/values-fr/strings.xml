@@ -273,14 +273,11 @@
     <string name="action_disable_screen_always_on">Désactiver l\'écran toujours allumé</string>
     <string name="action_enable_screen_always_on">Activer l\'écran toujours allumé</string>
     <string name="action_screen_always_on">Écran toujours allumé</string>
-    <string name="new_and_updated">Nouveautés et mises à jour !</string>
-    <string name="what_is_new">Quoi de neuf ?</string>
     <string name="continue_next">Continuer</string>
     <string name="preferences_header_view_tags">Liste des tags</string>
     <string name="preferences_sort_tags_method">Trier les tags par</string>
     <string name="preferences_header_view_navdrawer">Tiroir de navigation</string>
     <string name="preferences_sort_navdrawer_method">Trier les carnets par</string>
-    <string name="swipe_to_find_out_whats_new">Faites défiler pour découvrir les nouveautés</string>
     <string name="preferences_font_size_default">Par défaut</string>
     <string name="preferences_header_view_note_content">Contenu de note</string>
     <string name="preferences_font_size">Taille de la police (édition/lecture)</string>

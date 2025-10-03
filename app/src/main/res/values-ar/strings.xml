@@ -319,10 +319,7 @@
     <string name="preferences_sort_tags_method">ترتيب العلامات حسب</string>
     <string name="preferences_header_view_navdrawer">درج التنقل</string>
     <string name="preferences_sort_navdrawer_method">ترتيب دفاتر الملاحظات حسب</string>
-    <string name="new_and_updated">جديد ومُحدث!</string>
-    <string name="what_is_new">ما الجديد؟</string>
     <string name="continue_next">متابعة</string>
-    <string name="swipe_to_find_out_whats_new">اسحب لمعرفة ما الجديد</string>
 
     <plurals name="more_items">
         <item quantity="zero">+%d عناصر</item>

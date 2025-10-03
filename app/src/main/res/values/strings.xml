@@ -323,13 +323,7 @@
     <string name="preferences_sort_tags_method">Sort tags by</string>
     <string name="preferences_header_view_navdrawer">Navigation drawer</string>
     <string name="preferences_sort_navdrawer_method">Sort notebooks by</string>
-    <string name="new_and_updated">New and Updated!</string>
-    <string name="what_is_new">What\'s new?</string>
     <string name="continue_next">Continue</string>
-    <string name="swipe_to_find_out_whats_new">Swipe through to find out what\'s new</string>
-    <string name="what_is_new_content"
-            translatable="false">The checkbox in markdown lists are now displayed properly.\nNextcloud instances now work with Self-signed certificates.
-    </string>
 
     <plurals name="more_items">
         <item quantity="one">+%d item</item>

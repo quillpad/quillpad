@@ -2,7 +2,6 @@ package org.qosp.notes.ui.launcher
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,8 +9,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.qosp.notes.BuildConfig
 import org.qosp.notes.ui.MainActivity
@@ -25,31 +25,33 @@ class LauncherActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         if (BuildConfig.TESTLAB_BUILD) {
             // Skip the welcome screen in Firebase TestLab builds
-            lifecycleScope.launch { proceedToMainActivity(persistNewVersion = false) }
-        } else {
-            lifecycleScope.launch {
-                val isCurrentVersionInstalled = viewModel.isCurrentVersionInstalled.firstOrNull() == true
-                Log.d("LauncherActivity", "isNewInstall: ${!isCurrentVersionInstalled}.")
-                if (isCurrentVersionInstalled) proceedToMainActivity(persistNewVersion = false)
-            }
+            proceedToMainActivity()
+            return
         }
-        setContent {
-            QuillpadTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    WelcomeScreen {
-                        lifecycleScope.launch { proceedToMainActivity(persistNewVersion = true) }
+
+        lifecycleScope.launch {
+            val whatsNewToShow = viewModel.whatsNewToShow().first()
+            if (whatsNewToShow != null) {
+                setContent {
+                    QuillpadTheme {
+                        Surface(
+                            modifier = Modifier.fillMaxSize(),
+                            color = MaterialTheme.colorScheme.background
+                        ) {
+                            WelcomeScreen(whatsNewItem = whatsNewToShow) {
+                                runBlocking { viewModel.setLatestWhatsNewId() }
+                                proceedToMainActivity()
+                            }
+                        }
                     }
                 }
+            } else {
+                proceedToMainActivity()
             }
         }
     }
 
-    private suspend fun proceedToMainActivity(persistNewVersion: Boolean) {
-        if (persistNewVersion) viewModel.updateLastInstalledVersion()
+    private fun proceedToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish() // Finish LauncherActivity after starting MainActivity
