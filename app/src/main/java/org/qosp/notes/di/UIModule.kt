@@ -1,5 +1,7 @@
 package org.qosp.notes.di
 
+import org.koin.android.ext.koin.androidApplication
+import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import org.qosp.notes.ui.ActivityViewModel
@@ -32,7 +34,7 @@ object UIModule {
         viewModelOf(::ManageNotebooksViewModel)
         viewModelOf(::NotebookDialogViewModel)
         viewModelOf(::MainViewModel)
-        viewModelOf(::LauncherViewModel)
+        viewModel { LauncherViewModel(androidApplication(), get()) }
         viewModelOf(::DeletedViewModel)
         viewModelOf(::AttachmentDialogViewModel)
     }

@@ -264,10 +264,7 @@
     <string name="preferences_sort_tags_method">Tags sortieren nach</string>
     <string name="preferences_header_view_navdrawer">Navigationsleiste</string>
     <string name="preferences_sort_navdrawer_method">Notizbücher sortieren nach</string>
-    <string name="new_and_updated">Neu und aktualisiert!</string>
-    <string name="what_is_new">Was ist neu?</string>
     <string name="continue_next">Weiter</string>
-    <string name="swipe_to_find_out_whats_new">Wische durch die Liste, um zu sehen, was neu ist</string>
     <plurals name="more_items">
         <item quantity="one">+%d Element</item>
         <item quantity="other">+%d Elemente</item>

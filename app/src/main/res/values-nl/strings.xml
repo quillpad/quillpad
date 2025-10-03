@@ -275,12 +275,9 @@
         <item quantity="one">%d label geselecteerd</item>
         <item quantity="other">%d labels geselecteerd</item>
     </plurals>
-    <string name="new_and_updated">Nieuw en bijgewerkt!</string>
-    <string name="what_is_new">Wat is er nieuw?</string>
     <string name="continue_next">Doorgaan</string>
     <string name="preferences_header_view_tags">Lijst met tags</string>
     <string name="preferences_sort_tags_method">Tags sorteren op</string>
     <string name="preferences_header_view_navdrawer">Navigatielade</string>
     <string name="preferences_sort_navdrawer_method">Notitieboeken sorteren op</string>
-    <string name="swipe_to_find_out_whats_new">Veeg door om te zien wat er nieuw is</string>
 </resources>

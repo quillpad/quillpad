@@ -271,12 +271,9 @@
     <plurals name="selected_tags">
         <item quantity="other">Đã chọn %d thẻ</item>
     </plurals>
-    <string name="new_and_updated">Mới và Cập nhật!</string>
-    <string name="what_is_new">Có gì mới?</string>
     <string name="continue_next">Tiếp tục</string>
     <string name="preferences_header_view_tags">Danh sách thẻ</string>
     <string name="preferences_sort_tags_method">Sắp xếp thẻ theo</string>
     <string name="preferences_header_view_navdrawer">Ngăn điều hướng</string>
     <string name="preferences_sort_navdrawer_method">Sắp xếp sổ ghi chép theo</string>
-    <string name="swipe_to_find_out_whats_new">Vuốt qua để tìm hiểu có gì mới</string>
 </resources>

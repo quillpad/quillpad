@@ -273,10 +273,7 @@
     <string name="preferences_sort_tags_method">Etiketleri şuna göre sırala</string>
     <string name="preferences_header_view_navdrawer">Gezinme çekmecesi</string>
     <string name="preferences_sort_navdrawer_method">Defterleri şuna göre sırala</string>
-    <string name="new_and_updated">Yeni ve Güncellenmiş!</string>
-    <string name="what_is_new">Neler yeni?</string>
     <string name="continue_next">Devam et</string>
-    <string name="swipe_to_find_out_whats_new">Neler yeni olduğunu öğrenmek için kaydırın</string>
     <plurals name="more_items">
         <item quantity="one">+%d öğe</item>
         <item quantity="other">+%d öğe</item>

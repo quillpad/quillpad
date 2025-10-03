@@ -246,12 +246,9 @@
   <string name="preferences_file_storage_location">Τοποθεσία αποθήκευσης</string>
   <string name="preferences_file_storage_select">Επιλέξτε Θέση αποθήκευσης</string>
     <string name="preferences_color_scheme_system">Ρύθμιση συστήματος</string>
-    <string name="new_and_updated">Νέο και Ενημερωμένο!</string>
-    <string name="what_is_new">Τι νέο υπάρχει;</string>
     <string name="continue_next">Συνεχίζω</string>
     <string name="preferences_header_view_tags">Λίστα ετικετών</string>
     <string name="preferences_sort_tags_method">Ταξινόμηση ετικετών κατά</string>
     <string name="preferences_header_view_navdrawer">Συρτάρι πλοήγησης</string>
     <string name="preferences_sort_navdrawer_method">Ταξινόμηση σημειωματάρια κατά</string>
-    <string name="swipe_to_find_out_whats_new">Σύρετε μέσα για να μάθετε τι νέο υπάρχει</string>
 </resources>

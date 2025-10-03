@@ -260,14 +260,11 @@
         <item quantity="other">Selezionate %d etichette</item>
     </plurals>
     <string name="preferences_color_scheme_system">Segui il sistema</string>
-    <string name="new_and_updated">Novità e aggiornamenti!</string>
-    <string name="what_is_new">Cosa c\'è di nuovo?</string>
     <string name="continue_next">Continua</string>
     <string name="preferences_header_view_tags">Elenco etichette</string>
     <string name="preferences_sort_tags_method">Ordina etichette per</string>
     <string name="preferences_header_view_navdrawer">Cassetto di navigazione</string>
     <string name="preferences_sort_navdrawer_method">Ordina taccuini per</string>
-    <string name="swipe_to_find_out_whats_new">Scorri per scoprire le novità</string>
     <string name="preferences_header_view_notebook">Taccuino</string>
     <string name="preferences_header_view_note_content">Contenuto della nota</string>
     <string name="preferences_font_size">Dimensione carattere editor di testo/visualizzazione</string>
