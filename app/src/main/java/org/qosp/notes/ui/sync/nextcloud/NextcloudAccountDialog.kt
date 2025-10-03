@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.qosp.notes.R
+import org.qosp.notes.data.sync.nextcloud.BackendValidationResult
 import org.qosp.notes.data.sync.nextcloud.BackendValidationResult.CertificateError
 import org.qosp.notes.data.sync.nextcloud.BackendValidationResult.Incompatible
 import org.qosp.notes.data.sync.nextcloud.BackendValidationResult.InvalidConfig
@@ -62,8 +63,10 @@ class NextcloudAccountDialog : BaseDialog<DialogNextcloudAccountBinding>() {
                     Success -> R.string.message_logged_in_successfully
                     InvalidConfig -> R.string.message_invalid_credentials
                     CertificateError -> R.string.message_certificates_invalid
+                    BackendValidationResult.NotesNotInstalled -> R.string.message_notes_not_installed
                 }
                 Toast.makeText(requireContext(), getString(messageResId), Toast.LENGTH_LONG).show()
+                if (result == Success) dismiss()
             }
         }
 

@@ -35,6 +35,7 @@ import org.qosp.notes.preferences.SortMethod
 import org.qosp.notes.preferences.SortNavdrawerNotebooksMethod
 import org.qosp.notes.preferences.SortTagsMethod
 import org.qosp.notes.ui.reminders.ReminderManager
+import org.qosp.notes.ui.utils.Toaster
 import java.time.Instant
 
 class ActivityViewModel(
@@ -46,6 +47,7 @@ class ActivityViewModel(
     private val tagRepository: TagRepository,
     private val mediaStorageManager: MediaStorageManager,
     private val syncScope: SyncScope,
+    private val toaster: Toaster,
 ) : ViewModel() {
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -93,7 +95,10 @@ class ActivityViewModel(
 
     fun restoreNotes(vararg notes: Note) {
         viewModelScope.launch(Dispatchers.IO) {
-            noteRepository.restoreNotes(*notes)
+            val result = runCatching { noteRepository.restoreNotes(*notes) }
+            if (result.isFailure) {
+                toaster.showLong(result.exceptionOrNull()?.message ?: "Error restoring notes")
+            }
         }
     }
 

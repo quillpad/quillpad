@@ -2,8 +2,9 @@ updates:
   - id: 3
     title: What's New in Quillpad
     items:
-      - No more swipe in the welcome screen.
+      - No more swiping needed in the welcome screen.
       - Welcome screen doesn't show on every update. It will only appear with major changes.
+      - "There's a new way to send crash logs from Side Menu -> About -> Send Error Logs."
   - id: 2
     title: Bug Fixes
     items:

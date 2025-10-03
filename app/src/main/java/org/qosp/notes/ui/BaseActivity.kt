@@ -2,6 +2,7 @@ package org.qosp.notes.ui
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -14,9 +15,12 @@ import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.preferences.ThemeMode
+import org.qosp.notes.ui.utils.Toaster
+import org.qosp.notes.ui.utils.collect
 
 open class BaseActivity : AppCompatActivity() {
     val preferenceRepository: PreferenceRepository by inject()
+    private val toaster: Toaster by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -54,7 +58,11 @@ open class BaseActivity : AppCompatActivity() {
                     theme.applyStyle(darkThemeModeStyle, true)
                 }
             }
+        }
 
+        // Observe toast messages with lifecycle awareness
+        toaster.messages.collect(this) { (message, duration) ->
+            Toast.makeText(this@BaseActivity, message, duration).show()
         }
     }
 }
