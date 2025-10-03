@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import io.noties.markwon.Markwon
+import org.acra.ACRA
 import org.koin.android.ext.android.inject
 import org.qosp.notes.BuildConfig
 import org.qosp.notes.R
@@ -50,6 +51,7 @@ class AboutFragment : BaseFragment(resId = R.layout.fragment_about) {
         actionVisitDeveloper.setOnClickListener { launchUrl(requireContext().getString(R.string.app_developer_repo)) }
         actionViewLibraries.setOnClickListener { showLibrariesDialog() }
         actionSupport.setOnClickListener { launchUrl(requireContext().getString(R.string.app_support_page)) }
+        actionSendLogs.setOnClickListener { ACRA.errorReporter.handleException(null) }
     }
 
     private fun showLibrariesDialog() {

@@ -1,12 +1,10 @@
 package org.qosp.notes.data.sync.nextcloud
 
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromJsonElement
-import kotlinx.serialization.json.jsonObject
-import okhttp3.ResponseBody
-import org.qosp.notes.data.sync.nextcloud.model.NextcloudCapabilities
+import org.qosp.notes.data.sync.nextcloud.model.NextcloudCapabilitiesResult
+import org.qosp.notes.data.sync.nextcloud.model.NextcloudNotesCapabilities
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -60,23 +58,18 @@ interface NextcloudAPI {
     suspend fun getAllCapabilitiesAPI(
         @Url url: String,
         @Header("Authorization") auth: String,
-    ): ResponseBody
+    ): NextcloudCapabilitiesResult
 }
 
-suspend fun NextcloudAPI.getNotesCapabilities(config: NextcloudConfig): NextcloudCapabilities? {
+suspend fun NextcloudAPI.getNotesCapabilities(config: NextcloudConfig): NextcloudNotesCapabilities? {
     val endpoint = "ocs/v2.php/cloud/capabilities"
     val fullUrl = config.remoteAddress + endpoint
 
     val response = withContext(Dispatchers.IO) {
-        getAllCapabilitiesAPI(url = fullUrl, auth = config.credentials).string()
+        getAllCapabilitiesAPI(url = fullUrl, auth = config.credentials)
     }
-
-    val element = Json
-        .parseToJsonElement(response).jsonObject["ocs"]?.jsonObject
-        ?.get("data")?.jsonObject
-        ?.get("capabilities")?.jsonObject
-        ?.get("notes")
-    return element?.let { Json.decodeFromJsonElement<NextcloudCapabilities>(it) }
+    Log.d("NextcloudAPI", "getNotesCapabilities: $response")
+    return response.ocs.data.capabilities.notes
 }
 
 suspend fun NextcloudAPI.deleteNote(noteId: Long, config: NextcloudConfig) {

@@ -132,8 +132,10 @@
     <string name="about_developer">Developer</string>
     <string name="about_contribute">Contribute</string>
     <string name="about_support">Support</string>
+    <string name="about_send_logs">Send Error Logs</string>
+    <string name="about_send_logs_subtext">Send the application logs to the developer for investigation</string>
     <string name="about_support_subtext">Creating and maintaining open-source projects is time-consuming and provides
-        no profit.\nBuy the developers a beer!
+        no profit.\nBuy the developers a coffee!
     </string>
     <string name="about_libraries">Libraries</string>
     <string name="about_libraries_subtext">View third-party libraries and licenses.</string>
@@ -308,6 +310,7 @@
         name="message_certificates_invalid">Certificate error. Please enable \"Trust self-signed certificate\" to continue..
     </string>
     <string name="message_logged_in_successfully">Logged in successfully!</string>
+    <string name="message_notes_not_installed">Notes app is not installed in your Nextcloud.</string>
     <string name="message_server_not_compatible">Server version is not compatible with this app.</string>
     <string name="message_internet_not_available">Internet connection is not available.</string>
     <string name="message_credentials_cannot_be_blank">Credentials cannot be blank.</string>

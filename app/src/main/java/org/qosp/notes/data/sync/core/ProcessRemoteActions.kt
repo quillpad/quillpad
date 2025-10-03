@@ -14,6 +14,7 @@ import org.qosp.notes.data.sync.core.RemoteOperation.Delete
 import org.qosp.notes.data.sync.core.RemoteOperation.Update
 import org.qosp.notes.data.sync.getMapping
 import org.qosp.notes.di.SyncScope
+import org.qosp.notes.ui.utils.Toaster
 import java.util.concurrent.ConcurrentHashMap
 
 class ProcessRemoteActions(
@@ -21,6 +22,7 @@ class ProcessRemoteActions(
     private val backendProvider: BackendProvider,
     private val idMappingDao: IdMappingDao,
     private val noteDao: NoteDao,
+    private val toaster: Toaster,
 ) {
     private val tag = "ProcessRemoteActions"
 
@@ -102,6 +104,7 @@ class ProcessRemoteActions(
         noteDao.updateLastModified(note.id, created.lastModified)
     } catch (e: Exception) {
         Log.e(tag, "processRemoteOperation: Failed to create note ID=${note.id}: ${e.message}", e)
+        toaster.showShort(e.message ?: "Failed to create note")
     }
 
     private suspend fun updateRemote(note: Note, syncProvider: ISyncBackend) = try {
