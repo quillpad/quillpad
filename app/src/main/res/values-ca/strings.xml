@@ -246,22 +246,22 @@
     <string name="never">Mai</string>
     <plurals name="more_items">
         <item quantity="one">+%d element</item>
-        <item quantity="many"></item>
+        <item quantity="many"/>
         <item quantity="other">+%d elements</item>
     </plurals>
     <plurals name="selected_notes">
         <item quantity="one">%d nota seleccionada</item>
-        <item quantity="many"></item>
+        <item quantity="many"/>
         <item quantity="other">%d notes seleccionades</item>
     </plurals>
     <plurals name="selected_notebooks">
         <item quantity="one">%d bloc de notes seleccionat</item>
-        <item quantity="many"></item>
+        <item quantity="many"/>
         <item quantity="other">%d blocs de notes seleccionats</item>
     </plurals>
     <plurals name="selected_tags">
         <item quantity="one">%d etiqueta seleccionada</item>
-        <item quantity="many"></item>
+        <item quantity="many"/>
         <item quantity="other">%d etiquetes seleccionades</item>
     </plurals>
     <string name="preferences_sort_navdrawer_method">Ordena els quaderns per</string>
