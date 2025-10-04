@@ -62,7 +62,7 @@
     <string name="preferences_cloud_service_disabled">Απενεργοποιημένη</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
     <string name="preferences_create_backup_subtext">Εξαγωγή των σημειώσεων σε ένα αρχείο.</string>
-  <string name="preferences_nextcloud_limited_features">Το Nextcloud Notes δεν υποστηρίζει λειτουργίες όπως ετικέτες, συνημμένα, υπενθυμίσεις, λίστες και άλλα.</string>
+    <string name="preferences_nextcloud_limited_features">Το Nextcloud Notes δεν υποστηρίζει λειτουργίες όπως ετικέτες, συνημμένα, υπενθυμίσεις, λίστες και άλλα.</string>
     <string name="preferences_nextcloud_account">Λογαριασμός Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">URL διακομιστή Nextcloud</string>
     <string name="preferences_nextcloud_set_your_credentials">Ορίστε τα στοιχεία σας</string>
@@ -239,12 +239,12 @@
         <item quantity="one">Επιλέχθηκε %d ετικέτα</item>
         <item quantity="other">Επιλέχθηκαν %d ετικέτες</item>
     </plurals>
-  <string name="preferences_cloud_service_files">Αποθήκευση αρχείων</string>
-  <string name="preferences_file_storage_info">Επιλέξτε έναν φάκελο από τον τοπικό χώρο αποθήκευσης ή από έναν πάροχο
+    <string name="preferences_cloud_service_files">Αποθήκευση αρχείων</string>
+    <string name="preferences_file_storage_info">Επιλέξτε έναν φάκελο από τον τοπικό χώρο αποθήκευσης ή από έναν πάροχο
     cloud. Όλες οι σημειώσεις θα αποθηκευτούν ως αρχεία Markdown.
   </string>
-  <string name="preferences_file_storage_location">Τοποθεσία αποθήκευσης</string>
-  <string name="preferences_file_storage_select">Επιλέξτε Θέση αποθήκευσης</string>
+    <string name="preferences_file_storage_location">Τοποθεσία αποθήκευσης</string>
+    <string name="preferences_file_storage_select">Επιλέξτε Θέση αποθήκευσης</string>
     <string name="preferences_color_scheme_system">Ρύθμιση συστήματος</string>
     <string name="continue_next">Συνεχίζω</string>
     <string name="preferences_header_view_tags">Λίστα ετικετών</string>
