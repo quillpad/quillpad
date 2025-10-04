@@ -67,7 +67,7 @@
     <string name="preferences_cloud_service">Serviço de sincronia</string>
     <string name="preferences_cloud_service_disabled">Desabilitado</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-  <string name="preferences_nextcloud_limited_features">Tenha em mente que o Nextcloud Notes não suporta recursos como etiquetas, anexos, lembretes, listas de tarefas e mais.</string>
+    <string name="preferences_nextcloud_limited_features">Tenha em mente que o Nextcloud Notes não suporta recursos como etiquetas, anexos, lembretes, listas de tarefas e mais.</string>
     <string name="preferences_nextcloud_account">Conta Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">URL de instancia do Nextcloud</string>
     <string name="preferences_nextcloud_set_your_credentials">Coloque suas credenciais</string>
@@ -241,30 +241,30 @@
     <string name="never">Nunca</string>
     <plurals name="more_items">
         <item quantity="one">+%d item</item>
-        <item quantity="many"></item>
+        <item quantity="many"/>
         <item quantity="other">+%d itens</item>
     </plurals>
     <plurals name="selected_notes">
         <item quantity="one">%d anotação selecionada</item>
-        <item quantity="many"></item>
+        <item quantity="many"/>
         <item quantity="other">%d anotações selecionadas</item>
     </plurals>
     <plurals name="selected_notebooks">
         <item quantity="one">%d caderno de notas selecionado</item>
-        <item quantity="many"></item>
+        <item quantity="many"/>
         <item quantity="other">%d cadernos de notas selecionados</item>
     </plurals>
     <plurals name="selected_tags">
         <item quantity="one">%d etiqueta selecionada</item>
-        <item quantity="many"></item>
+        <item quantity="many"/>
         <item quantity="other">%d etiquetas selecionadas</item>
     </plurals>
-  <string name="preferences_cloud_service_files">Armazenamento de arquivo</string>
-  <string name="preferences_file_storage_info">Selecione uma pasta do armazenamento local ou de um provedor de nuvem.
+    <string name="preferences_cloud_service_files">Armazenamento de arquivo</string>
+    <string name="preferences_file_storage_info">Selecione uma pasta do armazenamento local ou de um provedor de nuvem.
     Todas as notas serão armazenadas como arquivos Markdown.
   </string>
-  <string name="preferences_file_storage_location">Local de armazenamento</string>
-  <string name="preferences_file_storage_select">Selecione o local de armazenamento</string>
+    <string name="preferences_file_storage_location">Local de armazenamento</string>
+    <string name="preferences_file_storage_select">Selecione o local de armazenamento</string>
     <string name="preferences_color_scheme_system">Seguir tema do sistema</string>
     <string name="continue_next">Continuar</string>
     <string name="preferences_header_view_tags">Lista de tags</string>
