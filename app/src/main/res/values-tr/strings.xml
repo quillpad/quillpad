@@ -290,10 +290,10 @@
         <item quantity="one">%d etiket seçildi</item>
         <item quantity="other">%d etiket seçildi</item>
     </plurals>
-  <string name="preferences_cloud_service_files">Dosya Depolama</string>
-  <string name="preferences_file_storage_info">Yerel depolamadan veya bir bulut sağlayıcıdan bir klasör seçin. Tüm notlar
+    <string name="preferences_cloud_service_files">Dosya Depolama</string>
+    <string name="preferences_file_storage_info">Yerel depolamadan veya bir bulut sağlayıcıdan bir klasör seçin. Tüm notlar
     Markdown dosyaları olarak saklanacaktır.
   </string>
-  <string name="preferences_file_storage_location">Depolama yeri</string>
-  <string name="preferences_file_storage_select">Depolama yerini seçin</string>
+    <string name="preferences_file_storage_location">Depolama yeri</string>
+    <string name="preferences_file_storage_select">Depolama yerini seçin</string>
 </resources>
