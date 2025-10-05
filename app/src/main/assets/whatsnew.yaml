@@ -2,9 +2,9 @@ updates:
   - id: 3
     title: What's New in Quillpad
     items:
-      - No more swiping needed in the welcome screen.
-      - Welcome screen doesn't show on every update. It will only appear with major changes.
-      - "There's a new way to send crash logs from Side Menu -> About -> Send Error Logs."
+      - Quickly report issues using the new "Send Logs" option in the About section.
+      - The app now gives clearer, more specific error messages regarding Nextcloud Sync.
+      - New translation updates for French, German, and Russian!
   - id: 2
     title: Bug Fixes
     items:
