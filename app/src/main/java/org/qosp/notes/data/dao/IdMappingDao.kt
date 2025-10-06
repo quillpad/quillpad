@@ -16,6 +16,9 @@ interface IdMappingDao {
     @Update
     suspend fun update(vararg mappings: IdMapping)
 
+    @Query("UPDATE cloud_ids SET extras = :extras WHERE localNoteId = :localId AND provider = :cloudService")
+    suspend fun updateNoteExtras(localId: Long, cloudService: CloudService, extras: String?)
+
     @Query("DELETE FROM cloud_ids WHERE localNoteId IN (:ids)")
     suspend fun deleteByLocalId(vararg ids: Long)
 
