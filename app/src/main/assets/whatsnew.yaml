@@ -4,6 +4,7 @@ updates:
     items:
       - Quickly report issues using the new "Send Logs" option in the About section.
       - The app now gives clearer, more specific error messages regarding Nextcloud Sync.
+      - Fixed sync issues with remotely deleted notes and local updates not reflecting on the server.
       - New translation updates for French, German, and Russian!
   - id: 2
     title: Bug Fixes
