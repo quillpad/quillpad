@@ -105,6 +105,11 @@ class NoteRepositoryImpl(
                         } else {
                             localNote.copy(id = action.note.id)
                         }
+                        idMappingDao.updateNoteExtras(
+                            localId = action.note.id,
+                            cloudService = syncProvider.type,
+                            extras = action.remoteNote.extra
+                        )
                         updateNote(note, sync = false)
                     }
 
