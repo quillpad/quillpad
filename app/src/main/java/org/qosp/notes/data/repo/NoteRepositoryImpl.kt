@@ -169,7 +169,6 @@ class NoteRepositoryImpl(
 
         noteDao.update(*entities)
         reminderDao.deleteIfNoteIdIn(notes.map { it.id })
-        idMappingDao.deleteByLocalId(*notes.map { it.id }.toLongArray())
         cleanMappingsForLocalNotes(*notes)
         notes.filterNot { it.isLocalOnly }.forEach {
             if (sync) processRemoteActions(it.id, Delete(it))
