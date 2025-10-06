@@ -64,7 +64,7 @@
     <string name="preferences_cloud_service">Usługa synchronizacji</string>
     <string name="preferences_cloud_service_disabled">Wyłączona</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-  <string name="preferences_nextcloud_limited_features">Pamiętaj że notatki Nextcloud nie wspierają funkcji takich jak znaczniki, załączniki, przypomnienia, listy zadań itd.</string>
+    <string name="preferences_nextcloud_limited_features">Pamiętaj że notatki Nextcloud nie wspierają funkcji takich jak znaczniki, załączniki, przypomnienia, listy zadań itd.</string>
     <string name="preferences_nextcloud_account">Konto Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">Adres URL instancji Nextcloud</string>
     <string name="preferences_nextcloud_set_your_credentials">Ustaw dane logowania</string>
@@ -241,41 +241,38 @@
     <string name="never">Nigdy</string>
     <plurals name="more_items" tools:ignore="MissingQuantity">
         <item quantity="one">+%d element</item>
-        <item quantity="few"></item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
+        <item quantity="few"/>
+        <item quantity="many"/>
+        <item quantity="other"/>
     </plurals>
     <plurals name="selected_notes" tools:ignore="MissingQuantity">
         <item quantity="one">Zaznaczono %d notatkę</item>
-        <item quantity="few"></item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
+        <item quantity="few"/>
+        <item quantity="many"/>
+        <item quantity="other"/>
     </plurals>
     <plurals name="selected_notebooks" tools:ignore="MissingQuantity">
         <item quantity="one">Zaznaczono %d notatnik</item>
-        <item quantity="few"></item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
+        <item quantity="few"/>
+        <item quantity="many"/>
+        <item quantity="other"/>
     </plurals>
     <plurals name="selected_tags" tools:ignore="MissingQuantity">
         <item quantity="one">Zaznaczono %d znacznik</item>
-        <item quantity="few"></item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
+        <item quantity="few"/>
+        <item quantity="many"/>
+        <item quantity="other"/>
     </plurals>
-  <string name="preferences_cloud_service_files">Nośnik danych</string>
-  <string name="preferences_file_storage_info">Wybierz folder z pamięci lokalnej lub od dostawcy usług w chmurze.
+    <string name="preferences_cloud_service_files">Nośnik danych</string>
+    <string name="preferences_file_storage_info">Wybierz folder z pamięci lokalnej lub od dostawcy usług w chmurze.
     Wszystkie notatki będą przechowywane jako pliki Markdown.
   </string>
-  <string name="preferences_file_storage_location">Miejsce przechowywania</string>
-  <string name="preferences_file_storage_select">Wybierz lokalizację przechowywania</string>
+    <string name="preferences_file_storage_location">Miejsce przechowywania</string>
+    <string name="preferences_file_storage_select">Wybierz lokalizację przechowywania</string>
     <string name="preferences_color_scheme_system">Zgodny z systemem</string>
-    <string name="new_and_updated">Nytt og oppdatert!</string>
-    <string name="what_is_new">Hva er nytt?</string>
     <string name="continue_next">Fortsette</string>
     <string name="preferences_header_view_tags">Tag liste</string>
     <string name="preferences_sort_tags_method">Sorter tagger etter</string>
     <string name="preferences_header_view_navdrawer">Navigasjonsskuff</string>
     <string name="preferences_sort_navdrawer_method">Sorter notatbøker etter</string>
-    <string name="swipe_to_find_out_whats_new">Sveip gjennom for å finne ut hva som er nytt</string>
 </resources>

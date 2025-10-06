@@ -266,13 +266,10 @@
     <string name="preferences_file_storage_location">Ubicación de almacenamiento</string>
     <string name="preferences_file_storage_select">Seleccione la ubicación de almacenamiento</string>
     <string name="preferences_color_scheme_system">Del sistema</string>
-    <string name="new_and_updated">¡Nuevo y actualizado!</string>
-    <string name="what_is_new">¿Qué hay de nuevo?</string>
     <string name="continue_next">Continuar</string>
     <string name="preferences_header_view_tags">Lista de etiquetas</string>
     <string name="preferences_sort_tags_method">Ordenar etiquetas por</string>
     <string name="preferences_header_view_navdrawer">Panel de navegación</string>
     <string name="preferences_sort_navdrawer_method">Ordenar cuadernos por</string>
-    <string name="swipe_to_find_out_whats_new">Desliza para descubrir las novedades</string>
     <string name="action_uncheck_all_tasks">Desmarcar todos los elementos</string>
 </resources>

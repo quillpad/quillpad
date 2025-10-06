@@ -67,7 +67,7 @@
     <string name="preferences_cloud_service">Сервіс синхронізації</string>
     <string name="preferences_cloud_service_disabled">Вимкнений</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-   <string name="preferences_nextcloud_limited_features">Майте на увазі — Nextcloud Notes не підтримує помітки, вкладення, нагадування, списки завдань та деякі інші функції.</string>
+    <string name="preferences_nextcloud_limited_features">Майте на увазі — Nextcloud Notes не підтримує помітки, вкладення, нагадування, списки завдань та деякі інші функції.</string>
     <string name="preferences_nextcloud_account">Обліковка Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">Посилання на Nextcloud</string>
     <string name="preferences_nextcloud_set_your_credentials">Укажіть ваші данні входу</string>
@@ -263,21 +263,18 @@
         <item quantity="many"/>
         <item quantity="other"/>
     </plurals>
-   <string name="preferences_cloud_service_files">Зберігання файлів</string>
-   <string name="preferences_file_storage_info">Виберіть папку з локального сховища або з хмарного постачальника. Усі
+    <string name="preferences_cloud_service_files">Зберігання файлів</string>
+    <string name="preferences_file_storage_info">Виберіть папку з локального сховища або з хмарного постачальника. Усі
      нотатки зберігатимуться як файли Markdown.
    </string>
-   <string name="preferences_file_storage_location">Місце зберігання</string>
-   <string name="preferences_file_storage_select">Виберіть місце зберігання</string>
+    <string name="preferences_file_storage_location">Місце зберігання</string>
+    <string name="preferences_file_storage_select">Виберіть місце зберігання</string>
     <string name="preferences_color_scheme_system">За системою</string>
-    <string name="new_and_updated">Новий та оновлений!</string>
-    <string name="what_is_new">що нового</string>
     <string name="continue_next">Продовжити</string>
     <string name="preferences_header_view_tags">Список тегів</string>
     <string name="preferences_sort_tags_method">Сортувати теги за</string>
     <string name="preferences_header_view_navdrawer">Панель навігації</string>
     <string name="preferences_sort_navdrawer_method">Розсортуйте зошити за</string>
-    <string name="swipe_to_find_out_whats_new">Гортайте, щоб дізнатися, що нового</string>
     <string name="preferences_header_view_notebook">Записник</string>
     <string name="preferences_header_view_note_content">Зміст нотатки</string>
     <string name="preferences_font_size_default">Звичайний</string>

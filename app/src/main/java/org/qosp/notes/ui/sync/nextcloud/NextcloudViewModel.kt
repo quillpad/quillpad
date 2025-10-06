@@ -36,18 +36,13 @@ class NextcloudViewModel(
             remoteAddress = preferenceRepository.getEncryptedString(PreferenceRepository.NEXTCLOUD_INSTANCE_URL).first()
         )
 
-        val response: BackendValidationResult = withContext(Dispatchers.IO) {
-            val loginResult = validateNextcloud(config)
-            loginResult
+        val response = withContext(Dispatchers.IO) { validateNextcloud(config) }
+        if (response == BackendValidationResult.Success) {
+            preferenceRepository.putEncryptedStrings(
+                PreferenceRepository.NEXTCLOUD_USERNAME to username,
+                PreferenceRepository.NEXTCLOUD_PASSWORD to password,
+            )
         }
-
-        return response.also {
-            if (it == BackendValidationResult.Success) {
-                preferenceRepository.putEncryptedStrings(
-                    PreferenceRepository.NEXTCLOUD_USERNAME to username,
-                    PreferenceRepository.NEXTCLOUD_PASSWORD to password,
-                )
-            }
-        }
+        return response
     }
 }

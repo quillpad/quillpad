@@ -68,7 +68,7 @@
     <string name="preferences_cloud_service">Service de synchronisation</string>
     <string name="preferences_cloud_service_disabled">Désactivé</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-  <string name="preferences_nextcloud_limited_features">Sachez que Nextcloud Notes ne supporte pas les étiquettes, pièces jointes, rappels, listes de tâches et d\'autres fonctionnalités encore.</string>
+    <string name="preferences_nextcloud_limited_features">Sachez que Nextcloud Notes ne supporte pas les étiquettes, pièces jointes, rappels, listes de tâches et d\'autres fonctionnalités encore.</string>
     <string name="preferences_nextcloud_account">Compte Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">Adresse du serveur Nextcloud</string>
     <string name="preferences_nextcloud_set_your_credentials">Définissez vos identifiants</string>
@@ -263,28 +263,27 @@
         <item quantity="many"/>
         <item quantity="other">%d étiquettes sélectionnées</item>
     </plurals>
-  <string name="preferences_cloud_service_files">Stockage de fichiers</string>
-  <string name="preferences_file_storage_info">Sélectionnez un dossier à partir du stockage local ou d\'un fournisseur de
+    <string name="preferences_cloud_service_files">Stockage de fichiers</string>
+    <string name="preferences_file_storage_info">Sélectionnez un dossier à partir du stockage local ou d\'un fournisseur de
     cloud. Toutes les notes seront stockées sous forme de fichiers Markdown.
   </string>
-  <string name="preferences_file_storage_location">Emplacement de stockage</string>
-  <string name="preferences_file_storage_select">Sélectionnez l\'emplacement de stockage</string>
+    <string name="preferences_file_storage_location">Emplacement de stockage</string>
+    <string name="preferences_file_storage_select">Sélectionnez l\'emplacement de stockage</string>
     <string name="preferences_color_scheme_system">Thème du système</string>
     <string name="action_disable_screen_always_on">Désactiver l\'écran toujours allumé</string>
     <string name="action_enable_screen_always_on">Activer l\'écran toujours allumé</string>
     <string name="action_screen_always_on">Écran toujours allumé</string>
-    <string name="new_and_updated">Nouveautés et mises à jour !</string>
-    <string name="what_is_new">Quoi de neuf ?</string>
     <string name="continue_next">Continuer</string>
     <string name="preferences_header_view_tags">Liste des tags</string>
     <string name="preferences_sort_tags_method">Trier les tags par</string>
     <string name="preferences_header_view_navdrawer">Tiroir de navigation</string>
     <string name="preferences_sort_navdrawer_method">Trier les carnets par</string>
-    <string name="swipe_to_find_out_whats_new">Faites défiler pour découvrir les nouveautés</string>
     <string name="preferences_font_size_default">Par défaut</string>
     <string name="preferences_header_view_note_content">Contenu de note</string>
     <string name="preferences_font_size">Taille de la police (édition/lecture)</string>
     <string name="action_uncheck_all_tasks">Décocher tous les éléments</string>
     <string name="preferences_header_view_notebook">Carnet</string>
     <string name="action_change_mode">Mode Édition/Lecture</string>
+    <string name="preferences_trust_self_signed_certificate">Faire confiance au certificat auto-signé</string>
+    <string name="message_certificates_invalid">Erreur de certificat. Veuillez activer \"Faire confiance au certificat auto-signé\" pour continuer...</string>
 </resources>

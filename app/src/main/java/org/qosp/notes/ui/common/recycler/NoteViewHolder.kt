@@ -101,7 +101,7 @@ class NoteViewHolder(
         val taskList = note.taskList.takeIf { it.size <= 8 } ?: note.taskList.subList(0, 8).also {
             val moreItems = note.taskList.size - 8
 
-            indicatorMoreTasks.isVisible = true
+            indicatorMoreTasks.isVisible = !note.isCompactPreview
             indicatorMoreTasks.text = context.resources.getQuantityString(R.plurals.more_items, moreItems, moreItems)
         }
 

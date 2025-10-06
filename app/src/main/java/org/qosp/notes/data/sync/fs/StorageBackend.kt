@@ -94,7 +94,13 @@ class StorageBackend(private val context: Context, private val config: StorageCo
         val root = getRootDocumentFile() ?: return emptyList()
         return try {
             val files = root.listFiles()
-                .flatMap { if (it.isDirectory) it.listFiles().toList() else listOf(it) }
+                .flatMap {
+                    if (it.isDirectory) {
+                        if (it.name?.startsWith(".") == true) emptyList()// Skip hidden directories
+                        else it.listFiles().toList()
+                    } else listOf(it)
+                }
+                .filter { it.name?.startsWith(".") != true } // Skip hidden files
                 .filter { it.name?.endsWith(".md") == true || it.name?.endsWith(".txt") == true }
             files.map { file -> getFile(file) }
         } catch (e: Exception) {

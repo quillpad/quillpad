@@ -259,29 +259,26 @@
     <plurals name="more_items">
         <item quantity="one">+%d položka</item>
         <item quantity="few">+%d položky</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="selected_notes">
         <item quantity="one">Označena %d poznámka</item>
         <item quantity="few">Označeny %d poznámky</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="selected_notebooks">
         <item quantity="one">Označen %d zápisník</item>
         <item quantity="few">Označeny %d zápisníky</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="selected_tags">
         <item quantity="one">Označen %d štítek</item>
         <item quantity="few">Označeny %d štítky</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
-    <string name="new_and_updated">Ҫӗнӗ те ҫӗнетнӗ!</string>
-    <string name="what_is_new">Co je nového?</string>
     <string name="continue_next">Pokračovat</string>
     <string name="preferences_header_view_tags">Tagy</string>
     <string name="preferences_sort_tags_method">Řadit tagy podle</string>
     <string name="preferences_header_view_navdrawer">Zápisníky</string>
     <string name="preferences_sort_navdrawer_method">Řadit zápisníky podle</string>
-    <string name="swipe_to_find_out_whats_new">Potažením zjistíte, co je nového</string>
 </resources>

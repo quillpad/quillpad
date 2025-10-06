@@ -1,0 +1,19 @@
+Quillpad - ein Fork von Quillnote - ist komplett kostenlos, Open Source, vollkommen werbefrei, ohne unnötiger Berechtigungen und lädt niemals deine Notizen ohne dein Wissen dorthin hoch, wo du sie nicht haben willst.
+
+Erstelle dank Markdown hübsche Notizen wo auch immer du gerade bist. Ordne sie in Notizbüchern und weise ihnen Schlagwörter (Tags) zu. Organisiere dich mit Aufgabenlisten, setze Erinnerungen und behalte alles an einem Ort, indem du Dateien anhängst.
+
+Mit Quillpad kannst du:
+- Notizen mit Markdown-Unterstützung verfassen
+- Aufgabenlisten erstellen
+- Notizen als Favoriten markieren
+- Notizen verstecken, damit sie nicht von anderen gesehen werden können
+- Erinnerungen setzen, um nichts zu verpassen
+- Sprachnachrichten und andere Dateien anhängen
+- verwandte Notizen in Notizbüchern gruppieren
+- Schlagwörter (Tags) zuweisen
+- Notizen archivieren
+- in Notizen suchen
+- mit Nextcloud synchronisieren (erfordert die Nextcloud-App "Nextcloud Notes")
+- deine Notizen als Zip-Datei exportieren, um sie bei Bedarf wiederherzustellen
+- zwischen Hell- und Dunkelmodus umschalten
+- zwischen mehreren Farbthemen wählen

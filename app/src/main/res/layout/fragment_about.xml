@@ -73,6 +73,14 @@
                 app:iconSrc="@drawable/ic_heart"/>
 
             <org.qosp.notes.ui.utils.views.PreferenceView
+                android:id="@+id/action_send_logs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="@string/about_send_logs"
+                app:subText="@string/about_send_logs_subtext"
+                app:iconSrc="@drawable/ic_export_all"/>
+
+            <org.qosp.notes.ui.utils.views.PreferenceView
                     android:id="@+id/action_view_libraries"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

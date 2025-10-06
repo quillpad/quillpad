@@ -12,6 +12,7 @@ import org.qosp.notes.components.workers.BinCleaningWorker
 import org.qosp.notes.components.workers.SyncWorker
 import org.qosp.notes.ui.reminders.ReminderManager
 import org.qosp.notes.ui.utils.ConnectionManager
+import org.qosp.notes.ui.utils.Toaster
 
 object UtilModule {
 
@@ -43,5 +44,6 @@ object UtilModule {
         }
         singleOf(::ReminderManager)
         singleOf(::ConnectionManager)
+        singleOf(::Toaster)
     }
 }

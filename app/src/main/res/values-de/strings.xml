@@ -264,10 +264,7 @@
     <string name="preferences_sort_tags_method">Tags sortieren nach</string>
     <string name="preferences_header_view_navdrawer">Navigationsleiste</string>
     <string name="preferences_sort_navdrawer_method">Notizbücher sortieren nach</string>
-    <string name="new_and_updated">Neu und aktualisiert!</string>
-    <string name="what_is_new">Was ist neu?</string>
     <string name="continue_next">Weiter</string>
-    <string name="swipe_to_find_out_whats_new">Wische durch die Liste, um zu sehen, was neu ist</string>
     <plurals name="more_items">
         <item quantity="one">+%d Element</item>
         <item quantity="other">+%d Elemente</item>
@@ -284,10 +281,12 @@
         <item quantity="one">%d Tag ausgewählt</item>
         <item quantity="other">%d Tags ausgewählt</item>
     </plurals>
-  <string name="preferences_cloud_service_files">Dateispeicher</string>
-  <string name="preferences_file_storage_info">Wählen Sie einen Ordner aus dem lokalen Speicher oder von einem
+    <string name="preferences_cloud_service_files">Dateispeicher</string>
+    <string name="preferences_file_storage_info">Wählen Sie einen Ordner aus dem lokalen Speicher oder von einem
     Cloud-Anbieter aus. Alle Notizen werden als Markdown-Dateien gespeichert.
   </string>
-  <string name="preferences_file_storage_location">Speicherort</string>
+    <string name="preferences_file_storage_location">Speicherort</string>
     <string name="preferences_file_storage_select">Speicherort auswählen</string>
+    <string name="preferences_trust_self_signed_certificate">Selbst-signierten Zertifikaten vertrauen</string>
+    <string name="message_certificates_invalid">Zertifikatsfehler. Bitte aktivieren Sie \"Selbst-signierten Zertifikaten vertrauen\", um fortzufahren.</string>
 </resources>

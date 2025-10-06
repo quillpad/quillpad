@@ -2,20 +2,22 @@ package org.qosp.notes.data.sync.nextcloud
 
 import android.util.Log
 import org.acra.ktx.sendWithAcra
-import org.qosp.notes.data.sync.core.ServerNotSupportedException
+import retrofit2.HttpException
 import javax.net.ssl.SSLException
 
 class ValidateNextcloud(private val apiProvider: NextcloudAPIProvider) {
     suspend operator fun invoke(config: NextcloudConfig): BackendValidationResult {
-        val result = runCatching {
-            val api = apiProvider.getAPI()
-            val capabilities = api.getNotesCapabilities(config)!!
-            val maxServerVersion = capabilities.apiVersion.last().toFloat()
-            if (MIN_SUPPORTED_VERSION.toFloat() > maxServerVersion) throw ServerNotSupportedException
-        }
-        result.exceptionOrNull()?.let { exception ->
-            when (exception) {
-                is SSLException -> {
+
+        val api = apiProvider.getAPI()
+        return try {
+            val capabilities = api.getNotesCapabilities(config) ?: return BackendValidationResult.NotesNotInstalled
+            val maxServerVersion = capabilities.apiVersion.mapNotNull { it.toFloatOrNull() }.maxOrNull() ?: 0f
+            if (MIN_SUPPORTED_VERSION > maxServerVersion)
+                BackendValidationResult.Incompatible
+            else BackendValidationResult.Success
+        } catch (exception: Exception) {
+            return when (exception) {
+                is SSLException -> BackendValidationResult.CertificateError.also {
                     // Don't send a crash report for SSL certificate issues
                     Log.w(
                         "ValidateNextcloud",
@@ -24,22 +26,16 @@ class ValidateNextcloud(private val apiProvider: NextcloudAPIProvider) {
                     )
                 }
 
-                else -> {
+                else -> BackendValidationResult.InvalidConfig.also {
                     Log.e("ValidateNextcloud", "invoke: Error validating config", exception)
-                    exception.sendWithAcra()
+                    if (exception !is HttpException || exception.code() != 401) exception.sendWithAcra()
                 }
             }
-        }
-        return when (val exception = result.exceptionOrNull()) {
-            null -> BackendValidationResult.Success
-            is ServerNotSupportedException -> BackendValidationResult.Incompatible
-            is SSLException -> BackendValidationResult.CertificateError
-            else -> BackendValidationResult.InvalidConfig
         }
     }
 
     companion object {
-        const val MIN_SUPPORTED_VERSION = 1
+        const val MIN_SUPPORTED_VERSION = 1.0f
     }
 }
 
@@ -48,4 +44,5 @@ sealed class BackendValidationResult {
     object InvalidConfig : BackendValidationResult()
     object Incompatible : BackendValidationResult()
     object CertificateError : BackendValidationResult()
+    object NotesNotInstalled : BackendValidationResult()
 }

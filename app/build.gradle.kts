@@ -18,8 +18,8 @@ android {
         applicationId = "io.github.quillpad"
         minSdk = 24
         targetSdk = 35
-        versionCode = 46
-        versionName = "1.5.4"
+        versionCode = 48
+        versionName = "1.5.6"
 
         testInstrumentationRunner = "org.qosp.notes.TestRunner"
 
@@ -208,6 +208,9 @@ dependencies {
     implementation(libs.koin.android.compat)
     implementation(libs.koin.androidx.workmanager)
     implementation(libs.koin.androidx.navigation)
+
+    // Yaml parsing
+    implementation(libs.yamlkt)
 
     // Coil
     implementation(libs.coil)
