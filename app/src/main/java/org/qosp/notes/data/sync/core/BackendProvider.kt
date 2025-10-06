@@ -27,19 +27,19 @@ class BackendProvider(
 ) {
     private val syncService: Flow<CloudService> = preferenceRepository.getAll().map { it.cloudService }
     private val pref: StateFlow<AppPreferences?> =
-        preferenceRepository.getAll().stateIn(syncingScope, SharingStarted.Companion.Eagerly, null)
+        preferenceRepository.getAll().stateIn(syncingScope, SharingStarted.Eagerly, null)
 
     val syncProvider: StateFlow<ISyncBackend?> = combine(
         syncService,
-        NextcloudConfig.Companion.fromPreferences(preferenceRepository),
-        StorageConfig.Companion.storageLocation(preferenceRepository)
+        NextcloudConfig.fromPreferences(preferenceRepository),
+        StorageConfig.storageLocation(preferenceRepository)
     ) { service, nextcloudConfig, storageConfig ->
         when (service) {
             CloudService.DISABLED -> null
             CloudService.NEXTCLOUD -> nextcloudConfig?.let { NextcloudBackend(nextcloudApiProvider, it) }
             CloudService.FILE_STORAGE -> storageConfig?.let { StorageBackend(context, it) }
         }
-    }.stateIn(syncingScope, SharingStarted.Companion.Eagerly, null)
+    }.stateIn(syncingScope, SharingStarted.Eagerly, null)
 
     val isSyncing: Boolean
         get() = syncProvider.value != null && connectionManager.isConnectionAvailable(
