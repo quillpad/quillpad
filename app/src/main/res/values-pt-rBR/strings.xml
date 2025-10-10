@@ -287,4 +287,6 @@
     <string name="action_screen_always_on">Tela sempre ativa</string>
     <string name="action_disable_screen_always_on">Desabilitar tela sempre ativa</string>
     <string name="action_change_mode">Modo Editar/Vizualizar</string>
+    <string name="about_send_logs">Enviar logs de erro</string>
+    <string name="about_send_logs_subtext">Enviar os logs do aplicativo ao desenvolvedor para investigação</string>
 </resources>
