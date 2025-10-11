@@ -101,7 +101,7 @@
     <string name="about_developer">Entwickler</string>
     <string name="about_contribute">Mitwirken</string>
     <string name="about_support">Unterstützen</string>
-    <string name="about_support_subtext">Die Entwicklung und Pflege von Open-Source-Projekten ist zeitaufwendig und wird nicht vergütet.\nSpendiere den Entwicklern doch ein Bier!</string>
+    <string name="about_support_subtext">Die Entwicklung und Pflege von Open-Source-Projekten ist zeitaufwendig und wird nicht vergütet.\nSpendiere den Entwickler:innen doch einen Kaffee!</string>
     <string name="about_libraries">Bibliotheken</string>
     <string name="about_libraries_subtext">Bibliotheken und Lizenzen Dritter ansehen.</string>
     <!-- General -->
@@ -289,4 +289,7 @@
     <string name="preferences_file_storage_select">Speicherort auswählen</string>
     <string name="preferences_trust_self_signed_certificate">Selbst-signierten Zertifikaten vertrauen</string>
     <string name="message_certificates_invalid">Zertifikatsfehler. Bitte aktivieren Sie \"Selbst-signierten Zertifikaten vertrauen\", um fortzufahren.</string>
+    <string name="message_notes_not_installed">Die Notes App ist auf dem Nextcloud-Server nicht installiert.</string>
+    <string name="about_send_logs">Fehlerprotokolle senden</string>
+    <string name="about_send_logs_subtext">Anwendungsprotokolle zur Analyse an die Entwickler:innen senden</string>
 </resources>

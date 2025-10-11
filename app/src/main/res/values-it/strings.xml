@@ -85,7 +85,7 @@
     <string name="about_developer">Sviluppatore</string>
     <string name="about_contribute">Contribuire</string>
     <string name="about_support">Supporto</string>
-    <string name="about_support_subtext">Creare e mantenere progetti open-source richiede tempo e non genera profitti.\nOffri una birra agli sviluppatori!</string>
+    <string name="about_support_subtext">Creare e mantenere progetti open-source richiede tempo e non genera profitti.\nOffri un caffè agli sviluppatori!</string>
     <string name="about_libraries">Librerie</string>
     <string name="about_libraries_subtext">Visualizza le librerie di terze parti e le relative licenze.</string>
     <!-- General -->
@@ -284,4 +284,7 @@
     <string name="preferences_file_storage_select">Selezionare la posizione dell\'archivio</string>
     <string name="preferences_trust_self_signed_certificate">Considera attendibile in certificato autofirmato</string>
     <string name="message_certificates_invalid">Errore del certificato: abilitare \"Considera attendibile in certificato autofirmato\" per continuare.</string>
+    <string name="about_send_logs_subtext">Invia i log dell\'applicazione allo sviluppatore per le verifiche</string>
+    <string name="about_send_logs">Invia i log dell\'errore</string>
+    <string name="message_notes_not_installed">L\'applicazione Note non è installata nell\'istanza Nextcloud in uso.</string>
 </resources>
