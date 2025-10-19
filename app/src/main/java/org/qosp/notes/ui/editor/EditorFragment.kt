@@ -107,6 +107,7 @@ import org.qosp.notes.ui.utils.shareAttachment
 import org.qosp.notes.ui.utils.shareNote
 import org.qosp.notes.ui.utils.viewBinding
 import org.qosp.notes.ui.utils.views.BottomSheet
+import org.qosp.notes.ui.widget.WidgetUpdateHelper
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -393,6 +394,8 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
                 R.id.action_pin_note -> {
                     activityModel.pinNotes(note)
+                    // Refresh widgets to reflect pin state change
+                    WidgetUpdateHelper.updateAllWidgets(requireContext())
                 }
 
                 R.id.action_change_mode -> {
