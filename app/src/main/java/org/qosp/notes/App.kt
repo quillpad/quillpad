@@ -21,8 +21,8 @@ import coil.decode.ImageDecoderDecoder
 import coil.decode.VideoFrameDecoder
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
+import org.acra.ACRA
 import org.acra.ReportField
-import org.acra.config.dialog
 import org.acra.config.mailSender
 import org.acra.data.StringFormat
 import org.acra.ktx.initAcra
@@ -110,19 +110,14 @@ class App : Application(), ImageLoaderFactory {
                 ReportField.LOGCAT,
             )
             logcatFilterByPid = true
-
-            dialog {
-                text = getString(R.string.error_report_description)
-                title = getString(R.string.error_report_title)
-                commentPrompt = getString(R.string.error_report_comment)
-            }
-
+            applicationLogFileLines = 500
             mailSender {
                 mailTo = getString(R.string.error_report_email)
                 reportAsFile = true
                 reportFileName = "error_report.json"
             }
         }
+        ACRA.errorReporter.setEnabled(false)
     }
 
     private fun createNotificationChannels() {
