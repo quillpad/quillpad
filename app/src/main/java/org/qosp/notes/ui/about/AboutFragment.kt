@@ -51,7 +51,14 @@ class AboutFragment : BaseFragment(resId = R.layout.fragment_about) {
         actionVisitDeveloper.setOnClickListener { launchUrl(requireContext().getString(R.string.app_developer_repo)) }
         actionViewLibraries.setOnClickListener { showLibrariesDialog() }
         actionSupport.setOnClickListener { launchUrl(requireContext().getString(R.string.app_support_page)) }
-        actionSendLogs.setOnClickListener { ACRA.errorReporter.handleException(null) }
+        actionSendLogs.setOnClickListener {
+            try {
+                ACRA.errorReporter.setEnabled(true)
+                ACRA.errorReporter.handleException(null)
+            } finally {
+                ACRA.errorReporter.setEnabled(false)
+            }
+        }
     }
 
     private fun showLibrariesDialog() {
