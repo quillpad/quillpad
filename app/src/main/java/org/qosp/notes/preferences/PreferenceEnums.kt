@@ -139,6 +139,13 @@ enum class MoveCheckedItems(
     NO(R.string.no),
 }
 
+enum class DefaultEditorMode(
+    override val nameResource: Int
+) : HasNameResource, EnumPreference by key("default_editor_mode") {
+    VIEW(R.string.preferences_default_editor_mode_view) { override val isDefault = true },
+    EDIT(R.string.preferences_default_editor_mode_edit)
+}
+
 enum class CloudService(override val nameResource: Int) : HasNameResource, EnumPreference by key("cloud_service") {
     DISABLED(R.string.preferences_cloud_service_disabled) { override val isDefault = true },
     NEXTCLOUD(R.string.preferences_cloud_service_nextcloud),
