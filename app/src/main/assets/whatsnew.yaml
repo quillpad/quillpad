@@ -1,4 +1,8 @@
 updates:
+  - id: 4
+    title: Widgets!!!
+    items:
+      - Add a widget to your home screen to quickly access your pinned notes and tasks.
   - id: 3
     title: What's New in Quillpad
     items:

@@ -85,7 +85,9 @@
     <string name="about_developer">Разработчик</string>
     <string name="about_contribute">Внести вклад</string>
     <string name="about_support">Поддержать</string>
-    <string name="about_support_subtext">Создание и поддержка открытых проектов требует времени и труда. Поддержите разработчика!\nПожертвуйте разработчику на кофе!</string>
+    <string
+        name="about_support_subtext">Создание и поддержка открытых проектов требует времени и труда.Поддержи разработчика!\nПодкиньте разработчику на кофе!
+    </string>
     <string name="about_libraries">Библиотеки</string>
     <string name="about_libraries_subtext">Список используемых библиотек и лицезий.</string>
     <!-- General -->
@@ -290,7 +292,4 @@
     <string name="action_uncheck_all_tasks">Снять флажок со всех элементов</string>
     <string name="preferences_trust_self_signed_certificate">Доверьтесь самоподписанному сертификату</string>
     <string name="message_certificates_invalid">Ошибка сертификата. Пожалуйста, включите «Доверить самоподписанному сертификату» для продолжения.</string>
-    <string name="about_send_logs">Отправить журнал ошибок</string>
-    <string name="about_send_logs_subtext">Отправить журнал приложения разработчикам для расследования</string>
-    <string name="message_notes_not_installed">Приложение Notes не установлено в вашем Nextcloud.</string>
 </resources>

@@ -29,8 +29,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.qosp.notes.R
@@ -49,6 +49,7 @@ import org.qosp.notes.ui.utils.closeAndThen
 import org.qosp.notes.ui.utils.collect
 import org.qosp.notes.ui.utils.hideKeyboard
 import org.qosp.notes.ui.utils.navigateSafely
+import org.qosp.notes.ui.widget.WidgetUpdateHelper
 
 class MainActivity : BaseActivity() {
 
@@ -101,6 +102,7 @@ class MainActivity : BaseActivity() {
 
         setupDrawerHeader()
 
+        WidgetUpdateHelper.updateAllWidgets(this)
         if (intent != null) handleIntent(intent)
     }
 
@@ -179,17 +181,10 @@ class MainActivity : BaseActivity() {
                             }
                         }
                     }
-
-                    val link = NavDeepLinkBuilder(this@MainActivity)
-                        .setGraph(R.navigation.nav_graph)
-                        .setDestination(R.id.fragment_editor)
-                        .setArguments(args)
-                        .createTaskStackBuilder()
-                        .first()
-
-                    navController.handleDeepLink(link)
+                    navController.handleDeepLink(getDeepLink(args))
                 }
             }
+
             Intent.ACTION_SEND_MULTIPLE -> {
                 var uris = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM, Uri::class.java)
@@ -225,22 +220,38 @@ class MainActivity : BaseActivity() {
                                 args.putParcelableArray("newNoteAttachments", attachments)
                             }
                         }
-
-                        val link = NavDeepLinkBuilder(this@MainActivity)
-                            .setGraph(R.navigation.nav_graph)
-                            .setDestination(R.id.fragment_editor)
-                            .setArguments(args)
-                            .createTaskStackBuilder()
-                            .first()
-
-                        navController.handleDeepLink(link)
+                        navController.handleDeepLink(getDeepLink(args))
                     }
                 }
             }
 
-            else -> navController.handleDeepLink(intent)
+            "org.qosp.notes.NEW_NOTE" -> {
+                // Request to create a new note from the widget
+                val args = bundleOf("transitionName" to "", "newNoteTitle" to "", "newNoteContent" to "")
+                navController.handleDeepLink(getDeepLink(args))
+                return
+            }
+
+            else -> {
+                // Request to open a note from the widget
+                val noteId = intent.getLongExtra("noteId", -1L)
+                if (noteId > 0) {
+                    val args = bundleOf("noteId" to noteId, "transitionName" to "")
+                    navController.handleDeepLink(getDeepLink(args))
+                    return
+                } else {
+                    navController.handleDeepLink(intent)
+                }
+            }
         }
     }
+
+    private fun getDeepLink(args: Bundle): Intent? = NavDeepLinkBuilder(this@MainActivity)
+        .setGraph(R.navigation.nav_graph)
+        .setDestination(R.id.fragment_editor)
+        .setArguments(args)
+        .createTaskStackBuilder()
+        .first()
 
     private fun setupDrawerHeader() {
         val header = binding.navigationView.getHeaderView(0)
