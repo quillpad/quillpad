@@ -9,6 +9,7 @@ on:
 
 jobs:
   build:
+    if: github.repository == 'quillpad/quillpad'
     runs-on: ubuntu-latest
 
     steps:
@@ -94,7 +95,7 @@ jobs:
         draft: true
 
   test_lab:
-    if: github.ref == 'refs/heads/master'
+    if: github.repository == 'quillpad/quillpad' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
 
     steps:
