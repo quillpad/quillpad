@@ -89,7 +89,9 @@
     <string name="about_developer">Développeur</string>
     <string name="about_contribute">Contribuer</string>
     <string name="about_support">Soutenir</string>
-    <string name="about_support_subtext">"Créer et maintenir des projets open-source prend du temps et ne fait pas de bénéfice. Achetez une bière aux développeurs!     "</string>
+    <string
+        name="about_support_subtext">"Créer et maintenir des projets open-source prend du temps et ne fait pas de bénéfice. Achetez une bière aux développeurs! "
+    </string>
     <string name="about_libraries">Bibliothèques</string>
     <string name="about_libraries_subtext">Voir les bibliothèques utilisées et leurs licences.</string>
     <!-- General -->

@@ -101,7 +101,9 @@
     <string name="about_developer">Entwickler</string>
     <string name="about_contribute">Mitwirken</string>
     <string name="about_support">Unterstützen</string>
-    <string name="about_support_subtext">Die Entwicklung und Pflege von Open-Source-Projekten ist zeitaufwendig und wird nicht vergütet.\nSpendiere den Entwicklern doch ein Bier!</string>
+    <string
+        name="about_support_subtext">Die Entwicklung und Pflege von Open-Source-Projekten ist zeitaufwendig und wird nicht vergütet.\nSpendiere den Entwicklern doch ein Bier!
+    </string>
     <string name="about_libraries">Bibliotheken</string>
     <string name="about_libraries_subtext">Bibliotheken und Lizenzen Dritter ansehen.</string>
     <!-- General -->

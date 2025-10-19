@@ -85,7 +85,9 @@
     <string name="about_developer">Разработчик</string>
     <string name="about_contribute">Внести вклад</string>
     <string name="about_support">Поддержать</string>
-    <string name="about_support_subtext">Создание и поддержка открытых проектов требует времени и труда.Поддержи разработчика!\nПодкиньте разработчику на кофе!</string>
+    <string
+        name="about_support_subtext">Создание и поддержка открытых проектов требует времени и труда.Поддержи разработчика!\nПодкиньте разработчику на кофе!
+    </string>
     <string name="about_libraries">Библиотеки</string>
     <string name="about_libraries_subtext">Список используемых библиотек и лицезий.</string>
     <!-- General -->

@@ -352,10 +352,11 @@
         <item quantity="other">Selected %d tags</item>
     </plurals>
     <string name="preferences_cloud_service_files">File Storage</string>
-    <string name="error_report_title" translatable="false">Report Errors</string>
-    <string name="error_report_description" translatable="false">There has been an error. Please report this to the
-        developers.
-    </string>
-    <string name="error_report_comment" translatable="false">You can add comments here:</string>
     <string name="error_report_email" translatable="false">sixface@msn.com</string>
+    <!-- Widget Strings -->
+    <string name="widget_description">Show your recent notes on home screen</string>
+    <string name="action_new_note">New Note</string>
+    <string name="note_untitled">Untitled</string>
+    <string name="tasks">tasks</string>
+    <string name="widget_no_pinned_notes">No pinned notes yet. Pin a note to see it here.</string>
 </resources>

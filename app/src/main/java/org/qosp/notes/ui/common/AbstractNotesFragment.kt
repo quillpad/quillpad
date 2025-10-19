@@ -44,6 +44,7 @@ import org.qosp.notes.ui.utils.collect
 import org.qosp.notes.ui.utils.liftAppBarOnScroll
 import org.qosp.notes.ui.utils.shareNote
 import org.qosp.notes.ui.utils.views.BottomSheet
+import org.qosp.notes.ui.widget.WidgetUpdateHelper
 import java.util.concurrent.TimeUnit
 
 private typealias Data = AbstractNotesViewModel.Data
@@ -445,9 +446,13 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
         BottomSheet.show(note.title, parentFragmentManager) {
             action(R.string.action_unpin, R.drawable.ic_unpin, condition = note.isPinned && isNormal) {
                 activityModel.pinNotes(note)
+                // Refresh widgets to reflect pin state change
+                WidgetUpdateHelper.updateAllWidgets(requireContext())
             }
             action(R.string.action_pin, R.drawable.ic_pin, condition = !note.isPinned && isNormal) {
                 activityModel.pinNotes(note)
+                // Refresh widgets to reflect pin state change
+                WidgetUpdateHelper.updateAllWidgets(requireContext())
             }
             action(R.string.action_restore, R.drawable.ic_restore, condition = note.isDeleted) {
                 activityModel.restoreNotes(note)
