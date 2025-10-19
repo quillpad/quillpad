@@ -50,6 +50,7 @@ class PreferenceRepository(
                     showFabChangeMode = prefs.getEnum(),
                     groupNotesWithoutNotebook = prefs.getEnum(),
                     moveCheckedItems = prefs.getEnum(),
+                    defaultEditorMode = prefs.getEnum(),
                     cloudService = prefs.getEnum(),
                     syncMode = prefs.getEnum(),
                     backgroundSync = prefs.getEnum(),

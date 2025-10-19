@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import me.msoul.datastore.defaultOf
+import org.qosp.notes.preferences.DefaultEditorMode
 import org.qosp.notes.data.model.Attachment
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.model.NoteColor
@@ -61,6 +62,7 @@ class EditorViewModel(
                         showDates = prefs.showDate == ShowDate.YES,
                         editorFontSize = prefs.editorFontSize.fontSize,
                         showFabChangeMode = prefs.showFabChangeMode == ShowFabChangeMode.FAB,
+                        defaultEditorMode = prefs.defaultEditorMode,
                         isInitialized = true,
                     )
                 }
@@ -185,6 +187,7 @@ class EditorViewModel(
         val showDates: Boolean = true,
         val editorFontSize: Int = -1, // -1: not customised, default font size
         val showFabChangeMode: Boolean = true,
+        val defaultEditorMode: DefaultEditorMode = defaultOf(),
         val isInitialized: Boolean = false,
         val moveCheckedItems: Boolean = true,
     )

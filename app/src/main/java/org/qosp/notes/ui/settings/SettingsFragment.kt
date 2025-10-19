@@ -63,6 +63,7 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
         setupShowDateListener()
         setupShowFontSizeListener()
         setupShowFabChangeModeListener()
+        setupDefaultEditorModeListener()
         setupDateFormatListener()
         setupTimeFormatListener()
         setupSyncSettingsListener()
@@ -108,6 +109,7 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
                 binding.settingShowDate.subText = getString(showDate.nameResource)
                 binding.settingFontSize.subText = getString(editorFontSize.nameResource)
                 binding.settingShowFab.subText = getString(showFabChangeMode.nameResource)
+                binding.settingDefaultEditorMode.subText = getString(defaultEditorMode.nameResource)
                 with(DateTimeFormatter.ofPattern(getString(dateFormat.patternResource))) {
                     binding.settingDateFormat.subText = format(LocalDate.now())
                 }
@@ -234,6 +236,12 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
 
     private fun setupShowFabChangeModeListener() = binding.settingShowFab.setOnClickListener {
         showPreferenceDialog(R.string.preferences_show_fab_change_mode, appPreferences.showFabChangeMode) { selected ->
+            model.setPreference(selected)
+        }
+    }
+
+    private fun setupDefaultEditorModeListener() = binding.settingDefaultEditorMode.setOnClickListener {
+        showPreferenceDialog(R.string.preferences_default_editor_mode, appPreferences.defaultEditorMode) { selected ->
             model.setPreference(selected)
         }
     }
