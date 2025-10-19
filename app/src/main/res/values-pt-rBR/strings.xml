@@ -17,7 +17,7 @@
     <string name="preferences_theme_mode_light">Claro</string>
     <string name="preferences_theme_mode_system">Seguir tema do sistema</string>
     <string name="preferences_dark_theme_mode">Modo do tema escuro</string>
-    <string name="preferences_theme_dark_mode_standard">Padrão</string>
+    <string name="preferences_theme_dark_mode_standard">Tema Padrão</string>
     <string name="preferences_theme_dark_mode_black">Preto puro</string>
     <string name="preferences_header_view">Visualização</string>
     <string name="preferences_layout_mode">Modo de exibição</string>
@@ -67,7 +67,7 @@
     <string name="preferences_cloud_service">Serviço de sincronia</string>
     <string name="preferences_cloud_service_disabled">Desabilitado</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_nextcloud_limited_features">Tenha em mente que o Nextcloud Notes não suporta recursos como etiquetas, anexos, lembretes, listas de tarefas e mais.</string>
+    <string name="preferences_nextcloud_limited_features">Tenha em mente que o Nextcloud Notes não suporta recursos como etiquetas, anexos, lembretes, listas de tarefas e mais. O Nextcloud Notes precisa estar instalado no servidor Nextcloud ou o login falhará com o erro Algo deu errado!</string>
     <string name="preferences_nextcloud_account">Conta Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">URL de instancia do Nextcloud</string>
     <string name="preferences_nextcloud_set_your_credentials">Coloque suas credenciais</string>
@@ -118,7 +118,7 @@
     <string name="action_move_to">Mover para…</string>
     <string name="action_duplicate">Duplicar</string>
     <string name="action_select_more">Selecionar mais…</string>
-    <string name="action_compact_preview">"Visualização compacta "</string>
+    <string name="action_compact_preview">Visualização compacta</string>
     <string name="action_full_preview">Visualização completa</string>
     <!-- Attachments -->
     <string name="attachments_edit_description">Editar descrição</string>
@@ -241,22 +241,22 @@
     <string name="never">Nunca</string>
     <plurals name="more_items">
         <item quantity="one">+%d item</item>
-        <item quantity="many"/>
+        <item quantity="many">+%d itens</item>
         <item quantity="other">+%d itens</item>
     </plurals>
     <plurals name="selected_notes">
         <item quantity="one">%d anotação selecionada</item>
-        <item quantity="many"/>
+        <item quantity="many">%d anotações selecionadas</item>
         <item quantity="other">%d anotações selecionadas</item>
     </plurals>
     <plurals name="selected_notebooks">
-        <item quantity="one">%d caderno de notas selecionado</item>
-        <item quantity="many"/>
-        <item quantity="other">%d cadernos de notas selecionados</item>
+        <item quantity="one">%d bloco de notas selecionado</item>
+        <item quantity="many">%d blocos de notas selecionados</item>
+        <item quantity="other">%d blocos de notas selecionados</item>
     </plurals>
     <plurals name="selected_tags">
         <item quantity="one">%d etiqueta selecionada</item>
-        <item quantity="many"/>
+        <item quantity="many">%d etiquetas selecionadas</item>
         <item quantity="other">%d etiquetas selecionadas</item>
     </plurals>
     <string name="preferences_cloud_service_files">Armazenamento de arquivo</string>
@@ -271,4 +271,22 @@
     <string name="preferences_sort_tags_method">Classificar tags por</string>
     <string name="preferences_header_view_navdrawer">Gaveta de navegação</string>
     <string name="preferences_sort_navdrawer_method">Classificar cadernos por</string>
+    <string name="action_enable_screen_always_on">Habilitar tela sempre ativa</string>
+    <string name="message_notes_not_installed">Aplicativo Notes não instalado no seu Nextcloud.</string>
+    <string name="message_certificates_invalid">Erro de Certificado. Por favor, ative \"Certificado autoassinado confiável\" para continuar...</string>
+    <string name="preferences_trust_self_signed_certificate">Certificado autoassinado confiável</string>
+    <string name="preferences_show_fab_change_mode">Editar/Ver posição do botão de nota</string>
+    <string name="preferences_fab">Botão flutuante</string>
+    <string name="preferences_move_checked_items">Mover itens (não)selecionados nesta lista</string>
+    <string name="action_uncheck_all_tasks">Desmarcar todos os itens</string>
+    <string name="preferences_header_view_notebook">Bloco de notas</string>
+    <string name="preferences_header_view_note_content">Conteúdo da Nota</string>
+    <string name="preferences_font_size_default">Padrão</string>
+    <string name="preferences_top_bar">Barra do Topo</string>
+    <string name="preferences_font_size">Editor de Texto/Tamanho da Fonte</string>
+    <string name="action_screen_always_on">Tela sempre ativa</string>
+    <string name="action_disable_screen_always_on">Desabilitar tela sempre ativa</string>
+    <string name="action_change_mode">Modo Editar/Vizualizar</string>
+    <string name="about_send_logs">Enviar logs de erro</string>
+    <string name="about_send_logs_subtext">Enviar os logs do aplicativo ao desenvolvedor para investigação</string>
 </resources>
