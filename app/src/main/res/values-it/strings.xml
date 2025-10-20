@@ -294,6 +294,6 @@
     <string name="action_new_note">Nuova nota</string>
     <string name="note_untitled">Senza titolo</string>
     <string name="tasks">attività</string>
-    <string name="widget_no_pinned_notes">Ancora nessuna nota appuntata. Appuntare una nota per visualizzarla qui.</string>
+    <string name="widget_no_pinned_notes">Ancora nessuna nota fissata. Fissa una nota per visualizzarla qui.</string>
     <string name="preferences_default_editor_mode">Modalità predefinita dell\'editor</string>
 </resources>
