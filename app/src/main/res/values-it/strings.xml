@@ -85,8 +85,7 @@
     <string name="about_developer">Sviluppatore</string>
     <string name="about_contribute">Contribuire</string>
     <string name="about_support">Supporto</string>
-    <string
-        name="about_support_subtext">Creare e mantenere progetti open-source richiede tempo e non genera profitti.\nOffri una birra agli sviluppatori!
+    <string name="about_support_subtext">Creare e mantenere progetti open-source richiede tempo e non genera profitti.\nOffri una birra agli sviluppatori!
     </string>
     <string name="about_libraries">Librerie</string>
     <string name="about_libraries_subtext">Visualizza le librerie di terze parti e le relative licenze.</string>
@@ -286,4 +285,15 @@
     <string name="preferences_file_storage_select">Selezionare la posizione dell\'archivio</string>
     <string name="preferences_trust_self_signed_certificate">Considera attendibile in certificato autofirmato</string>
     <string name="message_certificates_invalid">Errore del certificato: abilitare \"Considera attendibile in certificato autofirmato\" per continuare.</string>
+    <string name="preferences_default_editor_mode_view">Modalità visualizzazione</string>
+    <string name="preferences_default_editor_mode_edit">Modalità modifica</string>
+    <string name="about_send_logs">Invia I log dell\'errore</string>
+    <string name="about_send_logs_subtext">Invia allo sviluppatore i log dell\'applicazione per l\'analisi</string>
+    <string name="message_notes_not_installed">L\'applicazione Note non è installata nel proprio Nextcloud.</string>
+    <string name="widget_description">Mostra le note recenti sulla schermata home</string>
+    <string name="action_new_note">Nuova nota</string>
+    <string name="note_untitled">Senza titolo</string>
+    <string name="tasks">attività</string>
+    <string name="widget_no_pinned_notes">Ancora nessuna nota appuntata. Appuntare una nota per visualizzarla qui.</string>
+    <string name="preferences_default_editor_mode">Modalità predefinita dell\'editor</string>
 </resources>
