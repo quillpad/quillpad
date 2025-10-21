@@ -28,7 +28,7 @@
     <string name="preferences_color_scheme_purple">Viola</string>
     <string name="preferences_color_scheme_yellow">Giallo</string>
     <string name="preferences_color_scheme_red">Rosso</string>
-    <string name="preferences_sort_method">Ordina per</string>
+    <string name="preferences_sort_method">Ordinamento</string>
     <string name="preferences_sort_method_title_asc">Titolo (ascendente)</string>
     <string name="preferences_sort_method_title_desc">Titolo (discendente)</string>
     <string name="preferences_sort_method_created_asc">Data di creazione (ascendente)</string>
@@ -40,7 +40,7 @@
     <string name="preferences_time_format">Formato ora</string>
     <string name="preferences_header_other">Altro</string>
     <string name="preferences_group_notes_without_notebook">Raggruppa le note che non appartengono ad alcun taccuino</string>
-    <string name="preferences_open_media_in">Apri file multimediali in</string>
+    <string name="preferences_open_media_in">Apri file multimediali con</string>
     <string name="preferences_open_media_in_internal">Lettore interno</string>
     <string name="preferences_open_media_in_external">Lettore esterno</string>
     <string name="preferences_note_deletion_time">Elimina le note nel cestino</string>
@@ -64,7 +64,7 @@
     <string name="preferences_cloud_service">Servizio di sincronizzazione</string>
     <string name="preferences_cloud_service_disabled">Disabilitato</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_nextcloud_limited_features">Tenere presente che Note di Nextcloud non supporta funzionaltà come etichette, allegati, promemoria, compiti e altro. Note di Nextcloud necessita di una installazione sul server Nextcloud altrimenti l\'accesso non potrà essere eseguito con il messaggio \"Qualcosa non ha funzionato\".</string>
+    <string name="preferences_nextcloud_limited_features">Tenere presente che Note di Nextcloud non supporta funzionaltà come etichette, allegati, promemoria, compiti e altro. Note di Nextcloud necessita di una installazione sul server Nextcloud altrimenti l\'accesso non potrà essere eseguito restituendo il messaggio \"Qualcosa non ha funzionato\".</string>
     <string name="preferences_nextcloud_account">Account Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">URL dell\'istanza Nextcloud</string>
     <string name="preferences_nextcloud_set_your_credentials">Impostazione credenziali</string>
@@ -85,8 +85,7 @@
     <string name="about_developer">Sviluppatore</string>
     <string name="about_contribute">Contribuire</string>
     <string name="about_support">Supporto</string>
-    <string name="about_support_subtext">Creare e mantenere progetti open-source richiede tempo e non genera profitti.\nOffri una birra agli sviluppatori!
-    </string>
+    <string name="about_support_subtext">Creare e mantenere progetti open-source richiede tempo e non genera profitti.\nOffri un caffè agli sviluppatori!</string>
     <string name="about_libraries">Librerie</string>
     <string name="about_libraries_subtext">Visualizza le librerie di terze parti e le relative licenze.</string>
     <!-- General -->
@@ -138,7 +137,7 @@
     <string name="action_create_notebook">Crea un taccuino</string>
     <string name="action_rename_notebook">Rinomina taccuino</string>
     <string name="action_new_notebook">Nuovo taccuino</string>
-    <string name="indicator_notebook_already_exists">Un taccuino con nome %1$s esiste già.</string>
+    <string name="indicator_notebook_already_exists">Il taccuino %1$s esiste già.</string>
     <!-- Archive -->
     <string name="indicator_archive_empty">Le note archivite verranno mostrate qui.</string>
     <!-- Deleted -->
@@ -148,7 +147,7 @@
     <string name="indicator_deleted_note_cannot_be_edited">Le note nel cestino non possono essere modificate.</string>
     <string name="indicator_deleted_empty">Le note cancellate verranno mostrate qui per %1$d giorni.</string>
     <string name="indicator_bin_disabled">Le note sono impostate per essere cancellate immediatamente.\nÈ possibile modificare questa funzionalità nelle impostazioni.</string>
-    <string name="indicator_bin_forever">Le note sono impostate per non essere mai cancellate.\nÈ possibile modificare questa funzionalità nelle impostazioni.</string>
+    <string name="indicator_bin_forever">Le note sono impostate per non essere mai eliminate.\nÈ possibile modificare questa funzionalità nelle impostazioni.</string>
     <string name="indicator_deleted_notes_permanently">Note eliminate in modo permanente.</string>
     <string name="indicator_deleted_note_permanently">Nota eliminata in modo permanente.</string>
     <!-- Reminders -->
@@ -179,15 +178,15 @@
     <string name="action_convert_to_list">Converti in elenco</string>
     <string name="action_do_not_sync">Non sincronizzare</string>
     <string name="action_change_color">Cambia colore</string>
-    <string name="action_enable_markdown">Abilita markdown</string>
-    <string name="action_disable_markdown">Disabilita markdown</string>
-    <string name="action_insert_bold_text">Inserisci grassetto markdown</string>
-    <string name="action_insert_italics">Inserisci corsivo markdown</string>
-    <string name="action_insert_strikethrough">Inserisci barrato markdown</string>
-    <string name="action_insert_highlight">Inserisci evidenziazione markdown</string>
-    <string name="action_insert_heading">Inserisci intestazione markdown</string>
-    <string name="action_insert_quote">Inserisci citazione markdown</string>
-    <string name="action_insert_code">Inserisci codice markdown</string>
+    <string name="action_enable_markdown">Abilita Markdown</string>
+    <string name="action_disable_markdown">Disabilita Markdown</string>
+    <string name="action_insert_bold_text">Inserisci grassetto Markdown</string>
+    <string name="action_insert_italics">Inserisci corsivo Markdown</string>
+    <string name="action_insert_strikethrough">Inserisci barrato Markdown</string>
+    <string name="action_insert_highlight">Inserisci evidenziazione Markdown</string>
+    <string name="action_insert_heading">Inserisci intestazione Markdown</string>
+    <string name="action_insert_quote">Inserisci citazione Markdown</string>
+    <string name="action_insert_code">Inserisci codice Markdown</string>
     <string name="action_remove_all_checked_tasks">Rimuovi tutte le attività selezionate</string>
     <string name="indicator_note_date">Creazione %1$s\nUltima modifica %2$s</string>
     <string name="indicator_restored_notes">Note rispristinate</string>
@@ -229,15 +228,15 @@
     <string name="indicator_connecting">Connessione in corso…</string>
     <string name="message_something_went_wrong">Qualcosa non ha funzionato.</string>
     <string name="message_invalid_credentials">Impossibile autenticarsi sul server a causa delle credenziali non valide.</string>
-    <string name="message_logged_in_successfully">Accesso avvenuto con successo.</string>
-    <string name="message_server_not_compatible">La versione del server non compatibile con questa app.</string>
+    <string name="message_logged_in_successfully">Accesso effettuato con successo.</string>
+    <string name="message_server_not_compatible">La versione del server non è compatibile con questa app.</string>
     <string name="message_internet_not_available">Connessione internet non disponibile.</string>
     <string name="message_credentials_cannot_be_blank">Le credenziali non possono essere vuote.</string>
     <string name="preference_nextcloud_clear_credentials">Pulisci credenziali e URL del server</string>
     <string name="notification_media_play_pause">Riproduci / Pausa</string>
     <string name="notification_media_stop">Ferma</string>
     <!-- App shortcuts -->
-    <string name="shortcut_take_note">Prendi una nota</string>
+    <string name="shortcut_take_note">Prendi nota</string>
     <string name="shortcut_make_list">Fai un elenco</string>
     <string name="never">Mai</string>
     <plurals name="more_items">
@@ -263,9 +262,9 @@
     <string name="preferences_color_scheme_system">Segui il sistema</string>
     <string name="continue_next">Continua</string>
     <string name="preferences_header_view_tags">Elenco etichette</string>
-    <string name="preferences_sort_tags_method">Ordina etichette per</string>
-    <string name="preferences_header_view_navdrawer">Cassetto di navigazione</string>
-    <string name="preferences_sort_navdrawer_method">Ordina taccuini per</string>
+    <string name="preferences_sort_tags_method">Ordinamento etichette</string>
+    <string name="preferences_header_view_navdrawer">Riquadro di navigazione</string>
+    <string name="preferences_sort_navdrawer_method">Ordinamento taccuini</string>
     <string name="preferences_header_view_notebook">Taccuino</string>
     <string name="preferences_header_view_note_content">Contenuto della nota</string>
     <string name="preferences_font_size">Dimensione carattere editor di testo/visualizzazione</string>
@@ -280,7 +279,7 @@
     <string name="action_disable_screen_always_on">Disabilita schermo sempre acceso</string>
     <string name="action_uncheck_all_tasks">Deseleziona tutti gli elementi</string>
     <string name="preferences_cloud_service_files">Archivio file</string>
-    <string name="preferences_file_storage_info">Selezionare una cartella dall\'archivio locale o da un fornitore di servizi cloud. Tutte le note verranno memorizzate in Markdown.</string>
+    <string name="preferences_file_storage_info">Selezionare una cartella dall\'archivio locale o da un fornitore di servizi cloud. Tutte le note verranno memorizzate in formato Markdown.</string>
     <string name="preferences_file_storage_location">Posizione dell\'archivio</string>
     <string name="preferences_file_storage_select">Selezionare la posizione dell\'archivio</string>
     <string name="preferences_trust_self_signed_certificate">Considera attendibile in certificato autofirmato</string>
