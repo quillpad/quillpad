@@ -97,7 +97,7 @@
     <string name="about_developer">开发者</string>
     <string name="about_contribute">贡献</string>
     <string name="about_support">支持</string>
-    <string name="about_support_subtext">创建和维护开源项目非常耗时，而且不会带来 任何收益。\n请开发人员喝啤酒！</string>
+    <string name="about_support_subtext">创建和维护开源项目非常耗时，而且不会带来 任何收益。\n请开发人员喝一杯咖啡！</string>
     <string name="about_libraries">关于库</string>
     <string name="about_libraries_subtext">查看第三方库和许可证。</string>
     <!-- General -->
@@ -278,4 +278,17 @@
     <string name="action_change_mode">编辑/查看模式</string>
     <string name="preferences_cloud_service_files">本地存储</string>
     <string name="preferences_file_storage_info">可以选择本地存储或者云存储的文件夹来同步笔记。所有笔记将以Markdown格式进行存储。</string>
+    <string name="preferences_default_editor_mode">默认编辑器模式</string>
+    <string name="preferences_default_editor_mode_view">查看模式</string>
+    <string name="preferences_default_editor_mode_edit">编辑模式</string>
+    <string name="preferences_trust_self_signed_certificate">信任自签名证书</string>
+    <string name="about_send_logs">发送错误日志</string>
+    <string name="about_send_logs_subtext">发送应用程序日志给开发人员进行分析</string>
+    <string name="message_certificates_invalid">证书错误。请启用“信任自签名证书”后继续。</string>
+    <string name="widget_description">在主页显示最近的笔记</string>
+    <string name="action_new_note">新笔记</string>
+    <string name="note_untitled">未命名</string>
+    <string name="tasks">任务</string>
+    <string name="widget_no_pinned_notes">还没有置顶的笔记。置顶一条笔记即可在这里查看。</string>
+    <string name="message_notes_not_installed">您的 Nextcloud 中未安装“笔记”应用。</string>
 </resources>
