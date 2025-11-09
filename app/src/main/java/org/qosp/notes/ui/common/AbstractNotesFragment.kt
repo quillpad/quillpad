@@ -106,10 +106,23 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
         }
 
         override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
-            // Support all directions for both list and grid layouts
-            val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN or 
-                           ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+            // In list mode, only allow up/down. In grid mode, allow all directions
+            val dragFlags = if (data.layoutMode == LayoutMode.LIST) {
+                ItemTouchHelper.UP or ItemTouchHelper.DOWN
+            } else {
+                ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+            }
             return makeMovementFlags(dragFlags, 0)
+        }
+
+        override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+            super.onSelectedChanged(viewHolder, actionState)
+            // Disable pull-to-refresh while dragging
+            if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
+                swipeRefreshLayout.isEnabled = false
+            } else {
+                swipeRefreshLayout.isEnabled = true
+            }
         }
     })
 

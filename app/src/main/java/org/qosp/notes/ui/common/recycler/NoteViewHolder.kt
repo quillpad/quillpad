@@ -87,6 +87,8 @@ class NoteViewHolder(
                         // If moved more than threshold, start drag
                         if (deltaX > 10 || deltaY > 10) {
                             hasMoved = true
+                            // Prevent parent from intercepting touch (stops pull-to-refresh)
+                            v.parent?.requestDisallowInterceptTouchEvent(true)
                             // Close any open context menu
                             v.cancelLongPress()
                             // Dismiss any already-open bottom sheet
@@ -98,6 +100,8 @@ class NoteViewHolder(
                     } else false
                 }
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    // Re-enable parent touch interception
+                    v.parent?.requestDisallowInterceptTouchEvent(false)
                     isLongPressing = false
                     hasMoved = false
                     false
