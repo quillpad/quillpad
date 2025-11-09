@@ -493,6 +493,11 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
         activityModel.isMoveMode = !activityModel.isMoveMode
         setMoveModeItemChecked()
         
+        // If enabling move mode and not in custom sort, switch to custom sort
+        if (activityModel.isMoveMode && data.sortMethod != SortMethod.CUSTOM) {
+            activityModel.setSortMethod(SortMethod.CUSTOM)
+        }
+        
         // Show feedback
         val message = if (activityModel.isMoveMode) {
             getString(R.string.message_move_mode_enabled)
