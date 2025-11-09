@@ -173,6 +173,7 @@
     <string name="action_restore">Restore</string>
     <string name="action_share">Share</string>
     <string name="action_pin_unpin">Pin / Unpin</string>
+    <string name="action_drag_to_reorder">Drag to reorder</string>
     <string name="action_move_to">Move to…</string>
     <string name="action_duplicate">Duplicate</string>
     <string name="action_select_more">Select more…</string>

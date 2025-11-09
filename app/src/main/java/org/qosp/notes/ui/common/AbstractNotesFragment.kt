@@ -208,10 +208,6 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             showHiddenNotes = this@AbstractNotesFragment.showHiddenNotes
 
-            onDismissContextMenu = {
-                dismissActiveBottomSheet()
-            }
-
             onStartDragListener = { viewHolder ->
                 if (data.sortMethod == SortMethod.CUSTOM && !inSelectionMode) {
                     itemTouchHelper.startDrag(viewHolder)
@@ -349,6 +345,10 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
             LayoutMode.LIST -> LinearLayoutManager(requireContext())
             LayoutMode.GRID -> StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         }
+        
+        // Show/hide drag handles based on sort method
+        recyclerAdapter.showDragHandles = data.sortMethod == SortMethod.CUSTOM
+        
         onLayoutModeChanged()
         onSortMethodChanged()
     }
@@ -595,15 +595,6 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
         viewLifecycleOwner.lifecycleScope.launch {
             val noteIds = recyclerAdapter.currentList.map { it.id }
             activityModel.updateCustomSortOrder(noteIds)
-        }
-    }
-
-    private fun dismissActiveBottomSheet() {
-        // Find and dismiss any BottomSheet currently showing
-        parentFragmentManager.fragments.forEach { fragment ->
-            if (fragment is BottomSheet && fragment.isVisible) {
-                fragment.dismiss()
-            }
         }
     }
 }

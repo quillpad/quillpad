@@ -93,6 +93,18 @@
                     android:src="@drawable/ic_archive"
                     android:visibility="gone"
                     style="@style/NoteIcon"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/drag_handle"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_handle"
+                    android:padding="4dp"
+                    android:contentDescription="@string/action_drag_to_reorder"
+                    android:visibility="gone"
+                    style="@style/NoteIcon"/>
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatTextView

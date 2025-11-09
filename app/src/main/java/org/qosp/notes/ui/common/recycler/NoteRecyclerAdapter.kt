@@ -17,7 +17,13 @@ class NoteRecyclerAdapter(
     private var visibleItems = listOf<Note>()
     var searchMode: Boolean = false
     var onStartDragListener: ((RecyclerView.ViewHolder) -> Unit)? = null
-    var onDismissContextMenu: (() -> Unit)? = null
+    var showDragHandles: Boolean = false
+        set(value) {
+            if (field != value) {
+                field = value
+                notifyDataSetChanged()
+            }
+        }
 
     var showHiddenNotes: Boolean = false
         set(value) {
@@ -38,7 +44,6 @@ class NoteRecyclerAdapter(
             searchMode = searchMode,
             markwon = markwon,
             onStartDragListener = onStartDragListener,
-            onDismissContextMenu = onDismissContextMenu,
         )
     }
 
@@ -56,6 +61,7 @@ class NoteRecyclerAdapter(
         super.onBindViewHolder(holder, position)
         val note: Note = getItem(position)
         holder.bind(note)
+        holder.setDragHandleVisible(showDragHandles)
     }
 
     override fun getItemId(position: Int) = getItem(position).id
