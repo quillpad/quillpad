@@ -61,15 +61,13 @@ class NoteViewHolder(
             }
         }
 
-        // Drag handle - use long-press to start drag
-        binding.dragHandle.setOnLongClickListener {
-            onStartDragListener?.invoke(this)
-            true
-        }
-        
-        // Prevent clicks on handle from triggering card click
-        binding.dragHandle.setOnClickListener {
-            // Consume click - do nothing
+        // Drag handle - touch and drag immediately
+        binding.dragHandle.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                // Start drag immediately on touch
+                onStartDragListener?.invoke(this)
+            }
+            false // Let ItemTouchHelper handle the rest
         }
     }
 
