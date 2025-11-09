@@ -17,6 +17,7 @@ class NoteRecyclerAdapter(
     private var visibleItems = listOf<Note>()
     var searchMode: Boolean = false
     var onStartDragListener: ((RecyclerView.ViewHolder) -> Unit)? = null
+    var isMoveMode: () -> Boolean = { false }
 
     var showHiddenNotes: Boolean = false
         set(value) {
@@ -37,6 +38,7 @@ class NoteRecyclerAdapter(
             searchMode = searchMode,
             markwon = markwon,
             onStartDragListener = onStartDragListener,
+            isMoveMode = isMoveMode,
         )
     }
 

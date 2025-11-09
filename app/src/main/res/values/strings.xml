@@ -320,7 +320,7 @@
     <string name="message_server_not_compatible">Server version is not compatible with this app.</string>
     <string name="message_internet_not_available">Internet connection is not available.</string>
     <string name="message_credentials_cannot_be_blank">Credentials cannot be blank.</string>
-    <string name="message_move_mode_enabled">Move mode enabled - long-press to drag notes</string>
+    <string name="message_move_mode_enabled">Move mode enabled - touch and drag notes to reorder</string>
     <string name="message_move_mode_disabled">Move mode disabled</string>
     <string name="preference_nextcloud_clear_credentials">Clear credentials and server URL</string>
     <string name="notification_media_play_pause">Play / Pause</string>

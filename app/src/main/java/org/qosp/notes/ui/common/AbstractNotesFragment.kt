@@ -85,8 +85,8 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
     private val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
         ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT, 0
     ) {
-        override fun isLongPressDragEnabled() = 
-            data.sortMethod == SortMethod.CUSTOM && activityModel.isMoveMode && !inSelectionMode
+        // Disable long-press drag - we'll handle it manually for immediate drag
+        override fun isLongPressDragEnabled() = false
 
         override fun onMove(
             recyclerView: RecyclerView,
@@ -209,6 +209,15 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             showHiddenNotes = this@AbstractNotesFragment.showHiddenNotes
 
+            isMoveMode = { 
+                data.sortMethod == SortMethod.CUSTOM && activityModel.isMoveMode && !inSelectionMode
+            }
+            
+            onStartDragListener = { viewHolder ->
+                if (data.sortMethod == SortMethod.CUSTOM && activityModel.isMoveMode && !inSelectionMode) {
+                    itemTouchHelper.startDrag(viewHolder)
+                }
+            }
 
 
             setOnListChangedListener {

@@ -35,6 +35,7 @@ class NoteViewHolder(
     private val searchMode: Boolean,
     private val markwon: Markwon,
     var onStartDragListener: ((RecyclerView.ViewHolder) -> Unit)? = null,
+    var isMoveMode: () -> Boolean = { false },
 ) : RecyclerView.ViewHolder(binding.root), SelectableViewHolder {
 
     private val tasksAdapter = TasksAdapter(true, null, markwon)
@@ -58,6 +59,16 @@ class NoteViewHolder(
             itemView.setOnClickListener { listener.onItemClick(bindingAdapterPosition, binding) }
             itemView.setOnLongClickListener { 
                 listener.onLongClick(bindingAdapterPosition, binding) 
+            }
+        }
+        
+        // In move mode, start drag on touch down (no long-press needed)
+        itemView.setOnTouchListener { v, event ->
+            if (isMoveMode() && event.action == MotionEvent.ACTION_DOWN) {
+                onStartDragListener?.invoke(this)
+                false // Let ItemTouchHelper handle the drag
+            } else {
+                false // Let normal click handling work
             }
         }
     }
