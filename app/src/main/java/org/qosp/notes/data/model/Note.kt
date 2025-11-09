@@ -43,6 +43,7 @@ data class NoteEntity(
     val color: NoteColor,
     @ColumnInfo(index = true)
     val notebookId: Long?,
+    val customSortOrder: Int = 0,
     @PrimaryKey(autoGenerate = true)
     val id: Long,
 )
@@ -68,6 +69,7 @@ data class Note(
     val attachments: List<Attachment> = listOf(),
     val color: NoteColor = NoteColor.Default,
     val notebookId: Long? = null,
+    val customSortOrder: Int = 0,
     val id: Long = 0L,
     @Relation(
         entity = Tag::class,
@@ -161,6 +163,7 @@ data class Note(
         attachments = attachments,
         color = color,
         notebookId = notebookId,
+        customSortOrder = customSortOrder,
         id = id
     )
 }

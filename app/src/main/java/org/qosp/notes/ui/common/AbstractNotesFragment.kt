@@ -19,6 +19,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -37,6 +38,7 @@ import org.qosp.notes.data.sync.core.ServerNotSupported
 import org.qosp.notes.data.sync.core.Unauthorized
 import org.qosp.notes.databinding.LayoutNoteBinding
 import org.qosp.notes.preferences.LayoutMode
+import org.qosp.notes.preferences.SortMethod
 import org.qosp.notes.ui.common.recycler.NoteRecyclerAdapter
 import org.qosp.notes.ui.common.recycler.NoteRecyclerListener
 import org.qosp.notes.ui.common.recycler.onBackPressedHandler
@@ -79,6 +81,37 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
         }
 
     val markwon: Markwon by inject()
+
+    private val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+        ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT, 0
+    ) {
+        override fun isLongPressDragEnabled() = false
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder,
+        ): Boolean {
+            val fromPosition = viewHolder.bindingAdapterPosition
+            val toPosition = target.bindingAdapterPosition
+            recyclerAdapter.moveItem(fromPosition, toPosition)
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
+
+        override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+            super.clearView(recyclerView, viewHolder)
+            saveCustomSortOrder()
+        }
+
+        override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
+            // Support all directions for both list and grid layouts
+            val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN or 
+                           ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+            return makeMovementFlags(dragFlags, 0)
+        }
+    })
 
     // Bug:
     //
@@ -156,6 +189,16 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             showHiddenNotes = this@AbstractNotesFragment.showHiddenNotes
 
+            onDismissContextMenu = {
+                dismissActiveBottomSheet()
+            }
+
+            onStartDragListener = { viewHolder ->
+                if (data.sortMethod == SortMethod.CUSTOM && !inSelectionMode) {
+                    itemTouchHelper.startDrag(viewHolder)
+                }
+            }
+
             setOnListChangedListener {
                 val shouldDisplayIndicator = it.isEmpty()
 
@@ -208,6 +251,9 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
                 }
             })
         }
+
+        // Attach ItemTouchHelper for drag-to-reorder
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         // Lift app bar during scrolling
         appBarLayout?.let {
@@ -517,6 +563,24 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
             }
             action(R.string.action_select_more, R.drawable.ic_select_more, condition = isSelectionEnabled) {
                 toggleNoteSelected(note.id)
+            }
+        }
+    }
+
+    private fun saveCustomSortOrder() {
+        if (data.sortMethod != SortMethod.CUSTOM) return
+        
+        viewLifecycleOwner.lifecycleScope.launch {
+            val noteIds = recyclerAdapter.currentList.map { it.id }
+            activityModel.updateCustomSortOrder(noteIds)
+        }
+    }
+
+    private fun dismissActiveBottomSheet() {
+        // Find and dismiss any BottomSheet currently showing
+        parentFragmentManager.fragments.forEach { fragment ->
+            if (fragment is BottomSheet && fragment.isVisible) {
+                fragment.dismiss()
             }
         }
     }

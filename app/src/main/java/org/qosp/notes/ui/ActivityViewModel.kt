@@ -166,6 +166,12 @@ class ActivityViewModel(
         viewModelScope.launch(Dispatchers.IO) { preferenceRepository.set(method) }
     }
 
+    fun updateCustomSortOrder(noteIds: List<Long>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            noteRepository.updateCustomSortOrder(noteIds)
+        }
+    }
+
     fun setSortTagsMethod(method: SortTagsMethod) {
         viewModelScope.launch(Dispatchers.IO) { preferenceRepository.set(method) }
     }

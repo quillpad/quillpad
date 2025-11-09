@@ -49,6 +49,7 @@
     <string name="preferences_sort_method_created_desc">Date created (descending)</string>
     <string name="preferences_sort_method_modified_asc">Date modified (ascending)</string>
     <string name="preferences_sort_method_modified_desc">Date modified (descending)</string>
+    <string name="preferences_sort_method_custom">Custom</string>
 
     <!-- Preferences / View / Note content -->
     <string name="preferences_header_view_note_content">Note content</string>

@@ -11,6 +11,7 @@ import org.qosp.notes.preferences.SortMethod
 interface NoteRepository {
     suspend fun insertNote(note: Note, sync: Boolean = true): Long
     suspend fun updateNotes(vararg notes: Note, sync: Boolean = true)
+    suspend fun updateCustomSortOrder(noteIds: List<Long>, sync: Boolean = true)
     suspend fun moveNotesToBin(vararg notes: Note, sync: Boolean = true)
     suspend fun restoreNotes(vararg notes: Note)
     suspend fun deleteNotes(vararg notes: Note, sync: Boolean = true)

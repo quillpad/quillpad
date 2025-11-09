@@ -2,6 +2,8 @@ package org.qosp.notes.ui.common.recycler
 
 import android.content.Context
 import android.view.ContextThemeWrapper
+import android.view.MotionEvent
+import android.view.View
 import android.widget.TextView
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
@@ -24,6 +26,7 @@ import org.qosp.notes.ui.tasks.TasksAdapter
 import org.qosp.notes.ui.utils.dp
 import org.qosp.notes.ui.utils.ellipsize
 import org.qosp.notes.ui.utils.resId
+import kotlin.math.abs
 
 class NoteViewHolder(
     private val binding: LayoutNoteBinding,
@@ -31,6 +34,8 @@ class NoteViewHolder(
     private val context: Context,
     private val searchMode: Boolean,
     private val markwon: Markwon,
+    var onStartDragListener: ((RecyclerView.ViewHolder) -> Unit)? = null,
+    var onDismissContextMenu: (() -> Unit)? = null,
 ) : RecyclerView.ViewHolder(binding.root), SelectableViewHolder {
 
     private val tasksAdapter = TasksAdapter(true, null, markwon)
@@ -38,6 +43,11 @@ class NoteViewHolder(
 
     private val defaultStrokeWidth = 1.dp(context)
     private val selectedStrokeWidth = 2.dp(context)
+
+    private var initialX = 0f
+    private var initialY = 0f
+    private var isLongPressing = false
+    private var hasMoved = false
 
     init {
         binding.recyclerAttachments.apply {
@@ -52,7 +62,48 @@ class NoteViewHolder(
 
         if (listener != null) {
             itemView.setOnClickListener { listener.onItemClick(bindingAdapterPosition, binding) }
-            itemView.setOnLongClickListener { listener.onLongClick(bindingAdapterPosition, binding) }
+            itemView.setOnLongClickListener { 
+                isLongPressing = true
+                hasMoved = false
+                listener.onLongClick(bindingAdapterPosition, binding) 
+            }
+        }
+
+        // Add touch listener to detect movement during long press
+        itemView.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    initialX = event.x
+                    initialY = event.y
+                    isLongPressing = false
+                    hasMoved = false
+                    false
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    if (isLongPressing && !hasMoved && onStartDragListener != null) {
+                        val deltaX = abs(event.x - initialX)
+                        val deltaY = abs(event.y - initialY)
+                        
+                        // If moved more than threshold, start drag
+                        if (deltaX > 10 || deltaY > 10) {
+                            hasMoved = true
+                            // Close any open context menu
+                            v.cancelLongPress()
+                            // Dismiss any already-open bottom sheet
+                            onDismissContextMenu?.invoke()
+                            // Start dragging
+                            onStartDragListener?.invoke(this)
+                            true
+                        } else false
+                    } else false
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    isLongPressing = false
+                    hasMoved = false
+                    false
+                }
+                else -> false
+            }
         }
     }
 

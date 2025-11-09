@@ -171,10 +171,12 @@ interface NoteDao {
             TITLE_ASC, TITLE_DESC -> "title"
             CREATION_ASC, CREATION_DESC -> "creationDate"
             MODIFIED_ASC, MODIFIED_DESC -> "modifiedDate"
+            SortMethod.CUSTOM -> "customSortOrder"
         }
         val order = when (sortMethod) {
             TITLE_ASC, CREATION_ASC, MODIFIED_ASC -> "ASC"
             TITLE_DESC, CREATION_DESC, MODIFIED_DESC -> "DESC"
+            SortMethod.CUSTOM -> "ASC"
         }
         return Pair(column, order)
     }

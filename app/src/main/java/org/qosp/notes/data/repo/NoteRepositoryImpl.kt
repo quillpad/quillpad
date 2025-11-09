@@ -167,6 +167,15 @@ class NoteRepositoryImpl(
         }
     }
 
+    override suspend fun updateCustomSortOrder(noteIds: List<Long>, sync: Boolean) {
+        Log.d(tag, "updateCustomSortOrder: Updating sort order for ${noteIds.size} notes")
+        noteIds.forEachIndexed { index, noteId ->
+            val note = getById(noteId).first() ?: return@forEachIndexed
+            val updatedNote = note.copy(customSortOrder = index)
+            updateNote(updatedNote, sync)
+        }
+    }
+
     override suspend fun moveNotesToBin(vararg notes: Note, sync: Boolean) {
         Log.d(tag, "moveNotesToBin: Moving ${notes.size} notes to bin")
         val entities = notes.map { it.toEntity().copy(isDeleted = true, deletionDate = Instant.now().epochSecond) }

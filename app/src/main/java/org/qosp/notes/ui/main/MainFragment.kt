@@ -121,6 +121,7 @@ open class MainFragment : AbstractNotesFragment(R.layout.fragment_main) {
         when (item.itemId) {
             R.id.action_search -> findNavController().navigateSafely(actionToSearch())
             R.id.action_layout_mode -> toggleLayoutMode()
+            R.id.action_sort_custom -> activityModel.setSortMethod(SortMethod.CUSTOM)
             R.id.action_sort_name_asc -> activityModel.setSortMethod(SortMethod.TITLE_ASC)
             R.id.action_sort_name_desc -> activityModel.setSortMethod(SortMethod.TITLE_DESC)
             R.id.action_sort_created_asc -> activityModel.setSortMethod(SortMethod.CREATION_ASC)
@@ -219,6 +220,7 @@ open class MainFragment : AbstractNotesFragment(R.layout.fragment_main) {
     private fun selectSortMethodItem() {
         mainMenu?.findItem(
             when (data.sortMethod) {
+                SortMethod.CUSTOM -> R.id.action_sort_custom
                 SortMethod.TITLE_ASC -> R.id.action_sort_name_asc
                 SortMethod.TITLE_DESC -> R.id.action_sort_name_desc
                 SortMethod.CREATION_ASC -> R.id.action_sort_created_asc
