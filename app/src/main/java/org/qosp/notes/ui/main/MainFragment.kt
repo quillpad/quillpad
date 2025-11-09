@@ -121,6 +121,7 @@ open class MainFragment : AbstractNotesFragment(R.layout.fragment_main) {
         when (item.itemId) {
             R.id.action_search -> findNavController().navigateSafely(actionToSearch())
             R.id.action_layout_mode -> toggleLayoutMode()
+            R.id.action_move_mode -> toggleMoveMode()
             R.id.action_sort_custom -> activityModel.setSortMethod(SortMethod.CUSTOM)
             R.id.action_sort_name_asc -> activityModel.setSortMethod(SortMethod.TITLE_ASC)
             R.id.action_sort_name_desc -> activityModel.setSortMethod(SortMethod.TITLE_DESC)
@@ -154,6 +155,10 @@ open class MainFragment : AbstractNotesFragment(R.layout.fragment_main) {
     }
 
     override fun onNoteLongClick(noteId: Long, position: Int, viewBinding: LayoutNoteBinding): Boolean {
+        // In move mode, don't show context menu - let drag happen
+        if (activityModel.isMoveMode && data.sortMethod == org.qosp.notes.preferences.SortMethod.CUSTOM) {
+            return true // Long-press handled by ItemTouchHelper for drag
+        }
         showMenuForNote(position)
         return true
     }

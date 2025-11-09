@@ -85,7 +85,8 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
     private val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
         ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT, 0
     ) {
-        override fun isLongPressDragEnabled() = false
+        override fun isLongPressDragEnabled() = 
+            data.sortMethod == SortMethod.CUSTOM && activityModel.isMoveMode && !inSelectionMode
 
         override fun onMove(
             recyclerView: RecyclerView,
@@ -208,11 +209,7 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             showHiddenNotes = this@AbstractNotesFragment.showHiddenNotes
 
-            onStartDragListener = { viewHolder ->
-                if (data.sortMethod == SortMethod.CUSTOM && !inSelectionMode) {
-                    itemTouchHelper.startDrag(viewHolder)
-                }
-            }
+
 
             setOnListChangedListener {
                 val shouldDisplayIndicator = it.isEmpty()
@@ -346,9 +343,7 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
             LayoutMode.GRID -> StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         }
         
-        // Show/hide drag handles based on sort method
-        recyclerAdapter.showDragHandles = data.sortMethod == SortMethod.CUSTOM
-        
+
         onLayoutModeChanged()
         onSortMethodChanged()
     }
@@ -483,6 +478,26 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
 
     fun setHiddenNotesItemActionText() {
         if (hasMenu) mainMenu?.findItem(R.id.action_show_hidden_notes)?.isChecked = showHiddenNotes
+    }
+
+    protected fun toggleMoveMode() {
+        activityModel.isMoveMode = !activityModel.isMoveMode
+        setMoveModeItemChecked()
+        
+        // Show feedback
+        val message = if (activityModel.isMoveMode) {
+            getString(R.string.message_move_mode_enabled)
+        } else {
+            getString(R.string.message_move_mode_disabled)
+        }
+        sendMessage(message)
+        
+        // Disable pull-to-refresh in move mode
+        swipeRefreshLayout.isEnabled = !activityModel.isMoveMode
+    }
+
+    fun setMoveModeItemChecked() {
+        if (hasMenu) mainMenu?.findItem(R.id.action_move_mode)?.isChecked = activityModel.isMoveMode
     }
 
     protected fun applyNavToEditorAnimation(position: Int?) {

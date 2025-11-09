@@ -64,6 +64,7 @@ class ActivityViewModel(
             )
 
     var showHiddenNotes: Boolean = false
+    var isMoveMode: Boolean = false
     var notesToBackup: Set<Note>? = null
     var tempPhotoUri: Uri? = null
 
