@@ -95,7 +95,8 @@ class NoteViewHolder(
                             onDismissContextMenu?.invoke()
                             // Start dragging
                             onStartDragListener?.invoke(this)
-                            true
+                            // Return false to allow ItemTouchHelper to continue processing events
+                            false
                         } else false
                     } else false
                 }
