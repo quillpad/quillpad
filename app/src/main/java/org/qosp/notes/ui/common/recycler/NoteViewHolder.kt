@@ -61,23 +61,26 @@ class NoteViewHolder(
             }
         }
 
-        // Drag handle touch listener - simpler since no gesture conflict
+        // Drag handle touch listener
         binding.dragHandle.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    // Prevent parent from intercepting (disable pull-to-refresh)
+                    // Consume the event to prevent long-click on card
+                    true
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    // Start drag on first movement
                     v.parent?.requestDisallowInterceptTouchEvent(true)
-                    // Start drag immediately on touch down
                     onStartDragListener?.invoke(this)
                     // Return false to let ItemTouchHelper handle the drag
                     false
                 }
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                    // Re-enable parent touch interception
                     v.parent?.requestDisallowInterceptTouchEvent(false)
-                    false
+                    // Consume click to prevent it from bubbling
+                    true
                 }
-                else -> false
+                else -> true
             }
         }
     }
