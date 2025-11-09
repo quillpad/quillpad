@@ -118,12 +118,49 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
 
         override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
             super.onSelectedChanged(viewHolder, actionState)
-            // Disable pull-to-refresh while dragging
-            if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
-                swipeRefreshLayout.isEnabled = false
-            } else {
-                swipeRefreshLayout.isEnabled = true
+            // Pull-to-refresh is controlled by move mode state
+            // Keep it disabled if in move mode, otherwise enable
+            if (actionState != ItemTouchHelper.ACTION_STATE_DRAG) {
+                swipeRefreshLayout.isEnabled = !activityModel.isMoveMode
             }
+        }
+
+        override fun chooseDropTarget(
+            selected: RecyclerView.ViewHolder,
+            dropTargets: List<RecyclerView.ViewHolder>,
+            curX: Int,
+            curY: Int
+        ): RecyclerView.ViewHolder? {
+            val layoutManager = recyclerView.layoutManager
+            if (layoutManager !is StaggeredGridLayoutManager) {
+                return super.chooseDropTarget(selected, dropTargets, curX, curY)
+            }
+
+            val selectedView = selected.itemView
+            val selectedBottom = selectedView.bottom + curY
+            val selectedTop = selectedView.top + curY
+            val selectedCenterY = (selectedTop + selectedBottom) / 2
+
+            // Find the best target based on vertical center position
+            var bestTarget: RecyclerView.ViewHolder? = null
+            var bestDistance = Int.MAX_VALUE
+
+            for (target in dropTargets) {
+                val targetView = target.itemView
+                val targetTop = targetView.top
+                val targetBottom = targetView.bottom
+                val targetCenterY = (targetTop + targetBottom) / 2
+
+                // Calculate vertical distance between centers
+                val distance = kotlin.math.abs(selectedCenterY - targetCenterY)
+
+                if (distance < bestDistance) {
+                    bestDistance = distance
+                    bestTarget = target
+                }
+            }
+
+            return bestTarget
         }
     })
 
@@ -511,7 +548,7 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
     }
 
     fun setMoveModeItemChecked() {
-        if (hasMenu) mainMenu?.findItem(R.id.action_move_mode)?.isChecked = activityModel.isMoveMode
+        // Move mode visuals now handled by bottom bar in MainFragment
     }
 
     protected fun applyNavToEditorAnimation(position: Int?) {

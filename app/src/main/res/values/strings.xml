@@ -189,7 +189,9 @@
     <string name="action_record_audio">Record audio</string>
     <string name="indicator_recording">Recording (%1$s)</string>
     <string name="action_attach_files">Attach files</string>
+    <string name="action_attach_image">Add image</string>
     <string name="action_take_photo">Take a photo</string>
+    <string name="action_create_note">New note</string>
     <string name="indicator_recorded_clip">Recorded Clip</string>
 
 
