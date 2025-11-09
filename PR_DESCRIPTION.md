@@ -1,7 +1,7 @@
-# Add Drag-to-Sort Functionality with Custom Sort Order
+# Add Drag-to-Sort Functionality with Custom Sort Order and Move Mode
 
 ## Overview
-This PR adds the ability to reorder notes via drag-and-drop with a new "Custom" sort option. The custom order is persisted locally and synced to cloud services.
+This PR adds the ability to reorder notes via drag-and-drop with a new "Custom" sort option and a "Move mode" toggle for intuitive reordering. The custom order is persisted locally and synced to cloud services.
 
 ## Features
 
@@ -10,21 +10,24 @@ This PR adds the ability to reorder notes via drag-and-drop with a new "Custom" 
 - Custom sort order is remembered when switching between sort methods
 - Only available when "Custom" sort is selected
 
+### ✅ Move Mode Toggle
+- **New menu option:** "Move mode" checkbox
+- When enabled: **touch + drag** any note to reorder (no long-press needed!)
+- When disabled: normal behavior (context menu, note opening)
+- Automatically switches to Custom sort when enabled
+- Clear visual feedback via snackbar
+
 ### ✅ Drag-and-Drop Reordering
-- **Long-press + move** to enter drag mode
+- **Touch + drag** immediately starts reordering in move mode
 - Works in both **List mode** (vertical drag only) and **Grid mode** (all directions)
 - Supports 2-column grid layout with horizontal reordering
 - Visual feedback during drag
-
-### ✅ Context Menu Integration
-- Long-press opens context menu as before
-- If you continue holding and **start moving**, the context menu automatically dismisses and drag mode activates
-- Smooth transition from menu to drag
+- No gesture conflicts - dedicated mode for dragging
 
 ### ✅ Pull-to-Refresh Handling
-- Pull-to-refresh is automatically disabled while dragging
+- Pull-to-refresh is automatically disabled in move mode
 - Prevents conflicts between drag gesture and pull-down-to-sync
-- Re-enabled when drag ends
+- Re-enabled when move mode is disabled
 
 ### ✅ Persistence & Sync
 - Custom order saved to local SQLite database
@@ -41,14 +44,15 @@ This PR adds the ability to reorder notes via drag-and-drop with a new "Custom" 
 - Updated DAO to support custom sorting with `ORDER BY customSortOrder ASC`
 
 ### UI Changes
+- Added "Move mode" menu item (checkable)
 - Implemented `ItemTouchHelper` with adaptive movement flags:
   - **List mode**: UP/DOWN only
   - **Grid mode**: UP/DOWN/LEFT/RIGHT
-- Custom touch detection in `NoteViewHolder`:
-  - Tracks touch position on ACTION_DOWN
-  - Detects movement threshold (10px) on ACTION_MOVE
-  - Triggers drag when threshold exceeded during long-press
-- Added callbacks for context menu dismissal and drag start
+- Touch listener in `NoteViewHolder`:
+  - In move mode: ACTION_DOWN starts drag immediately
+  - In normal mode: standard touch behavior
+- Move mode state tracked in `ActivityViewModel`
+- Visual feedback via snackbar messages
 
 ### Sync Implementation
 - Embedded `customSortOrder` as HTML comment in note content for Nextcloud sync
@@ -58,33 +62,35 @@ This PR adds the ability to reorder notes via drag-and-drop with a new "Custom" 
 
 ## User Experience Flow
 
-### Long Hold → Continue Holding → Drag
+### Enabling Move Mode
 
-1. **Long Press Detected**
-   - Context menu (BottomSheet) opens
-   - `isLongPressing = true` flag is set
+1. **Enable Move Mode**
+   - Open menu → Check "Move mode"
+   - If not on Custom sort: automatically switches to Custom
+   - Snackbar shows: "Move mode enabled - touch and drag notes to reorder"
+   - Pull-to-refresh disabled
 
-2. **User Continues Holding and Starts Moving**
-   - When movement exceeds 10 pixels:
-     - ✅ Blocks SwipeRefreshLayout from intercepting touch
-     - ✅ Cancels long-press callback
-     - ✅ Dismisses context menu via FragmentManager
-     - ✅ Starts drag mode
-
-3. **ItemTouchHelper Takes Over**
-   - ✅ Disables pull-to-refresh (`swipeRefreshLayout.isEnabled = false`)
-   - ✅ Allows dragging in appropriate directions
-
-4. **User Drags the Note**
+2. **Reorder Notes**
+   - **Touch any note** → drag starts immediately
    - Note follows finger movement
-   - Visual feedback shows drag state
    - Other notes shift to make room
+   - Works in list (vertical) and grid (all directions)
+   
+3. **Release to Drop**
+   - Custom sort order saved to database
+   - Changes sync to cloud automatically
 
-5. **User Releases (Drag Ends)**
-   - ✅ Re-enables parent touch interception
-   - ✅ Re-enables pull-to-refresh
-   - ✅ Saves custom sort order to database
-   - ✅ Syncs changes to cloud
+4. **Disable Move Mode**
+   - Uncheck "Move mode" in menu
+   - Normal behavior restored (context menu, note opening)
+   - Pull-to-refresh re-enabled
+
+### Normal Mode vs Move Mode
+
+| Mode | Touch Note | Long-Press Note | Pull-Down |
+|------|-----------|----------------|-----------|
+| **Normal** | Opens note | Context menu | Refresh |
+| **Move Mode** | **Starts drag** | Blocked | Disabled |
 
 ## Files Changed
 
@@ -138,12 +144,28 @@ This PR adds the ability to reorder notes via drag-and-drop with a new "Custom" 
 - ✅ Metadata comment ignored by older clients
 - ✅ No breaking changes to sync protocol
 
+## Key Design Decisions
+
+### Why Move Mode Instead of Drag Handle?
+
+**Initial Approach (Abandoned):**
+- Drag handle icon (≡) on each note
+- Complex touch handling to distinguish drag from click
+- Touch target issues and gesture conflicts
+
+**Final Approach (Move Mode):**
+- ✅ Simple toggle - one control vs per-note handles
+- ✅ No touch target issues - entire note is draggable
+- ✅ Clear mode indication - user knows when drag is available
+- ✅ Works reliably with ItemTouchHelper
+- ✅ Clean separation: drag mode vs normal mode
+
 ## Statistics
 
-- **17 files changed**
-- **628 insertions**
-- **19 deletions**
-- **2 commits**
+- **15 files changed**
+- **~500 insertions**
+- **~150 deletions**  
+- **15 commits** (including iterations and refinements)
 
 ## Related Issues
 
