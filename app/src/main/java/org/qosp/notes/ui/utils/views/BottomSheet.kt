@@ -88,6 +88,12 @@ class BottomSheet : BottomSheetDialogFragment() {
         }
     }
 
+    override fun onDismiss(dialog: android.content.DialogInterface) {
+        super.onDismiss(dialog)
+        // Notify parent that bottom sheet was dismissed
+        parentFragmentManager.setFragmentResult(BOTTOM_SHEET_DISMISSED, Bundle.EMPTY)
+    }
+
     @Parcelize
     class Action(
         val titleResId: Int?,
@@ -125,6 +131,7 @@ class BottomSheet : BottomSheetDialogFragment() {
         const val MENU_HEADER = "SHEET_HEADER"
         const val MENU_ACTIONS = "SHEET_ACTIONS"
         const val SHOW_PLACEHOLDER = "SHOW_PLACEHOLDER"
+        const val BOTTOM_SHEET_DISMISSED = "BOTTOM_SHEET_DISMISSED"
 
         fun show(
             header: String?,

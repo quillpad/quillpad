@@ -174,6 +174,12 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
             clearFragmentResult(FRAGMENT_MESSAGE)
         }
 
+        setFragmentResultListener(BottomSheet.BOTTOM_SHEET_DISMISSED) { _, _ ->
+            // Re-enable pull-to-refresh when context menu is dismissed
+            swipeRefreshLayout.isEnabled = true
+            clearFragmentResult(BottomSheet.BOTTOM_SHEET_DISMISSED)
+        }
+
         // Setup recycler view
         val listener = object : NoteRecyclerListener {
             override fun onItemClick(position: Int, viewBinding: LayoutNoteBinding) {
@@ -501,6 +507,9 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
     fun showMenuForNote(position: Int, isSelectionEnabled: Boolean = true) {
         val note = recyclerAdapter.getItemAtPosition(position)
         val isNormal = !note.isDeleted && !note.isArchived
+
+        // Disable pull-to-refresh while context menu is open
+        swipeRefreshLayout.isEnabled = false
 
         BottomSheet.show(note.title, parentFragmentManager) {
             action(R.string.action_unpin, R.drawable.ic_unpin, condition = note.isPinned && isNormal) {
