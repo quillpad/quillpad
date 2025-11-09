@@ -96,14 +96,16 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/drag_handle"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_marginStart="4dp"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/ic_handle"
-                    android:padding="4dp"
+                    android:padding="12dp"
                     android:contentDescription="@string/action_drag_to_reorder"
                     android:visibility="gone"
+                    android:clickable="true"
+                    android:focusable="true"
                     style="@style/NoteIcon"/>
         </LinearLayout>
 

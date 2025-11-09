@@ -63,11 +63,31 @@ class NoteViewHolder(
 
         // Drag handle - touch and drag immediately
         binding.dragHandle.setOnTouchListener { v, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                // Start drag immediately on touch
-                onStartDragListener?.invoke(this)
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    // Request that parent views don't intercept touch events
+                    v.parent?.requestDisallowInterceptTouchEvent(true)
+                    // Start drag immediately on touch down
+                    onStartDragListener?.invoke(this)
+                    // Return true to consume the DOWN event and receive future events
+                    true
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    // Let the drag continue - return false to allow ItemTouchHelper to process
+                    false
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    // Re-enable parent interception
+                    v.parent?.requestDisallowInterceptTouchEvent(false)
+                    true
+                }
+                else -> false
             }
-            false // Let ItemTouchHelper handle the rest
+        }
+        
+        // Also prevent clicks on handle from triggering card click
+        binding.dragHandle.setOnClickListener {
+            // Consume click
         }
     }
 
