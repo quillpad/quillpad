@@ -2,6 +2,8 @@ package org.qosp.notes.ui.common.recycler
 
 import android.content.Context
 import android.view.ContextThemeWrapper
+import android.view.MotionEvent
+import android.view.View
 import android.widget.TextView
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
@@ -24,6 +26,7 @@ import org.qosp.notes.ui.tasks.TasksAdapter
 import org.qosp.notes.ui.utils.dp
 import org.qosp.notes.ui.utils.ellipsize
 import org.qosp.notes.ui.utils.resId
+import kotlin.math.abs
 
 class NoteViewHolder(
     private val binding: LayoutNoteBinding,
@@ -31,6 +34,8 @@ class NoteViewHolder(
     private val context: Context,
     private val searchMode: Boolean,
     private val markwon: Markwon,
+    var onStartDragListener: ((RecyclerView.ViewHolder) -> Unit)? = null,
+    var isMoveMode: () -> Boolean = { false },
 ) : RecyclerView.ViewHolder(binding.root), SelectableViewHolder {
 
     private val tasksAdapter = TasksAdapter(true, null, markwon)
@@ -52,7 +57,19 @@ class NoteViewHolder(
 
         if (listener != null) {
             itemView.setOnClickListener { listener.onItemClick(bindingAdapterPosition, binding) }
-            itemView.setOnLongClickListener { listener.onLongClick(bindingAdapterPosition, binding) }
+            itemView.setOnLongClickListener { 
+                listener.onLongClick(bindingAdapterPosition, binding) 
+            }
+        }
+        
+        // In move mode, start drag on touch down (no long-press needed)
+        itemView.setOnTouchListener { v, event ->
+            if (isMoveMode() && event.action == MotionEvent.ACTION_DOWN) {
+                onStartDragListener?.invoke(this)
+                false // Let ItemTouchHelper handle the drag
+            } else {
+                false // Let normal click handling work
+            }
         }
     }
 

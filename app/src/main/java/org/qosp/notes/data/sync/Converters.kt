@@ -19,15 +19,28 @@ fun NextcloudNote.asSyncNote() = SyncNote(
 )
 
 // Convert SyncNote to local Note with full content
-fun SyncNote.toLocalNote() = Note(
-    id = 0L, // Will be assigned by a database
-    title = title,
-    content = content ?: "",
-    isPinned = favorite,
-    modifiedDate = lastModified,
-    notebookId = null, // TODO: Handle category to notebook conversion if needed
-    isMarkdownEnabled = true // Default to Markdown enabled
-)
+fun SyncNote.toLocalNote(): Note {
+    val contentStr = content ?: ""
+    
+    // Extract customSortOrder from HTML comment if present
+    val sortOrderRegex = Regex("""<!-- customSortOrder:(\d+) -->""")
+    val match = sortOrderRegex.find(contentStr)
+    val customSortOrder = match?.groupValues?.get(1)?.toIntOrNull() ?: 0
+    
+    // Remove metadata comment from content
+    val cleanContent = contentStr.replace(sortOrderRegex, "").trim()
+    
+    return Note(
+        id = 0L, // Will be assigned by a database
+        title = title,
+        content = cleanContent,
+        isPinned = favorite,
+        modifiedDate = lastModified,
+        notebookId = null, // TODO: Handle category to notebook conversion if needed
+        isMarkdownEnabled = true, // Default to Markdown enabled
+        customSortOrder = customSortOrder
+    )
+}
 
 fun SyncNote.getMapping(noteId: Long, service: CloudService) = IdMapping(
     localNoteId = noteId,

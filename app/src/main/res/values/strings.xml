@@ -49,6 +49,7 @@
     <string name="preferences_sort_method_created_desc">Date created (descending)</string>
     <string name="preferences_sort_method_modified_asc">Date modified (ascending)</string>
     <string name="preferences_sort_method_modified_desc">Date modified (descending)</string>
+    <string name="preferences_sort_method_custom">Custom</string>
 
     <!-- Preferences / View / Note content -->
     <string name="preferences_header_view_note_content">Note content</string>
@@ -172,6 +173,8 @@
     <string name="action_restore">Restore</string>
     <string name="action_share">Share</string>
     <string name="action_pin_unpin">Pin / Unpin</string>
+    <string name="action_drag_to_reorder">Drag to reorder</string>
+    <string name="action_move_mode">Move mode</string>
     <string name="action_move_to">Move to…</string>
     <string name="action_duplicate">Duplicate</string>
     <string name="action_select_more">Select more…</string>
@@ -186,7 +189,9 @@
     <string name="action_record_audio">Record audio</string>
     <string name="indicator_recording">Recording (%1$s)</string>
     <string name="action_attach_files">Attach files</string>
+    <string name="action_attach_image">Add image</string>
     <string name="action_take_photo">Take a photo</string>
+    <string name="action_create_note">New note</string>
     <string name="indicator_recorded_clip">Recorded Clip</string>
 
 
@@ -317,6 +322,8 @@
     <string name="message_server_not_compatible">Server version is not compatible with this app.</string>
     <string name="message_internet_not_available">Internet connection is not available.</string>
     <string name="message_credentials_cannot_be_blank">Credentials cannot be blank.</string>
+    <string name="message_move_mode_enabled">Move mode enabled - touch and drag notes to reorder</string>
+    <string name="message_move_mode_disabled">Move mode disabled</string>
     <string name="preference_nextcloud_clear_credentials">Clear credentials and server URL</string>
     <string name="notification_media_play_pause">Play / Pause</string>
     <string name="notification_media_stop">Stop</string>
