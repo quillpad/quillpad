@@ -1022,11 +1022,8 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         }
 
         actionAddTask.setOnClickListener {
-            var addTaskIndex = tasksAdapter.tasks.size
-            if (model.moveCheckedItems)
-                addTaskIndex = tasksAdapter.tasks.indexOfLast { !it.isDone } + 1
-
-            addTask(addTaskIndex)
+            // Always add new tasks at the top (position 0)
+            addTask(0)
         }
     }
 
@@ -1101,12 +1098,12 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         }
     }
 
-    private fun addTask(position: Int = tasksAdapter.tasks.size) {
+    private fun addTask(position: Int = 0) {
         tasksAdapter.tasks.add(position, NoteTask(nextTaskId, "", false))
-        tasksAdapter.notifyItemInserted(tasksAdapter.tasks.size - 1)
+        tasksAdapter.notifyItemInserted(position)
 
         if (position < tasksAdapter.tasks.size - 1) {
-            tasksAdapter.notifyItemRangeChanged(position, tasksAdapter.tasks.size - position + 1)
+            tasksAdapter.notifyItemRangeChanged(position, tasksAdapter.tasks.size - position)
         }
 
         binding.recyclerTasks.doOnNextLayout {
