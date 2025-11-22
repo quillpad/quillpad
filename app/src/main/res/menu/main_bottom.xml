@@ -8,8 +8,8 @@
             app:showAsAction="always"/>
     <item
             android:id="@+id/action_attach_file"
-            android:title="@string/action_attach_files"
-            android:icon="@drawable/ic_file"
+            android:title="@string/action_attach_image"
+            android:icon="@drawable/ic_photo"
             app:showAsAction="always"/>
     <item
             android:id="@+id/action_take_photo"
@@ -20,5 +20,10 @@
             android:id="@+id/action_record_audio"
             android:title="@string/action_record_audio"
             android:icon="@drawable/ic_microphone"
+            app:showAsAction="always"/>
+    <item
+            android:id="@+id/action_create_note"
+            android:title="@string/action_create_note"
+            android:icon="@drawable/ic_file"
             app:showAsAction="always"/>
 </menu>

@@ -97,6 +97,7 @@ open class MainFragment : AbstractNotesFragment(R.layout.fragment_main) {
 
         setupFab()
         setupBottomAppBar()
+        updateMoveModeVisuals()
         setFragmentResultListener(RECORD_CODE) { s, bundle ->
             val attachment = bundle.getParcelable<Attachment>(RECORDED_ATTACHMENT) ?: return@setFragmentResultListener
             goToEditor(
@@ -121,6 +122,7 @@ open class MainFragment : AbstractNotesFragment(R.layout.fragment_main) {
         when (item.itemId) {
             R.id.action_search -> findNavController().navigateSafely(actionToSearch())
             R.id.action_layout_mode -> toggleLayoutMode()
+            R.id.action_sort_custom -> activityModel.setSortMethod(SortMethod.CUSTOM)
             R.id.action_sort_name_asc -> activityModel.setSortMethod(SortMethod.TITLE_ASC)
             R.id.action_sort_name_desc -> activityModel.setSortMethod(SortMethod.TITLE_DESC)
             R.id.action_sort_created_asc -> activityModel.setSortMethod(SortMethod.CREATION_ASC)
@@ -153,6 +155,10 @@ open class MainFragment : AbstractNotesFragment(R.layout.fragment_main) {
     }
 
     override fun onNoteLongClick(noteId: Long, position: Int, viewBinding: LayoutNoteBinding): Boolean {
+        // In move mode, don't show context menu - let drag happen
+        if (activityModel.isMoveMode && data.sortMethod == org.qosp.notes.preferences.SortMethod.CUSTOM) {
+            return true // Long-press handled by ItemTouchHelper for drag
+        }
         showMenuForNote(position)
         return true
     }
@@ -162,7 +168,7 @@ open class MainFragment : AbstractNotesFragment(R.layout.fragment_main) {
 
         val inSelectionMode = selectedIds.isNotEmpty()
         binding.bottomAppBar.isVisible = !inSelectionMode
-        binding.fabCreateNote.isVisible = !inSelectionMode
+        binding.fabCreateNote.isVisible = false
     }
 
     override fun onLayoutModeChanged() {
@@ -207,6 +213,7 @@ open class MainFragment : AbstractNotesFragment(R.layout.fragment_main) {
     private fun setupFab() {
         ViewCompat.setTransitionName(binding.fabCreateNote, "editor_create")
         binding.fabCreateNote.setOnClickListener { goToEditor(sharedElement = binding.fabCreateNote) }
+        binding.fabCreateNote.isVisible = false
     }
 
     private fun setLayoutChangeActionIcon() {
@@ -219,6 +226,7 @@ open class MainFragment : AbstractNotesFragment(R.layout.fragment_main) {
     private fun selectSortMethodItem() {
         mainMenu?.findItem(
             when (data.sortMethod) {
+                SortMethod.CUSTOM -> R.id.action_sort_custom
                 SortMethod.TITLE_ASC -> R.id.action_sort_name_asc
                 SortMethod.TITLE_DESC -> R.id.action_sort_name_desc
                 SortMethod.CREATION_ASC -> R.id.action_sort_created_asc
@@ -230,6 +238,12 @@ open class MainFragment : AbstractNotesFragment(R.layout.fragment_main) {
     }
 
     private fun setupBottomAppBar() {
+        // Set up navigation icon as move mode toggle (appears on left side)
+        binding.bottomAppBar.setNavigationOnClickListener {
+            toggleMoveMode()
+            updateMoveModeVisuals()
+        }
+        
         binding.bottomAppBar.setOnMenuItemClickListener { it ->
             when (it.itemId) {
                 R.id.action_create_list -> {
@@ -256,8 +270,23 @@ open class MainFragment : AbstractNotesFragment(R.layout.fragment_main) {
                     }
                     true
                 }
+                R.id.action_create_note -> {
+                    goToEditor(sharedElement = binding.fabCreateNote)
+                    true
+                }
                 else -> false
             }
         }
+        
+        updateMoveModeVisuals()
+    }
+
+    private fun updateMoveModeVisuals() {
+        val iconRes = if (activityModel.isMoveMode) {
+            R.drawable.ic_move_mode_enabled
+        } else {
+            R.drawable.ic_move_mode_disabled
+        }
+        binding.bottomAppBar.navigationIcon = requireContext().getDrawable(iconRes)
     }
 }

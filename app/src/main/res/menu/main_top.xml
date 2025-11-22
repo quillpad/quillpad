@@ -16,6 +16,9 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
+                        android:id="@+id/action_sort_custom"
+                        android:title="@string/preferences_sort_method_custom"/>
+                <item
                         android:id="@+id/action_sort_name_asc"
                         android:title="@string/preferences_sort_method_title_asc"/>
                 <item

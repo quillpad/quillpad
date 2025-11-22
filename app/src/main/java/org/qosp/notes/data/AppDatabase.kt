@@ -27,7 +27,7 @@ import org.qosp.notes.data.model.Tag
         Reminder::class,
         IdMapping::class,
     ],
-    version = 5,
+    version = 6,
     exportSchema = true
 )
 @TypeConverters(DatabaseConverters::class)
@@ -70,6 +70,14 @@ abstract class AppDatabase : RoomDatabase() {
                 db.apply {
                     execSQL("CREATE INDEX IF NOT EXISTS cloud_ids_id_index ON cloud_ids (localNoteId)")
                     execSQL("CREATE INDEX IF NOT EXISTS cloud_ids_id_provider_index ON cloud_ids (localNoteId, provider)")
+                }
+            }
+        }
+
+        val MIGRATION_5_6 = object : Migration(5, 6) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.apply {
+                    execSQL("ALTER TABLE notes ADD COLUMN customSortOrder INTEGER NOT NULL DEFAULT (0)")
                 }
             }
         }

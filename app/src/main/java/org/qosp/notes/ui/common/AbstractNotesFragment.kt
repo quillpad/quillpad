@@ -19,6 +19,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -37,6 +38,7 @@ import org.qosp.notes.data.sync.core.ServerNotSupported
 import org.qosp.notes.data.sync.core.Unauthorized
 import org.qosp.notes.databinding.LayoutNoteBinding
 import org.qosp.notes.preferences.LayoutMode
+import org.qosp.notes.preferences.SortMethod
 import org.qosp.notes.ui.common.recycler.NoteRecyclerAdapter
 import org.qosp.notes.ui.common.recycler.NoteRecyclerListener
 import org.qosp.notes.ui.common.recycler.onBackPressedHandler
@@ -79,6 +81,88 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
         }
 
     val markwon: Markwon by inject()
+
+    private val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+        ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT, 0
+    ) {
+        // Disable long-press drag - we'll handle it manually for immediate drag
+        override fun isLongPressDragEnabled() = false
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder,
+        ): Boolean {
+            val fromPosition = viewHolder.bindingAdapterPosition
+            val toPosition = target.bindingAdapterPosition
+            recyclerAdapter.moveItem(fromPosition, toPosition)
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
+
+        override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+            super.clearView(recyclerView, viewHolder)
+            saveCustomSortOrder()
+        }
+
+        override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
+            // In list mode, only allow up/down. In grid mode, allow all directions
+            val dragFlags = if (data.layoutMode == LayoutMode.LIST) {
+                ItemTouchHelper.UP or ItemTouchHelper.DOWN
+            } else {
+                ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+            }
+            return makeMovementFlags(dragFlags, 0)
+        }
+
+        override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+            super.onSelectedChanged(viewHolder, actionState)
+            // Pull-to-refresh is controlled by move mode state
+            // Keep it disabled if in move mode, otherwise enable
+            if (actionState != ItemTouchHelper.ACTION_STATE_DRAG) {
+                swipeRefreshLayout.isEnabled = !activityModel.isMoveMode
+            }
+        }
+
+        override fun chooseDropTarget(
+            selected: RecyclerView.ViewHolder,
+            dropTargets: List<RecyclerView.ViewHolder>,
+            curX: Int,
+            curY: Int
+        ): RecyclerView.ViewHolder? {
+            val layoutManager = recyclerView.layoutManager
+            if (layoutManager !is StaggeredGridLayoutManager) {
+                return super.chooseDropTarget(selected, dropTargets, curX, curY)
+            }
+
+            val selectedView = selected.itemView
+            val selectedBottom = selectedView.bottom + curY
+            val selectedTop = selectedView.top + curY
+            val selectedCenterY = (selectedTop + selectedBottom) / 2
+
+            // Find the best target based on vertical center position
+            var bestTarget: RecyclerView.ViewHolder? = null
+            var bestDistance = Int.MAX_VALUE
+
+            for (target in dropTargets) {
+                val targetView = target.itemView
+                val targetTop = targetView.top
+                val targetBottom = targetView.bottom
+                val targetCenterY = (targetTop + targetBottom) / 2
+
+                // Calculate vertical distance between centers
+                val distance = kotlin.math.abs(selectedCenterY - targetCenterY)
+
+                if (distance < bestDistance) {
+                    bestDistance = distance
+                    bestTarget = target
+                }
+            }
+
+            return bestTarget
+        }
+    })
 
     // Bug:
     //
@@ -128,6 +212,12 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
             clearFragmentResult(FRAGMENT_MESSAGE)
         }
 
+        setFragmentResultListener(BottomSheet.BOTTOM_SHEET_DISMISSED) { _, _ ->
+            // Re-enable pull-to-refresh when context menu is dismissed
+            swipeRefreshLayout.isEnabled = true
+            clearFragmentResult(BottomSheet.BOTTOM_SHEET_DISMISSED)
+        }
+
         // Setup recycler view
         val listener = object : NoteRecyclerListener {
             override fun onItemClick(position: Int, viewBinding: LayoutNoteBinding) {
@@ -155,6 +245,17 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
         ).apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             showHiddenNotes = this@AbstractNotesFragment.showHiddenNotes
+
+            isMoveMode = { 
+                data.sortMethod == SortMethod.CUSTOM && activityModel.isMoveMode && !inSelectionMode
+            }
+            
+            onStartDragListener = { viewHolder ->
+                if (data.sortMethod == SortMethod.CUSTOM && activityModel.isMoveMode && !inSelectionMode) {
+                    itemTouchHelper.startDrag(viewHolder)
+                }
+            }
+
 
             setOnListChangedListener {
                 val shouldDisplayIndicator = it.isEmpty()
@@ -208,6 +309,9 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
                 }
             })
         }
+
+        // Attach ItemTouchHelper for drag-to-reorder
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         // Lift app bar during scrolling
         appBarLayout?.let {
@@ -284,6 +388,8 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
             LayoutMode.LIST -> LinearLayoutManager(requireContext())
             LayoutMode.GRID -> StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         }
+        
+
         onLayoutModeChanged()
         onSortMethodChanged()
     }
@@ -420,6 +526,31 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
         if (hasMenu) mainMenu?.findItem(R.id.action_show_hidden_notes)?.isChecked = showHiddenNotes
     }
 
+    protected fun toggleMoveMode() {
+        activityModel.isMoveMode = !activityModel.isMoveMode
+        setMoveModeItemChecked()
+        
+        // If enabling move mode and not in custom sort, switch to custom sort
+        if (activityModel.isMoveMode && data.sortMethod != SortMethod.CUSTOM) {
+            activityModel.setSortMethod(SortMethod.CUSTOM)
+        }
+        
+        // Show feedback
+        val message = if (activityModel.isMoveMode) {
+            getString(R.string.message_move_mode_enabled)
+        } else {
+            getString(R.string.message_move_mode_disabled)
+        }
+        sendMessage(message)
+        
+        // Disable pull-to-refresh in move mode
+        swipeRefreshLayout.isEnabled = !activityModel.isMoveMode
+    }
+
+    fun setMoveModeItemChecked() {
+        // Move mode visuals now handled by bottom bar in MainFragment
+    }
+
     protected fun applyNavToEditorAnimation(position: Int?) {
         // Bug fix. See the the comments at the declaration of destinationChangedListener for more info.
         if (!isListenerSet) {
@@ -442,6 +573,9 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
     fun showMenuForNote(position: Int, isSelectionEnabled: Boolean = true) {
         val note = recyclerAdapter.getItemAtPosition(position)
         val isNormal = !note.isDeleted && !note.isArchived
+
+        // Disable pull-to-refresh while context menu is open
+        swipeRefreshLayout.isEnabled = false
 
         BottomSheet.show(note.title, parentFragmentManager) {
             action(R.string.action_unpin, R.drawable.ic_unpin, condition = note.isPinned && isNormal) {
@@ -518,6 +652,15 @@ abstract class AbstractNotesFragment(@LayoutRes resId: Int) : BaseFragment(resId
             action(R.string.action_select_more, R.drawable.ic_select_more, condition = isSelectionEnabled) {
                 toggleNoteSelected(note.id)
             }
+        }
+    }
+
+    private fun saveCustomSortOrder() {
+        if (data.sortMethod != SortMethod.CUSTOM) return
+        
+        viewLifecycleOwner.lifecycleScope.launch {
+            val noteIds = recyclerAdapter.currentList.map { it.id }
+            activityModel.updateCustomSortOrder(noteIds)
         }
     }
 }

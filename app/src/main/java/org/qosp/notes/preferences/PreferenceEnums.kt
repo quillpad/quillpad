@@ -46,6 +46,7 @@ enum class SortMethod(override val nameResource: Int) : HasNameResource, EnumPre
     CREATION_DESC(R.string.preferences_sort_method_created_desc),
     MODIFIED_ASC(R.string.preferences_sort_method_modified_asc),
     MODIFIED_DESC(R.string.preferences_sort_method_modified_desc) { override val isDefault = true },
+    CUSTOM(R.string.preferences_sort_method_custom),
 }
 
 enum class SortTagsMethod(override val nameResource: Int) : HasNameResource, EnumPreference by key("sort_tags_method") {

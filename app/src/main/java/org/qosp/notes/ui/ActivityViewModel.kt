@@ -64,6 +64,7 @@ class ActivityViewModel(
             )
 
     var showHiddenNotes: Boolean = false
+    var isMoveMode: Boolean = false
     var notesToBackup: Set<Note>? = null
     var tempPhotoUri: Uri? = null
 
@@ -164,6 +165,12 @@ class ActivityViewModel(
 
     fun setSortMethod(method: SortMethod) {
         viewModelScope.launch(Dispatchers.IO) { preferenceRepository.set(method) }
+    }
+
+    fun updateCustomSortOrder(noteIds: List<Long>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            noteRepository.updateCustomSortOrder(noteIds)
+        }
     }
 
     fun setSortTagsMethod(method: SortTagsMethod) {
