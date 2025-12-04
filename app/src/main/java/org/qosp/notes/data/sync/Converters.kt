@@ -19,13 +19,15 @@ fun NextcloudNote.asSyncNote() = SyncNote(
 )
 
 // Convert SyncNote to local Note with full content
-fun SyncNote.toLocalNote() = Note(
+suspend fun SyncNote.toLocalNote(
+    getNotebookIdForCategory: suspend (String) -> Long?,
+) = Note(
     id = 0L, // Will be assigned by a database
     title = title,
     content = content ?: "",
     isPinned = favorite,
     modifiedDate = lastModified,
-    notebookId = null, // TODO: Handle category to notebook conversion if needed
+    notebookId = getNotebookIdForCategory(category),
     isMarkdownEnabled = true // Default to Markdown enabled
 )
 
