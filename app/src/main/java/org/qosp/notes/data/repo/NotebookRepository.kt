@@ -2,12 +2,14 @@ package org.qosp.notes.data.repo
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import me.msoul.datastore.defaultOf
+import org.qosp.notes.data.dao.NoteDao
 import org.qosp.notes.data.dao.NotebookDao
 import org.qosp.notes.data.model.Notebook
 
 class NotebookRepository(
     private val notebookDao: NotebookDao,
-    private val noteRepository: NoteRepository,
+    private val noteDao: NoteDao,
 ) {
 
     suspend fun insert(notebook: Notebook): Long {
@@ -16,7 +18,7 @@ class NotebookRepository(
 
     suspend fun delete(vararg notebooks: Notebook) {
         val affectedNotes = notebooks
-            .map { noteRepository.getByNotebook(it.id).first() }
+            .map { noteDao.getByNotebook(it.id, defaultOf()).first() }
             .flatten()
             .filterNot { it.isLocalOnly }
 

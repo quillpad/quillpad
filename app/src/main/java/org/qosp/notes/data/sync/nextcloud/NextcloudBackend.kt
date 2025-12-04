@@ -1,8 +1,11 @@
 package org.qosp.notes.data.sync.nextcloud
 
 import android.util.Log
+import kotlinx.coroutines.flow.firstOrNull
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
+import org.qosp.notes.data.model.Notebook
+import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.data.sync.asSyncNote
 import org.qosp.notes.data.sync.core.ISyncBackend
 import org.qosp.notes.data.sync.core.SyncNote
@@ -11,23 +14,35 @@ import org.qosp.notes.preferences.CloudService
 
 class NextcloudBackend(
     private val apiProvider: NextcloudAPIProvider,
-    private val config: NextcloudConfig
+    private val config: NextcloudConfig,
+    private val notebookRepository: NotebookRepository
 ) : ISyncBackend {
 
     private val tag = javaClass.simpleName
     override val type: CloudService = CloudService.NEXTCLOUD
 
+    private suspend fun getNoteNotebook(note: Note): Notebook? {
+        val notebook = if (note.notebookId != null) {
+            notebookRepository.getById(note.notebookId).firstOrNull()
+        } else {
+            null
+        }
+        return notebook
+    }
+
     override suspend fun createNote(note: Note): SyncNote {
         Log.d(tag, "createNote() called with: note = ${note.title}")
+        val notebook = getNoteNotebook(note)
         val api = apiProvider.getAPI()
-        return api.createNote(note.asNextcloudNote(0, ""), config).asSyncNote()
+        return api.createNote(note.asNextcloudNote(0, notebook?.name ?: ""), config).asSyncNote()
     }
 
     override suspend fun updateNote(note: Note, mapping: IdMapping): IdMapping {
         requireNotNull(mapping.remoteNoteId) { "Remote note id is null." }
         Log.d(tag, "updateNote: ${note.title}")
+        val notebook = getNoteNotebook(note)
         val api = apiProvider.getAPI()
-        val nNote = note.asNextcloudNote(mapping.remoteNoteId, "")
+        val nNote = note.asNextcloudNote(mapping.remoteNoteId, notebook?.name ?: "")
         val updatedNote = api.updateNote(nNote, mapping.extras ?: "", config)
         return mapping.copy(remoteNoteId = updatedNote.id, extras = updatedNote.etag)
     }
