@@ -85,8 +85,7 @@
     <string name="about_developer">Разработчик</string>
     <string name="about_contribute">Внести вклад</string>
     <string name="about_support">Поддержать</string>
-    <string
-        name="about_support_subtext">Создание и поддержка открытых проектов требует времени и труда.Поддержи разработчика!\nПодкиньте разработчику на кофе!
+    <string name="about_support_subtext">Создание и поддержка открытых проектов требует времени и труда.Поддержи разработчика!\nПодкиньте разработчику на кофе!
     </string>
     <string name="about_libraries">Библиотеки</string>
     <string name="about_libraries_subtext">Список используемых библиотек и лицезий.</string>
@@ -292,4 +291,15 @@
     <string name="action_uncheck_all_tasks">Снять флажок со всех элементов</string>
     <string name="preferences_trust_self_signed_certificate">Доверьтесь самоподписанному сертификату</string>
     <string name="message_certificates_invalid">Ошибка сертификата. Пожалуйста, включите «Доверить самоподписанному сертификату» для продолжения.</string>
+    <string name="preferences_default_editor_mode">Режим редактора по умолчанию</string>
+    <string name="preferences_default_editor_mode_view">Режим просмотра</string>
+    <string name="preferences_default_editor_mode_edit">Режим редактирования</string>
+    <string name="about_send_logs">Отправить журнал ошибок</string>
+    <string name="about_send_logs_subtext">Отправь журналы приложения разработчику для изучения</string>
+    <string name="message_notes_not_installed">Приложение Notes не установлено в вашем Nextcloud.</string>
+    <string name="widget_description">Показывать последние заметки на главном экране</string>
+    <string name="action_new_note">Новая заметка</string>
+    <string name="note_untitled">Безымянная</string>
+    <string name="tasks">задачи</string>
+    <string name="widget_no_pinned_notes">Пока нет прикреплённых заметок. Прикрепите одну чтобы увидеть её здесь.</string>
 </resources>
