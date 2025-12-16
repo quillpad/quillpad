@@ -192,6 +192,7 @@
     <string name="editor_hint_title">Titel</string>
     <string name="editor_hint_content">Maak een notitie!</string>
     <string name="action_add_task">Taak</string>
+    <string name="hint_new_task_item">Item</string>
     <string name="action_convert_to_note">Converteer naar notitie</string>
     <string name="action_convert_to_list">Converteer naar lijst</string>
     <string name="action_do_not_sync">Niet synchroniseren</string>

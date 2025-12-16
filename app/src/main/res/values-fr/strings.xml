@@ -180,6 +180,7 @@
     <string name="editor_hint_title">Titre</string>
     <string name="editor_hint_content">Prenez une note !</string>
     <string name="action_add_task">Tâche</string>
+    <string name="hint_new_task_item">Élément</string>
     <string name="action_convert_to_note">Convertir en note</string>
     <string name="action_convert_to_list">Convertir en liste</string>
     <string name="action_do_not_sync">Ne pas synchroniser</string>

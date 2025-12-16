@@ -176,6 +176,7 @@
     <string name="editor_hint_title">Título</string>
     <string name="editor_hint_content">Faça uma anotação!</string>
     <string name="action_add_task">Tarefa</string>
+    <string name="hint_new_task_item">Item</string>
     <string name="action_convert_to_note">Converter para anotação</string>
     <string name="action_convert_to_list">Converter para lista</string>
     <string name="action_do_not_sync">Não sincronizar</string>

@@ -186,6 +186,7 @@
     <string name="editor_hint_title">标题</string>
     <string name="editor_hint_content">记笔记!</string>
     <string name="action_add_task">任务</string>
+    <string name="hint_new_task_item">项目</string>
     <string name="action_convert_to_note">转换为笔记</string>
     <string name="action_convert_to_list">转换为清单</string>
     <string name="action_do_not_sync">不同步</string>

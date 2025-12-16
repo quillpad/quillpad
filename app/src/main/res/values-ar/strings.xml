@@ -204,6 +204,7 @@
     <string name="editor_hint_title">العنوان</string>
     <string name="editor_hint_content">اكتب ملاحظة!</string>
     <string name="action_add_task">مهمة</string>
+    <string name="hint_new_task_item">عنصر</string>
     <string name="action_convert_to_note">تحويل إلى ملاحظة</string>
     <string name="action_convert_to_list">تحويل إلى قائمة</string>
     <string name="action_do_not_sync">عدم المزامنة</string>

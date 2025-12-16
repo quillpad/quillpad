@@ -192,6 +192,7 @@
     <string name="editor_hint_title">Tiêu đề</string>
     <string name="editor_hint_content">Hãy ghi chú!</string>
     <string name="action_add_task">Nhiệm vụ</string>
+    <string name="hint_new_task_item">Mục</string>
     <string name="action_convert_to_note">Chuyển thành ghi chú</string>
     <string name="action_convert_to_list">Chuyển thành danh sách</string>
     <string name="action_do_not_sync">Không đồng bộ</string>

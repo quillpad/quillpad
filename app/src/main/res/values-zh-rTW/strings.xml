@@ -191,6 +191,7 @@
     <string name="editor_hint_title">標題</string>
     <string name="editor_hint_content">寫點筆記!</string>
     <string name="action_add_task">任務</string>
+    <string name="hint_new_task_item">項目</string>
     <string name="action_convert_to_note">轉換為筆記</string>
     <string name="action_convert_to_list">轉換為清單</string>
     <string name="action_do_not_sync">不同步</string>

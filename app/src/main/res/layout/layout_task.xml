@@ -43,7 +43,7 @@
 
     <org.qosp.notes.ui.utils.views.ExtendedEditText
             android:id="@+id/edit_text"
-            android:hint="@string/action_add_task"
+            android:hint="@string/hint_new_task_item"
             android:background="@null"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

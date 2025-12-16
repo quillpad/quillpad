@@ -6,8 +6,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.text.InputType
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.PopupWindow
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.animation.doOnEnd
 import androidx.core.text.clearSpans
@@ -15,11 +20,13 @@ import androidx.core.text.toSpannable
 import androidx.core.view.isVisible
 import androidx.core.widget.TextViewCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.noties.markwon.Markwon
 import org.qosp.notes.R
 import org.qosp.notes.data.model.NoteTask
 import org.qosp.notes.databinding.LayoutTaskBinding
+import org.qosp.notes.databinding.PopupTaskSuggestionsBinding
 import org.qosp.notes.ui.utils.applyMask
 import org.qosp.notes.ui.utils.dp
 import org.qosp.notes.ui.utils.ellipsize
@@ -38,8 +45,34 @@ class TaskViewHolder(
 
     private var isContentLoaded: Boolean = false
     private var isChecked: Boolean = false
+    private val suggestionAdapter: TaskSuggestionAdapter
+    private var suggestionsPopup: PopupWindow? = null
+    private val popupBinding: PopupTaskSuggestionsBinding
 
     init {
+        // Initialize suggestion adapter
+        suggestionAdapter = TaskSuggestionAdapter { suggestedTask ->
+            listener?.onSuggestionSelected(bindingAdapterPosition, suggestedTask)
+            hideSuggestions()
+        }
+
+        // Initialize popup window
+        popupBinding = PopupTaskSuggestionsBinding.inflate(LayoutInflater.from(context))
+        popupBinding.recyclerSuggestions.apply {
+            adapter = suggestionAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+
+        suggestionsPopup = PopupWindow(
+            popupBinding.root,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            false
+        ).apply {
+            elevation = 8f
+            isOutsideTouchable = true
+            isFocusable = false
+        }
         with(binding) {
             val verticalPadding = if (inPreview) 4.dp() else 0.dp()
             val horizonalPading = if (inPreview) 0.dp() else 16.dp()
@@ -92,6 +125,19 @@ class TaskViewHolder(
                     setTextViewText(text.toString(), isChecked)
                     if (isContentLoaded) {
                         listener.onTaskContentChanged(bindingAdapterPosition, binding.editText.text.toString())
+
+                        // Request suggestions when text changes
+                        val query = text.toString().trim()
+                        if (query.isNotEmpty() && !isChecked) {
+                            val suggestions = listener.onRequestSuggestions(bindingAdapterPosition, query)
+                            if (suggestions.isNotEmpty()) {
+                                showSuggestions(suggestions)
+                            } else {
+                                hideSuggestions()
+                            }
+                        } else {
+                            hideSuggestions()
+                        }
                     }
                 }
 
@@ -175,5 +221,36 @@ class TaskViewHolder(
 
     fun bind(task: NoteTask) {
         setContent(task.isDone, task.content)
+    }
+
+    private fun showSuggestions(suggestions: List<NoteTask>) {
+        suggestionAdapter.submitList(suggestions)
+
+        // Calculate popup width to match the EditText width
+        val editTextWidth = binding.editText.width
+        suggestionsPopup?.width = editTextWidth
+
+        // Show popup below the EditText
+        binding.editText.post {
+            if (binding.editText.isAttachedToWindow && !inPreview) {
+                suggestionsPopup?.showAsDropDown(
+                    binding.editText,
+                    0,
+                    0,
+                    Gravity.START
+                )
+            }
+        }
+    }
+
+    fun hideSuggestions() {
+        suggestionsPopup?.dismiss()
+        suggestionAdapter.submitList(emptyList())
+    }
+
+    fun cleanup() {
+        hideSuggestions()
+        suggestionsPopup?.dismiss()
+        suggestionsPopup = null
     }
 }
