@@ -90,8 +90,8 @@ class StorageBackend(private val context: Context, private val config: StorageCo
         lastModified = file.lastModified() / 1000, // Milliseconds to seconds
     )
 
-    override suspend fun getAll(): List<SyncNote> {
-        val root = getRootDocumentFile() ?: return emptyList()
+    override suspend fun getAll(): List<SyncNote>? {
+        val root = getRootDocumentFile() ?: return null
         return try {
             val files = root.listFiles()
                 .flatMap {
@@ -105,7 +105,7 @@ class StorageBackend(private val context: Context, private val config: StorageCo
             files.map { file -> getFile(file) }
         } catch (e: Exception) {
             Log.e(TAG, "getAll: Error listing files", e)
-            emptyList()
+            null
         }
     }
 

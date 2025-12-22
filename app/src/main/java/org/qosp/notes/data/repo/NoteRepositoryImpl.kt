@@ -65,7 +65,7 @@ class NoteRepositoryImpl(
             val localNotes = getAll().first().filterNot { it.isLocalOnly || it.isDeleted }
 
             // Get all remote notes and convert to metadata
-            val allRemoteNotes = syncProvider.getAll()
+            val allRemoteNotes = syncProvider.getAll() ?: return GenericError("Failed to fetch remote notes")
             Log.d(
                 tag, "syncNotes: Syncing by $syncMethod. " +
                     "Found ${allRemoteNotes.size} remote notes, and ${localNotes.size} local notes"
