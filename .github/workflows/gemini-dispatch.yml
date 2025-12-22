@@ -10,6 +10,8 @@ on:
   pull_request:
     types:
       - 'opened'
+      - 'reopened'
+      - 'synchronize'
 
 defaults:
   run:
@@ -36,12 +38,11 @@ jobs:
           env | grep '^DEBUG_'
 
   dispatch:
-    # For PRs: only if not from a fork
+    # For PRs: only if not from an external fork
     # For comments: only if user types @gemini-cli and is OWNER/MEMBER/COLLABORATOR
     if: |-
       (
-        github.event_name == 'pull_request' &&
-        github.event.pull_request.head.repo.fork == false
+        github.event_name == 'pull_request'
       ) || (
         github.event.sender.type == 'User' &&
         startsWith(github.event.comment.body || github.event.review.body, '@gemini-cli') &&
@@ -82,7 +83,7 @@ jobs:
             const request = process.env.REQUEST;
             core.setOutput('request', request);
 
-            if (eventType === 'pull_request.opened') {
+            if (['pull_request.opened', 'pull_request.reopened', 'pull_request.synchronize'].includes(eventType)) {
               core.setOutput('command', 'review');
             } else if (request && request.startsWith("@gemini-cli /review")) {
               core.setOutput('command', 'review');
