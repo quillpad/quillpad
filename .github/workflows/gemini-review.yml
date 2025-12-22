@@ -26,6 +26,8 @@ jobs:
       id-token: 'write'
       issues: 'write'
       pull-requests: 'write'
+      checks: 'write'
+      statuses: 'write'
     steps:
       - name: 'Mint identity token'
         id: 'mint_identity_token'
@@ -42,7 +44,7 @@ jobs:
       - name: 'Checkout repository'
         uses: 'actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8' # ratchet:actions/checkout@v5
         with:
-          ref: '${{ github.event.pull_request.head.sha || github.sha }}'
+          ref: '${{ github.event.pull_request.head.sha || github.event.pull_request.head.ref || github.sha }}'
           persist-credentials: false
 
       - name: 'Run Gemini pull request review'
@@ -60,9 +62,9 @@ jobs:
           gcp_service_account: '${{ vars.SERVICE_ACCOUNT_EMAIL }}'
           gcp_workload_identity_provider: '${{ vars.GCP_WIF_PROVIDER }}'
           gemini_api_key: '${{ secrets.GEMINI_API_KEY }}'
-          gemini_cli_version: '${{ vars.GEMINI_CLI_VERSION }}'
-          gemini_debug: '${{ fromJSON(vars.GEMINI_DEBUG || vars.ACTIONS_STEP_DEBUG || false) }}'
-          gemini_model: '${{ vars.GEMINI_MODEL }}'
+          gemini_cli_version: 'latest'
+          gemini_debug: true
+          gemini_model: '${{ vars.GEMINI_MODEL || 'gemini-1.5-flash' }}'
           google_api_key: '${{ secrets.GOOGLE_API_KEY }}'
           use_gemini_code_assist: '${{ vars.GOOGLE_GENAI_USE_GCA }}'
           use_vertex_ai: '${{ vars.GOOGLE_GENAI_USE_VERTEXAI }}'
@@ -75,14 +77,10 @@ jobs:
               },
               "mcpServers": {
                 "github": {
-                  "command": "docker",
+                  "command": "npx",
                   "args": [
-                    "run",
-                    "-i",
-                    "--rm",
-                    "-e",
-                    "GITHUB_PERSONAL_ACCESS_TOKEN",
-                    "ghcr.io/github/github-mcp-server:v0.18.0"
+                    "-y",
+                    "@modelcontextprotocol/server-github"
                   ],
                   "includeTools": [
                     "add_comment_to_pending_review",
@@ -94,6 +92,7 @@ jobs:
                     "add_pull_request_comment"
                   ],
                   "env": {
+                    "GITHUB_TOKEN": "${GITHUB_TOKEN}",
                     "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
                   }
                 }
