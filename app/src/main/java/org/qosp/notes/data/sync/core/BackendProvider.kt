@@ -7,6 +7,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.data.sync.fs.StorageBackend
 import org.qosp.notes.data.sync.fs.StorageConfig
 import org.qosp.notes.data.sync.nextcloud.NextcloudAPIProvider
@@ -24,7 +27,8 @@ class BackendProvider(
     preferenceRepository: PreferenceRepository,
     syncingScope: SyncScope,
     private val connectionManager: ConnectionManager,
-) {
+) : KoinComponent {
+    private val notebookRepository: NotebookRepository by inject()
     private val syncService: Flow<CloudService> = preferenceRepository.getAll().map { it.cloudService }
     private val pref: StateFlow<AppPreferences?> =
         preferenceRepository.getAll().stateIn(syncingScope, SharingStarted.Eagerly, null)
@@ -36,8 +40,8 @@ class BackendProvider(
     ) { service, nextcloudConfig, storageConfig ->
         when (service) {
             CloudService.DISABLED -> null
-            CloudService.NEXTCLOUD -> nextcloudConfig?.let { NextcloudBackend(nextcloudApiProvider, it) }
-            CloudService.FILE_STORAGE -> storageConfig?.let { StorageBackend(context, it) }
+            CloudService.NEXTCLOUD -> nextcloudConfig?.let { NextcloudBackend(nextcloudApiProvider, it, notebookRepository) }
+            CloudService.FILE_STORAGE -> storageConfig?.let { StorageBackend(context, it, notebookRepository) }
         }
     }.stateIn(syncingScope, SharingStarted.Eagerly, null)
 
