@@ -1,12 +1,11 @@
 name: '🔎 Gemini Review'
 
 on:
-  workflow_call:
-    inputs:
-      additional_context:
-        type: 'string'
-        description: 'Any additional context from the request'
-        required: false
+  pull_request_target:
+    types:
+      - 'opened'
+      - 'reopened'
+      - 'synchronize'
 
 concurrency:
   group: '${{ github.workflow }}-review-${{ github.event_name }}-${{ github.event.pull_request.number || github.event.issue.number }}'
@@ -18,8 +17,10 @@ defaults:
 
 jobs:
   review:
+    # Only run if it's a PR event
+    if: github.event_name == 'pull_request_target'
     runs-on: 'ubuntu-latest'
-    timeout-minutes: 7
+    timeout-minutes: 10
     permissions:
       contents: 'read'
       id-token: 'write'
@@ -53,7 +54,6 @@ jobs:
           ISSUE_BODY: '${{ github.event.pull_request.body || github.event.issue.body }}'
           PULL_REQUEST_NUMBER: '${{ github.event.pull_request.number || github.event.issue.number }}'
           REPOSITORY: '${{ github.repository }}'
-          ADDITIONAL_CONTEXT: '${{ inputs.additional_context }}'
         with:
           gcp_location: '${{ vars.GOOGLE_CLOUD_LOCATION }}'
           gcp_project_id: '${{ vars.GOOGLE_CLOUD_PROJECT }}'
@@ -73,11 +73,6 @@ jobs:
               "model": {
                 "maxSessionTurns": 25
               },
-              "telemetry": {
-                "enabled": true,
-                "target": "local",
-                "outfile": ".gemini/telemetry.log"
-              },
               "mcpServers": {
                 "github": {
                   "command": "docker",
@@ -93,7 +88,10 @@ jobs:
                     "add_comment_to_pending_review",
                     "create_pending_pull_request_review",
                     "pull_request_read",
-                    "submit_pending_pull_request_review"
+                    "submit_pending_pull_request_review",
+                    "get_pull_request_comments",
+                    "update_pull_request_comment",
+                    "add_pull_request_comment"
                   ],
                   "env": {
                     "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
@@ -110,4 +108,13 @@ jobs:
                 ]
               }
             }
-          prompt: '/gemini-review'
+          prompt: |
+            /gemini-review
+            
+            When providing the review, please ensure you include a high-level summary of your findings as a general feedback comment in the PR. 
+            
+            IMPORTANT:
+            If a general feedback comment from Gemini already exists (you can find it by looking for the marker "<!-- gemini-review-summary -->" in the comment body), you MUST update that existing comment instead of creating a new one. 
+            If it does not exist, create a new general feedback comment and append the marker "<!-- gemini-review-summary -->" at the very end of the comment body.
+            
+            If the PR is getting updated (synchronize event), clearly state what has changed or if new issues were found in the latest commits in your summary.
