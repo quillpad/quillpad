@@ -93,12 +93,12 @@ class NoteRepositoryImpl(
                 when (action) {
                     is NoteAction.Create -> {
                         val syncNote = action.remoteNote
-                        val noteId = insertNote(syncNote.toLocalNote(), sync = false)
+                        val noteId = insertNote(syncNote.toLocalNote(defaultPinned = false), sync = false)
                         idMappingDao.insert(syncNote.getMapping(noteId, syncProvider.type))
                     }
 
                     is NoteAction.Update -> {
-                        val localNote = action.remoteNote.toLocalNote()
+                        val localNote = action.remoteNote.toLocalNote(defaultPinned = action.note.isPinned)
                         val note = if (action.note.isList) {
                             val tasks = localNote.mdToTaskList(localNote.content)
                             localNote.copy(id = action.note.id, content = "", taskList = tasks, isList = true)
