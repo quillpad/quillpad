@@ -22,6 +22,6 @@ data class SyncNote(
     val lastModified: Long, // Epoch seconds
     val extra: String? = null,
     val category: String = "",
-    val favorite: Boolean = false,
+    val favorite: Boolean? = null,
     val readOnly: Boolean = false,
 )
