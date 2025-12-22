@@ -191,6 +191,7 @@
 	<string name="editor_hint_title">Název</string>
     <string name="editor_hint_content">Poznamenej si!</string>
     <string name="action_add_task">Úkol</string>
+    <string name="hint_new_task_item">Položka</string>
     <string name="action_convert_to_note">Převézt na poznámku</string>
     <string name="action_convert_to_list">Převézt na seznam</string>
     <string name="action_do_not_sync">Nesynchronizovat</string>

@@ -109,7 +109,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/action_add_task"
                     android:background="?attr/selectableItemBackground"
-                    android:text="@string/action_add_task"
+                    android:text="@string/hint_new_task_item"
                     android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"

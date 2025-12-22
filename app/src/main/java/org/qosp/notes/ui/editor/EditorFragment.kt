@@ -519,6 +519,14 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                 override fun onNext(position: Int) {
                     jumpToNextTaskOrAdd(position)
                 }
+
+                override fun onRequestSuggestions(position: Int, query: String): List<NoteTask> {
+                    return findCompletedTaskSuggestions(query)
+                }
+
+                override fun onSuggestionSelected(position: Int, suggestedTask: NoteTask) {
+                    restoreCompletedTask(position, suggestedTask)
+                }
             },
             markwon = markwon,
         )
@@ -1255,6 +1263,74 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         tasksAdapter.submitList(updatedTasks)
 
         model.updateTaskList(updatedTasks)
+    }
+
+    private fun findCompletedTaskSuggestions(query: String): List<NoteTask> {
+        if (query.isBlank()) return emptyList()
+
+        val normalizedQuery = query.trim().lowercase()
+
+        // Find all completed tasks that start with the query (case insensitive)
+        return tasksAdapter.tasks
+            .filter { task ->
+                task.isDone &&
+                task.content.trim().startsWith(query, ignoreCase = true)
+            }
+            .distinctBy { it.content.trim().lowercase() }
+            .sortedBy { task ->
+                val content = task.content.trim().lowercase()
+
+                // Calculate similarity score (lower is better)
+                // Priority 1: Exact match gets highest priority (shown first)
+                val exactMatchBonus = if (content == normalizedQuery) -1000 else 0
+
+                // Priority 2: Length difference (prefer shorter completions)
+                val lengthDiff = content.length - normalizedQuery.length
+
+                // Priority 3: How much more text needs to be typed
+                val remainingChars = content.length - normalizedQuery.length
+
+                // Priority 4: Prefer exact prefix matches
+                val prefixBonus = if (content.startsWith(normalizedQuery)) 0 else 1000
+
+                // Combined score: exact matches first, then shorter and closer matches rank higher
+                exactMatchBonus + prefixBonus + (lengthDiff * 10) + remainingChars
+            }
+            .take(5) // Limit to 5 suggestions
+    }
+
+    private fun restoreCompletedTask(currentPosition: Int, suggestedTask: NoteTask) {
+        val tasks = tasksAdapter.tasks.toMutableList()
+
+        // Find the completed task in the list
+        val completedTaskIndex = tasks.indexOfFirst { it.id == suggestedTask.id }
+        if (completedTaskIndex == -1) return
+
+        // Adjust position if we're removing before the current position
+        val adjustedPosition = if (completedTaskIndex < currentPosition) {
+            currentPosition - 1
+        } else {
+            currentPosition
+        }
+
+        // Remove the completed task from its current position
+        tasks.removeAt(completedTaskIndex)
+
+        // Replace the current task being typed with the suggested task
+        if (adjustedPosition < tasks.size) {
+            // Create an unchecked version of the task
+            val restoredTask = suggestedTask.copy(isDone = false)
+            tasks[adjustedPosition] = restoredTask
+        }
+
+        // Update the adapter and model
+        tasksAdapter.submitList(tasks)
+        model.updateTaskList(tasks)
+
+        // Focus on the restored task
+        binding.recyclerTasks.doOnNextLayout {
+            (binding.recyclerTasks.findViewHolderForAdapterPosition(adjustedPosition) as? TaskViewHolder)?.requestFocus()
+        }
     }
 
     private val NoteColor.localizedName

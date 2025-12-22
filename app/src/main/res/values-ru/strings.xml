@@ -175,6 +175,7 @@
     <string name="editor_hint_title">Заголовок</string>
     <string name="editor_hint_content">Создать заметку!</string>
     <string name="action_add_task">Задача</string>
+    <string name="hint_new_task_item">Элемент</string>
     <string name="action_convert_to_note">Преобразовать в заметку</string>
     <string name="action_convert_to_list">Преобразовать в список</string>
     <string name="action_do_not_sync">Не синхронизировать</string>
