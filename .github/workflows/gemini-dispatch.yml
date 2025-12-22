@@ -7,7 +7,7 @@ on:
   pull_request_review:
     types:
       - 'submitted'
-  pull_request:
+  pull_request_target:
     types:
       - 'opened'
       - 'reopened'
@@ -42,7 +42,7 @@ jobs:
     # For comments: only if user types @gemini-cli and is OWNER/MEMBER/COLLABORATOR
     if: |-
       (
-        github.event_name == 'pull_request'
+        github.event_name == 'pull_request' || github.event_name == 'pull_request_target'
       ) || (
         github.event.sender.type == 'User' &&
         startsWith(github.event.comment.body || github.event.review.body, '@gemini-cli') &&
@@ -79,7 +79,10 @@ jobs:
           REQUEST: '${{ github.event.comment.body || github.event.review.body }}'
         with:
           script: |
-            const eventType = process.env.EVENT_TYPE;
+            let eventType = process.env.EVENT_TYPE;
+            if (eventType.startsWith('pull_request_target.')) {
+              eventType = eventType.replace('pull_request_target.', 'pull_request.');
+            }
             const request = process.env.REQUEST;
             core.setOutput('request', request);
 
