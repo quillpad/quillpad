@@ -101,8 +101,7 @@
     <string name="about_developer">Entwickler</string>
     <string name="about_contribute">Mitwirken</string>
     <string name="about_support">Unterstützen</string>
-    <string
-        name="about_support_subtext">Die Entwicklung und Pflege von Open-Source-Projekten ist zeitaufwendig und wird nicht vergütet.\nSpendiere den Entwicklern doch ein Bier!
+    <string name="about_support_subtext">Die Entwicklung und Pflege von Open-Source-Projekten ist zeitaufwendig und wird nicht vergütet.\nSpendiere den Entwicklern doch ein Bier!
     </string>
     <string name="about_libraries">Bibliotheken</string>
     <string name="about_libraries_subtext">Bibliotheken und Lizenzen Dritter ansehen.</string>
@@ -291,4 +290,15 @@
     <string name="preferences_file_storage_select">Speicherort auswählen</string>
     <string name="preferences_trust_self_signed_certificate">Selbst-signierten Zertifikaten vertrauen</string>
     <string name="message_certificates_invalid">Zertifikatsfehler. Bitte aktivieren Sie \"Selbst-signierten Zertifikaten vertrauen\", um fortzufahren.</string>
+    <string name="preferences_default_editor_mode_view">Ansichtsmodus</string>
+    <string name="preferences_default_editor_mode_edit">Bearbeitungsmodus</string>
+    <string name="about_send_logs">Fehlerprotokolle senden</string>
+    <string name="about_send_logs_subtext">Anwendungsprotokolle zur Analyse an die Entwickler:innen senden</string>
+    <string name="message_notes_not_installed">Die Notes App ist auf dem Nextcloud-Server nicht installiert.</string>
+    <string name="widget_description">Die neuesten Notizen auf dem Home-Screen anzeigen</string>
+    <string name="action_new_note">Neue Notiz</string>
+    <string name="note_untitled">Ohne Titel</string>
+    <string name="tasks">Aufgaben</string>
+    <string name="preferences_default_editor_mode">Standard-Editormodus</string>
+    <string name="widget_no_pinned_notes">Noch keine angehefteten Notizen. Hefte eine an, um sie hier zu sehen.</string>
 </resources>

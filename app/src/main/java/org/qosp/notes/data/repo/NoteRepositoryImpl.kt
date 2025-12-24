@@ -65,7 +65,7 @@ class NoteRepositoryImpl(
             val localNotes = getAll().first().filterNot { it.isLocalOnly || it.isDeleted }
 
             // Get all remote notes and convert to metadata
-            val allRemoteNotes = syncProvider.getAll()
+            val allRemoteNotes = syncProvider.getAll() ?: return GenericError("Failed to fetch remote notes")
             Log.d(
                 tag, "syncNotes: Syncing by $syncMethod. " +
                     "Found ${allRemoteNotes.size} remote notes, and ${localNotes.size} local notes"
@@ -93,12 +93,12 @@ class NoteRepositoryImpl(
                 when (action) {
                     is NoteAction.Create -> {
                         val syncNote = action.remoteNote
-                        val noteId = insertNote(syncNote.toLocalNote(), sync = false)
+                        val noteId = insertNote(syncNote.toLocalNote(defaultPinned = false), sync = false)
                         idMappingDao.insert(syncNote.getMapping(noteId, syncProvider.type))
                     }
 
                     is NoteAction.Update -> {
-                        val localNote = action.remoteNote.toLocalNote()
+                        val localNote = action.remoteNote.toLocalNote(defaultPinned = action.note.isPinned)
                         val note = if (action.note.isList) {
                             val tasks = localNote.mdToTaskList(localNote.content)
                             localNote.copy(id = action.note.id, content = "", taskList = tasks, isList = true)

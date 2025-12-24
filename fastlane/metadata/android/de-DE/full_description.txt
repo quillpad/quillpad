@@ -13,7 +13,7 @@ Mit Quillpad kannst du:
 - Schlagwörter (Tags) zuweisen
 - Notizen archivieren
 - in Notizen suchen
-- mit Nextcloud synchronisieren (erfordert die Nextcloud-App "Nextcloud Notes")
+- mit Nextcloud synchronisieren (erfordert die Nextcloud-App "Notes" auf dem Server)
 - deine Notizen als Zip-Datei exportieren, um sie bei Bedarf wiederherzustellen
 - zwischen Hell- und Dunkelmodus umschalten
-- zwischen mehreren Farbthemen wählen
+- aus mehreren Farbthemen wählen

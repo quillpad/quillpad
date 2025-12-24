@@ -123,6 +123,13 @@
                 app:iconSrc="@drawable/ic_pencil"/>
 
             <org.qosp.notes.ui.utils.views.PreferenceView
+                android:id="@+id/setting_default_editor_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="@string/preferences_default_editor_mode"
+                app:iconSrc="@drawable/ic_pencil"/>
+
+            <org.qosp.notes.ui.utils.views.PreferenceView
                     android:id="@+id/setting_show_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

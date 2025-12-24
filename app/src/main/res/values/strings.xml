@@ -73,6 +73,9 @@
     <string name="preferences_fab">Floating button</string>
     <string name="preferences_top_bar">Top bar</string>
 
+    <string name="preferences_default_editor_mode">Default editor mode</string>
+    <string name="preferences_default_editor_mode_view">View mode</string>
+    <string name="preferences_default_editor_mode_edit">Edit mode</string>
     <string name="preferences_show_date">Show date created/modified</string>
     <string name="preferences_date_format">Date format</string>
     <string name="preferences_time_format">Time format</string>

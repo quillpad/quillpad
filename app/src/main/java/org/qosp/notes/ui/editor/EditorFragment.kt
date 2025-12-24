@@ -58,6 +58,7 @@ import io.noties.markwon.editor.MarkwonEditorTextWatcher
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.commonmark.node.Code
+import org.qosp.notes.preferences.DefaultEditorMode
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.qosp.notes.R
@@ -793,6 +794,10 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
             // Update Title and Content only the first the since they are EditTexts
             if (isFirstLoad) {
 
+                if (data.defaultEditorMode == DefaultEditorMode.EDIT) {
+                    model.inEditMode = true
+                }
+
                 // apply font size preference
                 if (data.editorFontSize != -1) { // is customised
                     val fontSizeFloat = data.editorFontSize.toFloat()
@@ -1017,11 +1022,8 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         }
 
         actionAddTask.setOnClickListener {
-            var addTaskIndex = tasksAdapter.tasks.size
-            if (model.moveCheckedItems)
-                addTaskIndex = tasksAdapter.tasks.indexOfLast { !it.isDone } + 1
-
-            addTask(addTaskIndex)
+            // Always add new tasks at the top (position 0)
+            addTask(0)
         }
     }
 
@@ -1096,12 +1098,12 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         }
     }
 
-    private fun addTask(position: Int = tasksAdapter.tasks.size) {
+    private fun addTask(position: Int = 0) {
         tasksAdapter.tasks.add(position, NoteTask(nextTaskId, "", false))
-        tasksAdapter.notifyItemInserted(tasksAdapter.tasks.size - 1)
+        tasksAdapter.notifyItemInserted(position)
 
         if (position < tasksAdapter.tasks.size - 1) {
-            tasksAdapter.notifyItemRangeChanged(position, tasksAdapter.tasks.size - position + 1)
+            tasksAdapter.notifyItemRangeChanged(position, tasksAdapter.tasks.size - position)
         }
 
         binding.recyclerTasks.doOnNextLayout {
@@ -1196,7 +1198,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
     /** Gives the focus to the note body if it is empty */
     private fun requestFocusForFields(forceFocus: Boolean = false) = with(binding) {
-        if (editTextContent.text.isNullOrEmpty() || forceFocus) {
+        if (data.note?.isEmpty() == true || forceFocus) {
             editTextContent.requestFocusAndKeyboard()
         }
     }

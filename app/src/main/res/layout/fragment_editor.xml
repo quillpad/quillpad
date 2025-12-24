@@ -106,14 +106,6 @@
                     android:gravity="top|start"
                     android:layout_margin="16dp"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_tasks"
-                    android:visibility="gone"
-                    android:overScrollMode="never"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"/>
-
             <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/action_add_task"
                     android:background="?attr/selectableItemBackground"
@@ -125,7 +117,15 @@
                     android:paddingHorizontal="22dp"
                     android:drawablePadding="20dp"
                     android:gravity="start|center"
+                    android:layout_marginTop="16dp"
                     app:drawableStartCompat="@drawable/ic_add"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_tasks"
+                    android:visibility="gone"
+                    android:overScrollMode="never"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_date"

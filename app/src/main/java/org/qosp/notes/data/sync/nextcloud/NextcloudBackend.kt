@@ -49,9 +49,12 @@ class NextcloudBackend(
         return api.getNote(mapping.remoteNoteId, config).asSyncNote()
     }
 
-    override suspend fun getAll(): List<SyncNote> {
+    override suspend fun getAll(): List<SyncNote>? = try {
         Log.d(tag, "getAll() from Nextcloud")
         val api = apiProvider.getAPI()
-        return api.getNotes(config).map { note -> note.asSyncNote() }
+        api.getNotes(config).map { note -> note.asSyncNote() }
+    } catch (e: Exception) {
+        Log.e(tag, "getAll: Error getting notes from Nextcloud", e)
+        null
     }
 }
