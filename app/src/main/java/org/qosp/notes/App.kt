@@ -186,5 +186,9 @@ class App : Application(), ImageLoaderFactory {
         const val REMINDERS_CHANNEL_ID = "REMINDERS_CHANNEL"
         const val BACKUPS_CHANNEL_ID = "BACKUPS_CHANNEL"
         const val PLAYBACK_CHANNEL_ID = "PLAYBACK_CHANNEL"
+
+        // Maximum attachment size accepted from external apps (bytes). Reject anything larger to
+        // mitigate resource exhaustion / DoS via oversized shared files.
+        const val MAX_SHARED_ATTACHMENT_SIZE_BYTES = 10 * 1024 * 1024 // 10 MB
     }
 }

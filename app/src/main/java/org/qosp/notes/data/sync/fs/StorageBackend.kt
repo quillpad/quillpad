@@ -11,6 +11,7 @@ import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.sync.core.ISyncBackend
 import org.qosp.notes.data.sync.core.SyncNote
 import org.qosp.notes.data.sync.nextcloud.BackendValidationResult
+import org.qosp.notes.BuildConfig
 import org.qosp.notes.preferences.CloudService
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -27,9 +28,16 @@ class StorageBackend(private val context: Context, private val config: StorageCo
 
     private val Note.filename: String
         get() {
+            // Sanitize title to prevent accidental path characters and limit length
             val titleToSet = title.ifBlank { "Untitled" }
+            val sanitized = titleToSet
+                .replace(Regex("[\\\\/:*?\"<>|\\n\\r\\t]+"), "_") // replace filesystem separators and control chars
+                .trim()
+                .take(100)
+                .ifBlank { "Untitled" }
+
             val ext = if (isMarkdownEnabled) "md" else "txt"
-            return "${titleToSet.trim()}.$ext"
+            return "${sanitized}.$ext"
         }
 
     override suspend fun createNote(note: Note): SyncNote {
@@ -137,15 +145,15 @@ class StorageBackend(private val context: Context, private val config: StorageCo
             (output as? FileOutputStream)?.let {
                 output.channel.truncate(0)
                 val bytesWritten = content.encodeToByteArray().inputStream().copyTo(output)
-                Log.d(TAG, "writeNote: Wrote $bytesWritten bytes to ${file.name}")
+                if (BuildConfig.DEBUG) Log.d(TAG, "writeNote: Wrote $bytesWritten bytes to ${file.name}")
             } ?: run {
-                Log.e(TAG, "writeNoteToDocument: ${file.name} is not a file. URI:${file.uri}")
+                if (BuildConfig.DEBUG) Log.e(TAG, "writeNoteToDocument: ${file.name} is not a file. URI:${file.uri}")
             }
         }
     }
 
     private fun readFileContent(file: DocumentFile): String? {
-        Log.d(TAG, "readFileContent: ${file.name}")
+        if (BuildConfig.DEBUG) Log.d(TAG, "readFileContent: ${file.name}")
         return context.contentResolver.openInputStream(file.uri)?.use { it.bufferedReader().readText() }
     }
 
@@ -159,11 +167,11 @@ class StorageBackend(private val context: Context, private val config: StorageCo
     }
 
     private fun renameFile(file: DocumentFile, newName: String, root: DocumentFile): String {
-        Log.d(TAG, "renameFile: Renaming ${file.name} to $newName")
+        if (BuildConfig.DEBUG) Log.d(TAG, "renameFile: Renaming ${file.name} to $newName")
         val foundFile = root.listFiles().firstOrNull { it.name == file.name }
             ?: throw FileNotFoundException("File ${file.name} not found")
         val succeeded = foundFile.renameTo(newName)
-        Log.d(TAG, "renameFile: Renaming ${foundFile.name}, succeeded? $succeeded")
+        if (BuildConfig.DEBUG) Log.d(TAG, "renameFile: Renaming ${foundFile.name}, succeeded? $succeeded")
         return foundFile.uri.toString()
     }
 

@@ -1,6 +1,7 @@
 package org.qosp.notes.data.repo
 
 import android.util.Log
+import org.qosp.notes.BuildConfig
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -45,12 +46,12 @@ class NoteRepositoryImpl(
 
     private suspend fun cleanMappingsForLocalNotes(vararg notes: Note) {
         val n = notes.filter { it.isLocalOnly }
-        Log.d(tag, "cleanMappingsForLocalNotes: Cleaning ${n.size} local-only notes from ${notes.size} total")
+        if (BuildConfig.DEBUG) Log.d(tag, "cleanMappingsForLocalNotes: Cleaning ${n.size} local-only notes from ${notes.size} total")
         idMappingDao.setNotesToBeDeleted(*n.map { it.id }.toLongArray())
     }
 
     override suspend fun syncNotes(): BaseResult {
-        Log.d(tag, "syncNotes: Starting synchronization")
+        if (BuildConfig.DEBUG) Log.d(tag, "syncNotes: Starting synchronization")
 
         val syncProvider = backendProvider.syncProvider.value
         if (syncProvider == null || !backendProvider.isSyncing) {
@@ -66,7 +67,7 @@ class NoteRepositoryImpl(
 
             // Get all remote notes and convert to metadata
             val allRemoteNotes = syncProvider.getAll() ?: return GenericError("Failed to fetch remote notes")
-            Log.d(
+            if (BuildConfig.DEBUG) Log.d(
                 tag, "syncNotes: Syncing by $syncMethod. " +
                     "Found ${allRemoteNotes.size} remote notes, and ${localNotes.size} local notes"
             )
@@ -74,7 +75,7 @@ class NoteRepositoryImpl(
             // Use SynchronizeNotes to determine what updates are needed
             val syncResult =
                 synchronizeNotes(localNotes, allRemoteNotes, service = syncProvider.type, syncMethod)
-            Log.d(tag, "sync updates: ${syncResult.localUpdates.size} local, ${syncResult.remoteUpdates.size} remote")
+            if (BuildConfig.DEBUG) Log.d(tag, "sync updates: ${syncResult.localUpdates.size} local, ${syncResult.remoteUpdates.size} remote")
 
             if (syncMethod == SyncMethod.TITLE) applyMappingChanges(syncResult, syncProvider) // Initial import
             applyLocalUpdates(syncResult.localUpdates, syncProvider)
@@ -148,7 +149,7 @@ class NoteRepositoryImpl(
     }
 
     override suspend fun insertNote(note: Note, sync: Boolean): Long {
-        Log.d(tag, "insertNote: Creating note '${note.title}', isLocalOnly=${note.isLocalOnly}")
+        if (BuildConfig.DEBUG) Log.d(tag, "insertNote: Creating note '${note.title}', isLocalOnly=${note.isLocalOnly}")
         val noteId = noteDao.insert(note.toEntity())
         if (note.isLocalOnly.not() && backendProvider.isSyncing && sync) {
             val note1 = note.copy(id = noteId)
@@ -160,7 +161,7 @@ class NoteRepositoryImpl(
     override suspend fun updateNotes(vararg notes: Note, sync: Boolean) = notes.forEach { updateNote(it, sync) }
 
     private suspend fun updateNote(note: Note, sync: Boolean) {
-        Log.d(tag, "updateNote: Updating note ID=${note.id}, title='${note.title}'")
+        if (BuildConfig.DEBUG) Log.d(tag, "updateNote: Updating note ID=${note.id}, title='${note.title}'")
         noteDao.update(note.toEntity())
         if (note.isLocalOnly.not() && backendProvider.isSyncing && sync) {
             processRemoteActions(note.id, Update(note))
@@ -168,7 +169,7 @@ class NoteRepositoryImpl(
     }
 
     override suspend fun moveNotesToBin(vararg notes: Note, sync: Boolean) {
-        Log.d(tag, "moveNotesToBin: Moving ${notes.size} notes to bin")
+        if (BuildConfig.DEBUG) Log.d(tag, "moveNotesToBin: Moving ${notes.size} notes to bin")
         val entities = notes.map { it.toEntity().copy(isDeleted = true, deletionDate = Instant.now().epochSecond) }
             .toTypedArray<NoteEntity>()
 
@@ -181,7 +182,7 @@ class NoteRepositoryImpl(
     }
 
     override suspend fun restoreNotes(vararg notes: Note) {
-        Log.d(tag, "restoreNotes: Restoring ${notes.size} notes from bin")
+        if (BuildConfig.DEBUG) Log.d(tag, "restoreNotes: Restoring ${notes.size} notes from bin")
         val array = notes
             .map { it.toEntity().copy(isDeleted = false, deletionDate = null) }
             .toTypedArray()
@@ -191,7 +192,7 @@ class NoteRepositoryImpl(
             backendProvider.syncProvider.value?.let { syncProvider ->
                 syncingScope.launch {
                     val syncableNotes = notes.filterNot { it.isLocalOnly }
-                    Log.d(tag, "restoreNotes: Re-syncing ${syncableNotes.size} restored notes to ${syncProvider.type}")
+                    if (BuildConfig.DEBUG) Log.d(tag, "restoreNotes: Re-syncing ${syncableNotes.size} restored notes to ${syncProvider.type}")
                     syncableNotes
                         .associateWith { syncProvider.createNote(it) }
                         .forEach { (n, syncNote) ->
@@ -204,7 +205,7 @@ class NoteRepositoryImpl(
     }
 
     override suspend fun deleteNotes(vararg notes: Note, sync: Boolean) {
-        Log.d(tag, "deleteNotes: Permanently deleting ${notes.size} notes")
+        if (BuildConfig.DEBUG) Log.d(tag, "deleteNotes: Permanently deleting ${notes.size} notes")
         val array = notes.map { it.toEntity() }.toTypedArray()
         noteDao.delete(*array)
         if (sync) notes.filterNot { it.isLocalOnly }.forEach {
@@ -214,14 +215,14 @@ class NoteRepositoryImpl(
 
     override suspend fun discardEmptyNotes(): Boolean {
         val notes = noteDao.getAllBlankTitleNotes().first().filter { it.isEmpty() }.toTypedArray()
-        Log.d(tag, "discardEmptyNotes: Found ${notes.size} empty notes to discard")
+        if (BuildConfig.DEBUG) Log.d(tag, "discardEmptyNotes: Found ${notes.size} empty notes to discard")
         deleteNotes(*notes)
         return notes.isNotEmpty()
     }
 
     override suspend fun permanentlyDeleteNotesInBin() {
         val noteIds = noteDao.getDeleted(defaultOf()).first().map { it.id }.toLongArray()
-        Log.d(tag, "permanentlyDeleteNotesInBin: Permanently deleting ${noteIds.size} notes from bin")
+        if (BuildConfig.DEBUG) Log.d(tag, "permanentlyDeleteNotesInBin: Permanently deleting ${noteIds.size} notes from bin")
         idMappingDao.deleteByLocalId(*noteIds)
         noteDao.permanentlyDeleteNotesInBin()
     }
@@ -265,7 +266,7 @@ class NoteRepositoryImpl(
     override suspend fun getNotesByCloudService(provider: CloudService): Map<IdMapping, Note?> {
         val allNotes = getAll().first().associateBy { it.id }
         val mappings = idMappingDao.getAllByCloudService(provider)
-        Log.d(tag, "getNotesByCloudService: Found ${mappings.size} mappings for $provider")
+        if (BuildConfig.DEBUG) Log.d(tag, "getNotesByCloudService: Found ${mappings.size} mappings for $provider")
         return mappings.associateWith { allNotes[it.localNoteId] }
     }
 

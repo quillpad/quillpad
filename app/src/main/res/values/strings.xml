@@ -128,6 +128,13 @@
     <string name="preferences_background_sync_disabled">Disabled</string>
     <string name="preferences_new_notes_synchronizable">New notes synchronizable</string>
     <string name="preferences_trust_self_signed_certificate">Trust self-signed certificate</string>
+    <string name="preferences_nextcloud_cert_fingerprint_title">Nextcloud server certificate</string>
+    <string name="preferences_nextcloud_cert_fingerprint_not_set">Not set</string>
+    <string name="action_fetch_cert_fingerprint">Fetch certificate fingerprint</string>
+    <string name="message_cert_fingerprint_confirm">Server certificate fingerprint:\n%s\n\nDo you want to trust and save this fingerprint?</string>
+    <string name="action_trust_fingerprint">Trust and save</string>
+    <string name="action_clear_fingerprint">Clear fingerprint</string>
+    <string name="message_fetch_failed">Failed to fetch certificate fingerprint</string>
 
     <!-- About -->
     <string name="about_version">Version</string>

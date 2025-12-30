@@ -135,11 +135,33 @@ class MainActivity : BaseActivity() {
     private suspend fun copySharedMedia(uri: Uri): Uri? = withContext(Dispatchers.IO) {
         try {
             val mimeType = contentResolver.getType(uri) ?: return@withContext null
+
+            // Reject overly large attachments to prevent resource exhaustion attacks
+            val afd = contentResolver.openAssetFileDescriptor(uri, "r")
+            val length = afd?.length ?: -1L
+            if (length > 0 && length > App.MAX_SHARED_ATTACHMENT_SIZE_BYTES) {
+                // Too large
+                android.util.Log.w("MainActivity", "Rejected shared media; size=$length exceeds limit")
+                return@withContext null
+            }
+
             val newUri = activityModel.copyMediaToPrivateStorage(uri, mimeType) ?: return@withContext null
 
             contentResolver.openInputStream(uri)?.use { input ->
                 contentResolver.openOutputStream(newUri)?.use { output ->
-                    input.copyTo(output)
+                    // Stream copy with a safety cap just in case afd length was unavailable
+                    val buffer = ByteArray(8 * 1024)
+                    var totalCopied = 0L
+                    var read: Int
+                    while (input.read(buffer).also { read = it } != -1) {
+                        totalCopied += read
+                        if (totalCopied > App.MAX_SHARED_ATTACHMENT_SIZE_BYTES) {
+                            android.util.Log.w("MainActivity", "Aborting copy - exceeded max allowed size")
+                            // Clean up partially-written file
+                            return@withContext null
+                        }
+                        output.write(buffer, 0, read)
+                    }
                 }
             }
             newUri
