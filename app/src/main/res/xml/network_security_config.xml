@@ -3,7 +3,11 @@
     <base-config>
         <trust-anchors>
             <certificates src="system"/>
-            <certificates src="user" tools:ignore="AcceptsUserCertificates"/>
+            <!-- NOTE: Trusting user certificates globally is a security risk (enables user-installed CA MITM).
+                 Prefer domain-configs or certificate pinning. Removed global user cert trust to harden network security.
+                 If you need to trust a specific self-signed certificate, implement certificate pinning or a TOFU
+                 workflow per-server instead of enabling user certificates for all domains. -->
+            <!-- <certificates src="user" tools:ignore="AcceptsUserCertificates"/> -->
         </trust-anchors>
     </base-config>
 </network-security-config>

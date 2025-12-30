@@ -4,7 +4,7 @@
 
     <application
         android:name=".App"
-        android:allowBackup="true"
+        android:allowBackup="false"  <!-- Set to false to prevent full device backups exposing encrypted/shared prefs and files -->
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"

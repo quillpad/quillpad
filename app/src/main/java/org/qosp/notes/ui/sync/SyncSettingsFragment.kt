@@ -23,6 +23,11 @@ import org.qosp.notes.ui.utils.StorageLocationContract
 import org.qosp.notes.ui.utils.collect
 import org.qosp.notes.ui.utils.liftAppBarOnScroll
 import org.qosp.notes.ui.utils.viewBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
     private val binding by viewBinding(FragmentSyncSettingsBinding::bind)
@@ -75,8 +80,61 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
         setupNextcloudAccountListener()
         setupClearNextcloudCredentialsListener()
         setupTrustCertificatesListener()
+        setupCertFingerprintListener()
 
         setupLocalLocationListener()
+    }
+
+    private fun setupCertFingerprintListener() = binding.settingNextcloudCertFingerprint.setOnClickListener {
+        // If we already have a stored fingerprint, show a dialog to clear it
+        model.getEncryptedString(PreferenceRepository.NEXTCLOUD_CERT_FINGERPRINT).collectOnce { stored ->
+            if (stored.isNotBlank()) {
+                showPreferenceDialog(R.string.preferences_nextcloud_cert_fingerprint_title, stored) { _ ->
+                    // Offer option to clear fingerprint
+                    model.setEncryptedString(PreferenceRepository.NEXTCLOUD_CERT_FINGERPRINT, "")
+                }
+                return@collectOnce
+            }
+
+            // Otherwise, try to fetch the server certificate fingerprint
+            val url = nextcloudUrl
+            if (url.isBlank()) return@collectOnce
+
+            binding.root.post {
+                // perform network fetch off-main thread
+                kotlinx.coroutines.GlobalScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+                    val fingerprint = try {
+                        val apiProvider = org.koin.core.context.GlobalContext.get().koin.get<org.qosp.notes.data.sync.nextcloud.NextcloudAPIProvider>()
+                        apiProvider.getServerCertificateFingerprint(url)
+                    } catch (e: Exception) {
+                        null
+                    }
+
+                    withContext(kotlinx.coroutines.Dispatchers.Main) {
+                        if (fingerprint == null) {
+                            android.widget.Toast.makeText(requireContext(), getString(R.string.message_fetch_failed), android.widget.Toast.LENGTH_SHORT).show()
+                        } else {
+                            val message = getString(R.string.message_cert_fingerprint_confirm, fingerprint)
+                            androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                                .setMessage(message)
+                                .setPositiveButton(R.string.action_trust_fingerprint) { _, _ ->
+                                    model.setEncryptedString(PreferenceRepository.NEXTCLOUD_CERT_FINGERPRINT, fingerprint)
+                                }
+                                .setNegativeButton(android.R.string.cancel, null)
+                                .show()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Helper to collect one value from a Flow<String>
+    private fun <T> kotlinx.coroutines.flow.Flow<T>.collectOnce(action: suspend (T) -> Unit) {
+        val scope = viewLifecycleOwner.lifecycleScope
+        scope.launch {
+            this@collectOnce.firstOrNull()?.let { action(it) }
+        }
     }
 
     private fun View.show(visible: Boolean) = if (visible) visibility = View.VISIBLE else visibility = View.GONE
@@ -121,6 +179,11 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
             storageLocation = uri
             val appName = if (u.isNotBlank()) context?.let { uri.toFriendlyString(it) } else null
             binding.settingStorageLocation.subText = appName ?: getString(R.string.preferences_file_storage_select)
+        }
+
+        // Certificate fingerprint (TOFU/pinning)
+        model.getEncryptedString(PreferenceRepository.NEXTCLOUD_CERT_FINGERPRINT).collect(viewLifecycleOwner) { fp ->
+            binding.settingNextcloudCertFingerprint.subText = fp.ifBlank { getString(R.string.preferences_nextcloud_cert_fingerprint_not_set) }
         }
     }
 

@@ -75,5 +75,7 @@ class PreferenceRepository(
         const val NEXTCLOUD_USERNAME = "NEXTCLOUD_USERNAME"
         const val NEXTCLOUD_PASSWORD = "NEXTCLOUD_PASSWORD"
         const val STORAGE_LOCATION = "STORAGE_LOCATION"
+        // Optional: SHA-256 fingerprint of Nextcloud server certificate (hex uppercase)
+        const val NEXTCLOUD_CERT_FINGERPRINT = "NEXTCLOUD_CERT_FINGERPRINT"
     }
 }

@@ -41,6 +41,11 @@ class BackupManager(
 ) {
     private val BUFFER = 2048
 
+    // Safety limits when restoring backups to mitigate zip-bomb and DoS vectors
+    private val MAX_BACKUP_ENTRIES = 1000
+    private val MAX_BACKUP_TOTAL_BYTES = 50L * 1024L * 1024L // 50 MB
+
+
     /**
      * Creates a backup which contains [notes] or the whole database if [notes] is null.
      */
@@ -163,9 +168,17 @@ class BackupManager(
         var backup: Backup? = null
         val nameMap = mutableMapOf<String, String>()
 
+        var entriesProcessed = 0
+        var totalBytes = 0L
+
         ZipInputStream(BufferedInputStream(context.contentResolver.openInputStream(uri))).use { input ->
             while (true) {
                 val entry = runCatching { input.nextEntry }.getOrNull() ?: break
+
+                // Limit number of entries
+                entriesProcessed += 1
+                if (entriesProcessed > MAX_BACKUP_ENTRIES) throw IOException("Backup contains too many entries")
+
                 when (entry.name) {
                     "backup.json" -> {
                         // Create backup class
@@ -174,6 +187,8 @@ class BackupManager(
                         var length = 0
                         while (input.read(buffer).also { length = it } > 0) {
                             builder.append(String(buffer, 0, length))
+                            totalBytes += length
+                            if (totalBytes > MAX_BACKUP_TOTAL_BYTES) throw IOException("Backup too large")
                         }
                         val deserialized = migrationHandler.migrate(builder.toString())
 
@@ -210,6 +225,8 @@ class BackupManager(
                             var length = 0
                             while (input.read(buffer).also { length = it } > 0) {
                                 out.write(buffer, 0, length)
+                                totalBytes += length
+                                if (totalBytes > MAX_BACKUP_TOTAL_BYTES) throw IOException("Backup too large")
                             }
                         }
                         input.closeEntry()

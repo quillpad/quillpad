@@ -112,6 +112,14 @@
                         app:text="@string/preferences_trust_self_signed_certificate"
                         app:iconSrc="@drawable/ic_person"
                         android:visibility="visible"/>
+
+                    <org.qosp.notes.ui.utils.views.PreferenceView
+                        android:id="@+id/setting_nextcloud_cert_fingerprint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:text="@string/preferences_nextcloud_cert_fingerprint_title"
+                        app:subText="@string/preferences_nextcloud_cert_fingerprint_not_set"
+                        app:iconSrc="@drawable/ic_shield"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layout_storage_settings"
