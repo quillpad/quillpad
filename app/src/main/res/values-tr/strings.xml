@@ -201,6 +201,7 @@
     <string name="editor_hint_title">Başlık</string>
     <string name="editor_hint_content">Not al!</string>
     <string name="action_add_task">Görev</string>
+    <string name="hint_new_task_item">Öğe</string>
     <string name="action_convert_to_note">Nota dönüştür</string>
     <string name="action_convert_to_list">Listeye dönüştür</string>
     <string name="action_do_not_sync">Senkronize etme</string>

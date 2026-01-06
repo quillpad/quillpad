@@ -156,6 +156,7 @@
     <string name="editor_hint_title">Τίτλος</string>
     <string name="editor_hint_content">Κρατήστε μια σημείωση!</string>
     <string name="action_add_task">Στοιχείο λίστας</string>
+    <string name="hint_new_task_item">Στοιχείο</string>
     <string name="action_convert_to_note">Μετατροπή σε σημείωση</string>
     <string name="action_convert_to_list">Μετατροπή σε λίστα</string>
     <string name="action_do_not_sync">Απενεργοποιήση συγχρονισμού</string>
