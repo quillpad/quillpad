@@ -110,7 +110,7 @@
     <string name="about_developer">Geliştirici</string>
     <string name="about_contribute">Katkıda bulun</string>
     <string name="about_support">Destek</string>
-    <string name="about_support_subtext">Açık kaynak projeler oluşturmak ve sürdürmek zaman alır ve kâr getirmez.\nGeliştiricilere bir bira ısmarlayın!</string>
+    <string name="about_support_subtext">Açık kaynak projeler oluşturmak ve sürdürmek zaman alır ve kâr getirmez.\nGeliştiricilere bir kahve ısmarlayın!</string>
     <string name="about_libraries">Kütüphaneler</string>
     <string name="about_libraries_subtext">Üçüncü taraf kütüphaneleri ve lisansları görüntüle.</string>
     <!-- General -->
@@ -297,4 +297,14 @@
   </string>
     <string name="preferences_file_storage_location">Depolama yeri</string>
     <string name="preferences_file_storage_select">Depolama yerini seçin</string>
+    <string name="preferences_default_editor_mode_edit">Düzenleme modu</string>
+    <string name="preferences_trust_self_signed_certificate">Kendinden imzalı sertifikalara güven</string>
+    <string name="about_send_logs">Hata Günlüklerini Gönder</string>
+    <string name="about_send_logs_subtext">Soruşturulması için uygulama günlüklerini geliştiriciye gönder</string>
+    <string name="message_certificates_invalid">Sertifika hatası. Devam etmek için lütfen \"Kendinden imzalı sertifikalara güven\" seçeneğini etkinleştirin.</string>
+    <string name="message_notes_not_installed">Notlar uygulaması Nextcloud\'unuzda yüklü değil.</string>
+    <string name="action_new_note">Yeni Not</string>
+    <string name="note_untitled">Adsız</string>
+    <string name="tasks">görevler</string>
+    <string name="widget_no_pinned_notes">Henüz sabitlenmiş not yok. Burada görebilmek için bir notu sabitleyin.</string>
 </resources>

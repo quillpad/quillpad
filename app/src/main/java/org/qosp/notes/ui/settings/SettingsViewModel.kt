@@ -52,6 +52,7 @@ class SettingsViewModel(
             PreferenceRepository.NEXTCLOUD_PASSWORD to "",
             PreferenceRepository.NEXTCLOUD_USERNAME to "",
         )
+        noteRepository.deleteIdMappingsForCloudService(CloudService.NEXTCLOUD)
     }
 
     /**

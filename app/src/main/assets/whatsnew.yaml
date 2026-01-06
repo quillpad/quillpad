@@ -1,4 +1,13 @@
 updates:
+  - id: 5
+    title: Bug Fixes & Improvements
+    items:
+      - Potential fix for all notes getting moved to the trash.
+      - New translation updates for Italian, German, Swedish, Russian, Romanian and Chinese!
+      - Default editor mode setting (Edit vs Preview)
+      - New tasks are added to the top of the list.
+      - Does not show "Untitled" when creating a new note with empty title.
+
   - id: 4
     title: Widgets!!!
     items:
