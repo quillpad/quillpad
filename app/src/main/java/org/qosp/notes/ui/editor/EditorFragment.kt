@@ -481,6 +481,11 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         super.onPause()
     }
 
+    override fun onStop() {
+        model.syncPendingChanges()
+        super.onStop()
+    }
+
     override fun onDestroyView() {
         // Dismiss the snackbar which is shown for deleted notes
         snackbar?.dismiss()
