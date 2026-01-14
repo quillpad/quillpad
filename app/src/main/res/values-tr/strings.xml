@@ -306,4 +306,7 @@
     <string name="note_untitled">Adsız</string>
     <string name="tasks">görevler</string>
     <string name="widget_no_pinned_notes">Henüz sabitlenmiş not yok. Burada görebilmek için bir notu sabitleyin.</string>
+    <string name="preferences_default_editor_mode">Varsayılan düzenleyici modu</string>
+    <string name="preferences_default_editor_mode_view">Görüntüleme modu</string>
+    <string name="widget_description">Yakın zamandaki notlarınızı ana ekranda gösterin</string>
 </resources>
