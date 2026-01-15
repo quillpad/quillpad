@@ -41,6 +41,11 @@ class TasksAdapter(
         holder.bind(task)
     }
 
+    override fun onViewRecycled(holder: TaskViewHolder) {
+        super.onViewRecycled(holder)
+        holder.hideSuggestions()
+    }
+
     fun moveItem(fromPos: Int, toPos: Int) {
         Collections.swap(tasks, fromPos, toPos)
         notifyItemMoved(fromPos, toPos)

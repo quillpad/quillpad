@@ -174,6 +174,7 @@
     <string name="editor_hint_title">Titolo</string>
     <string name="editor_hint_content">Prendi nota!</string>
     <string name="action_add_task">Attività</string>
+    <string name="hint_new_task_item">Elemento</string>
     <string name="action_convert_to_note">Converti in nota</string>
     <string name="action_convert_to_list">Converti in elenco</string>
     <string name="action_do_not_sync">Non sincronizzare</string>
