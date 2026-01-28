@@ -7,12 +7,14 @@ import android.content.Context
 import android.graphics.Color
 import android.text.InputType
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.animation.doOnEnd
 import androidx.core.text.clearSpans
 import androidx.core.text.toSpannable
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.core.widget.TextViewCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +30,9 @@ import org.qosp.notes.ui.utils.hideKeyboard
 import org.qosp.notes.ui.utils.requestFocusAndKeyboard
 import org.qosp.notes.ui.utils.resolveAttribute
 
+private const val INDENTATION_DP_STEP = 36 // Define step size
+private const val MAX_INDENTATION_LEVELS = 1 // Define max levels
+
 class TaskViewHolder(
     private val context: Context,
     private val binding: LayoutTaskBinding,
@@ -38,6 +43,19 @@ class TaskViewHolder(
 
     private var isContentLoaded: Boolean = false
     private var isChecked: Boolean = false
+
+    // New property to store and apply visual indentation level
+    var indentationLevel: Int = 0
+        private set(value) {
+            field = value.coerceIn(0, MAX_INDENTATION_LEVELS)
+            // apply visual change
+            setSpacerWidth(field*dpStep)
+            //binding.indentSpacer.text = field.toString() // debugging
+        }
+
+    var spacerWidth: Float=1f
+    val dpStep = INDENTATION_DP_STEP.dp(context)
+    private var mListener: TaskRecyclerListener?
 
     init {
         with(binding) {
@@ -104,8 +122,20 @@ class TaskViewHolder(
                         else -> false
                     }
                 }
+                // Set click listener for the delete icon
+                taskDeleteIcon.setOnClickListener {
+                    if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                        // Call the deletion method in the fragment via the listener
+                        listener.onTaskDelete(bindingAdapterPosition)
+                    }
+                }
+                // set visibility of delete icon
+                editText.setOnFocusChangeListener { _, hasFocus ->
+                    taskDeleteIcon.visibility = if (hasFocus) View.VISIBLE else View.GONE
+                }
             }
         }
+        mListener = listener
     }
 
     private val colorMaskDrag = context.resolveAttribute(R.attr.colorHighlightMask) ?: Color.TRANSPARENT
@@ -136,6 +166,66 @@ class TaskViewHolder(
                 textView.isEnabled = !isChecked
             }
         }
+    private fun setSpacerWidth(mWidth: Int) {
+        val targetWidth = mWidth.coerceAtLeast(1)
+        //Log.d("TaskViewHolder", "setSpacerWidth: $mWidth")
+        binding.indentSpacer.updateLayoutParams {
+            //width = dp.dp(context)
+            width=targetWidth
+        }
+    }
+
+    /**
+     * Updates the visual indentation during a swipe action based on the raw swipe distance (dX).
+     * This is called repeatedly in ItemTouchHelper.onChildDraw.
+     * @param rawDx The horizontal displacement of the swipe.
+     */
+    fun setVisualIndentation(rawDx: Float) {
+        if (inPreview) return
+        //Log.d("TaskViewHolder", "setVisualIndentation: $rawDx")
+        // Calculate the base width due to current committed indentation level
+        val committedWidth = indentationLevel * dpStep
+
+        // Calculate the temporary visual width (committed + swipe displacement)
+        var newVisualWidth = committedWidth + rawDx
+
+        // Ensure width stays within bounds (0 to max)
+        if (newVisualWidth < 0) newVisualWidth = 0f
+
+        val maxIndentWidth = MAX_INDENTATION_LEVELS * dpStep
+        if (newVisualWidth > maxIndentWidth) newVisualWidth = maxIndentWidth.toFloat()
+        spacerWidth= newVisualWidth
+
+        // Apply the temporary visual width to the spacer
+        setSpacerWidth(spacerWidth.toInt())
+    }
+
+    /**
+     * Commits the indentation change after the swipe gesture is released.
+     */
+    fun commitIndentationChange() {
+        val threshold = dpStep / 2 // Require half a step to change indentation
+        val dx = spacerWidth - (dpStep * indentationLevel)
+
+        var newLevel = indentationLevel
+
+        if (dx > threshold && indentationLevel < MAX_INDENTATION_LEVELS) {
+            newLevel++ // Increase indentation (Swiping Right)
+        } else if (dx < -threshold && indentationLevel > 0) {
+            newLevel-- // Decrease indentation (Swiping Left)
+        }
+
+        val oldLevel = indentationLevel
+
+        // Apply the committed level. This updates the field and the visual spacer.
+        indentationLevel = newLevel
+
+        // Explicitly notify the listener only when committed and changed,
+        // which triggers the model update in EditorFragment.
+        if (newLevel != oldLevel) {
+            mListener?.onTaskIndentationChanged(bindingAdapterPosition, newLevel)
+        }
+    }
 
     private fun setContent(isChecked: Boolean, text: String? = null) = with(binding) {
         // Needed so the textChangedListener does nothing for input not by the user
@@ -174,6 +264,7 @@ class TaskViewHolder(
     fun requestFocus() = binding.editText.requestFocusAndKeyboard()
 
     fun bind(task: NoteTask) {
+        indentationLevel = task.indentationLevel
         setContent(task.isDone, task.content)
     }
 }
