@@ -101,17 +101,20 @@ data class Note(
 
         return content
             .lines()
-            .map { NoteTask(nextId++, it.trim(), false) }
+            .map { NoteTask(nextId++, it.trim(), false, 0) }
     }
 
     fun mdToTaskList(content: String): List<NoteTask> {
-        val regex = Regex("^\\s*[-+*] *\\[([ xX])](.*)$")
+        // Regex captures leading whitespace in group 1
+        val regex = Regex("^(\\s*)[-+*] *\\[([ xX])](.*)$")
         val tasks = mutableListOf<NoteTask>()
         content.lines().forEachIndexed { index, line ->
             val result = regex.find(line)
             val task = result?.let {
-                val checked = it.groupValues[1].lowercase() == "x"
-                NoteTask(id = index.toLong(), content = it.groupValues[2].trim(), isDone = checked)
+                val whitespace = it.groupValues[1]
+                val indentationLevel = if (whitespace.isNotEmpty()) 1 else 0
+                val checked = it.groupValues[2].lowercase() == "x"
+                NoteTask(id = index.toLong(), content = it.groupValues[3].trim(), isDone = checked, indentationLevel)
             } ?: tasks.removeLastOrNull()?.let { t -> t.copy(content = t.content + line.trim()) }
             task?.let { tasks.add(it) }
         }
@@ -127,18 +130,20 @@ data class Note(
 
     fun taskListToMd(): String {
         return taskList.joinToString("\n") {
+            val whiteSpace= " ".repeat(it.indentationLevel*2) //handle indentation
             val prefix = if (it.isDone) "- [x]" else "- [ ]"
-            "$prefix ${it.content.trim()}"
+            "$whiteSpace$prefix ${it.content.trim()}"
         }
     }
 
     fun taskListToString(withCheckmarks: Boolean = false): String {
         return taskList.joinToString("\n") {
+            val whiteSpace = " ".repeat(it.indentationLevel*2) //handle indentation
             val prefix = when {
                 withCheckmarks -> if (it.isDone) "☑ " else "☐ "
                 else -> ""
             }
-            "$prefix${it.content.trim()}"
+            "$whiteSpace$prefix${it.content.trim()}"
         }
     }
 
