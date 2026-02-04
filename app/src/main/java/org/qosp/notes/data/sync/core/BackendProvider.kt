@@ -9,9 +9,13 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import org.qosp.notes.data.sync.fs.StorageBackend
 import org.qosp.notes.data.sync.fs.StorageConfig
+import org.qosp.notes.data.sync.googledrive.GoogleDriveBackend
+import org.qosp.notes.data.sync.googledrive.GoogleDriveConfig
 import org.qosp.notes.data.sync.nextcloud.NextcloudAPIProvider
 import org.qosp.notes.data.sync.nextcloud.NextcloudBackend
 import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
+import org.qosp.notes.data.sync.onedrive.OneDriveBackend
+import org.qosp.notes.data.sync.onedrive.OneDriveConfig
 import org.qosp.notes.di.SyncScope
 import org.qosp.notes.preferences.AppPreferences
 import org.qosp.notes.preferences.CloudService
@@ -32,12 +36,16 @@ class BackendProvider(
     val syncProvider: StateFlow<ISyncBackend?> = combine(
         syncService,
         NextcloudConfig.fromPreferences(preferenceRepository),
-        StorageConfig.storageLocation(preferenceRepository)
-    ) { service, nextcloudConfig, storageConfig ->
+        StorageConfig.storageLocation(preferenceRepository),
+        OneDriveConfig.fromPreferences(preferenceRepository),
+        GoogleDriveConfig.fromPreferences(preferenceRepository)
+    ) { service, nextcloudConfig, storageConfig, oneDriveConfig, googleDriveConfig ->
         when (service) {
             CloudService.DISABLED -> null
             CloudService.NEXTCLOUD -> nextcloudConfig?.let { NextcloudBackend(nextcloudApiProvider, it) }
             CloudService.FILE_STORAGE -> storageConfig?.let { StorageBackend(context, it) }
+            CloudService.ONEDRIVE -> oneDriveConfig?.let { OneDriveBackend(it) }
+            CloudService.GOOGLE_DRIVE -> googleDriveConfig?.let { GoogleDriveBackend(it) }
         }
     }.stateIn(syncingScope, SharingStarted.Eagerly, null)
 
