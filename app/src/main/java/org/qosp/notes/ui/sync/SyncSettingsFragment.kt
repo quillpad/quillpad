@@ -200,7 +200,7 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
         // TODO: Implement OneDrive authentication flow
         Toast.makeText(
             requireContext(),
-            "OneDrive authentication will be implemented in a future update",
+            getString(R.string.message_onedrive_auth_not_implemented),
             Toast.LENGTH_SHORT
         ).show()
     }
@@ -209,7 +209,7 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
         // TODO: Implement Google Drive authentication flow
         Toast.makeText(
             requireContext(),
-            "Google Drive authentication will be implemented in a future update",
+            getString(R.string.message_google_drive_auth_not_implemented),
             Toast.LENGTH_SHORT
         ).show()
     }

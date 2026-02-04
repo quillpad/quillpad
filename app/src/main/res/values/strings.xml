@@ -129,6 +129,8 @@
     <string name="preferences_google_drive_info">Sync your notes with Google Drive. All notes will be stored as Markdown files in a dedicated folder.</string>
     <string name="indicator_onedrive_currently_signed_in_as">Currently signed in as %s</string>
     <string name="indicator_google_drive_currently_signed_in_as">Currently signed in as %s</string>
+    <string name="message_onedrive_auth_not_implemented">OneDrive authentication will be implemented in a future update</string>
+    <string name="message_google_drive_auth_not_implemented">Google Drive authentication will be implemented in a future update</string>
     <string name="preferences_file_storage_info">Select a folder from local storage or from a cloud provider. All notes will be stored as Markdown files.</string>
     <string name="preferences_file_storage_location">Storage location</string>
     <string name="preferences_file_storage_select">Select Storage location</string>

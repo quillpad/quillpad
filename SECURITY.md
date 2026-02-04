@@ -93,7 +93,7 @@ Quillpad is designed with privacy and security in mind:
 
 ## Version History
 
-### v1.5.8+ (Current)
+### v1.5.8 (Current Release)
 - Added certificate pinning for OneDrive and Google Drive
 - Enhanced ProGuard rules with source file obfuscation
 - Disabled automatic Android backups
