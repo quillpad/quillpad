@@ -25,7 +25,7 @@ data class GoogleDriveConfig(
                 refreshToken.flatMapLatest { refresh ->
                     userEmail.map { email ->
                         GoogleDriveConfig(token, refresh, email)
-                            .takeUnless { token.isBlank() or refresh.isBlank() or email.isBlank() }
+                            .takeUnless { token.isBlank() || refresh.isBlank() || email.isBlank() }
                     }
                 }
             }

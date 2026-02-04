@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.net.toUri
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
@@ -197,19 +198,19 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
 
     private fun setupOneDriveAccountListener() = binding.settingOneDriveAccount.setOnClickListener {
         // TODO: Implement OneDrive authentication flow
-        android.widget.Toast.makeText(
+        Toast.makeText(
             requireContext(),
             "OneDrive authentication will be implemented in a future update",
-            android.widget.Toast.LENGTH_SHORT
+            Toast.LENGTH_SHORT
         ).show()
     }
 
     private fun setupGoogleDriveAccountListener() = binding.settingGoogleDriveAccount.setOnClickListener {
         // TODO: Implement Google Drive authentication flow
-        android.widget.Toast.makeText(
+        Toast.makeText(
             requireContext(),
             "Google Drive authentication will be implemented in a future update",
-            android.widget.Toast.LENGTH_SHORT
+            Toast.LENGTH_SHORT
         ).show()
     }
 }
