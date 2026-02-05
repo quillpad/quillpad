@@ -1,4 +1,10 @@
 updates:
+  - id: 6
+    title: Bug Fixes & Translation Updates
+    items:
+      - Fixed issue with indentation not being applied correctly when swiping tasks.
+      - Updated translations for Turkish.
+
   - id: 5
     title: Bug Fixes & Improvements
     items:

@@ -102,15 +102,20 @@ class ActivityViewModel(
         }
     }
 
-    fun archiveNotes(vararg notes: Note) = update(*notes) { it.copy(isArchived = true) }
+    fun archiveNotes(vararg notes: Note) =
+        update(*notes) { it.copy(isArchived = true, modifiedDate = Instant.now().epochSecond) }
 
-    fun unarchiveNotes(vararg notes: Note) = update(*notes) { it.copy(isArchived = false) }
+    fun unarchiveNotes(vararg notes: Note) =
+        update(*notes) { it.copy(isArchived = false, modifiedDate = Instant.now().epochSecond) }
 
-    fun showNotes(vararg notes: Note) = update(*notes) { it.copy(isHidden = false) }
+    fun showNotes(vararg notes: Note) =
+        update(*notes) { it.copy(isHidden = false, modifiedDate = Instant.now().epochSecond) }
 
-    fun hideNotes(vararg notes: Note) = update(*notes) { it.copy(isHidden = true) }
+    fun hideNotes(vararg notes: Note) =
+        update(*notes) { it.copy(isHidden = true, modifiedDate = Instant.now().epochSecond) }
 
-    fun pinNotes(vararg notes: Note) = update(*notes) { it.copy(isPinned = !it.isPinned) }
+    fun pinNotes(vararg notes: Note) =
+        update(*notes) { it.copy(isPinned = !it.isPinned, modifiedDate = Instant.now().epochSecond) }
 
     fun compactPreviewNotes(vararg notes: Note) = update(*notes) { it.copy(isCompactPreview = true) }
 
