@@ -18,8 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:orientation="vertical"
-            android:background="?attr/colorNoteDefault">
+            android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_attachments"
@@ -103,6 +102,7 @@
                 android:layout_marginHorizontal="@dimen/card_note_padding"
                 android:layout_marginTop="6dp"
                 android:visibility="gone"
+                android:ellipsize="end"
                 android:maxLines="12"/>
 
         <androidx.recyclerview.widget.RecyclerView

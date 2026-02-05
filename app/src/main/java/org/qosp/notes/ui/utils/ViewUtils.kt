@@ -83,25 +83,6 @@ fun View.liftAppBarOnScroll(
     }
 }
 
-fun TextView.ellipsize() {
-    viewTreeObserver.addOnGlobalLayoutListener(object :
-            ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                viewTreeObserver.removeOnGlobalLayoutListener(this)
-                val maxLines: Int = maxLines
-                if (layout != null) {
-                    val layout: Layout = layout
-                    if (layout.lineCount > maxLines) {
-                        val end: Int = layout.getLineEnd(maxLines - 1)
-                        setText(text.subSequence(0, end - 3), TextView.BufferType.SPANNABLE)
-                        append("...")
-                    }
-                }
-            }
-        }
-    )
-}
-
 inline fun DrawerLayout.closeAndThen(crossinline block: () -> Unit) {
     addDrawerListener(object : DrawerLayout.DrawerListener {
         override fun onDrawerSlide(drawerView: View, slideOffset: Float) { }
