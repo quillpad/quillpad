@@ -3,6 +3,7 @@ package org.qosp.notes.ui.common.recycler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import io.noties.markwon.Markwon
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.databinding.LayoutNoteBinding
@@ -15,6 +16,9 @@ class NoteRecyclerAdapter(
     private var allItems = listOf<Note>()
     private var visibleItems = listOf<Note>()
     var searchMode: Boolean = false
+
+    private val tasksViewPool = RecyclerView.RecycledViewPool()
+    private val attachmentsViewPool = RecyclerView.RecycledViewPool()
 
     var showHiddenNotes: Boolean = false
         set(value) {
@@ -34,6 +38,8 @@ class NoteRecyclerAdapter(
             context = parent.context,
             searchMode = searchMode,
             markwon = markwon,
+            tasksViewPool = tasksViewPool,
+            attachmentsViewPool = attachmentsViewPool,
         )
     }
 

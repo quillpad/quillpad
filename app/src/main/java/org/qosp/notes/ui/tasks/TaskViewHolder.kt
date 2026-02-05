@@ -22,7 +22,6 @@ import org.qosp.notes.data.model.NoteTask
 import org.qosp.notes.databinding.LayoutTaskBinding
 import org.qosp.notes.ui.utils.applyMask
 import org.qosp.notes.ui.utils.dp
-import org.qosp.notes.ui.utils.ellipsize
 import org.qosp.notes.ui.utils.getDrawableCompat
 import org.qosp.notes.ui.utils.hideKeyboard
 import org.qosp.notes.ui.utils.requestFocusAndKeyboard
@@ -145,7 +144,6 @@ class TaskViewHolder(
         textView.isVisible = inPreview || isChecked || !isEnabled
         setTextViewText(text.toString(), isChecked)
         textView.isEnabled = !isChecked
-        textView.ellipsize()
 
         editText.isVisible = !inPreview && !isChecked && isEnabled
         editText.setText(text)

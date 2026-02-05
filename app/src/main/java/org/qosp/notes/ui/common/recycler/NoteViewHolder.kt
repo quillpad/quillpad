@@ -22,7 +22,6 @@ import org.qosp.notes.ui.attachments.recycler.AttachmentsPreviewGridManager
 import org.qosp.notes.ui.editor.markdown.applyTo
 import org.qosp.notes.ui.tasks.TasksAdapter
 import org.qosp.notes.ui.utils.dp
-import org.qosp.notes.ui.utils.ellipsize
 import org.qosp.notes.ui.utils.resId
 
 class NoteViewHolder(
@@ -31,6 +30,8 @@ class NoteViewHolder(
     private val context: Context,
     private val searchMode: Boolean,
     private val markwon: Markwon,
+    tasksViewPool: RecyclerView.RecycledViewPool,
+    attachmentsViewPool: RecyclerView.RecycledViewPool,
 ) : RecyclerView.ViewHolder(binding.root), SelectableViewHolder {
 
     private val tasksAdapter = TasksAdapter(true, null, markwon)
@@ -43,11 +44,13 @@ class NoteViewHolder(
         binding.recyclerAttachments.apply {
             layoutManager = AttachmentsPreviewGridManager(context, 2)
             adapter = attachmentsAdapter
+            setRecycledViewPool(attachmentsViewPool)
         }
 
         binding.recyclerTasks.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = tasksAdapter
+            setRecycledViewPool(tasksViewPool)
         }
 
         if (listener != null) {
@@ -59,25 +62,34 @@ class NoteViewHolder(
     private fun updateBackgroundColor(color: NoteColor) {
         color.resId(context)?.let { resId ->
             binding.root.setCardBackgroundColor(resId)
-            binding.linearLayout.setBackgroundColor(resId)
         }
     }
 
     private fun updateTags(tags: List<Tag>) {
-        binding.containerTags.removeAllViews()
         binding.containerTags.isVisible = tags.isNotEmpty()
 
-        if (tags.isEmpty()) return
+        if (tags.isEmpty()) {
+            if (binding.containerTags.childCount > 0) binding.containerTags.removeAllViews()
+            return
+        }
 
-        for (tag in tags) {
+        val count = tags.size
+        val needed = if (count > 1) 2 else 1
+
+        // Re-use existing views to avoid unnecessary allocations and layout passes
+        while (binding.containerTags.childCount > needed) {
+            binding.containerTags.removeViewAt(binding.containerTags.childCount - 1)
+        }
+
+        while (binding.containerTags.childCount < needed) {
             val tagView = TextView(ContextThemeWrapper(context, R.style.TagChip))
-            if (binding.containerTags.childCount > 0) {
-                tagView.text = "+${tags.size - binding.containerTags.childCount}"
-                binding.containerTags.addView(tagView)
-                break
-            }
-            tagView.text = "# ${tag.name}"
             binding.containerTags.addView(tagView)
+        }
+
+        (binding.containerTags.getChildAt(0) as TextView).text = "# ${tags[0].name}"
+
+        if (needed > 1) {
+            (binding.containerTags.getChildAt(1) as TextView).text = "+${count - 1}"
         }
     }
 
@@ -111,7 +123,6 @@ class NoteViewHolder(
         }
 
         tasksAdapter.submitList(taskList)
-        textViewContent.ellipsize()
 
         if (note.isMarkdownEnabled && note.content.isNotBlank()) {
             try {
