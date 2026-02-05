@@ -26,6 +26,7 @@ import org.qosp.notes.data.sync.core.SyncNotesResult
 import org.qosp.notes.data.sync.core.SynchronizeNotes
 import org.qosp.notes.data.sync.getMapping
 import org.qosp.notes.data.sync.toLocalNote
+import org.qosp.notes.data.sync.updateLocalNote
 import org.qosp.notes.di.SyncScope
 import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.SortMethod
@@ -98,12 +99,12 @@ class NoteRepositoryImpl(
                     }
 
                     is NoteAction.Update -> {
-                        val localNote = action.remoteNote.toLocalNote(defaultPinned = action.note.isPinned)
+                        val mergedNote = action.remoteNote.updateLocalNote(action.note)
                         val note = if (action.note.isList) {
-                            val tasks = localNote.mdToTaskList(localNote.content)
-                            localNote.copy(id = action.note.id, content = "", taskList = tasks, isList = true)
+                            val tasks = mergedNote.mdToTaskList(mergedNote.content)
+                            mergedNote.copy(content = "", taskList = tasks, isList = true)
                         } else {
-                            localNote.copy(id = action.note.id)
+                            mergedNote
                         }
                         idMappingDao.updateNoteExtras(
                             localId = action.note.id,

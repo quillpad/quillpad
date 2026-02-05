@@ -29,6 +29,13 @@ fun SyncNote.toLocalNote(defaultPinned: Boolean) = Note(
     isMarkdownEnabled = true // Default to Markdown enabled
 )
 
+fun SyncNote.updateLocalNote(localNote: Note) = localNote.copy(
+    title = title,
+    content = content ?: "",
+    isPinned = favorite ?: localNote.isPinned,
+    modifiedDate = lastModified,
+)
+
 fun SyncNote.getMapping(noteId: Long, service: CloudService) = IdMapping(
     localNoteId = noteId,
     remoteNoteId = id,
