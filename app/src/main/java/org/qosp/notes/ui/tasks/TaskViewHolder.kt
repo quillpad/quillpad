@@ -207,17 +207,24 @@ class TaskViewHolder(
         val threshold = dpStep / 2 // Require half a step to change indentation
         val dx = spacerWidth - (dpStep * indentationLevel)
 
-        var newLevel = indentationLevel
-
-        if (dx > threshold && indentationLevel < MAX_INDENTATION_LEVELS) {
-            newLevel++ // Increase indentation (Swiping Right)
-        } else if (dx < -threshold && indentationLevel > 0) {
-            newLevel-- // Decrease indentation (Swiping Left)
+        // Determine the swipe direction change
+        val delta = when {
+            dx > threshold -> 1
+            dx < -threshold -> -1
+            else -> 0
         }
-
         val oldLevel = indentationLevel
 
-        // Apply the committed level. This updates the field and the visual spacer.
+        // Calculate the potential new level, ensuring it stays between 0 and MAX_INDENTATION_LEVELS
+        val constrainedLevel = (indentationLevel + delta).coerceIn(0, MAX_INDENTATION_LEVELS)
+
+        //  first item must have zero indentation
+        val newLevel = if (bindingAdapterPosition == 0) {
+            0
+        } else {
+            constrainedLevel
+        }
+        // apply the committed level. This updates the field and the visual spacer.
         indentationLevel = newLevel
 
         // Explicitly notify the listener only when committed and changed,

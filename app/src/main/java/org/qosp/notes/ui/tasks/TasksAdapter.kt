@@ -86,10 +86,33 @@ class TasksAdapter(
             notifyItemRangeInserted(absoluteAdapterPosition+1, hiddenTasks.size)
             hiddenTasks= mutableListOf()
         }
-        else // add indentation (if necessary) (only applies when moving a single item into a nested list)
-        if (absoluteAdapterPosition+1< itemCount && tasks[absoluteAdapterPosition+1].indentationLevel > 0 ) {
-            tasks[absoluteAdapterPosition].indentationLevel = tasks[absoluteAdapterPosition+1].indentationLevel
-            notifyItemChanged(absoluteAdapterPosition)
+        else {
+            val movedTask = tasks[absoluteAdapterPosition]
+            val originalIndentation = movedTask.indentationLevel
+            var newIndentation = originalIndentation
+
+            // Determine the indentation level of the task below, if it exists
+            val itemBelowIndentation =
+                if (absoluteAdapterPosition + 1 < itemCount) tasks[absoluteAdapterPosition + 1].indentationLevel
+                else 0 // Treat non-existent item (end of list) as unindented
+
+            if (itemBelowIndentation > 0) {
+                // Case 1: Moving into a nested list (inheriting indentation from the item below)
+                newIndentation = itemBelowIndentation
+            } else if (absoluteAdapterPosition == 0) {
+                // Case 2: Moving to the first position (must be top level)
+                newIndentation = 0
+            } else {
+                // Case 3: General move (If not nested under itemBelow, reset to top level)
+                //  If complex hierarchy support is needed: tasks[absoluteAdapterPosition - 1]
+                newIndentation = 0
+            }
+
+            // Apply change and notify only if the indentation level actually changed
+            if (newIndentation != originalIndentation) {
+                movedTask.indentationLevel = newIndentation
+                notifyItemChanged(absoluteAdapterPosition)
+            }
         }
 
     }
