@@ -102,7 +102,6 @@
                 android:layout_marginHorizontal="@dimen/card_note_padding"
                 android:layout_marginTop="6dp"
                 android:visibility="gone"
-                android:ellipsize="end"
                 android:maxLines="12"/>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -10,3 +10,7 @@
 2. Replaced manual ellipsize() with native android:ellipsize="end".
 3. Implemented shared RecycledViewPool for tasks and attachments in NoteRecyclerAdapter.
 4. Optimized updateTags to reuse existing views in ChipGroup.
+
+## 2025-05-22 - [Native ellipsize="end" anti-pattern]
+**Learning:** Replacing a custom manual ellipsization with native android:ellipsize="end" on multi-line TextViews in this codebase caused strange behavior where ellipsis appeared at the start of multiple lines. This might be due to a conflict with Markwon, animateLayoutChanges, or textIsSelectable.
+**Action:** Reverted to manual ellipsization using OnGlobalLayoutListener for multi-line content to ensure visual correctness while maintaining other list optimizations.

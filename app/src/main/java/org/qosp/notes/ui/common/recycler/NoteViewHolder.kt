@@ -22,6 +22,7 @@ import org.qosp.notes.ui.attachments.recycler.AttachmentsPreviewGridManager
 import org.qosp.notes.ui.editor.markdown.applyTo
 import org.qosp.notes.ui.tasks.TasksAdapter
 import org.qosp.notes.ui.utils.dp
+import org.qosp.notes.ui.utils.ellipsize
 import org.qosp.notes.ui.utils.resId
 
 class NoteViewHolder(
@@ -123,6 +124,7 @@ class NoteViewHolder(
         }
 
         tasksAdapter.submitList(taskList)
+        textViewContent.ellipsize()
 
         if (note.isMarkdownEnabled && note.content.isNotBlank()) {
             try {
