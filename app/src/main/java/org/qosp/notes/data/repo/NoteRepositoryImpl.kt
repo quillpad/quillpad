@@ -193,12 +193,16 @@ class NoteRepositoryImpl(
                 syncingScope.launch {
                     val syncableNotes = notes.filterNot { it.isLocalOnly }
                     Log.d(tag, "restoreNotes: Re-syncing ${syncableNotes.size} restored notes to ${syncProvider.type}")
-                    syncableNotes
-                        .associateWith { syncProvider.createNote(it) }
-                        .forEach { (n, syncNote) ->
-                            idMappingDao.insert(syncNote.getMapping(n.id, syncProvider.type))
-                            noteDao.updateLastModified(n.id, syncNote.lastModified)
-                        }
+                    try {
+                        syncableNotes
+                            .associateWith { syncProvider.createNote(it) }
+                            .forEach { (n, syncNote) ->
+                                idMappingDao.insert(syncNote.getMapping(n.id, syncProvider.type))
+                                noteDao.updateLastModified(n.id, syncNote.lastModified)
+                            }
+                    } catch (e: Exception) {
+                        Log.e(tag, "restoreNotes: Error re-syncing restored notes", e)
+                    }
                 }
             }
         }
