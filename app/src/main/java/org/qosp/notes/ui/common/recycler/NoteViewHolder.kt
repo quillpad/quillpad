@@ -1,10 +1,12 @@
 package org.qosp.notes.ui.common.recycler
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.ContextThemeWrapper
 import android.widget.TextView
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
+import androidx.core.view.isNotEmpty
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -66,11 +68,12 @@ class NoteViewHolder(
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateTags(tags: List<Tag>) {
         binding.containerTags.isVisible = tags.isNotEmpty()
 
         if (tags.isEmpty()) {
-            if (binding.containerTags.childCount > 0) binding.containerTags.removeAllViews()
+            if (binding.containerTags.isNotEmpty()) binding.containerTags.removeAllViews()
             return
         }
 
