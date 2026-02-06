@@ -44,13 +44,13 @@ class NoteRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int, payloads: MutableList<Any>) {
-        val payloads = (payloads as MutableList<List<Payload>>).flatten()
+        val flattenedPayloads = payloads.filterIsInstance<List<Payload>>().flatten()
 
-        if (payloads.isEmpty()) {
+        if (flattenedPayloads.isEmpty()) {
             return super.onBindViewHolder(holder, position, payloads)
         }
 
-        holder.runPayloads(getItem(position), payloads.map { it })
+        holder.runPayloads(getItem(position), flattenedPayloads)
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
@@ -83,24 +83,22 @@ class NoteRecyclerAdapter(
             return oldItem == newItem
         }
 
-        override fun getChangePayload(oldItem: Note, newItem: Note): Any {
-            return sequenceOf(
-                Payload.TitleChanged to (oldItem.title != newItem.title),
-                Payload.ContentChanged to (oldItem.content != newItem.content),
-                Payload.PinChanged to (oldItem.isPinned != newItem.isPinned),
-                Payload.MarkdownChanged to (oldItem.isMarkdownEnabled != newItem.isMarkdownEnabled),
-                Payload.HiddenChanged to (oldItem.isHidden != newItem.isHidden),
-                Payload.ColorChanged to (oldItem.color != newItem.color),
-                Payload.ArchivedChanged to (oldItem.isArchived != newItem.isArchived),
-                Payload.DeletedChanged to (oldItem.isDeleted != newItem.isDeleted),
-                Payload.RemindersChanged to (oldItem.reminders != newItem.reminders),
-                Payload.TagsChanged to (oldItem.tags != newItem.tags),
-                Payload.AttachmentsChanged to (oldItem.attachments != newItem.attachments),
-                Payload.TasksChanged to (oldItem.taskList != newItem.taskList),
-            )
-                .filter { (_, condition) -> condition }
-                .map { (payload, _) -> payload }
-                .toList()
+        override fun getChangePayload(oldItem: Note, newItem: Note): Any? {
+            val payloads = mutableListOf<Payload>()
+            if (oldItem.title != newItem.title) payloads.add(Payload.TitleChanged)
+            if (oldItem.content != newItem.content) payloads.add(Payload.ContentChanged)
+            if (oldItem.isPinned != newItem.isPinned) payloads.add(Payload.PinChanged)
+            if (oldItem.isMarkdownEnabled != newItem.isMarkdownEnabled) payloads.add(Payload.MarkdownChanged)
+            if (oldItem.isHidden != newItem.isHidden) payloads.add(Payload.HiddenChanged)
+            if (oldItem.color != newItem.color) payloads.add(Payload.ColorChanged)
+            if (oldItem.isArchived != newItem.isArchived) payloads.add(Payload.ArchivedChanged)
+            if (oldItem.isDeleted != newItem.isDeleted) payloads.add(Payload.DeletedChanged)
+            if (oldItem.reminders != newItem.reminders) payloads.add(Payload.RemindersChanged)
+            if (oldItem.tags != newItem.tags) payloads.add(Payload.TagsChanged)
+            if (oldItem.attachments != newItem.attachments) payloads.add(Payload.AttachmentsChanged)
+            if (oldItem.taskList != newItem.taskList) payloads.add(Payload.TasksChanged)
+
+            return payloads.takeIf { it.isNotEmpty() }
         }
     }
 

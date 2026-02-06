@@ -115,31 +115,38 @@ class NoteViewHolder(
     }
 
     private fun setContent(note: Note) = with(binding) {
-        recyclerTasks.isVisible = note.isList && note.taskList.isNotEmpty() && !note.isCompactPreview
+        val showTasks = note.isList && note.taskList.isNotEmpty() && !note.isCompactPreview
+        val showContent = !note.isList && note.content.isNotEmpty() && !note.isCompactPreview
+
+        recyclerTasks.isVisible = showTasks
         indicatorMoreTasks.isVisible = false
-        textViewContent.isVisible = !note.isList && note.content.isNotEmpty() && !note.isCompactPreview
+        textViewContent.isVisible = showContent
 
-        val taskList = note.taskList.takeIf { it.size <= 8 } ?: note.taskList.subList(0, 8).also {
-            val moreItems = note.taskList.size - 8
+        if (showTasks) {
+            val taskList = note.taskList.takeIf { it.size <= 8 } ?: note.taskList.subList(0, 8).also {
+                val moreItems = note.taskList.size - 8
 
-            indicatorMoreTasks.isVisible = !note.isCompactPreview
-            indicatorMoreTasks.text = context.resources.getQuantityString(R.plurals.more_items, moreItems, moreItems)
+                indicatorMoreTasks.isVisible = true
+                indicatorMoreTasks.text = context.resources.getQuantityString(R.plurals.more_items, moreItems, moreItems)
+            }
+            tasksAdapter.submitList(taskList)
         }
 
-        tasksAdapter.submitList(taskList)
-        textViewContent.ellipsize()
+        if (showContent) {
+            textViewContent.ellipsize()
 
-        if (note.isMarkdownEnabled && note.content.isNotBlank()) {
-            try {
-                markwon.applyTo(textViewContent, note.content) {
-                    maximumTableColumns = 4
-                    tableReplacement = { Code(context.getString(R.string.message_cannot_preview_table)) }
+            if (note.isMarkdownEnabled && note.content.isNotBlank()) {
+                try {
+                    markwon.applyTo(textViewContent, note.content) {
+                        maximumTableColumns = 4
+                        tableReplacement = { Code(context.getString(R.string.message_cannot_preview_table)) }
+                    }
+                } catch (e: Throwable) {
+                    textViewContent.text = ""
                 }
-            } catch(e: Throwable) {
-                textViewContent.text = ""
+            } else {
+                textViewContent.text = note.content
             }
-        } else {
-            textViewContent.text = note.content
         }
     }
 
