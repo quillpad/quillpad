@@ -64,7 +64,7 @@
     <string name="preferences_cloud_service">Servicio de sincronización</string>
     <string name="preferences_cloud_service_disabled">Deshabilitado</string>
     <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_nextcloud_limited_features">Recuerda que las Nextcloud Notes no soporta etiquetas, adjuntos, recordatorios, listas de tareas y más.</string>
+    <string name="preferences_nextcloud_limited_features">Recuerda que Nextcloud Notes no soporta etiquetas, adjuntos, recordatorios, listas de tareas y más. Nextcloud Notes necesita ser instalado en Nextcloud Server o el inicio de sesión fallará con Algo salió mal!</string>
     <string name="preferences_nextcloud_account">Cuenta Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">URL de la instancia Nextcloud</string>
     <string name="preferences_nextcloud_set_your_credentials">Introduce tus credenciales</string>
@@ -85,7 +85,7 @@
     <string name="about_developer">Desarrollador</string>
     <string name="about_contribute">Contribuye</string>
     <string name="about_support">Soporte</string>
-    <string name="about_support_subtext">Crear y mantener proyectos de código abierto consume tiempo y no está retribuido.\n¡Invita a los desarrolladores a una cerveza!</string>
+    <string name="about_support_subtext">Crear y mantener proyectos de código abierto consume tiempo y no es retribuido.\n¡Invita un café a los desarrollores!</string>
     <string name="about_libraries">Librerías</string>
     <string name="about_libraries_subtext">Ver librerías y licencias de terceros.</string>
     <!-- General -->
@@ -207,7 +207,7 @@
     <string name="hint_hyperlink_url">URL</string>
     <string name="hint_number_columns">Número de columnas</string>
     <string name="hint_number_rows">Número de filas</string>
-    <string name="message_cannot_preview_table">Cannot preview table.</string>
+    <string name="message_cannot_preview_table">No se puede previsualizar la tabla.</string>
     <!-- Backup / Restore -->
     <string name="notification_backing_up">Creando copia de seguridad de tus notas…</string>
     <string name="notification_backup_complete">¡Copia de seguridad completada!</string>
@@ -241,22 +241,22 @@
     <string name="never">Nunca</string>
     <plurals name="more_items">
         <item quantity="one">+%d elemento</item>
-        <item quantity="many"/>
+        <item quantity="many">+%d elementos</item>
         <item quantity="other">+%d elementos</item>
     </plurals>
     <plurals name="selected_notes">
         <item quantity="one">%d nota seleccionada</item>
-        <item quantity="many"/>
+        <item quantity="many">%d notas seleccionadas</item>
         <item quantity="other">%d notas seleccionadas</item>
     </plurals>
     <plurals name="selected_notebooks">
         <item quantity="one">%d libreta seleccionada</item>
-        <item quantity="many"/>
+        <item quantity="many">%d libretas seleccionadas</item>
         <item quantity="other">%d libretas seleccionadas</item>
     </plurals>
     <plurals name="selected_tags">
         <item quantity="one">%d etiqueta seleccionada</item>
-        <item quantity="many"/>
+        <item quantity="many">%d etiquetas seleccionadas</item>
         <item quantity="other">%d etiquetas seleccionadas</item>
     </plurals>
     <string name="preferences_cloud_service_files">Almacenamiento de archivos</string>
@@ -272,4 +272,29 @@
     <string name="preferences_header_view_navdrawer">Panel de navegación</string>
     <string name="preferences_sort_navdrawer_method">Ordenar cuadernos por</string>
     <string name="action_uncheck_all_tasks">Desmarcar todos los elementos</string>
+    <string name="preferences_font_size_default">Predeterminado</string>
+    <string name="about_send_logs">Enviar logs de error</string>
+    <string name="about_send_logs_subtext">Enviar logs al desarrollador de la app para investigación</string>
+    <string name="action_enable_screen_always_on">Habilitar Pantalla siempre activa</string>
+    <string name="action_disable_screen_always_on">Deshabilitar pantalla siempre activa</string>
+    <string name="action_new_note">Nueva nota</string>
+    <string name="note_untitled">Sin Título</string>
+    <string name="tasks">tareas</string>
+    <string name="preferences_header_view_notebook">Libreta</string>
+    <string name="preferences_top_bar">Barra superior</string>
+    <string name="preferences_default_editor_mode_edit">Modo de edición</string>
+    <string name="widget_description">Mostrar tus notas recientes en la pantalla de inicio</string>
+    <string name="preferences_header_view_note_content">Contenido</string>
+    <string name="preferences_default_editor_mode">Modo de edición predeterminado</string>
+    <string name="widget_no_pinned_notes">Ninguna nota anclada. Anclar una nota para verla aquí.</string>
+    <string name="preferences_default_editor_mode_view">Modo de vista</string>
+    <string name="action_change_mode">Modo Vista/Edición</string>
+    <string name="action_screen_always_on">Pantalla siempre activa</string>
+    <string name="message_notes_not_installed">La aplicación de Notas no está instalada en tu Nextcloud.</string>
+    <string name="preferences_font_size">Tamaño de fuente de texto</string>
+    <string name="preferences_show_fab_change_mode">Posición del botón de Edición/Vista de nota</string>
+    <string name="preferences_fab">Botón flotante</string>
+    <string name="preferences_trust_self_signed_certificate">Confiar en certificado autofirmado</string>
+    <string name="message_certificates_invalid">Error del certificado. Por favor, habilitar \"Confiar en certificado autofirmado\" para continuar..</string>
+    <string name="preferences_move_checked_items">Mover elementos seleccionados en las listas</string>
 </resources>
