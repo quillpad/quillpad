@@ -125,9 +125,12 @@ class NoteViewHolder(
         if (showTasks) {
             val taskList = note.taskList.takeIf { it.size <= 8 } ?: note.taskList.subList(0, 8).also {
                 val moreItems = note.taskList.size - 8
-
-                indicatorMoreTasks.isVisible = true
-                indicatorMoreTasks.text = context.resources.getQuantityString(R.plurals.more_items, moreItems, moreItems)
+                val showMoreIndicator = moreItems > 0
+                indicatorMoreTasks.isVisible = showMoreIndicator
+                if (showMoreIndicator) {
+                    indicatorMoreTasks.text =
+                        context.resources.getQuantityString(R.plurals.more_items, moreItems, moreItems)
+                }
             }
             tasksAdapter.submitList(taskList)
         }
@@ -178,26 +181,31 @@ class NoteViewHolder(
                     note,
                     note.reminders.isNotEmpty()
                 )
+
                 NoteRecyclerAdapter.Payload.MarkdownChanged -> setContent(note)
                 NoteRecyclerAdapter.Payload.HiddenChanged -> updateIndicatorIcons(
                     note,
                     note.reminders.isNotEmpty()
                 )
+
                 NoteRecyclerAdapter.Payload.ColorChanged -> updateBackgroundColor(note.color)
                 NoteRecyclerAdapter.Payload.ArchivedChanged -> updateIndicatorIcons(
                     note,
                     note.reminders.isNotEmpty()
                 )
+
                 NoteRecyclerAdapter.Payload.DeletedChanged -> updateIndicatorIcons(
                     note,
                     note.reminders.isNotEmpty()
                 )
+
                 NoteRecyclerAdapter.Payload.AttachmentsChanged -> setupAttachments(note.attachments)
                 NoteRecyclerAdapter.Payload.TagsChanged -> updateTags(note.tags)
                 NoteRecyclerAdapter.Payload.RemindersChanged -> updateIndicatorIcons(
                     note,
                     note.reminders.isNotEmpty()
                 )
+
                 NoteRecyclerAdapter.Payload.TasksChanged -> setContent(note)
             }
         }
