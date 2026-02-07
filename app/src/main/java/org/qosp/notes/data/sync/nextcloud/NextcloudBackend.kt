@@ -4,6 +4,7 @@ import android.util.Log
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.sync.asSyncNote
+import org.qosp.notes.data.sync.core.AvailabilityStatus
 import org.qosp.notes.data.sync.core.ISyncBackend
 import org.qosp.notes.data.sync.core.SyncNote
 import org.qosp.notes.data.sync.nextcloud.model.asNextcloudNote
@@ -16,6 +17,33 @@ class NextcloudBackend(
 
     private val tag = javaClass.simpleName
     override val type: CloudService = CloudService.NEXTCLOUD
+
+    override suspend fun isAvailable(): AvailabilityStatus {
+        return try {
+            val api = apiProvider.getAPI()
+            val capabilities = api.getNotesCapabilities(config)
+            if (capabilities != null) {
+                AvailabilityStatus.Available
+            } else {
+                AvailabilityStatus.Unavailable("Nextcloud Notes API not available")
+            }
+        } catch (e: java.net.UnknownHostException) {
+            AvailabilityStatus.Unavailable("Cannot reach Nextcloud server: ${config.remoteAddress}")
+        } catch (e: java.net.SocketTimeoutException) {
+            AvailabilityStatus.Unavailable("Connection to Nextcloud timed out")
+        } catch (e: javax.net.ssl.SSLException) {
+            AvailabilityStatus.Unavailable("SSL certificate error - enable 'Trust self-signed certificate' if needed")
+        } catch (e: retrofit2.HttpException) {
+            when (e.code()) {
+                401 -> AvailabilityStatus.Unavailable("Invalid credentials for Nextcloud")
+                403 -> AvailabilityStatus.Unavailable("Access denied to Nextcloud")
+                503 -> AvailabilityStatus.Unavailable("Nextcloud server is temporarily unavailable")
+                else -> AvailabilityStatus.Unavailable("Nextcloud error: HTTP ${e.code()}")
+            }
+        } catch (e: Exception) {
+            AvailabilityStatus.Unavailable("Cannot connect to Nextcloud: ${e.message ?: "Unknown error"}")
+        }
+    }
 
     override suspend fun createNote(note: Note): SyncNote {
         Log.d(tag, "createNote() called with: note = ${note.title}")

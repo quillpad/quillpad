@@ -50,6 +50,19 @@ class ProcessRemoteActions(
                 // Add debounce delay to allow for batching of rapid operations
                 delay(Config.RemoteUpdateDebounceTime)
 
+                // Check backend availability before processing
+                val syncProvider = backendProvider.syncProvider.value ?: return@launch
+                when (val status = syncProvider.isAvailable()) {
+                    is AvailabilityStatus.Available -> { /* Continue */
+                    }
+
+                    is AvailabilityStatus.Unavailable -> {
+                        Log.w(tag, "Backend unavailable for remote operation: ${status.reason}")
+                        toaster.showLong(status.reason)
+                        return@launch
+                    }
+                }
+
                 // Get the latest operation for this noteId
                 var latestAction = operationQueue.remove(noteId)
                 while (latestAction != null) {
