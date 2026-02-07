@@ -44,13 +44,28 @@ class NoteRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int, payloads: MutableList<Any>) {
-        val flattenedPayloads = payloads.filterIsInstance<List<Payload>>().flatten()
-
-        if (flattenedPayloads.isEmpty()) {
+        if (payloads.isEmpty()) {
             return super.onBindViewHolder(holder, position, payloads)
         }
 
-        holder.runPayloads(getItem(position), flattenedPayloads)
+        val note = getItem(position)
+        val combinedPayloads = mutableSetOf<Payload>()
+
+        for (payload in payloads) {
+            if (payload is List<*>) {
+                for (item in payload) {
+                    if (item is Payload) {
+                        combinedPayloads.add(item)
+                    }
+                }
+            }
+        }
+
+        if (combinedPayloads.isEmpty()) {
+            super.onBindViewHolder(holder, position, payloads)
+        } else {
+            holder.runPayloads(note, combinedPayloads)
+        }
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
