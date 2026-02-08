@@ -86,7 +86,7 @@ class StorageBackend(private val context: Context, private val config: StorageCo
         id = 0,
         idStr = file.uri.toString(),
         content = readFileContent(file),
-        title = getTitleFromUri(file.uri),
+        title = getTitle(file),
         lastModified = file.lastModified() / 1000, // Milliseconds to seconds
     )
 
@@ -149,13 +149,14 @@ class StorageBackend(private val context: Context, private val config: StorageCo
         return context.contentResolver.openInputStream(file.uri)?.use { it.bufferedReader().readText() }
     }
 
-    private fun getTitleFromUri(uri: Uri): String {
-        val fileName = uri.lastPathSegment?.substringAfterLast('/') ?: ""
-        return when {
-            fileName.endsWith(".md") -> fileName.removeSuffix(".md")
-            fileName.endsWith(".txt") -> fileName.removeSuffix(".txt")
+    private fun getTitle(file: DocumentFile): String {
+        val fileName = file.name ?: file.uri.lastPathSegment?.substringAfterLast('/') ?: ""
+        val baseName = when {
+            fileName.endsWith(".md", ignoreCase = true) -> fileName.removeSuffix(".md")
+            fileName.endsWith(".txt", ignoreCase = true) -> fileName.removeSuffix(".txt")
             else -> fileName
         }
+        return baseName
     }
 
     private fun renameFile(file: DocumentFile, newName: String, root: DocumentFile): String {

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -32,6 +33,7 @@ import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.preferences.ShowDate
 import org.qosp.notes.preferences.ShowFabChangeMode
 import org.qosp.notes.preferences.TimeFormat
+import kotlin.jvm.Volatile
 import java.time.Instant
 
 class EditorViewModel(
@@ -44,6 +46,9 @@ class EditorViewModel(
     var isNotInitialized = true
     var moveCheckedItems: Boolean = true
     private val noteIdFlow: MutableStateFlow<Long?> = MutableStateFlow(null)
+    @Volatile
+    private var pendingSync = false
+    private var lastUpdateJob: Job? = null
     var selectedRange = 0 to 0
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -99,6 +104,7 @@ class EditorViewModel(
                         attachments = newNoteAttachments,
                         isLocalOnly = preferenceRepository.get<NewNotesSyncable>().first() == NewNotesSyncable.NO
                     ),
+                    sync = false // delay syncing until the user finishes editing
                 )
             }
 
@@ -172,10 +178,24 @@ class EditorViewModel(
     }
 
     private inline fun update(crossinline transform: suspend (Note) -> Note) {
-        viewModelScope.launch(Dispatchers.IO) {
+        lastUpdateJob = viewModelScope.launch(Dispatchers.IO) {
             val note = data.value.note ?: return@launch
             val new = transform(note)
-            noteRepository.updateNotes(new)
+            noteRepository.updateNotes(new, sync = false)
+            pendingSync = true
+        }
+    }
+
+    fun syncPendingChanges() {
+        viewModelScope.launch(Dispatchers.IO) {
+            lastUpdateJob?.join()
+            if (!pendingSync) return@launch
+
+            val id = noteIdFlow.value ?: data.value.note?.id ?: return@launch
+            val latest = noteRepository.getById(id).first() ?: return@launch
+
+            noteRepository.updateNotes(latest, sync = true)
+            pendingSync = false
         }
     }
 
