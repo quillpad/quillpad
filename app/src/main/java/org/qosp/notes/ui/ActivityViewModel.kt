@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -50,7 +49,6 @@ class ActivityViewModel(
     private val toaster: Toaster,
 ) : ViewModel() {
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     val notebooks: StateFlow<Pair<Boolean, List<Notebook>>> =
         preferenceRepository.get<GroupNotesWithoutNotebook>().flatMapLatest { groupNotesWithoutNotebook ->
             notebookRepository.getAll().map { notebooks ->

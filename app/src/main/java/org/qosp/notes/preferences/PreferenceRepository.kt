@@ -4,7 +4,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import com.tfcporciuncula.flow.FlowSharedPreferences
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -13,7 +12,6 @@ import me.msoul.datastore.getEnum
 import me.msoul.datastore.setEnum
 import java.io.IOException
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class PreferenceRepository(
     val dataStore: DataStore<Preferences>,
     private val sharedPreferences: FlowSharedPreferences

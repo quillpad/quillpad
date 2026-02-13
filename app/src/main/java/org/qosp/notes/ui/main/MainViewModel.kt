@@ -1,7 +1,6 @@
 package org.qosp.notes.ui.main
 
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapLatest
@@ -23,7 +22,6 @@ class MainViewModel(
 
     private val notebookIdFlow: MutableStateFlow<Long?> = MutableStateFlow(null)
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     override val provideNotes = { sortMethod: SortMethod ->
         notebookIdFlow.flatMapLatest { id ->
             when (id) {
