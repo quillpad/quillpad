@@ -1,6 +1,8 @@
 package org.qosp.notes.data.sync.nextcloud
 
 import android.util.Log
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.sync.asSyncNote
@@ -9,17 +11,28 @@ import org.qosp.notes.data.sync.core.ISyncBackend
 import org.qosp.notes.data.sync.core.SyncNote
 import org.qosp.notes.data.sync.nextcloud.model.asNextcloudNote
 import org.qosp.notes.preferences.CloudService
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.TimeSource
 
 class NextcloudBackend(
     private val apiProvider: NextcloudAPIProvider,
-    private val config: NextcloudConfig
+    private val config: NextcloudConfig,
+    private val timeSource: TimeSource = TimeSource.Monotonic
 ) : ISyncBackend {
 
     private val tag = javaClass.simpleName
     override val type: CloudService = CloudService.NEXTCLOUD
+    private val cacheExpiration = 30.seconds
 
-    override suspend fun isAvailable(): AvailabilityStatus {
-        return try {
+    private var cachedStatus: AvailabilityStatus? = null
+    private var cacheExpTime = timeSource.markNow()
+    private val mutex = Mutex()
+
+    override suspend fun isAvailable(): AvailabilityStatus = mutex.withLock {
+        if (cachedStatus != null && !cacheExpTime.hasPassedNow()) {
+            return@withLock cachedStatus!!
+        }
+        val status = try {
             val api = apiProvider.getAPI()
             val capabilities = api.getNotesCapabilities(config)
             if (capabilities != null) {
@@ -43,6 +56,10 @@ class NextcloudBackend(
         } catch (e: Exception) {
             AvailabilityStatus.Unavailable("Cannot connect to Nextcloud: ${e.message ?: "Unknown error"}")
         }
+
+        cachedStatus = status
+        cacheExpTime = timeSource.markNow() + cacheExpiration
+        return@withLock status
     }
 
     override suspend fun createNote(note: Note): SyncNote {

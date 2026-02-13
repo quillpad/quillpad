@@ -29,12 +29,12 @@ jobs:
         build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
         build-scan-terms-of-use-agree: "yes"
 
-    - name: Generate Debug build
+    - name: Check compilation and test
       run: |
         chmod +x gradlew
         ./gradlew \
           "-Porg.gradle.jvmargs=-XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" \
-          assembleDebug
+          compileDebugSources test
 
     - name: Archive APK
       uses: actions/upload-artifact@v4
