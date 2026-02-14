@@ -1,29 +1,33 @@
 ## Hello!
-I have created this fork that adds extra color options for notes, as I recently migrated from Google Keep to Quillpad and found the available options lacking for me..
+I have found the available color options in the app lacking for me...
 
-These are all the color options listed in order as they appear like in the app, I tried to make them as similar to the 12 colors available in Google Keep:
-- **DEFAULT** (White and Black) -- ![#1C1C1C](https://placehold.co/15x15/1C1C1C/1C1C1C.png) `#1C1C1C`
-- **RED** -- ![#761725](https://placehold.co/15x15/761725/761725.png) `#761725`
-- **ORANGE** -- ![#693618](https://placehold.co/15x15/693618/693618.png) `#693618`
-- **YELLOW** -- ![#7C5603](https://placehold.co/15x15/7C5603/7C5603.png) `#7C5603`
-- **GREEN** -- ![#264D3B](https://placehold.co/15x15/264D3B/264D3B.png) `#264D3B`
-- **TEAL** -- ![#0C635D](https://placehold.co/15x15/0C635D/0C635D.png) `#0C635D`
-- **CYAN** -- ![#2B7489](https://placehold.co/15x15/2B7489/2B7489.png) `#2B7489`
-- **BLUE** -- ![#274255](https://placehold.co/15x15/274255/274255.png) `#274255`
-- **PURPLE** -- ![#482E5B](https://placehold.co/15x15/482E5B/482E5B.png) `#482E5B`
-- **PINK** -- ![#6D394F](https://placehold.co/15x15/6D394F/6D394F.png) `#6D394F`
-- **BROWN** -- ![#4B443A](https://placehold.co/15x15/4B443A/4B443A.png) `#4B443A`
-- **GRAY** -- ![#383A41](https://placehold.co/15x15/383A41/383A41.png) `#383A41`
+So I created this fork that adds extra colors for notes, and expands on the existing ones making them more vibrant. 
+
+I tried to base them off the 12 colors available in Google Keep, as that's what i used before migrating to Quillpad.
+
+These are all the colors listed in order as they appear like in the app:
+- **DEFAULT** -- ![FFFFFF](https://placehold.co/15x15/FFFFFF/FFFFFF.png) `#FFFFFF` // ![#1C1C1C](https://placehold.co/15x15/1C1C1C/1C1C1C.png) `#1C1C1C`
+- **RED** -- ![EF9A9A](https://placehold.co/15x15/EF9A9A/EF9A9A.png) `#EF9A9A` // ![#761725](https://placehold.co/15x15/761725/761725.png) `#761725`
+- **ORANGE** -- ![F29F75](https://placehold.co/15x15/F29F75/F29F75.png) `#F29F75` // ![#693618](https://placehold.co/15x15/693618/693618.png) `#693618`
+- **YELLOW** -- ![FFF59D](https://placehold.co/15x15/FFF59D/FFF59D.png) `#FFF59D` // ![#7C5603](https://placehold.co/15x15/7C5603/7C5603.png) `#7C5603`
+- **GREEN** -- ![C5E1A5](https://placehold.co/15x15/C5E1A5/C5E1A5.png) `#C5E1A5` // ![#264D3B](https://placehold.co/15x15/264D3B/264D3B.png) `#264D3B`
+- **TEAL** -- ![B4DED3](https://placehold.co/15x15/B4DED3/B4DED3.png) `#B4DED3` // ![#0C635D](https://placehold.co/15x15/0C635D/0C635D.png) `#0C635D`
+- **CYAN** -- ![8CC9DB](https://placehold.co/15x15/8CC9DB/8CC9DB.png) `#8CC9DB` // ![#2B7489](https://placehold.co/15x15/2B7489/2B7489.png) `#2B7489`
+- **BLUE** -- ![AFCCDC](https://placehold.co/15x15/AFCCDC/AFCCDC.png) `#AFCCDC` // ![#274255](https://placehold.co/15x15/274255/274255.png) `#274255`
+- **PURPLE** -- ![C8AED2](https://placehold.co/15x15/C8AED2/C8AED2.png) `#C8AED2` // ![#482E5B](https://placehold.co/15x15/482E5B/482E5B.png) `#482E5B`
+- **PINK** -- ![F9BED2](https://placehold.co/15x15/F9BED2/F9BED2.png) `#F9BED2` // ![#6D394F](https://placehold.co/15x15/6D394F/6D394F.png) `#6D394F`
+- **BROWN** -- ![BEB6AB](https://placehold.co/15x15/BEB6AB/BEB6AB.png) `#BEB6AB` // ![#4B443A](https://placehold.co/15x15/4B443A/4B443A.png) `#4B443A`
+- **GRAY** -- ![B8BAC1](https://placehold.co/15x15/B8BAC1/B8BAC1.png) `#B8BAC1` // ![#383A41](https://placehold.co/15x15/383A41/383A41.png) `#383A41`
 
 I have also added two new themes for the app:
-- **BLUE**
-- **RED** -- NEW!
-- **YELLOW** -- NEW!
-- **GREEN**
-- **PINK**
-- **ORANGE**
-- **PURPLE**
-- **SYSTEM**
+- **BLUE**  -- ![2196F3](https://placehold.co/15x15/2196F3/2196F3.png) `#2196F3` // ![#90CAF9](https://placehold.co/15x15/90CAF9/90CAF9.png) `#90CAF9`
+- **RED** -- ![EA4235](https://placehold.co/15x15/EA4235/EA4235.png) `#EA4235` // ![#EE6E63](https://placehold.co/15x15/EE6E63/EE6E63.png) `#EE6E63` -- 🔸***NEW!***
+- **YELLOW** -- ![FBBC04](https://placehold.co/15x15/FBBC04/FBBC04.png) `#FBBC04` // ![#FCCF4F](https://placehold.co/15x15/FCCF4F/FCCF4F.png) `#FCCF4F` -- 🔸***NEW!***
+- **GREEN**  -- ![7CB342](https://placehold.co/15x15/7CB342/7CB342.png) `#7CB342` // ![#C5E1A5](https://placehold.co/15x15/C5E1A5/C5E1A5.png) `#C5E1A5`
+- **PINK**  -- ![C2185B](https://placehold.co/15x15/C2185B/C2185B.png) `#C2185B` // ![#F48FB1](https://placehold.co/15x15/F48FB1/F48FB1.png) `#F48FB1`
+- **ORANGE**  -- ![E47400](https://placehold.co/15x15/E47400/E47400.png) `#E47400` // ![#FFCC80](https://placehold.co/15x15/FFCC80/FFCC80.png) `#FFCC80`
+- **PURPLE**  -- ![8249E8](https://placehold.co/15x15/8249E8/8249E8.png) `#8249E8` // ![#B39DDB](https://placehold.co/15x15/B39DDB/B39DDB.png) `#B39DDB`
+- **SYSTEM**  -- ![FFFFFF](https://placehold.co/15x15/FFFFFF/FFFFFF.png) `#FFFFFF` // ![#1C1C1C](https://placehold.co/15x15/1C1C1C/1C1C1C.png) `#1C1C1C`
 
 <br>
 <img width="150" alt="photo_1" src="https://github.com/user-attachments/assets/68785633-f97a-4368-9810-a7be57262683" />
@@ -33,7 +37,7 @@ I have also added two new themes for the app:
 <br>
 <br>
 
-*(This edit was performed and tested in Android Studio)*
+*(This fork was made and tested in Android Studio)*
 <br>
 <br>
 <br>
