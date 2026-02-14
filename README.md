@@ -27,7 +27,6 @@ I have also added two new themes for the app:
 - **PINK**  -- ![C2185B](https://placehold.co/15x15/C2185B/C2185B.png) `#C2185B` // ![#F48FB1](https://placehold.co/15x15/F48FB1/F48FB1.png) `#F48FB1`
 - **ORANGE**  -- ![E47400](https://placehold.co/15x15/E47400/E47400.png) `#E47400` // ![#FFCC80](https://placehold.co/15x15/FFCC80/FFCC80.png) `#FFCC80`
 - **PURPLE**  -- ![8249E8](https://placehold.co/15x15/8249E8/8249E8.png) `#8249E8` // ![#B39DDB](https://placehold.co/15x15/B39DDB/B39DDB.png) `#B39DDB`
-- **SYSTEM**  -- ![FFFFFF](https://placehold.co/15x15/FFFFFF/FFFFFF.png) `#FFFFFF` // ![#1C1C1C](https://placehold.co/15x15/1C1C1C/1C1C1C.png) `#1C1C1C`
 
 <br>
 <img width="150" alt="photo_1" src="https://github.com/user-attachments/assets/68785633-f97a-4368-9810-a7be57262683" />
