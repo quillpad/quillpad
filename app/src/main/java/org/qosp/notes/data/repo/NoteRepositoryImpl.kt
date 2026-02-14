@@ -11,6 +11,7 @@ import org.qosp.notes.data.dao.ReminderDao
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.model.NoteEntity
+import org.qosp.notes.data.sync.core.AvailabilityStatus
 import org.qosp.notes.data.sync.core.BackendProvider
 import org.qosp.notes.data.sync.core.BaseResult
 import org.qosp.notes.data.sync.core.GenericError
@@ -26,9 +27,11 @@ import org.qosp.notes.data.sync.core.SyncNotesResult
 import org.qosp.notes.data.sync.core.SynchronizeNotes
 import org.qosp.notes.data.sync.getMapping
 import org.qosp.notes.data.sync.toLocalNote
+import org.qosp.notes.data.sync.updateLocalNote
 import org.qosp.notes.di.SyncScope
 import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.SortMethod
+import org.qosp.notes.ui.utils.Toaster
 import java.time.Instant
 
 class NoteRepositoryImpl(
@@ -38,7 +41,8 @@ class NoteRepositoryImpl(
     private val backendProvider: BackendProvider,
     private val synchronizeNotes: SynchronizeNotes,
     private val processRemoteActions: ProcessRemoteActions,
-    private val syncingScope: SyncScope
+    private val syncingScope: SyncScope,
+    private val toaster: Toaster
 ) : NoteRepository {
 
     private val tag = NoteRepositoryImpl::class.java.simpleName
@@ -57,6 +61,20 @@ class NoteRepositoryImpl(
             Log.i(tag, "syncNotes: Sync not available or disabled")
             return Success
         }
+
+        // Check backend availability before proceeding
+        when (val status = syncProvider.isAvailable()) {
+            is AvailabilityStatus.Available -> {
+                Log.d(tag, "syncNotes: Backend is available")
+            }
+
+            is AvailabilityStatus.Unavailable -> {
+                Log.w(tag, "syncNotes: Backend unavailable - ${status.reason}")
+                toaster.showLong(status.reason)
+                return GenericError(status.reason)
+            }
+        }
+
         val syncMethod =
             if (idMappingDao.getCountByCloudService(syncProvider.type) == 0)
                 SyncMethod.TITLE else SyncMethod.MAPPING
@@ -98,12 +116,12 @@ class NoteRepositoryImpl(
                     }
 
                     is NoteAction.Update -> {
-                        val localNote = action.remoteNote.toLocalNote(defaultPinned = action.note.isPinned)
+                        val mergedNote = action.remoteNote.updateLocalNote(action.note)
                         val note = if (action.note.isList) {
-                            val tasks = localNote.mdToTaskList(localNote.content)
-                            localNote.copy(id = action.note.id, content = "", taskList = tasks, isList = true)
+                            val tasks = mergedNote.mdToTaskList(mergedNote.content)
+                            mergedNote.copy(content = "", taskList = tasks, isList = true)
                         } else {
-                            localNote.copy(id = action.note.id)
+                            mergedNote
                         }
                         idMappingDao.updateNoteExtras(
                             localId = action.note.id,
@@ -192,12 +210,16 @@ class NoteRepositoryImpl(
                 syncingScope.launch {
                     val syncableNotes = notes.filterNot { it.isLocalOnly }
                     Log.d(tag, "restoreNotes: Re-syncing ${syncableNotes.size} restored notes to ${syncProvider.type}")
-                    syncableNotes
-                        .associateWith { syncProvider.createNote(it) }
-                        .forEach { (n, syncNote) ->
-                            idMappingDao.insert(syncNote.getMapping(n.id, syncProvider.type))
-                            noteDao.updateLastModified(n.id, syncNote.lastModified)
-                        }
+                    try {
+                        syncableNotes
+                            .associateWith { syncProvider.createNote(it) }
+                            .forEach { (n, syncNote) ->
+                                idMappingDao.insert(syncNote.getMapping(n.id, syncProvider.type))
+                                noteDao.updateLastModified(n.id, syncNote.lastModified)
+                            }
+                    } catch (e: Exception) {
+                        Log.e(tag, "restoreNotes: Error re-syncing restored notes", e)
+                    }
                 }
             }
         }

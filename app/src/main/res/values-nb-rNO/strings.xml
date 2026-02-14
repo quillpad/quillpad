@@ -16,7 +16,7 @@
     <string name="preferences_theme_mode_dark">Mørk</string>
     <string name="preferences_theme_mode_light">Lys</string>
     <string name="preferences_theme_mode_system">System</string>
-    <string name="preferences_dark_theme_mode">Mørkt draktvalg</string>
+    <string name="preferences_dark_theme_mode">Mørkt tema</string>
     <string name="preferences_theme_dark_mode_standard">Forvalg</string>
     <string name="preferences_theme_dark_mode_black">Svart</string>
     <string name="preferences_header_view">Visning</string>
@@ -267,4 +267,13 @@
     <string name="preferences_sort_tags_method">Sorter tagger etter</string>
     <string name="preferences_header_view_navdrawer">Navigasjonsskuff</string>
     <string name="preferences_sort_navdrawer_method">Sorter notatbøker etter</string>
+    <string name="preferences_header_view_notebook">Notatblokk</string>
+    <string name="preferences_header_view_note_content">Notatinnhold</string>
+    <string name="preferences_font_size_default">Standard</string>
+    <string name="preferences_default_editor_mode_view">Visningsmodus</string>
+    <string name="preferences_default_editor_mode_edit">Redigeringsmodus</string>
+    <string name="preferences_move_checked_items">Flytt (u)merkede elementer i listen</string>
+    <string name="preferences_default_editor_mode">Standard redigeringsmodus</string>
+    <string name="preferences_font_size">Skriftstørrelse</string>
+    <string name="preferences_fab">Flytende knapp</string>
 </resources>

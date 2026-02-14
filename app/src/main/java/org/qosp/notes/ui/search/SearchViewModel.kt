@@ -1,7 +1,6 @@
 package org.qosp.notes.ui.search
 
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -27,7 +26,6 @@ class SearchViewModel(
 
     var isFirstLoad = true
 
-    @OptIn(ExperimentalCoroutinesApi::class, kotlinx.coroutines.FlowPreview::class)
     override val provideNotes = { sortMethod: SortMethod ->
         notebookRepository.getAll().distinctUntilChanged().flatMapLatest { notebooks ->
             searchKeyData.debounce(300).flatMapLatest { searchKey ->
