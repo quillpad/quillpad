@@ -86,12 +86,15 @@ jobs:
         echo version = ${VERSION:1}
         echo "APK_VERSION=${VERSION:1}" >> $GITHUB_ENV
         cp -v app/build/outputs/apk/release/app-release.apk quillpad-${VERSION:1}.apk
+        gzip -c app/build/outputs/mapping/release/mapping.txt > mapping-${VERSION:1}.txt.gz
 
     - name: Do Release
       uses: softprops/action-gh-release@v2
       if: ${{ github.ref_type == 'tag' }}
       with:
-        files: quillpad-${{env.APK_VERSION}}.apk
+        files: |
+          quillpad-${{env.APK_VERSION}}.apk
+          mapping-${{env.APK_VERSION}}.txt.gz
         draft: true
 
   test_lab:
