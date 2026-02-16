@@ -149,9 +149,8 @@ class StorageBackend(private val context: Context, private val config: StorageCo
     }
 
     private fun writeNoteToFile(file: DocumentFile, content: String) {
-        context.contentResolver.openOutputStream(file.uri, "w")?.use { output ->
+        context.contentResolver.openOutputStream(file.uri, "wt")?.use { output ->
             (output as? FileOutputStream)?.let {
-                output.channel.truncate(0)
                 val bytesWritten = content.encodeToByteArray().inputStream().copyTo(output)
                 Log.d(TAG, "writeNote: Wrote $bytesWritten bytes to ${file.name}")
             } ?: run {
