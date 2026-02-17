@@ -9,30 +9,22 @@
     </base-config>
     
     <!-- Domain-specific configurations for known services -->
+    <!-- OneDrive/Microsoft services -->
     <domain-config cleartextTrafficPermitted="false">
         <domain includeSubdomains="true">login.microsoftonline.com</domain>
         <domain includeSubdomains="true">graph.microsoft.com</domain>
         <domain includeSubdomains="true">onedrive.live.com</domain>
-        <pin-set>
-            <!-- Microsoft RSA TLS CA 01 - valid until 2025 -->
-            <pin digest="SHA-256">yukcdd0d/z+KjfLEWBZfvs1xJxAqqfh3+oVrJOL6yW0=</pin>
-            <!-- Microsoft RSA TLS CA 02 - valid until 2025 -->
-            <pin digest="SHA-256">yqOCY0k6OiJJmpWQUO0vRXkJVhvhqRaVnwlMSfH+aFs=</pin>
-            <!-- Backup pin -->
-            <pin digest="SHA-256">JSMzqOOrtyOT1kmau6zKhgT676hGgczD5VMdRMyJZFA=</pin>
-        </pin-set>
+        <domain includeSubdomains="true">api.onedrive.com</domain>
+        <!-- Certificate pinning disabled for now - will be enabled with valid pins in future update -->
+        <!-- When implementing OAuth, update with current Microsoft certificate pins -->
     </domain-config>
     
+    <!-- Google Drive services -->
     <domain-config cleartextTrafficPermitted="false">
         <domain includeSubdomains="true">www.googleapis.com</domain>
         <domain includeSubdomains="true">oauth2.googleapis.com</domain>
         <domain includeSubdomains="true">accounts.google.com</domain>
-        <pin-set>
-            <!-- Google Trust Services Root Certificates -->
-            <pin digest="SHA-256">hxqRlPTu1bMS/0DITB1SSu0vd4u/8l8TjPgfaAp63Gc=</pin>
-            <pin digest="SHA-256">++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=</pin>
-            <!-- Backup pin -->
-            <pin digest="SHA-256">KwccWaCgrnaw6tsrrSO61FgLacNgG2MMLq8GE6+oP5I=</pin>
-        </pin-set>
+        <!-- Certificate pinning disabled for now - will be enabled with valid pins in future update -->
+        <!-- When implementing OAuth, update with current Google certificate pins -->
     </domain-config>
 </network-security-config>

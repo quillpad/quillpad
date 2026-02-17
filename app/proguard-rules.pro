@@ -11,7 +11,9 @@
 # Keep crash reporting information for debugging (but hide source file names)
 -keepattributes SourceFile,LineNumberTable
 
-# Security: Remove debug logging
+# Security: Remove debug logging in release builds
+# NOTE: This rule only takes effect when minification is enabled (isMinifyEnabled = true)
+# WARNING: Do not add Log.e or Log.w to this list - error and warning logs should always be kept
 -assumenosideeffects class android.util.Log {
     public static *** d(...);
     public static *** v(...);

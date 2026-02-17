@@ -15,7 +15,7 @@ Quillpad implements comprehensive security measures to protect your notes and pe
 ### Network Security
 
 - **HTTPS Only**: All network traffic uses HTTPS, cleartext traffic is explicitly blocked
-- **Certificate Pinning**: Network connections to cloud providers (OneDrive, Google Drive) use certificate pinning to prevent man-in-the-middle attacks
+- **Certificate Pinning (Prepared)**: Infrastructure ready for certificate pinning on cloud providers (OneDrive, Google Drive). Will be enabled with valid certificate pins when OAuth flows are implemented.
 - **Self-Signed Certificate Support**: Optional support for self-signed certificates for Nextcloud users with custom installations
 
 ### Data Protection
@@ -30,7 +30,7 @@ Quillpad implements comprehensive security measures to protect your notes and pe
   - Source file renaming
   - Code optimization and shrinking
   - Resource shrinking
-- **Debug Log Removal**: All debug logging (Log.d, Log.v, Log.i) is automatically removed in release builds
+- **Debug Log Removal**: All debug logging (Log.d, Log.v, Log.i) is automatically removed in release builds when minification is enabled (ProGuard/R8)
 - **Crash Reporting**: Source file and line number information is preserved for crash analysis while hiding implementation details
 
 ### Permissions
@@ -94,11 +94,9 @@ Quillpad is designed with privacy and security in mind:
 ## Version History
 
 ### Recent Security Improvements (v1.5.8+)
-- Added certificate pinning for OneDrive and Google Drive
+- Prepared certificate pinning infrastructure for OneDrive and Google Drive (to be enabled with OAuth implementation)
 - Enhanced ProGuard rules with source file obfuscation
 - Disabled automatic Android backups
-- Removed debug logging in release builds
+- Removed debug logging in release builds (when minification enabled)
 - Prepared infrastructure for OneDrive and Google Drive sync
 - All cloud credentials stored using EncryptedSharedPreferences
-
-For complete version history, see the [CHANGELOG](CHANGELOG.md).

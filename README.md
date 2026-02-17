@@ -39,11 +39,11 @@ With Quillpad, you can:
 Quillpad prioritizes the security of your notes:
 
 - **Encrypted Credential Storage**: All cloud sync credentials are stored using Android's EncryptedSharedPreferences with AES256-GCM encryption
-- **Certificate Pinning**: Network communication with cloud providers uses certificate pinning to prevent man-in-the-middle attacks
+- **Certificate Pinning (Prepared)**: Network security infrastructure ready for certificate pinning (to be enabled with OAuth implementation)
 - **No Automatic Backups**: Automatic Android backups are disabled to prevent unencrypted data exposure
 - **Secure Network**: All network traffic uses HTTPS only, cleartext traffic is blocked
 - **Code Obfuscation**: Release builds use ProGuard with enhanced obfuscation rules
-- **Debug Log Removal**: Debug logging is automatically removed in release builds
+- **Debug Log Removal**: Debug logging is automatically removed in release builds when minification is enabled
 
 ### Support
 
