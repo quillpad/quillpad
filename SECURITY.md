@@ -98,5 +98,5 @@ Quillpad is designed with privacy and security in mind:
 - Enhanced ProGuard rules with source file obfuscation
 - Disabled automatic Android backups
 - Removed debug logging in release builds (when minification enabled)
-- Prepared infrastructure for OneDrive and Google Drive sync
+- Added UI, configuration classes, and backend stubs for OneDrive and Google Drive sync providers
 - All cloud credentials stored using EncryptedSharedPreferences
