@@ -150,6 +150,8 @@ enum class CloudService(override val nameResource: Int) : HasNameResource, EnumP
     DISABLED(R.string.preferences_cloud_service_disabled) { override val isDefault = true },
     NEXTCLOUD(R.string.preferences_cloud_service_nextcloud),
     FILE_STORAGE(R.string.preferences_cloud_service_files),
+    ONEDRIVE(R.string.preferences_cloud_service_onedrive),
+    GOOGLE_DRIVE(R.string.preferences_cloud_service_google_drive),
 }
 
 enum class SyncMode(override val nameResource: Int) : HasNameResource, EnumPreference by key("sync_mode") {
