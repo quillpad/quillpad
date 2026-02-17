@@ -20,6 +20,9 @@ espressoCore = "3.7.0"
 exoplayer = "2.19.1"
 flowPreferences = "1.4.0"
 fragmentKtx = "1.8.8"
+googleApiClient = "2.7.0"
+googleDriveApi = "v3-rev20240903-2.0.0"
+googleAuthLibrary = "1.30.0"
 junit = "4.13.2"
 junitVersion = "1.3.0"
 koin = "4.1.0"
@@ -34,6 +37,8 @@ lifecycleViewmodelCompose = "2.9.2"
 markwon = "4.6.2"
 material = "1.12.0"
 media = "1.7.0"
+microsoftGraphSdk = "6.25.0"
+microsoftIdentityClient = "5.4.2"
 mockk = "1.14.5"
 nav = "2.9.3"
 navigationSafeArgs = "2.9.3"
@@ -86,6 +91,9 @@ exoplayerCore = { module = "com.google.android.exoplayer:exoplayer-core", versio
 exoplayerUi = { module = "com.google.android.exoplayer:exoplayer-ui", version.ref = "exoplayer" }
 flowPreferences = { module = "com.github.tfcporciuncula.flow-preferences:flow-preferences", version.ref = "flowPreferences" }
 fragmentKtx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
+google-api-client-android = { module = "com.google.api-client:google-api-client-android", version.ref = "googleApiClient" }
+google-api-services-drive = { module = "com.google.apis:google-api-services-drive", version.ref = "googleDriveApi" }
+google-auth-library-oauth2-http = { module = "com.google.auth:google-auth-library-oauth2-http", version.ref = "googleAuthLibrary" }
 junit = { module = "junit:junit", version.ref = "junit" }
 junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
@@ -114,6 +122,8 @@ markwonTable = { module = "io.noties.markwon:ext-tables", version.ref = "markwon
 markwonTasklist = { module = "io.noties.markwon:ext-tasklist", version.ref = "markwon" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 media = { module = "androidx.media:media", version.ref = "media" }
+microsoft-graph-sdk = { module = "com.microsoft.graph:microsoft-graph", version.ref = "microsoftGraphSdk" }
+microsoft-identity-client = { module = "com.microsoft.identity.client:msal", version.ref = "microsoftIdentityClient" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 mockk-agent = { module = "io.mockk:mockk-agent", version.ref = "mockk" }
 monitor = { group = "androidx.test", name = "monitor", version.ref = "monitor" }

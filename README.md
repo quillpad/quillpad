@@ -28,9 +28,22 @@ With Quillpad, you can:
 - Search through notes
 - Sync notes to the file system (store notes as markdown files in a local or cloud folder)
 - Sync with Nextcloud (experimental, requires the Nextcloud Notes app installed on the Nextcloud server used for syncing)
+- Sync with OneDrive (UI ready, backend implementation in progress)
+- Sync with Google Drive (UI ready, backend implementation in progress)
 - Backup your notes to a zip file which you can restore at a later time
 - Toggle between Light and Dark mode
 - Choose between multiple color schemes
+
+### Security Features
+
+Quillpad prioritizes the security of your notes:
+
+- **Encrypted Credential Storage**: All cloud sync credentials are stored using Android's EncryptedSharedPreferences with AES256-GCM encryption
+- **Certificate Pinning (Prepared)**: Network security infrastructure ready for certificate pinning (to be enabled with OAuth implementation)
+- **No Automatic Backups**: Automatic Android backups are disabled to prevent unencrypted data exposure
+- **Secure Network**: All network traffic uses HTTPS only, cleartext traffic is blocked
+- **Code Obfuscation**: Release builds use ProGuard with enhanced obfuscation rules
+- **Debug Log Removal**: Debug logging is automatically removed in release builds when minification is enabled
 
 ### Support
 

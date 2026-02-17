@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.net.toUri
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
@@ -77,6 +78,8 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
         setupTrustCertificatesListener()
 
         setupLocalLocationListener()
+        setupOneDriveAccountListener()
+        setupGoogleDriveAccountListener()
     }
 
     private fun View.show(visible: Boolean) = if (visible) visibility = View.VISIBLE else visibility = View.GONE
@@ -89,6 +92,8 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
             binding.layoutGenericSettings.show(prefs.cloudService == CloudService.NEXTCLOUD)
             binding.layoutNextcloudSettings.show(prefs.cloudService == CloudService.NEXTCLOUD)
             binding.layoutStorageSettings.show(prefs.cloudService == CloudService.FILE_STORAGE)
+            binding.layoutOneDriveSettings.show(prefs.cloudService == CloudService.ONEDRIVE)
+            binding.layoutGoogleDriveSettings.show(prefs.cloudService == CloudService.GOOGLE_DRIVE)
             binding.settingSyncMode.show(prefs.cloudService == CloudService.NEXTCLOUD)
             binding.settingBackgroundSync.show(prefs.cloudService == CloudService.NEXTCLOUD)
             binding.settingNotesSyncableByDefault.show(prefs.cloudService == CloudService.NEXTCLOUD)
@@ -121,6 +126,22 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
             storageLocation = uri
             val appName = if (u.isNotBlank()) context?.let { uri.toFriendlyString(it) } else null
             binding.settingStorageLocation.subText = appName ?: getString(R.string.preferences_file_storage_select)
+        }
+
+        model.getEncryptedString(PreferenceRepository.ONEDRIVE_USER_EMAIL).collect(viewLifecycleOwner) {
+            binding.settingOneDriveAccount.subText = if (it.isNotBlank()) {
+                getString(R.string.indicator_onedrive_currently_signed_in_as, it)
+            } else {
+                getString(R.string.preferences_onedrive_sign_in)
+            }
+        }
+
+        model.getEncryptedString(PreferenceRepository.GOOGLE_DRIVE_USER_EMAIL).collect(viewLifecycleOwner) {
+            binding.settingGoogleDriveAccount.subText = if (it.isNotBlank()) {
+                getString(R.string.indicator_google_drive_currently_signed_in_as, it)
+            } else {
+                getString(R.string.preferences_google_drive_sign_in)
+            }
         }
     }
 
@@ -173,5 +194,23 @@ class SyncSettingsFragment : BaseFragment(R.layout.fragment_sync_settings) {
 
     private fun setupClearNextcloudCredentialsListener() = binding.settingNextcloudClearCredentials.setOnClickListener {
         model.clearNextcloudCredentials()
+    }
+
+    private fun setupOneDriveAccountListener() = binding.settingOneDriveAccount.setOnClickListener {
+        // TODO: Implement OneDrive authentication flow
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.message_onedrive_auth_not_implemented),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun setupGoogleDriveAccountListener() = binding.settingGoogleDriveAccount.setOnClickListener {
+        // TODO: Implement Google Drive authentication flow
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.message_google_drive_auth_not_implemented),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

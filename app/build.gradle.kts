@@ -235,6 +235,13 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit2Convertor)
 
+    // Cloud Storage SDKs
+    implementation(libs.microsoft.graph.sdk)
+    implementation(libs.microsoft.identity.client)
+    implementation(libs.google.api.client.android)
+    implementation(libs.google.api.services.drive)
+    implementation(libs.google.auth.library.oauth2.http)
+
     // Software Quality
     debugImplementation(libs.leakcanaryAndroid)
     implementation(libs.bundles.acra)

@@ -148,6 +148,78 @@
                         app:text="@string/preferences_file_storage_select"/>
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_onedrive_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?attr/colorOutline"/>
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:fontFamily="@font/inter_font_family"
+                        android:text="@string/preferences_cloud_service_onedrive"
+                        android:textColor="?attr/colorPrimary"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="16dp"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/preferences_onedrive_info"/>
+
+                    <org.qosp.notes.ui.utils.views.PreferenceView
+                        android:id="@+id/setting_onedrive_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:iconSrc="@drawable/ic_person"
+                        app:subText="@string/preferences_onedrive_sign_in"
+                        app:text="@string/preferences_onedrive_account"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_google_drive_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?attr/colorOutline"/>
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:fontFamily="@font/inter_font_family"
+                        android:text="@string/preferences_cloud_service_google_drive"
+                        android:textColor="?attr/colorPrimary"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="16dp"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/preferences_google_drive_info"/>
+
+                    <org.qosp.notes.ui.utils.views.PreferenceView
+                        android:id="@+id/setting_google_drive_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:iconSrc="@drawable/ic_person"
+                        app:subText="@string/preferences_google_drive_sign_in"
+                        app:text="@string/preferences_google_drive_account"/>
+
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
 
