@@ -1,30 +1,49 @@
 # Contributing to Quillpad
 
+Thanks for your interest in contributing to Quillpad! 
+
+Quillpad is relied upon by thousands of users every day to safely store their most important notes and ideas. It is absolutely critical that their data does not get corrupted or damaged by new changes. Since carefully reviewing Pull Requests to prevent regressions takes a significant amount of maintainer time and effort, **please do not create PRs without thoroughly reviewing and testing the code changes yourself first.**
+
+### 🤖 AI Assisted Code & Vibe Coding
+
+This requirement for careful self-review is especially true for contributions that are "vibe coded" or aided by AI tools. We fully welcome these contributions! However, to ensure the project remains stable and maintainable, please make sure:
+- The changes are properly tested against regressions.
+- You have a personal, working understanding of Kotlin. You must be able to understand, explain, and maintain the code that the AI generates.
+
+## 💻 Developer Guidance
+
+### General Project Structure
+
+Quillpad is an Android application built using Kotlin and Gradle. The main source code is located in the `app/` directory:
+- `app/src/main/java/org/qosp/notes/` - Contains the core Kotlin source code, separated by features such as data (Room database, Sync), UI, and domain logic.
+- `app/src/main/res/` - Contains Android resources such as layouts, drawables, and values.
+
+### Code Style
+
+This project includes an `.editorconfig` file at the root directory to maintain consistent coding styles.
+- **Android Studio / IntelliJ**: Supports `.editorconfig` defaults natively out of the box.
+- **VS Code**: You will need to install the [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) extension.
+
+### Running the Project
+
+The project uses the standard Gradle build system. To run it locally:
+1. Open the project in Android Studio.
+2. Let Gradle sync and resolve all dependencies.
+3. Select the `app` configuration.
+4. Click the Run button (or use `Shift + F10`) to build and deploy to your connected Android device or emulator.
+
+Alternatively, you can build the project from the command line:
+
+```bash
+./gradlew assembleDebug
+```
 
 ## 🌎 Translations
 
-### Supported languages
+Please help with translations using [Weblate](https://toolate.othing.xyz/projects/quillpad/).
 
-| Language     | Translator    | Status   |
-|--------------|---------------|----------|
-| English      | [@msoultanidis](https://github.com/msoultanidis) | Complete |
-| Greek (`el`) | [@msoultanidis](https://github.com/msoultanidis) | Complete |
-| Polish (`pl`) | [@TheDidek](https://github.com/TheDidek) | Complete |
-| Brazilian Portuguese (`pt-rBR`) | [@RodolfoCandido](https://github.com/RodolfoCandido) | Complete |
-| Italian (`it`) | [@danigarau](https://github.com/danigarau) | Complete |
-| French (`fr`) | [@locness3](https://github.com/locness3) | Complete |
-| Spanish (`es`) | [@urizev](https://github.com/urizev) | Complete |
+<a href="https://toolate.othing.xyz/projects/quillpad/">
+<img alt="Translation status" src="https://toolate.othing.xyz/widget/quillpad/multi-auto.svg"/>
+</a>
 
-You can help Quillpad grow by translating it in languages it does not support yet or by improving existing translations.
-
-### How to translate
-
-1. Fork the repository.
-2. Create a new branch from the `master` branch. Give it a good name, like `translation-FR` for a French translation.
-3. Inside `app/src/main/res` create a folder named `values-COUNTRY_CODE` where `COUNTRY_CODE` is the code for the language you're translating Quillpad in. For example, the Greek translation lies inside the `values-el` folder.
-4. Copy `app/src/main/res/values/strings.xml` inside the folder you just created.
-5. Edit the file by translating the strings between the XML tags and not the tags themselves. For example, in this line `<string name="nav_all_notes">All Notes</string>` you should only translate `All Notes`.
-6. When done, commit your changes.
-7. Finally, create a new pull request [here](https://github.com/quillpad/quillpad/pulls).
-
-**Thanks for your interest in contributing to Quillpad!**
+Right now we are only looking for translation contributions through Weblate. Manual pull requests for string files are no longer accepted.
