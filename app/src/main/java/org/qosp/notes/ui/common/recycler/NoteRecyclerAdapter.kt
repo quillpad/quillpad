@@ -49,17 +49,7 @@ class NoteRecyclerAdapter(
         }
 
         val note = getItem(position)
-        val combinedPayloads = mutableSetOf<Payload>()
-
-        for (payload in payloads) {
-            if (payload is List<*>) {
-                for (item in payload) {
-                    if (item is Payload) {
-                        combinedPayloads.add(item)
-                    }
-                }
-            }
-        }
+        val combinedPayloads = flattenPayloads(payloads)
 
         if (combinedPayloads.isEmpty()) {
             super.onBindViewHolder(holder, position, payloads)
@@ -130,5 +120,21 @@ class NoteRecyclerAdapter(
         RemindersChanged,
         AttachmentsChanged,
         TasksChanged,
+    }
+
+    companion object {
+        fun flattenPayloads(payloads: List<Any>): Set<Payload> {
+            val combinedPayloads = mutableSetOf<Payload>()
+            for (payload in payloads) {
+                if (payload is List<*>) {
+                    for (item in payload) {
+                        if (item is Payload) {
+                            combinedPayloads.add(item)
+                        }
+                    }
+                }
+            }
+            return combinedPayloads
+        }
     }
 }
