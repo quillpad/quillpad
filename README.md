@@ -61,19 +61,7 @@ Notes from [Google Keep](https://www.google.com/keep/) can be converted to Quill
 
 ## Translations
 
-Please help with translations using the [Weblate](https://toolate.othing.xyz/projects/quillpad/).
-
-<a href="https://toolate.othing.xyz/projects/quillpad/">
-<img alt="Translation status" src="https://toolate.othing.xyz/widget/quillpad/multi-auto.svg"/>
-</a>
-
-You may also manually change translation files.
-Follow these steps to add a new translation:
-
-1. Create an account on Github or use your Github account if you have one that already exists.
-2. Create a new folder under [quillpad/app/src/main/res](https://github.com/quillpad/quillpad/tree/master/app/src/main/res) named values-LANGCODE (e.g the Arabic folder will be named values-ar).
-3. Copy the file [quillpad/app/src/main/res/values/strings.xml](https://github.com/quillpad/quillpad/blob/master/app/src/main/res/values/strings.xml) and put it in the values-LANGCODE folder.
-4. Now you can translate the strings.xml file in your language value folder.
+Please see the [Contributing Guidelines](.github/CONTRIBUTING.md#translations) for information on how to help translate Quillpad!
 
 ## Roadmap
 
