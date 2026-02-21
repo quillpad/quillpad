@@ -52,7 +52,7 @@ class NoteListPerformanceTest {
     }
 
     @Test
-    fun testNoteViewHolderContentUpdateViaPayload() {
+    fun testNoteViewHolderContentUpdateViaPayload_NonMarkdown() {
         val binding = LayoutNoteBinding.inflate(LayoutInflater.from(context))
         val viewHolder = NoteViewHolder(
             binding = binding,
@@ -64,13 +64,41 @@ class NoteListPerformanceTest {
             attachmentsViewPool = RecyclerView.RecycledViewPool()
         )
 
-        val note = Note(content = "Old Content")
+        val note = Note(content = "Old Content", isMarkdownEnabled = false)
         viewHolder.bind(note)
         assertEquals("Old Content", binding.textViewContent.text.toString())
 
         val updatedNote = note.copy(content = "New Content")
         viewHolder.runPayloads(updatedNote, setOf(NoteRecyclerAdapter.Payload.ContentChanged))
         assertEquals("New Content", binding.textViewContent.text.toString())
+    }
+
+    @Test
+    fun testNoteViewHolderContentUpdateViaPayload_Markdown() {
+        val binding = LayoutNoteBinding.inflate(LayoutInflater.from(context))
+        val markwon = mockk<Markwon>(relaxed = true)
+        val viewHolder = NoteViewHolder(
+            binding = binding,
+            listener = null,
+            context = context,
+            searchMode = false,
+            markwon = markwon,
+            tasksViewPool = RecyclerView.RecycledViewPool(),
+            attachmentsViewPool = RecyclerView.RecycledViewPool()
+        )
+
+        val note = Note(content = "Old Content", isMarkdownEnabled = true)
+        viewHolder.bind(note)
+        // Since markwon.applyTo is an inline extension function, we verify the underlying Markwon calls
+        verify { markwon.parse("Old Content") }
+        verify { markwon.render(any()) }
+        verify { markwon.setParsedMarkdown(binding.textViewContent, any()) }
+
+        val updatedNote = note.copy(content = "New Content")
+        viewHolder.runPayloads(updatedNote, setOf(NoteRecyclerAdapter.Payload.ContentChanged))
+        verify { markwon.parse("New Content") }
+        verify { markwon.render(any()) }
+        verify { markwon.setParsedMarkdown(binding.textViewContent, any()) }
     }
 
     @Test
