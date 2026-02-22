@@ -34,10 +34,56 @@ jobs:
         chmod +x gradlew
         ./gradlew \
           "-Porg.gradle.jvmargs=-XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" \
-          compileDebugSources test
+          compileDebugSources test assembleDebug assembleDebugAndroidTest -PTESTLAB_BUILD=true
 
     - name: Archive APK
       uses: actions/upload-artifact@v4
       with:
         name: Archive Debug APKs
-        path: app/build/outputs/apk/debug/app-*.apk
+        path: |
+          app/build/outputs/apk/debug/app-debug.apk
+          app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+
+    - name: Setup Google Cloud Auth
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+
+    - name: Run Firebase Test Lab Tests
+      run: |
+        APP_APK="app/build/outputs/apk/debug/app-debug.apk"
+        TEST_APK="app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+
+        # The gcloud command might fail if tests fail, but we still want to capture the bucket name.
+        # We'll use a subshell to capture the output but let the exit code through.
+        # Note: gcloud outputs some info to stderr, which we don't want in our bucket variable.
+        BUCKET=$(gcloud firebase test android run \
+          --type instrumentation \
+          --app "$APP_APK" \
+          --test "$TEST_APK" \
+          --device=model=MediumPhone.arm,version=35 \
+          --results-dir=test-results-${{ github.run_id }}-${{ github.run_attempt }} \
+          --format="value(resultsBucket)") || EXIT_CODE=$?
+        
+        if [ -n "$BUCKET" ]; then
+          echo "GCS_RESULTS=gs://$BUCKET/test-results-${{ github.run_id }}-${{ github.run_attempt }}" >> $GITHUB_ENV
+        fi
+        exit ${EXIT_CODE:-0}
+
+    - name: Download Test Results
+      if: always()
+      run: |
+        if [ -n "$GCS_RESULTS" ]; then
+          mkdir -p test-results
+          gsutil -m cp -r "$GCS_RESULTS/*" test-results/
+        fi
+
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-lab-results
+        path: test-results/
