@@ -269,6 +269,7 @@
    </string>
     <string name="preferences_file_storage_location">Місце зберігання</string>
     <string name="preferences_file_storage_select">Виберіть місце зберігання</string>
+    <string name="preferences_color_scheme_gray">Сірий</string>
     <string name="preferences_color_scheme_system">За системою</string>
     <string name="continue_next">Продовжити</string>
     <string name="preferences_header_view_tags">Список тегів</string>
@@ -278,4 +279,7 @@
     <string name="preferences_header_view_notebook">Записник</string>
     <string name="preferences_header_view_note_content">Зміст нотатки</string>
     <string name="preferences_font_size_default">Звичайний</string>
+    <string name="preferences_color_scheme_teal">Бірюзовий</string>
+    <string name="preferences_color_scheme_cyan">Блакитний</string>
+    <string name="preferences_color_scheme_brown">Коричневий</string>
 </resources>

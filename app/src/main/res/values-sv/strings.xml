@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="preferences_header_general">Allmän</string>
+    <string name="preferences_theme_mode">Temaläge</string>
+    <string name="preferences_theme_mode_dark">Mörk</string>
+    <string name="preferences_theme_mode_light">Ljus</string>
+    <string name="preferences_theme_mode_system">Följ systemet</string>
+    <string name="preferences_dark_theme_mode">Mörkt temaläge</string>
+    <string name="preferences_theme_dark_mode_standard">Standard</string>
     <string name="preferences_theme_dark_mode_black">Svart</string>
     <string name="preferences_color_scheme">Färgschema</string>
     <string name="preferences_color_scheme_blue">Blå</string>
@@ -9,6 +16,7 @@
     <string name="preferences_color_scheme_purple">Lila</string>
     <string name="preferences_color_scheme_yellow">Gul</string>
     <string name="preferences_color_scheme_red">Röd</string>
+    <string name="preferences_color_scheme_system">Följ systemet</string>
     <string name="preferences_header_view">Preferenser</string>
     <string name="preferences_header_view_notebook">Anteckningsboken</string>
     <string name="preferences_layout_mode_grid">Rutnät</string>
@@ -25,4 +33,8 @@
     <string name="preferences_open_media_in">Öppna media i</string>
     <string name="preferences_open_media_in_internal">Intern spelare</string>
     <string name="preferences_open_media_in_external">Extern spelare</string>
+    <string name="preferences_color_scheme_teal">Kricka</string>
+    <string name="preferences_color_scheme_cyan">Cyan</string>
+    <string name="preferences_color_scheme_brown">Brun</string>
+    <string name="preferences_color_scheme_gray">Grå</string>
 </resources>

@@ -9,8 +9,25 @@
     <string name="nav_notebooks">دفترچه‌ها</string>
     <string name="nav_your_notebooks">دفترچه‌های شما</string>
     <string name="preferences_header_general">کلی</string>
+    <string name="preferences_dark_theme_mode">حالت تم تاریک</string>
+    <string name="preferences_theme_dark_mode_standard">استاندارد</string>
+    <string name="preferences_theme_dark_mode_black">سیاه</string>
+    <string name="preferences_color_scheme">طرح رنگ</string>
+    <string name="preferences_color_scheme_blue">آبی</string>
+    <string name="preferences_color_scheme_pink">صورتی</string>
+    <string name="preferences_color_scheme_green">سبز</string>
+    <string name="preferences_color_scheme_orange">نارنجی</string>
+    <string name="preferences_color_scheme_purple">بنفش</string>
     <string name="preferences_color_scheme_yellow">زرد</string>
     <string name="preferences_color_scheme_red">قرمز</string>
     <string name="preferences_header_view_notebook">دفترچه</string>
+    <string name="preferences_color_scheme_gray">خاکستری</string>
     <string name="preferences_color_scheme_system">سیستم</string>
+    <string name="preferences_color_scheme_teal">خاکستری</string>
+    <string name="preferences_color_scheme_cyan">فیروزه‌ای</string>
+    <string name="preferences_color_scheme_brown">قهوه‌ای</string>
+    <string name="preferences_theme_mode">حالت تم</string>
+    <string name="preferences_theme_mode_dark">تیره</string>
+    <string name="preferences_theme_mode_light">نور</string>
+    <string name="preferences_theme_mode_system">سیستم را دنبال کنید</string>
 </resources>

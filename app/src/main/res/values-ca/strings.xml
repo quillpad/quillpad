@@ -19,6 +19,7 @@
     <string name="preferences_dark_theme_mode">Mode del tema fosc</string>
     <string name="preferences_theme_dark_mode_standard">Estàndard</string>
     <string name="preferences_theme_dark_mode_black">Negre</string>
+    <string name="preferences_color_scheme_system">"seguir el sistema "</string>
     <string name="preferences_header_view">Visualització</string>
     <string name="preferences_layout_mode">Mode de disseny</string>
     <string name="preferences_layout_mode_grid">Graella</string>
@@ -269,4 +270,8 @@
     <string name="preferences_header_view_tags">Llista d\'etiquetes</string>
     <string name="preferences_sort_tags_method">Ordena les etiquetes per</string>
     <string name="preferences_header_view_navdrawer">Calaix de navegació</string>
+    <string name="preferences_color_scheme_teal">Turquesa</string>
+    <string name="preferences_color_scheme_cyan">Cian</string>
+    <string name="preferences_color_scheme_brown">Marró</string>
+    <string name="preferences_color_scheme_gray">Gris</string>
 </resources>

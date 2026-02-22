@@ -41,12 +41,12 @@
         <item name="colorNoteYellow">#FFF59D</item>
         <item name="colorNoteGreen">#C5E1A5</item>
         <item name="colorNoteTeal">#B4DED3</item>
-        <item name="colorNoteCyan">#8CC9DB</item>
-        <item name="colorNoteBlue">#AFCCDC</item>
+        <item name="colorNoteCyan">#A5DCEB</item>
+        <item name="colorNoteBlue">#AFD2F5</item>
         <item name="colorNotePurple">#C8AED2</item>
-        <item name="colorNotePink">#F9BED2</item>
-        <item name="colorNoteBrown">#BEB6AB</item>
-        <item name="colorNoteGray">#B8BAC1</item>
+        <item name="colorNotePink">#FAAFC8</item>
+        <item name="colorNoteBrown">#D2C3B4</item>
+        <item name="colorNoteGray">#C8C8D2</item>
 
         <item name="colorNoteTextHighlight">#96FFFF00</item>
 
@@ -95,12 +95,12 @@
     </style>
 
     <style name="Yellow">
-        <item name="colorPrimary">#FBBC04</item>
+        <item name="colorPrimary">#FFB900</item>
         <item name="colorPrimaryDark">@android:color/transparent</item>
-        <item name="colorSecondary">#FBBC04</item>
+        <item name="colorSecondary">#EBA500</item>
 
-        <item name="colorDrawerHeaderBackground">#99FBBC04</item>
-        <item name="colorPrimaryTranscluent">#29FBBC04</item>
+        <item name="colorDrawerHeaderBackground">#99EBA500</item>
+        <item name="colorPrimaryTranscluent">#29EBA500</item>
 
     </style>
 
@@ -125,12 +125,12 @@
     </style>
 
     <style name="Orange">
-        <item name="colorPrimary">#E47400</item>
+        <item name="colorPrimary">#FF8800</item>
         <item name="colorPrimaryDark">@android:color/transparent</item>
-        <item name="colorSecondary">#E47400</item>
+        <item name="colorSecondary">#EB7300</item>
 
-        <item name="colorDrawerHeaderBackground">#99E47400</item>
-        <item name="colorPrimaryTranscluent">#29E47400</item>
+        <item name="colorDrawerHeaderBackground">#99EB7300</item>
+        <item name="colorPrimaryTranscluent">#29EB7300</item>
 
     </style>
 
