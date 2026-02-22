@@ -265,6 +265,7 @@
   </string>
     <string name="preferences_file_storage_location">Ubicación de almacenamiento</string>
     <string name="preferences_file_storage_select">Seleccione la ubicación de almacenamiento</string>
+    <string name="preferences_color_scheme_gray">Gris</string>
     <string name="preferences_color_scheme_system">Del sistema</string>
     <string name="continue_next">Continuar</string>
     <string name="preferences_header_view_tags">Lista de etiquetas</string>
@@ -297,4 +298,7 @@
     <string name="preferences_trust_self_signed_certificate">Confiar en certificado autofirmado</string>
     <string name="message_certificates_invalid">Error del certificado. Por favor, habilitar \"Confiar en certificado autofirmado\" para continuar..</string>
     <string name="preferences_move_checked_items">Mover elementos seleccionados en las listas</string>
+    <string name="preferences_color_scheme_teal">Verde azulado</string>
+    <string name="preferences_color_scheme_cyan">Cian</string>
+    <string name="preferences_color_scheme_brown">Marrón</string>
 </resources>

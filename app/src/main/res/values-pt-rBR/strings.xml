@@ -267,10 +267,14 @@
   </string>
     <string name="preferences_file_storage_location">Local de armazenamento</string>
     <string name="preferences_file_storage_select">Selecione o local de armazenamento</string>
+    <string name="preferences_color_scheme_gray">Cinza</string>
     <string name="preferences_color_scheme_system">Seguir tema do sistema</string>
     <string name="continue_next">Continuar</string>
     <string name="preferences_header_view_tags">Lista de tags</string>
     <string name="preferences_sort_tags_method">Classificar tags por</string>
     <string name="preferences_header_view_navdrawer">Gaveta de navegação</string>
     <string name="preferences_sort_navdrawer_method">Classificar cadernos por</string>
+    <string name="preferences_color_scheme_teal">Cerceta</string>
+    <string name="preferences_color_scheme_cyan">Ciano</string>
+    <string name="preferences_color_scheme_brown">Marrom</string>
 </resources>

@@ -261,6 +261,7 @@
   </string>
     <string name="preferences_file_storage_location">Lagringssted</string>
     <string name="preferences_file_storage_select">Velg Lagringssted</string>
+    <string name="preferences_color_scheme_gray">Grå</string>
     <string name="preferences_color_scheme_system">System</string>
     <string name="continue_next">Fortsette</string>
     <string name="preferences_header_view_tags">Tag liste</string>
@@ -276,4 +277,7 @@
     <string name="preferences_default_editor_mode">Standard redigeringsmodus</string>
     <string name="preferences_font_size">Skriftstørrelse</string>
     <string name="preferences_fab">Flytende knapp</string>
+    <string name="preferences_color_scheme_teal">Blågrønn</string>
+    <string name="preferences_color_scheme_cyan">Cyan</string>
+    <string name="preferences_color_scheme_brown">Brun</string>
 </resources>

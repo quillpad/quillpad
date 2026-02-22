@@ -270,6 +270,7 @@
   </string>
     <string name="preferences_file_storage_location">Место хранения</string>
     <string name="preferences_file_storage_select">Выберите место хранения</string>
+    <string name="preferences_color_scheme_gray">Серый</string>
     <string name="preferences_color_scheme_system">Системная</string>
     <string name="continue_next">Продолжить</string>
     <string name="preferences_header_view_tags">Список тегов</string>
@@ -302,4 +303,7 @@
     <string name="note_untitled">Безымянная</string>
     <string name="tasks">задачи</string>
     <string name="widget_no_pinned_notes">Пока нет прикреплённых заметок. Прикрепите одну чтобы увидеть её здесь.</string>
+    <string name="preferences_color_scheme_teal">Бирюзовый</string>
+    <string name="preferences_color_scheme_cyan">Голубой</string>
+    <string name="preferences_color_scheme_brown">Коричневый</string>
 </resources>

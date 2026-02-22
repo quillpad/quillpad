@@ -28,6 +28,7 @@
     <string name="preferences_color_scheme_purple">Tím</string>
     <string name="preferences_color_scheme_yellow">Vàng</string>
     <string name="preferences_color_scheme_red">Đỏ</string>
+    <string name="preferences_color_scheme_gray">Xám</string>
     <string name="preferences_color_scheme_system">Theo hệ thống</string>
     <!-- Preferences / View -->
     <string name="preferences_header_view">Xem</string>
@@ -276,4 +277,7 @@
     <string name="preferences_sort_tags_method">Sắp xếp thẻ theo</string>
     <string name="preferences_header_view_navdrawer">Ngăn điều hướng</string>
     <string name="preferences_sort_navdrawer_method">Sắp xếp sổ ghi chép theo</string>
+    <string name="preferences_color_scheme_teal">màu xanh ngọc</string>
+    <string name="preferences_color_scheme_cyan">Xanh lam</string>
+    <string name="preferences_color_scheme_brown">Màu nâu</string>
 </resources>
