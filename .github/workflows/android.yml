@@ -126,7 +126,7 @@ jobs:
       - name: Build Test APK
         run: |
           chmod +x gradlew
-          ./gradlew assembleRelease -PTESTLAB_BUILD=true \
+          ./gradlew assembleRelease assembleReleaseAndroidTest -PTESTLAB_BUILD=true \
               -Pkeystore=keystore.jks \
               -Pstorepass=${{secrets.STORE_PASS}} \
               -Pkeypass=${{secrets.KEY_PASS}} \
@@ -139,7 +139,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Test APK
-          path: app/build/outputs/apk/release/app-release.apk
+          path: |
+            app/build/outputs/apk/release/app-release.apk
+            app/build/outputs/apk/androidTest/release/app-release-androidTest.apk
 
       - name: Setup Google Cloud Auth
         uses: google-github-actions/auth@v2
@@ -151,12 +153,29 @@ jobs:
 
       - name: Run Firebase Test Lab Tests
         run: |
-          gcloud firebase test android run \
-            --type robo \
+          # The gcloud command might fail if tests fail, but we still want to capture the bucket name.
+          # We'll use a subshell to capture the output but let the exit code through.
+          # Note: gcloud outputs some info to stderr, which we don't want in our bucket variable.
+          BUCKET=$(gcloud firebase test android run \
+            --type instrumentation \
             --app app/build/outputs/apk/release/app-release.apk \
+            --test app/build/outputs/apk/androidTest/release/app-release-androidTest.apk \
             --device=model=MediumPhone.arm,version=35 \
-            --device=model=MediumPhone.arm,version=26 \
-            --results-dir=test-results
+            --results-dir=test-results-${{ github.run_id }}-${{ github.run_attempt }} \
+            --format="value(resultsBucket)") || EXIT_CODE=$?
+          
+          if [ -n "$BUCKET" ]; then
+            echo "GCS_RESULTS=gs://$BUCKET/test-results-${{ github.run_id }}-${{ github.run_attempt }}" >> $GITHUB_ENV
+          fi
+          exit ${EXIT_CODE:-0}
+
+      - name: Download Test Results
+        if: always()
+        run: |
+          if [ -n "$GCS_RESULTS" ]; then
+            mkdir -p test-results
+            gsutil -m cp -r "$GCS_RESULTS/*" test-results/
+          fi
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
