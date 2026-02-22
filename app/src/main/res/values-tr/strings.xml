@@ -28,6 +28,9 @@
     <string name="preferences_color_scheme_purple">Mor</string>
     <string name="preferences_color_scheme_yellow">Sarı</string>
     <string name="preferences_color_scheme_red">Kırmızı</string>
+    <string name="preferences_color_scheme_cyan">Camgöbeği</string>
+    <string name="preferences_color_scheme_brown">Kahverengi</string>
+    <string name="preferences_color_scheme_gray">Gri</string>
     <string name="preferences_color_scheme_system">Sistemi takip et</string>
     <!-- Preferences / View -->
     <string name="preferences_header_view">Görünüm</string>
@@ -309,4 +312,5 @@
     <string name="preferences_default_editor_mode">Varsayılan düzenleyici modu</string>
     <string name="preferences_default_editor_mode_view">Görüntüleme modu</string>
     <string name="widget_description">Yakın zamandaki notlarınızı ana ekranda gösterin</string>
+    <string name="preferences_color_scheme_teal">Turkuaz</string>
 </resources>

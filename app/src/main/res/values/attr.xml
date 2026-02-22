@@ -32,10 +32,9 @@
     <attr name="colorNoteCyan" format="color"/>
     <attr name="colorNoteBlue" format="color"/>
     <attr name="colorNotePurple" format="color"/>
-    <attr name="colorNotePink"  ormat="color"/>
+    <attr name="colorNotePink" format="color"/>
     <attr name="colorNoteBrown" format="color"/>
     <attr name="colorNoteGray" format="color"/>
-
 
     <attr name="colorTaskDone" format="color"/>
     <attr name="colorTaskSwipe" format="color"/>

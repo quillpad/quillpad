@@ -17,6 +17,7 @@
     <string name="preferences_theme_mode_light">Jasny</string>
     <string name="preferences_theme_mode_system">Zgodny z systemem</string>
     <string name="preferences_header_view">Widok</string>
+    <string name="preferences_header_view_notebook">Notatnik</string>
     <string name="preferences_layout_mode">Układ</string>
     <string name="preferences_layout_mode_grid">Siatka</string>
     <string name="preferences_layout_mode_list">Lista</string>
@@ -269,10 +270,17 @@
   </string>
     <string name="preferences_file_storage_location">Miejsce przechowywania</string>
     <string name="preferences_file_storage_select">Wybierz lokalizację przechowywania</string>
+    <string name="preferences_color_scheme_teal">Turkusowy</string>
+    <string name="preferences_color_scheme_cyan">Cyjanowy</string>
+    <string name="preferences_color_scheme_brown">Brązowy</string>
+    <string name="preferences_color_scheme_gray">Szary</string>
     <string name="preferences_color_scheme_system">Zgodny z systemem</string>
     <string name="continue_next">Fortsette</string>
     <string name="preferences_header_view_tags">Tag liste</string>
     <string name="preferences_sort_tags_method">Sorter tagger etter</string>
     <string name="preferences_header_view_navdrawer">Navigasjonsskuff</string>
     <string name="preferences_sort_navdrawer_method">Sorter notatbøker etter</string>
+    <string name="preferences_header_view_note_content">Zawartość notatki</string>
+    <string name="preferences_font_size">Edytor tekstu/rozmiar czcionki</string>
+    <string name="preferences_font_size_default">Domyślny</string>
 </resources>

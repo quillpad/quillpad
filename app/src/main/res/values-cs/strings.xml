@@ -28,6 +28,7 @@
     <string name="preferences_color_scheme_purple">Fialové</string>
     <string name="preferences_color_scheme_yellow">Žluté</string>
     <string name="preferences_color_scheme_red">Červené</string>
+    <string name="preferences_color_scheme_gray">Šedá</string>
     <string name="preferences_color_scheme_system">Podle systému</string>
     <!-- Preferences / View -->
 	<string name="preferences_header_view">Náhled</string>
@@ -281,4 +282,7 @@
     <string name="preferences_sort_tags_method">Řadit tagy podle</string>
     <string name="preferences_header_view_navdrawer">Zápisníky</string>
     <string name="preferences_sort_navdrawer_method">Řadit zápisníky podle</string>
+    <string name="preferences_color_scheme_teal">Tyrkysová</string>
+    <string name="preferences_color_scheme_cyan">Azurová</string>
+    <string name="preferences_color_scheme_brown">Hnědý</string>
 </resources>
