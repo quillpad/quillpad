@@ -46,11 +46,16 @@ class TasksAdapter(
         notifyItemMoved(fromPos, toPos)
     }
 
-    fun submitList(list: List<NoteTask>?) {
+    fun submitList(list: List<NoteTask>?, useDiff: Boolean = true) {
         if (list != null) {
-            DiffUtil.calculateDiff(DiffCallback(tasks, list), true).let { result ->
+            if (useDiff) {
+                DiffUtil.calculateDiff(DiffCallback(tasks, list), true).let { result ->
+                    tasks = list.toMutableList()
+                    result.dispatchUpdatesTo(this)
+                }
+            } else {
                 tasks = list.toMutableList()
-                result.dispatchUpdatesTo(this)
+                notifyDataSetChanged()
             }
         }
     }
