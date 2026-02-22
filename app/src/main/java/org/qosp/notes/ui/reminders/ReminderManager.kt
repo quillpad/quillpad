@@ -13,8 +13,8 @@ import androidx.navigation.NavDeepLinkBuilder
 import kotlinx.coroutines.flow.first
 import org.qosp.notes.App
 import org.qosp.notes.R
-import org.qosp.notes.data.repo.ReminderRepository
 import org.qosp.notes.data.repo.NoteRepository
+import org.qosp.notes.data.repo.ReminderRepository
 import org.qosp.notes.ui.MainActivity
 
 
@@ -53,12 +53,24 @@ class ReminderManager(
         val broadcast = requestBroadcast(reminderId, noteId) ?: return
 
         cancel(reminderId, noteId, keepIntent = true)
-        AlarmManagerCompat.setExactAndAllowWhileIdle(
-            alarmManager,
-            AlarmManager.RTC_WAKEUP,
-            dateTime * 1000, // convert seconds to millis
-            broadcast
-        )
+
+        val triggerAtMillis = dateTime * 1000 // convert seconds to millis
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
+            AlarmManagerCompat.setAndAllowWhileIdle(
+                alarmManager,
+                AlarmManager.RTC_WAKEUP,
+                triggerAtMillis,
+                broadcast
+            )
+        } else {
+            AlarmManagerCompat.setExactAndAllowWhileIdle(
+                alarmManager,
+                AlarmManager.RTC_WAKEUP,
+                triggerAtMillis,
+                broadcast
+            )
+        }
     }
 
     fun cancel(reminderId: Long, noteId: Long, keepIntent: Boolean = false) {

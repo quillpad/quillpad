@@ -21,3 +21,11 @@
 1. Optimized `getChangePayload` to use a manual `MutableList` with explicit property checks.
 2. Refactored `NoteViewHolder.setContent` to conditionally skip expensive logic (Markwon, tasks) based on visibility and compact preview state.
 3. Cleaned up redundant mappings in `onBindViewHolder` payload handling.
+
+## 2025-05-22 - [Note list binding and nested adapter optimizations]
+**Learning:** Even with DiffUtil, processing payloads in `onBindViewHolder` using functional operators like `filterIsInstance` and `flatten` creates significant allocation overhead. Furthermore, nested adapters (tasks) were running `DiffUtil` calculations when view holders were rebound to entirely different notes, which is wasteful.
+**Action:**
+1. Replaced `filterIsInstance().flatten()` in `onBindViewHolder` with a manual nested loop and a `Set` for zero-allocation (of intermediate lists) payload processing.
+2. Added `useDiff` parameter to `TasksAdapter.submitList` and disabled diffing during initial `bind()` to skip irrelevant comparisons between different notes.
+3. Granularized `NoteViewHolder` updates by splitting `setContent` into `setTextContent` and `setTasks`, allowing for targeted UI refreshes.
+4. Aligned `setupAttachments` with other content by respecting `isCompactPreview`, avoiding unnecessary attachment processing in compact mode.

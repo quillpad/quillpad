@@ -1,10 +1,13 @@
 package org.qosp.notes.tests
 
 import android.content.Context
+import androidx.work.testing.TestListenableWorkerBuilder
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
+import org.koin.androidx.workmanager.factory.KoinWorkerFactory
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.qosp.notes.components.workers.BinCleaningWorker
@@ -16,13 +19,20 @@ import java.time.Instant
 import kotlin.time.Duration.Companion.days
 
 class BinCleaningWorkerTest : KoinComponent {
-    val worker: BinCleaningWorker by inject()
+    private lateinit var worker: BinCleaningWorker
 
     val context: Context by inject()
 
     val preferenceRepository: PreferenceRepository by inject()
 
     val noteRepository: NoteRepository by inject()
+
+    @Before
+    fun setup() {
+        worker = TestListenableWorkerBuilder<BinCleaningWorker>(context)
+            .setWorkerFactory(KoinWorkerFactory())
+            .build()
+    }
 
     @Test
     @Throws(Exception::class)
