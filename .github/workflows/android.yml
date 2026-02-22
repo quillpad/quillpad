@@ -115,11 +115,7 @@ jobs:
       - name: Build Test APK
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug assembleDebugAndroidTest -PTESTLAB_BUILD=true \
-              -Pkeystore=keystore.jks \
-              -Pstorepass=${{secrets.STORE_PASS}} \
-              -Pkeypass=${{secrets.KEY_PASS}} \
-              -Pkeyalias=${{secrets.KEY_NAME}}
+          ./gradlew assembleDebug assembleDebugAndroidTest -PTESTLAB_BUILD=true
 
       - name: Archive Test APKs
         uses: actions/upload-artifact@v4
