@@ -58,7 +58,6 @@ import io.noties.markwon.editor.MarkwonEditorTextWatcher
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.commonmark.node.Code
-import org.qosp.notes.preferences.DefaultEditorMode
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.qosp.notes.R
@@ -68,6 +67,7 @@ import org.qosp.notes.data.model.NoteColor
 import org.qosp.notes.data.model.NoteTask
 import org.qosp.notes.databinding.FragmentEditorBinding
 import org.qosp.notes.databinding.LayoutAttachmentBinding
+import org.qosp.notes.preferences.DefaultEditorMode
 import org.qosp.notes.ui.attachments.dialog.EditAttachmentDialog
 import org.qosp.notes.ui.attachments.fromUri
 import org.qosp.notes.ui.attachments.recycler.AttachmentRecyclerListener
@@ -1172,17 +1172,20 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                 val reminderDate = LocalDateTime.ofEpochSecond(reminder.date, 0, offset)
 
                 action(reminder.name + " (${reminderDate.format(formatter)})", R.drawable.ic_bell) {
-                    if (checkSchedulePermission()) EditReminderDialog.build(note.id, reminder)
-                        .show(parentFragmentManager, null)
+                    checkSchedulePermission {
+                        EditReminderDialog.build(note.id, reminder).show(parentFragmentManager, null)
+                    }
                 }
             }
             action(R.string.action_new_reminder, R.drawable.ic_add) {
-                if (checkSchedulePermission()) EditReminderDialog.build(note.id, null).show(parentFragmentManager, null)
+                checkSchedulePermission {
+                    EditReminderDialog.build(note.id, null).show(parentFragmentManager, null)
+                }
             }
         }
     }
 
-    private fun checkSchedulePermission(): Boolean {
+    private fun checkSchedulePermission(onPermissionGranted: () -> Unit) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val alarmManager = context?.getSystemService(AlarmManager::class.java)
             if (alarmManager?.canScheduleExactAlarms() != true) {
@@ -1190,10 +1193,10 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                     data = Uri.fromParts("package", context?.packageName, null)
                 }
                 context?.startActivity(intent)
-                return false
+                return
             }
         }
-        return true
+        onPermissionGranted()
     }
 
     /** Gives the focus to the note body if it is empty */
