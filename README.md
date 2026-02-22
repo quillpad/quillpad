@@ -5,7 +5,8 @@ So I created this fork that adds extra colors for notes, and expands on the exis
 
 I tried to base them off the 12 colors available in Google Keep, as that's what i used before migrating to Quillpad.
 
-These are all the colors listed in order as they appear like in the app:
+These are all the colors listed in order as they appear in the app:
+
 - **DEFAULT** -- ![FFFFFF](https://placehold.co/15x15/FFFFFF/FFFFFF.png) `#FFFFFF` // ![#1C1C1C](https://placehold.co/15x15/1C1C1C/1C1C1C.png) `#1C1C1C`
 - **RED** -- ![EF9A9A](https://placehold.co/15x15/EF9A9A/EF9A9A.png) `#EF9A9A` // ![#761725](https://placehold.co/15x15/761725/761725.png) `#761725`
 - **ORANGE** -- ![F29F75](https://placehold.co/15x15/F29F75/F29F75.png) `#F29F75` // ![#693618](https://placehold.co/15x15/693618/693618.png) `#693618`
@@ -16,7 +17,7 @@ These are all the colors listed in order as they appear like in the app:
 - **BLUE** -- ![AFCCDC](https://placehold.co/15x15/AFCCDC/AFCCDC.png) `#AFCCDC` // ![#274255](https://placehold.co/15x15/274255/274255.png) `#274255`
 - **PURPLE** -- ![C8AED2](https://placehold.co/15x15/C8AED2/C8AED2.png) `#C8AED2` // ![#482E5B](https://placehold.co/15x15/482E5B/482E5B.png) `#482E5B`
 - **PINK** -- ![F9BED2](https://placehold.co/15x15/F9BED2/F9BED2.png) `#F9BED2` // ![#6D394F](https://placehold.co/15x15/6D394F/6D394F.png) `#6D394F`
-- **BROWN** -- ![BEB6AB](https://placehold.co/15x15/BEB6AB/BEB6AB.png) `#BEB6AB` // ![#4B443A](https://placehold.co/15x15/4B443A/4B443A.png) `#4B443A`
+- **BEIGE** -- ![BEB6AB](https://placehold.co/15x15/BEB6AB/BEB6AB.png) `#BEB6AB` // ![#4B443A](https://placehold.co/15x15/4B443A/4B443A.png) `#4B443A`
 - **GRAY** -- ![B8BAC1](https://placehold.co/15x15/B8BAC1/B8BAC1.png) `#B8BAC1` // ![#383A41](https://placehold.co/15x15/383A41/383A41.png) `#383A41`
 
 I have also added two new themes for the app:
@@ -36,17 +37,12 @@ I have also added two new themes for the app:
 <br>
 <br>
 
-*(This fork was made and tested in Android Studio)*
+*(This fork was created and tested using Android Studio)*
 <br>
 <br>
-<br>
-^^^^^^^^^^^^^^^
 
-^^^^^^^^^^^^^^^
+### Original description below:
 <br>
-<br>
-<br>
-Original description below:
 
 [![Gitter](https://badges.gitter.im/quillpad/community.svg)](https://gitter.im/quillpad/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Android Build Release](https://github.com/quillpad/quillpad/actions/workflows/android.yml/badge.svg?branch=master)](https://github.com/quillpad/quillpad/actions/workflows/android.yml)
