@@ -9,24 +9,24 @@ These are all the colors listed in order as they appear in the app:
 
 - **DEFAULT** -- ![FFFFFF](https://placehold.co/15x15/FFFFFF/FFFFFF.png) `#FFFFFF` // ![#1C1C1C](https://placehold.co/15x15/1C1C1C/1C1C1C.png) `#1C1C1C`
 - **RED** -- ![EF9A9A](https://placehold.co/15x15/EF9A9A/EF9A9A.png) `#EF9A9A` // ![#761725](https://placehold.co/15x15/761725/761725.png) `#761725`
-- **ORANGE** -- ![F29F75](https://placehold.co/15x15/F29F75/F29F75.png) `#F29F75` // ![#693618](https://placehold.co/15x15/693618/693618.png) `#693618`
+- **ORANGE** -- ![F29F75](https://placehold.co/15x15/F29F75/F29F75.png) `#F29F75` // ![#693A1C](https://placehold.co/15x15/693A1C/693A1C.png) `#693A1C`
 - **YELLOW** -- ![FFF59D](https://placehold.co/15x15/FFF59D/FFF59D.png) `#FFF59D` // ![#7C5603](https://placehold.co/15x15/7C5603/7C5603.png) `#7C5603`
 - **GREEN** -- ![C5E1A5](https://placehold.co/15x15/C5E1A5/C5E1A5.png) `#C5E1A5` // ![#264D3B](https://placehold.co/15x15/264D3B/264D3B.png) `#264D3B`
 - **TEAL** -- ![B4DED3](https://placehold.co/15x15/B4DED3/B4DED3.png) `#B4DED3` // ![#0C635D](https://placehold.co/15x15/0C635D/0C635D.png) `#0C635D`
-- **CYAN** -- ![8CC9DB](https://placehold.co/15x15/8CC9DB/8CC9DB.png) `#8CC9DB` // ![#2B7489](https://placehold.co/15x15/2B7489/2B7489.png) `#2B7489`
-- **BLUE** -- ![AFCCDC](https://placehold.co/15x15/AFCCDC/AFCCDC.png) `#AFCCDC` // ![#274255](https://placehold.co/15x15/274255/274255.png) `#274255`
+- **CYAN** -- ![A5DCEB](https://placehold.co/15x15/A5DCEB/A5DCEB.png) `#A5DCEB` // ![#2B7489](https://placehold.co/15x15/2B7489/2B7489.png) `#2B7489`
+- **BLUE** -- ![AFD2F5](https://placehold.co/15x15/AFD2F5/AFD2F5.png) `#AFD2F5` // ![#274255](https://placehold.co/15x15/274255/274255.png) `#274255`
 - **PURPLE** -- ![C8AED2](https://placehold.co/15x15/C8AED2/C8AED2.png) `#C8AED2` // ![#482E5B](https://placehold.co/15x15/482E5B/482E5B.png) `#482E5B`
-- **PINK** -- ![F9BED2](https://placehold.co/15x15/F9BED2/F9BED2.png) `#F9BED2` // ![#6D394F](https://placehold.co/15x15/6D394F/6D394F.png) `#6D394F`
-- **BEIGE** -- ![BEB6AB](https://placehold.co/15x15/BEB6AB/BEB6AB.png) `#BEB6AB` // ![#4B443A](https://placehold.co/15x15/4B443A/4B443A.png) `#4B443A`
-- **GRAY** -- ![B8BAC1](https://placehold.co/15x15/B8BAC1/B8BAC1.png) `#B8BAC1` // ![#383A41](https://placehold.co/15x15/383A41/383A41.png) `#383A41`
+- **PINK** -- ![FAAFC8](https://placehold.co/15x15/FAAFC8/FAAFC8.png) `#FAAFC8` // ![#6D394F](https://placehold.co/15x15/6D394F/6D394F.png) `#6D394F`
+- **BROWN** -- ![D2C3B4](https://placehold.co/15x15/D2C3B4/D2C3B4.png) `#D2C3B4` // ![#4B443A](https://placehold.co/15x15/4B443A/4B443A.png) `#4B443A`
+- **GRAY** -- ![C8C8D2](https://placehold.co/15x15/C8C8D2/C8C8D2.png) `#C8C8D2` // ![#383A41](https://placehold.co/15x15/383A41/383A41.png) `#383A41`
 
 I have also added two new themes for the app:
 - **BLUE**  -- ![2196F3](https://placehold.co/15x15/2196F3/2196F3.png) `#2196F3` // ![#90CAF9](https://placehold.co/15x15/90CAF9/90CAF9.png) `#90CAF9`
 - **RED** -- ![EA4235](https://placehold.co/15x15/EA4235/EA4235.png) `#EA4235` // ![#EE6E63](https://placehold.co/15x15/EE6E63/EE6E63.png) `#EE6E63` -- 🔸***NEW!***
-- **YELLOW** -- ![FBBC04](https://placehold.co/15x15/FBBC04/FBBC04.png) `#FBBC04` // ![#FCCF4F](https://placehold.co/15x15/FCCF4F/FCCF4F.png) `#FCCF4F` -- 🔸***NEW!***
+- **YELLOW** -- ![FFB900](https://placehold.co/15x15/FFB900/FFB900.png) `#FFB900` // ![#FCCF4F](https://placehold.co/15x15/FCCF4F/FCCF4F.png) `#FCCF4F` -- 🔸***NEW!***
 - **GREEN**  -- ![7CB342](https://placehold.co/15x15/7CB342/7CB342.png) `#7CB342` // ![#C5E1A5](https://placehold.co/15x15/C5E1A5/C5E1A5.png) `#C5E1A5`
 - **PINK**  -- ![C2185B](https://placehold.co/15x15/C2185B/C2185B.png) `#C2185B` // ![#F48FB1](https://placehold.co/15x15/F48FB1/F48FB1.png) `#F48FB1`
-- **ORANGE**  -- ![E47400](https://placehold.co/15x15/E47400/E47400.png) `#E47400` // ![#FFCC80](https://placehold.co/15x15/FFCC80/FFCC80.png) `#FFCC80`
+- **ORANGE**  -- ![FF8800](https://placehold.co/15x15/FF8800/FF8800.png) `#FF8800` // ![#FFC874](https://placehold.co/15x15/FFC874/FFC874.png) `#FFC874`
 - **PURPLE**  -- ![8249E8](https://placehold.co/15x15/8249E8/8249E8.png) `#8249E8` // ![#B39DDB](https://placehold.co/15x15/B39DDB/B39DDB.png) `#B39DDB`
 
 <br>
