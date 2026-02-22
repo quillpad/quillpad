@@ -111,12 +111,12 @@
     </style>
 
     <style name="Orange">
-        <item name="colorPrimary">#FFC874</item>
+        <item name="colorPrimary">#FFCC80</item>
         <item name="colorPrimaryDark">@android:color/transparent</item>
-        <item name="colorSecondary">#FFC874</item>
+        <item name="colorSecondary">#FFCC80</item>
 
-        <item name="colorDrawerHeaderBackground">#33FFC874</item>
-        <item name="colorPrimaryTranscluent">#26FFC874</item>
+        <item name="colorDrawerHeaderBackground">#33FFCC80</item>
+        <item name="colorPrimaryTranscluent">#26FFCC80</item>
 
     </style>
 
