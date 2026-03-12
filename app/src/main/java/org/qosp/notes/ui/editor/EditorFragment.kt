@@ -4,8 +4,6 @@ import android.app.AlarmManager
 import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.RectF
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -26,7 +24,6 @@ import androidx.activity.addCallback
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnNextLayout
 import androidx.core.view.doOnPreDraw
@@ -41,6 +38,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG
+import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_IDLE
 import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_SWIPE
 import androidx.recyclerview.widget.ItemTouchHelper.DOWN
 import androidx.recyclerview.widget.ItemTouchHelper.LEFT
@@ -95,7 +93,6 @@ import org.qosp.notes.ui.tasks.TasksAdapter
 import org.qosp.notes.ui.utils.ChooseFilesContract
 import org.qosp.notes.ui.utils.TakePictureContract
 import org.qosp.notes.ui.utils.collect
-import org.qosp.notes.ui.utils.dp
 import org.qosp.notes.ui.utils.getDimensionAttribute
 import org.qosp.notes.ui.utils.getDrawableCompat
 import org.qosp.notes.ui.utils.hideKeyboard
@@ -138,6 +135,8 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
     private var isFirstLoad: Boolean = true
     private var formatter: DateTimeFormatter? = null
 
+    private var isSwiping: Boolean = false
+
     private lateinit var attachmentsAdapter: AttachmentsAdapter
     private lateinit var tasksAdapter: TasksAdapter
 
@@ -173,17 +172,17 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
         override fun isItemViewSwipeEnabled() = model.inEditMode
 
-        override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder) = 0.5F
+        override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder) = 2F
 
         override fun getSwipeEscapeVelocity(defaultValue: Float) = 3 * defaultValue
 
         override fun getSwipeVelocityThreshold(defaultValue: Float) = defaultValue / 3
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            tasksAdapter.tasks.removeAt(viewHolder.bindingAdapterPosition)
-            model.updateTaskList(tasksAdapter.tasks)
-            tasksAdapter.notifyItemRemoved(viewHolder.bindingAdapterPosition)
-            tasksAdapter.notifyItemRangeChanged(viewHolder.bindingAdapterPosition, tasksAdapter.tasks.size - 1)
+            // Deletion is now handled by the onTaskDelete listener callback
+            // (triggered by the delete icon).
+            // Log.d("EditorFragment", "onSwiped")
+            // swiping now handles indenting
         }
 
         override fun onMove(
@@ -214,63 +213,44 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                 }
 
                 ACTION_STATE_SWIPE -> {
-                    val newDx = dX / 3
-                    val p = Paint().apply { color = context?.resolveAttribute(R.attr.colorTaskSwipe) ?: Color.RED }
-                    val itemView = viewHolder.itemView
-                    val icon = context?.getDrawableCompat(R.drawable.ic_indicator_delete_task)?.toBitmap()
-                    val height = itemView.bottom - itemView.top
-                    val size = (24).dp(requireContext())
+                    if (isSwiping && viewHolder.absoluteAdapterPosition > 0) { //only allow indentation for items after the first
+                        // 1. Call super.onChildDraw with dX=0f to prevent ItemTouchHelper from translating the item visually.
+                        super.onChildDraw(c, recyclerView, viewHolder, 0f, dY, actionState, isCurrentlyActive)
 
-                    if (dX < 0) {
-                        val background = RectF(
-                            itemView.right.toFloat() + newDx,
-                            itemView.top.toFloat(),
-                            itemView.right.toFloat(),
-                            itemView.bottom.toFloat()
-                        )
-                        c.drawRect(background, p)
-
-                        val iconRect = RectF(
-                            background.right - size - 16.dp(requireContext()),
-                            background.top + (height - size) / 2,
-                            background.right - 16.dp(requireContext()),
-                            background.bottom - (height - size) / 2,
-                        )
-                        if (icon != null) c.drawBitmap(icon, null, iconRect, p)
-                    } else if (dX > 0) {
-                        val background = RectF(
-                            itemView.left.toFloat(),
-                            itemView.top.toFloat(),
-                            newDx,
-                            itemView.bottom.toFloat()
-                        )
-                        c.drawRect(background, p)
-                        val iconRect = RectF(
-                            background.left + 16.dp(requireContext()),
-                            background.top + (height - size) / 2,
-                            background.left + size + 16.dp(requireContext()),
-                            background.bottom - (height - size) / 2,
-                        )
-                        if (icon != null) c.drawBitmap(icon, null, iconRect, p)
+                        // 2. Pass the actual displacement (dX) to the ViewHolder to update the spacer width visually.
+                        (viewHolder as? TaskViewHolder)?.setVisualIndentation(dX)
                     }
-                    return super.onChildDraw(c, recyclerView, viewHolder, newDx, dY, actionState, isCurrentlyActive)
                 }
             }
         }
 
         override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
             super.onSelectedChanged(viewHolder, actionState)
-
-            (viewHolder as TaskViewHolder?)?.let { vh ->
-                vh.taskBackgroundColor = backgroundColor
-                vh.isBeingMoved = true
+            if (actionState == ACTION_STATE_DRAG) {
+                (viewHolder as TaskViewHolder?)?.let { vh ->
+                    vh.taskBackgroundColor = backgroundColor
+                    vh.isBeingMoved = true
+                }
+                isSwiping=false
             }
+            else if (actionState == ACTION_STATE_SWIPE) {
+                isSwiping=true
+            }
+            else if (actionState == ACTION_STATE_IDLE)
+                isSwiping = false
         }
 
         override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
             super.clearView(recyclerView, viewHolder)
             (viewHolder as TaskViewHolder?)?.let {
-                if (it.isBeingMoved) it.isBeingMoved = false
+                if (it.isBeingMoved) {
+                    it.isBeingMoved = false
+                    tasksAdapter.finaliseMove(viewHolder.absoluteAdapterPosition)
+                }
+                else {
+                //    Log.d("EditorFragment", "clearView: isSwiping")
+                    it.commitIndentationChange()
+                }
             }
             model.updateTaskList(tasksAdapter.tasks)
         }
@@ -505,6 +485,8 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
             false,
             object : TaskRecyclerListener {
                 override fun onDrag(viewHolder: TaskViewHolder) {
+                    // hide indented items below the dragged item temporarily
+                    tasksAdapter.hide(viewHolder.absoluteAdapterPosition)
                     itemTouchHelper.startDrag(viewHolder)
                 }
 
@@ -519,6 +501,18 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                 override fun onNext(position: Int) {
                     jumpToNextTaskOrAdd(position)
                 }
+                // handle delete
+                override fun onTaskDelete(position: Int) {
+                    tasksAdapter.tasks.removeAt(position)
+                    model.updateTaskList(tasksAdapter.tasks)
+                    tasksAdapter.notifyItemRemoved(position)
+                    tasksAdapter.notifyItemRangeChanged(position, tasksAdapter.tasks.size - 1)
+                }
+                // Handle indentation change callback
+                override fun onTaskIndentationChanged(position: Int, newIndentationLevel: Int) {
+                    updateTask(position = position, indentationLevel = newIndentationLevel)
+                }
+
             },
             markwon = markwon,
         )
@@ -1099,7 +1093,12 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
     }
 
     private fun addTask(position: Int = 0) {
-        tasksAdapter.tasks.add(position, NoteTask(nextTaskId, "", false))
+        val indentationLevel: Int = when {
+            position > 0 -> tasksAdapter.tasks[position - 1].indentationLevel
+            else -> 0
+        }
+        tasksAdapter.tasks.add(position, NoteTask(nextTaskId, "", false
+            ,indentationLevel))
         tasksAdapter.notifyItemInserted(position)
 
         if (position < tasksAdapter.tasks.size - 1) {
@@ -1114,12 +1113,13 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         model.updateTaskList(tasksAdapter.tasks)
     }
 
-    private fun updateTask(position: Int, content: String? = null, isDone: Boolean? = null) {
+    private fun updateTask(position: Int, content: String? = null, isDone: Boolean? = null, indentationLevel: Int? = null) {
         val tasks = tasksAdapter.tasks
         val oldTask = tasks[position]
         val newTask = tasks[position].copy(
             content = content ?: oldTask.content,
-            isDone = isDone ?: oldTask.isDone
+            isDone = isDone ?: oldTask.isDone,
+            indentationLevel = indentationLevel ?: oldTask.indentationLevel
         )
         tasks[position] = newTask
 
@@ -1144,6 +1144,8 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                     tasksAdapter.notifyItemRangeChanged(newPosition, position - newPosition + 1)
                 }
             }
+        } else if (oldTask.indentationLevel != newTask.indentationLevel) {
+            tasksAdapter.notifyItemChanged(position)
         }
 
         model.updateTaskList(tasksAdapter.tasks)

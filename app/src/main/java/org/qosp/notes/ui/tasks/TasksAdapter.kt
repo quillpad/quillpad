@@ -17,6 +17,7 @@ class TasksAdapter(
 ) : RecyclerView.Adapter<TaskViewHolder>() {
 
     private var fontSize: Float = -1.0f
+    private var hiddenTasks: MutableList<NoteTask> = mutableListOf()
 
     var tasks: MutableList<NoteTask> = mutableListOf()
 
@@ -62,6 +63,63 @@ class TasksAdapter(
 
     fun setFontSize(fs: Float) {
         fontSize = fs
+    }
+
+    fun hide(absoluteAdapterPosition: Int) {
+        val workingTasks: MutableList<NoteTask> = tasks.toMutableList()
+        val hideFrom= absoluteAdapterPosition + 1
+        //hide  if we have indented items directly below current position
+        if (hideFrom < itemCount  &&
+            tasks[hideFrom].indentationLevel > tasks[absoluteAdapterPosition].indentationLevel ) {
+            // find end position
+            for (x in hideFrom until itemCount) {
+                if (tasks[x].indentationLevel == 0) {
+                    break
+                } else {
+                    hiddenTasks.add(tasks[x])
+                    workingTasks.remove(tasks[x])
+                }
+            }
+            tasks = workingTasks
+            notifyItemRangeRemoved(hideFrom, hiddenTasks.size)
+        }
+    }
+
+    fun finaliseMove(absoluteAdapterPosition: Int) {
+        if (!hiddenTasks.isEmpty()) { // move hidden tasks as well
+            tasks.addAll(absoluteAdapterPosition+1, hiddenTasks)
+            notifyItemRangeInserted(absoluteAdapterPosition+1, hiddenTasks.size)
+            hiddenTasks= mutableListOf()
+        }
+        else {
+            val movedTask = tasks[absoluteAdapterPosition]
+            val originalIndentation = movedTask.indentationLevel
+            var newIndentation = originalIndentation
+
+            // Determine the indentation level of the task below, if it exists
+            val itemBelowIndentation =
+                if (absoluteAdapterPosition + 1 < itemCount) tasks[absoluteAdapterPosition + 1].indentationLevel
+                else 0 // Treat non-existent item (end of list) as unindented
+
+            if (itemBelowIndentation > 0) {
+                // Case 1: Moving into a nested list (inheriting indentation from the item below)
+                newIndentation = itemBelowIndentation
+            } else if (absoluteAdapterPosition == 0) {
+                // Case 2: Moving to the first position (must be top level)
+                newIndentation = 0
+            } else {
+                // Case 3: General move (If not nested under itemBelow, reset to top level)
+                //  If complex hierarchy support is needed: tasks[absoluteAdapterPosition - 1]
+                newIndentation = 0
+            }
+
+            // Apply change and notify only if the indentation level actually changed
+            if (newIndentation != originalIndentation) {
+                movedTask.indentationLevel = newIndentation
+                notifyItemChanged(absoluteAdapterPosition)
+            }
+        }
+
     }
 
     private class DiffCallback(val oldList: List<NoteTask>, val newList: List<NoteTask>) : DiffUtil.Callback() {
