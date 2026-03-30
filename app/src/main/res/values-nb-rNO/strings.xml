@@ -189,7 +189,7 @@
     <string name="action_insert_code">Sett inn kode-markdown</string>
     <string name="action_remove_all_checked_tasks">Fjern alle avmerkede oppgaver</string>
     <string name="indicator_note_date">Opprettet %1$s\nSist endret %2$s</string>
-    <string name="indicator_restored_notes">Gjenopprettet notater</string>
+    <string name="indicator_restored_notes">Gjenopprettede notater</string>
     <string name="indicator_restored_note">Gjenopprettet notatet</string>
     <string name="indicator_archived_notes">Arkiverte notater</string>
     <string name="indicator_archive_note">Arkiverte notatet</string>
@@ -223,16 +223,16 @@
     <string name="message_not_valid_https">Dette er ikke en gyldig HTTPS-nettadresse.</string>
     <string name="indicator_nextcloud_currently_logged_in_as">Du er innlogget som <b>%s</b>.</string>
     <string name="indicator_nextcloud_currently_not_logged_in">Du er ikke innlogget.</string>
-    <string name="action_nextcloud_authenticate">Identitetsbekreft</string>
+    <string name="action_nextcloud_authenticate">Bekreft identitet</string>
     <string name="indicator_offline_account">Frakoblet konto</string>
     <string name="indicator_connecting">Kobler til …</string>
     <string name="message_something_went_wrong">Noe gikk galt.</string>
     <string name="message_invalid_credentials">Kunne ikke identietetsbekrefte hos tjeneren fordi enten brukernavn eller passord var feil.</string>
-    <string name="message_logged_in_successfully">Innlogget</string>
+    <string name="message_logged_in_successfully">Innlogget!</string>
     <string name="message_server_not_compatible">Tjenerversjonen er ikke kompatibel med dette programmet.</string>
     <string name="message_internet_not_available">Du må koble deg til Internett først.</string>
     <string name="message_credentials_cannot_be_blank">Brukernavn og passord må fylles ut.</string>
-    <string name="preference_nextcloud_clear_credentials">Tøm brukernavn, passord, og tjenernettadresse</string>
+    <string name="preference_nextcloud_clear_credentials">Tøm brukernavn, passord og tjenernettadresse</string>
     <string name="notification_media_play_pause">Spill av/pause</string>
     <string name="notification_media_stop">Stopp</string>
     <!-- App shortcuts -->
@@ -263,7 +263,7 @@
     <string name="preferences_file_storage_select">Velg Lagringssted</string>
     <string name="preferences_color_scheme_gray">Grå</string>
     <string name="preferences_color_scheme_system">System</string>
-    <string name="continue_next">Fortsette</string>
+    <string name="continue_next">Fortsett</string>
     <string name="preferences_header_view_tags">Tag liste</string>
     <string name="preferences_sort_tags_method">Sorter tagger etter</string>
     <string name="preferences_header_view_navdrawer">Navigasjonsskuff</string>
@@ -280,4 +280,17 @@
     <string name="preferences_color_scheme_teal">Blågrønn</string>
     <string name="preferences_color_scheme_cyan">Cyan</string>
     <string name="preferences_color_scheme_brown">Brun</string>
+    <string name="preferences_show_fab_change_mode">Plassering av rediger/vis knapp</string>
+    <string name="preferences_top_bar">Topplinje</string>
+    <string name="about_send_logs">Send feilkode-logger</string>
+    <string name="about_send_logs_subtext">Send appens loggfiler til utvikleren for undersøkelse</string>
+    <string name="action_change_mode">Rediger/Vis-modus</string>
+    <string name="action_screen_always_on">Skjerm alltid på</string>
+    <string name="action_disable_screen_always_on">Deaktivert Skjem alltid på</string>
+    <string name="message_certificates_invalid">Sertifikat-feil. Skru på \"Stol på selvsignert sertifikat (SSC)\" for å fortsette.</string>
+    <string name="message_notes_not_installed">Notes-appen er ikke installert i din Nextcloud.</string>
+    <string name="action_new_note">Nytt notat</string>
+    <string name="note_untitled">Uten navn</string>
+    <string name="tasks">oppgave</string>
+    <string name="widget_no_pinned_notes">Ingen festede notater enda. Fest et notat for å se det her.</string>
 </resources>
