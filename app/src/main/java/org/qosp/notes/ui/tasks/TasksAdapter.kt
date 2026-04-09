@@ -66,14 +66,16 @@ class TasksAdapter(
     }
 
     fun hide(absoluteAdapterPosition: Int) {
+        val draggingTask = tasks[absoluteAdapterPosition]
         val workingTasks: MutableList<NoteTask> = tasks.toMutableList()
         val hideFrom= absoluteAdapterPosition + 1
-        //hide  if we have indented items directly below current position
+        // Only move items below if they are actual children of the dragging task
         if (hideFrom < itemCount  &&
-            tasks[hideFrom].indentationLevel > tasks[absoluteAdapterPosition].indentationLevel ) {
-            // find end position
+            tasks[hideFrom].parentId == draggingTask.id) {
+            // Find the contiguous block of children
             for (x in hideFrom until itemCount) {
-                if (tasks[x].indentationLevel == 0) {
+                // Stop if we hit a task that isn't a child of our draggingTask
+                if (tasks[x].parentId != draggingTask.id) {
                     break
                 } else {
                     hiddenTasks.add(tasks[x])
@@ -86,40 +88,59 @@ class TasksAdapter(
     }
 
     fun finaliseMove(absoluteAdapterPosition: Int) {
-        if (!hiddenTasks.isEmpty()) { // move hidden tasks as well
+        if (hiddenTasks.isNotEmpty()) { // moving a group of items
+            // Re-insert children that were hidden during the drag
+            // first, determine if we moved into an indented section -> attempt to find new parent
+            val movedParent=tasks[absoluteAdapterPosition]
+            val newParentId =findParentForPosition(absoluteAdapterPosition)
+            if (newParentId!=null) {
+                // adjust parent id of moved parent and all moved children
+                movedParent.parentId = newParentId
+                movedParent.indentationLevel++
+                for (task in hiddenTasks) {
+                    task.parentId = newParentId
+                }
+                tasks[absoluteAdapterPosition] = movedParent
+                notifyItemChanged(absoluteAdapterPosition)
+            }
+            // re-insert moved children
             tasks.addAll(absoluteAdapterPosition+1, hiddenTasks)
             notifyItemRangeInserted(absoluteAdapterPosition+1, hiddenTasks.size)
             hiddenTasks= mutableListOf()
         }
-        else {
+        else { // a single item was moved:
             val movedTask = tasks[absoluteAdapterPosition]
-            val originalIndentation = movedTask.indentationLevel
-            var newIndentation = originalIndentation
 
-            // Determine the indentation level of the task below, if it exists
-            val itemBelowIndentation =
-                if (absoluteAdapterPosition + 1 < itemCount) tasks[absoluteAdapterPosition + 1].indentationLevel
-                else 0 // Treat non-existent item (end of list) as unindented
-
-            if (itemBelowIndentation > 0) {
-                // Case 1: Moving into a nested list (inheriting indentation from the item below)
-                newIndentation = itemBelowIndentation
-            } else if (absoluteAdapterPosition == 0) {
-                // Case 2: Moving to the first position (must be top level)
-                newIndentation = 0
-            } else {
-                // Case 3: General move (If not nested under itemBelow, reset to top level)
-                //  If complex hierarchy support is needed: tasks[absoluteAdapterPosition - 1]
-                newIndentation = 0
+            // 1. Force top item to be root
+            if (absoluteAdapterPosition == 0) {
+                movedTask.indentationLevel = 0
+                movedTask.parentId = null
             }
-
-            // Apply change and notify only if the indentation level actually changed
-            if (newIndentation != originalIndentation) {
-                movedTask.indentationLevel = newIndentation
-                notifyItemChanged(absoluteAdapterPosition)
+            // 2. update parentId & indentation level based on the new position
+            else {
+                val newParentId = findParentForPosition(absoluteAdapterPosition)
+                when {
+                    newParentId != null && movedTask.indentationLevel == 0 -> {
+                        // has a new parent (and had no parent before)
+                        // increase indentation
+                        movedTask.indentationLevel++
+                    }
+                    movedTask.parentId != newParentId && movedTask.indentationLevel > 0 -> {
+                        // was indented, but got new parent
+                        // do nothing, keep indendation level
+                    }
+                    (newParentId == null) && (movedTask.indentationLevel > 0) -> {
+                        //had a parent, but not anymore
+                        // decrease indentation
+                        movedTask.indentationLevel--
+                    }
+                }
+                movedTask.parentId = newParentId
             }
+            tasks[absoluteAdapterPosition]=movedTask
+
+            notifyItemChanged(absoluteAdapterPosition)
         }
-
     }
 
     private class DiffCallback(val oldList: List<NoteTask>, val newList: List<NoteTask>) : DiffUtil.Callback() {
@@ -135,4 +156,101 @@ class TasksAdapter(
             return oldList[oldItemPosition] == newList[newItemPosition]
         }
     }
+
+    /**
+     * Helper to find the nearest item above the current position
+     * that could be viewed as a parent.
+     */
+    fun findParentForPosition(position: Int): Long? {
+        // 1. Initial Guards
+        if (tasks.size <= 1) return null
+        if (position <= 0 || position >= tasks.size) return null
+
+        val currentLevel = tasks[position].indentationLevel
+
+        // 2. last item
+        if (position == tasks.size - 1) {
+            val prev = tasks[position - 1]
+            return when {
+                prev.indentationLevel > 0 && currentLevel > 0 -> prev.parentId //already indented, use same item as parent
+                prev.indentationLevel < currentLevel -> prev.id // not indented yet, use previous item as parent
+                else -> null
+            }
+        }
+
+        // 3. checking the next item
+        val nextLevel = tasks[position + 1].indentationLevel
+        if (nextLevel > currentLevel || (nextLevel == currentLevel && currentLevel > 0)) { //next item is indented
+            return tasks[position + 1].parentId
+        }
+
+        // 4. all other cases: look upwards for task with lower indentation -> use as parent
+        for (i in position - 1 downTo 0) {
+            if (tasks[i].indentationLevel < currentLevel) {
+                return tasks[i].id
+            }
+        }
+
+        return null
+    }
+
+    /**
+     * get all children belonging to the item that has the id "parentId"
+     * side effect: change "done" status of all items (parent and children)
+     * based on previous "done" status of parent
+     */
+    fun getChangedSection(parentId: Long?): MutableList<NoteTask> {
+        val section = mutableListOf<NoteTask>()
+        val position = tasks.indexOfFirst { it.id == parentId }
+        if (position == -1) return section
+
+        val parentTask= tasks[position]
+        val parentIsDone = !parentTask.isDone // change status
+        val newParentTask = parentTask.copy(isDone = parentIsDone)
+        section.add(newParentTask) // include parent
+
+        // identify direct children
+        // -> look for contiguous items that have parentTask as parent
+        var nextIdx = position + 1
+
+        while (nextIdx < tasks.size && tasks[nextIdx].parentId == parentId) {
+            section.add(tasks[nextIdx].copy(isDone = parentIsDone))
+            // while adding, change isDone to reflect parent status
+            nextIdx++
+        }
+        return section
+    }
+
+    /**
+     * Finds the index of the last undone child or the first completed child.
+     * Returns -1 if the parentId is not found.
+     */
+    fun findTargetDoneChildPosition(parentId: Long): Int {
+        // Find the parent's current position in the list
+        val parentPos = tasks.indexOfFirst { it.id == parentId }
+        if (parentPos == -1) return -1
+
+        val targetPos= tasks.indexOfLast { it.parentId == parentId }
+        return targetPos
+
+    }
+
+    /**
+     * Finds the index of the first done child
+     * If no done child exists, return the index of the first child.
+     * Returns -1 if the parentId is not found.
+     */
+    fun findTargetUnDoneChildPosition(parentId: Long): Int {
+        val parentPos = tasks.indexOfFirst { it.id == parentId }
+        if (parentPos == -1) return -1
+
+        // find the first done child
+        var targetPos=tasks.indexOfFirst { it.parentId == parentId && it.isDone}
+        if (targetPos == -1)
+            // if no done child exists, use the first child position
+            targetPos = tasks.indexOfFirst { it.parentId == parentId }
+        return targetPos
+    }
+
+
 }
