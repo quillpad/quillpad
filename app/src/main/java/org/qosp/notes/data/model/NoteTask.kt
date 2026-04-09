@@ -6,4 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 @Parcelize
-data class NoteTask(val id: Long, val content: String, val isDone: Boolean, var indentationLevel: Int = 0 ) : Parcelable
+data class NoteTask(val id: Long, val content: String, var isDone: Boolean,
+                    var indentationLevel: Int = 0,
+                    var parentId: Long? = null // null means it's a top-level task
+ ) : Parcelable

@@ -503,14 +503,20 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                 }
                 // handle delete
                 override fun onTaskDelete(position: Int) {
-                    tasksAdapter.tasks.removeAt(position)
+                    val parentId= tasksAdapter.tasks[position].id // get id in case this is a parent
+                    tasksAdapter.tasks.removeAt(position) // remove current item
+                    var removedCount=1;
+                    while (position < (tasksAdapter.tasks).size
+                        &&  tasksAdapter.tasks[position].parentId == parentId) {
+                        tasksAdapter.tasks.removeAt(position) //remove all children
+                        removedCount++
+                    }
                     model.updateTaskList(tasksAdapter.tasks)
-                    tasksAdapter.notifyItemRemoved(position)
-                    tasksAdapter.notifyItemRangeChanged(position, tasksAdapter.tasks.size - 1)
+                    tasksAdapter.notifyItemRangeRemoved(position, removedCount)
                 }
                 // Handle indentation change callback
                 override fun onTaskIndentationChanged(position: Int, newIndentationLevel: Int) {
-                    updateTask(position = position, indentationLevel = newIndentationLevel)
+                    updateIndentation(position, newIndentationLevel)
                 }
 
             },
@@ -1093,12 +1099,17 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
     }
 
     private fun addTask(position: Int = 0) {
+        // adjust indentation level based on potential parent
+        val parentId = tasksAdapter.findParentForPosition(position)
         val indentationLevel: Int = when {
-            position > 0 -> tasksAdapter.tasks[position - 1].indentationLevel
-            else -> 0
+            parentId == null -> 0
+            else -> {
+                val parentIndex = (tasksAdapter.tasks).indexOfFirst{it.id==parentId}
+                (tasksAdapter.tasks[parentIndex]).indentationLevel + 1
+            }
         }
         tasksAdapter.tasks.add(position, NoteTask(nextTaskId, "", false
-            ,indentationLevel))
+            ,indentationLevel, parentId))
         tasksAdapter.notifyItemInserted(position)
 
         if (position < tasksAdapter.tasks.size - 1) {
@@ -1113,42 +1124,113 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         model.updateTaskList(tasksAdapter.tasks)
     }
 
-    private fun updateTask(position: Int, content: String? = null, isDone: Boolean? = null, indentationLevel: Int? = null) {
+    private fun updateTask(position: Int, content: String? = null, isDone: Boolean? = null) {
         val tasks = tasksAdapter.tasks
         val oldTask = tasks[position]
-        val newTask = tasks[position].copy(
+        val newIsDone = isDone ?: oldTask.isDone
+        val newTask = oldTask.copy(
             content = content ?: oldTask.content,
-            isDone = isDone ?: oldTask.isDone,
-            indentationLevel = indentationLevel ?: oldTask.indentationLevel
-        )
-        tasks[position] = newTask
+            isDone = newIsDone)
+        // change in checked status that should be addressed?
+        if (oldTask.isDone != newIsDone  && model.moveCheckedItems) { // yes
+            val parentIndex = newTask.parentId
+            val blockToMove = tasksAdapter.getChangedSection(newTask.id)
+            val rangeSize = blockToMove.size
 
-        if (oldTask.isDone != newTask.isDone && model.moveCheckedItems) {
-            if (newTask.isDone) {
-                // Move to very end
-                tasks.removeAt(position)
-                tasks.add(newTask)
+            if (newIsDone) { // checked status? -> Move task(s) to the bottom
+                var targetPosition = tasks.size - rangeSize // Default (e.g., for top level items): to bottom
 
-                tasksAdapter.notifyItemMoved(position, tasks.indexOf(newTask))
-                tasksAdapter.notifyItemRangeChanged(position, tasks.size - position)
+                // if it is a child: find targetPosition in child section
+                if (parentIndex != null)
+                    targetPosition = tasksAdapter.findTargetDoneChildPosition(parentIndex);
+
+                // remove item(s) temporarily
+                repeat(rangeSize) { tasks.removeAt(position) }
+                // add at target Position
+                tasks.addAll(targetPosition, blockToMove)
+
+                tasksAdapter.notifyItemRangeRemoved(position, rangeSize)
+                tasksAdapter.notifyItemRangeInserted(targetPosition, rangeSize)
             } else {
-                // Move to after last open task or to very beginning if all tasks are done
-                val newPosition = tasks.indexOfLast { it.id != newTask.id && !it.isDone } + 1
+                // Unchecked. -> move back to the bottom of the "Active" section
+                var newPosition= position
 
+                // item is a child ?
+                if (parentIndex != null) {
+                    // move to bottom of "Active" section in child section
+                    newPosition = tasksAdapter.findTargetUnDoneChildPosition(parentIndex)
+                } else { // it is not a child:
+                    // first approximation: just after last item that is not checked and not indented
+                    newPosition= tasks.indexOfLast { !it.isDone && it.indentationLevel == 0} + 1
+                    // however, we could have landed inside a section
+                    while (newPosition < tasks.size && tasks[newPosition].indentationLevel>0) {
+                        //search downwards until end of section/end of list or until we find unindented element
+                        newPosition++
+                    }
+                }
+                // remove items temporarily
+                repeat(rangeSize) { tasks.removeAt(position) }
                 // Only move upwards; don't move further down
                 if (newPosition < position) {
-                    tasks.removeAt(position)
-                    tasks.add(newPosition, newTask)
-
-                    tasksAdapter.notifyItemMoved(position, newPosition)
-                    tasksAdapter.notifyItemRangeChanged(newPosition, position - newPosition + 1)
+                    tasks.addAll(newPosition, blockToMove) //add at new position
+                    tasksAdapter.notifyItemRangeRemoved(position, rangeSize)
+                    tasksAdapter.notifyItemRangeInserted(newPosition, rangeSize)
+                } else {
+                    tasks.addAll(position, blockToMove) // re-add at same position (but with changed check status)
+                    tasksAdapter.notifyItemRangeChanged(position, rangeSize)
                 }
             }
-        } else if (oldTask.indentationLevel != newTask.indentationLevel) {
-            tasksAdapter.notifyItemChanged(position)
+        }
+        else {
+            tasks[position] = newTask // content-only change
         }
 
-        model.updateTaskList(tasksAdapter.tasks)
+        model.updateTaskList(tasks)
+    }
+
+    private fun updateIndentation(position: Int, newIndentationLevel: Int) {
+        // When indentation increases, we must find the (new) parent
+        val tasks = tasksAdapter.tasks
+        val oldTask = tasks[position]
+        // Determine the parent ID
+        val newParentId = when {
+            // If indentation is 0, it is a root item and has NO parent
+            newIndentationLevel == 0 -> null
+
+            // If it's indented, find the nearest parent (search upwards)
+            else -> {
+                var foundId: Long? = null
+                for (i in position - 1 downTo 0) {
+                    if (tasks[i].indentationLevel < newIndentationLevel) {
+                        foundId = tasks[i].id
+                        break
+                    }
+                }
+                foundId
+            }
+        }
+
+        // Update the task in the list and the model
+        val newTask = oldTask.copy(
+            indentationLevel = newIndentationLevel,
+            parentId = newParentId
+        )
+        tasks[position] = newTask
+        tasksAdapter.notifyItemChanged(position)
+
+        // reassign parent for items below (if we removed indentation) -> make current item parent
+        if (newIndentationLevel == 0 && position < tasksAdapter.tasks.size - 1) {
+            var subPosition = position + 1
+            while (subPosition < tasksAdapter.tasks.size && tasksAdapter.tasks[subPosition].indentationLevel > 0) {
+                tasksAdapter.tasks[subPosition] = tasksAdapter.tasks[subPosition].copy(
+                    parentId = oldTask.id
+                )
+                tasks[subPosition].parentId = oldTask.id
+                subPosition++
+            }
+        }
+
+        model.updateTaskList(tasks)
     }
 
     private fun showColorChangeDialog() {
