@@ -4,8 +4,6 @@ import android.app.AlarmManager
 import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.RectF
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -26,7 +24,6 @@ import androidx.activity.addCallback
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnNextLayout
 import androidx.core.view.doOnPreDraw
@@ -41,6 +38,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG
+import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_IDLE
 import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_SWIPE
 import androidx.recyclerview.widget.ItemTouchHelper.DOWN
 import androidx.recyclerview.widget.ItemTouchHelper.LEFT
@@ -95,7 +93,6 @@ import org.qosp.notes.ui.tasks.TasksAdapter
 import org.qosp.notes.ui.utils.ChooseFilesContract
 import org.qosp.notes.ui.utils.TakePictureContract
 import org.qosp.notes.ui.utils.collect
-import org.qosp.notes.ui.utils.dp
 import org.qosp.notes.ui.utils.getDimensionAttribute
 import org.qosp.notes.ui.utils.getDrawableCompat
 import org.qosp.notes.ui.utils.hideKeyboard
@@ -138,6 +135,8 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
     private var isFirstLoad: Boolean = true
     private var formatter: DateTimeFormatter? = null
 
+    private var isSwiping: Boolean = false
+
     private lateinit var attachmentsAdapter: AttachmentsAdapter
     private lateinit var tasksAdapter: TasksAdapter
 
@@ -173,17 +172,17 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
         override fun isItemViewSwipeEnabled() = model.inEditMode
 
-        override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder) = 0.5F
+        override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder) = 2F
 
         override fun getSwipeEscapeVelocity(defaultValue: Float) = 3 * defaultValue
 
         override fun getSwipeVelocityThreshold(defaultValue: Float) = defaultValue / 3
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            tasksAdapter.tasks.removeAt(viewHolder.bindingAdapterPosition)
-            model.updateTaskList(tasksAdapter.tasks)
-            tasksAdapter.notifyItemRemoved(viewHolder.bindingAdapterPosition)
-            tasksAdapter.notifyItemRangeChanged(viewHolder.bindingAdapterPosition, tasksAdapter.tasks.size - 1)
+            // Deletion is now handled by the onTaskDelete listener callback
+            // (triggered by the delete icon).
+            // Log.d("EditorFragment", "onSwiped")
+            // swiping now handles indenting
         }
 
         override fun onMove(
@@ -214,63 +213,44 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                 }
 
                 ACTION_STATE_SWIPE -> {
-                    val newDx = dX / 3
-                    val p = Paint().apply { color = context?.resolveAttribute(R.attr.colorTaskSwipe) ?: Color.RED }
-                    val itemView = viewHolder.itemView
-                    val icon = context?.getDrawableCompat(R.drawable.ic_indicator_delete_task)?.toBitmap()
-                    val height = itemView.bottom - itemView.top
-                    val size = (24).dp(requireContext())
+                    if (isSwiping && viewHolder.absoluteAdapterPosition > 0) { //only allow indentation for items after the first
+                        // 1. Call super.onChildDraw with dX=0f to prevent ItemTouchHelper from translating the item visually.
+                        super.onChildDraw(c, recyclerView, viewHolder, 0f, dY, actionState, isCurrentlyActive)
 
-                    if (dX < 0) {
-                        val background = RectF(
-                            itemView.right.toFloat() + newDx,
-                            itemView.top.toFloat(),
-                            itemView.right.toFloat(),
-                            itemView.bottom.toFloat()
-                        )
-                        c.drawRect(background, p)
-
-                        val iconRect = RectF(
-                            background.right - size - 16.dp(requireContext()),
-                            background.top + (height - size) / 2,
-                            background.right - 16.dp(requireContext()),
-                            background.bottom - (height - size) / 2,
-                        )
-                        if (icon != null) c.drawBitmap(icon, null, iconRect, p)
-                    } else if (dX > 0) {
-                        val background = RectF(
-                            itemView.left.toFloat(),
-                            itemView.top.toFloat(),
-                            newDx,
-                            itemView.bottom.toFloat()
-                        )
-                        c.drawRect(background, p)
-                        val iconRect = RectF(
-                            background.left + 16.dp(requireContext()),
-                            background.top + (height - size) / 2,
-                            background.left + size + 16.dp(requireContext()),
-                            background.bottom - (height - size) / 2,
-                        )
-                        if (icon != null) c.drawBitmap(icon, null, iconRect, p)
+                        // 2. Pass the actual displacement (dX) to the ViewHolder to update the spacer width visually.
+                        (viewHolder as? TaskViewHolder)?.setVisualIndentation(dX)
                     }
-                    return super.onChildDraw(c, recyclerView, viewHolder, newDx, dY, actionState, isCurrentlyActive)
                 }
             }
         }
 
         override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
             super.onSelectedChanged(viewHolder, actionState)
-
-            (viewHolder as TaskViewHolder?)?.let { vh ->
-                vh.taskBackgroundColor = backgroundColor
-                vh.isBeingMoved = true
+            if (actionState == ACTION_STATE_DRAG) {
+                (viewHolder as TaskViewHolder?)?.let { vh ->
+                    vh.taskBackgroundColor = backgroundColor
+                    vh.isBeingMoved = true
+                }
+                isSwiping=false
             }
+            else if (actionState == ACTION_STATE_SWIPE) {
+                isSwiping=true
+            }
+            else if (actionState == ACTION_STATE_IDLE)
+                isSwiping = false
         }
 
         override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
             super.clearView(recyclerView, viewHolder)
             (viewHolder as TaskViewHolder?)?.let {
-                if (it.isBeingMoved) it.isBeingMoved = false
+                if (it.isBeingMoved) {
+                    it.isBeingMoved = false
+                    tasksAdapter.finaliseMove(viewHolder.absoluteAdapterPosition)
+                }
+                else {
+                //    Log.d("EditorFragment", "clearView: isSwiping")
+                    it.commitIndentationChange()
+                }
             }
             model.updateTaskList(tasksAdapter.tasks)
         }
@@ -505,6 +485,8 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
             false,
             object : TaskRecyclerListener {
                 override fun onDrag(viewHolder: TaskViewHolder) {
+                    // hide indented items below the dragged item temporarily
+                    tasksAdapter.hide(viewHolder.absoluteAdapterPosition)
                     itemTouchHelper.startDrag(viewHolder)
                 }
 
@@ -519,6 +501,24 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                 override fun onNext(position: Int) {
                     jumpToNextTaskOrAdd(position)
                 }
+                // handle delete
+                override fun onTaskDelete(position: Int) {
+                    val parentId= tasksAdapter.tasks[position].id // get id in case this is a parent
+                    tasksAdapter.tasks.removeAt(position) // remove current item
+                    var removedCount=1;
+                    while (position < (tasksAdapter.tasks).size
+                        &&  tasksAdapter.tasks[position].parentId == parentId) {
+                        tasksAdapter.tasks.removeAt(position) //remove all children
+                        removedCount++
+                    }
+                    model.updateTaskList(tasksAdapter.tasks)
+                    tasksAdapter.notifyItemRangeRemoved(position, removedCount)
+                }
+                // Handle indentation change callback
+                override fun onTaskIndentationChanged(position: Int, newIndentationLevel: Int) {
+                    updateIndentation(position, newIndentationLevel)
+                }
+
             },
             markwon = markwon,
         )
@@ -1099,7 +1099,17 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
     }
 
     private fun addTask(position: Int = 0) {
-        tasksAdapter.tasks.add(position, NoteTask(nextTaskId, "", false))
+        // adjust indentation level based on potential parent
+        val parentId = tasksAdapter.findParentForPosition(position)
+        val indentationLevel: Int = when {
+            parentId == null -> 0
+            else -> {
+                val parentIndex = (tasksAdapter.tasks).indexOfFirst{it.id==parentId}
+                (tasksAdapter.tasks[parentIndex]).indentationLevel + 1
+            }
+        }
+        tasksAdapter.tasks.add(position, NoteTask(nextTaskId, "", false
+            ,indentationLevel, parentId))
         tasksAdapter.notifyItemInserted(position)
 
         if (position < tasksAdapter.tasks.size - 1) {
@@ -1117,36 +1127,110 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
     private fun updateTask(position: Int, content: String? = null, isDone: Boolean? = null) {
         val tasks = tasksAdapter.tasks
         val oldTask = tasks[position]
-        val newTask = tasks[position].copy(
+        val newIsDone = isDone ?: oldTask.isDone
+        val newTask = oldTask.copy(
             content = content ?: oldTask.content,
-            isDone = isDone ?: oldTask.isDone
-        )
-        tasks[position] = newTask
+            isDone = newIsDone)
+        // change in checked status that should be addressed?
+        if (oldTask.isDone != newIsDone  && model.moveCheckedItems) { // yes
+            val parentIndex = newTask.parentId
+            val blockToMove = tasksAdapter.getChangedSection(newTask.id)
+            val rangeSize = blockToMove.size
 
-        if (oldTask.isDone != newTask.isDone && model.moveCheckedItems) {
-            if (newTask.isDone) {
-                // Move to very end
-                tasks.removeAt(position)
-                tasks.add(newTask)
+            if (newIsDone) { // checked status? -> Move task(s) to the bottom
+                var targetPosition = tasks.size - rangeSize // Default (e.g., for top level items): to bottom
 
-                tasksAdapter.notifyItemMoved(position, tasks.indexOf(newTask))
-                tasksAdapter.notifyItemRangeChanged(position, tasks.size - position)
+                // if it is a child: find targetPosition in child section
+                if (parentIndex != null)
+                    targetPosition = tasksAdapter.findTargetDoneChildPosition(parentIndex);
+
+                // remove item(s) temporarily
+                repeat(rangeSize) { tasks.removeAt(position) }
+                // add at target Position
+                tasks.addAll(targetPosition, blockToMove)
+
+                tasksAdapter.notifyItemRangeRemoved(position, rangeSize)
+                tasksAdapter.notifyItemRangeInserted(targetPosition, rangeSize)
             } else {
-                // Move to after last open task or to very beginning if all tasks are done
-                val newPosition = tasks.indexOfLast { it.id != newTask.id && !it.isDone } + 1
+                // Unchecked. -> move back to the bottom of the "Active" section
+                var newPosition= position
 
+                // item is a child ?
+                if (parentIndex != null) {
+                    // move to bottom of "Active" section in child section
+                    newPosition = tasksAdapter.findTargetUnDoneChildPosition(parentIndex)
+                } else { // it is not a child:
+                    // first approximation: just after last item that is not checked and not indented
+                    newPosition= tasks.indexOfLast { !it.isDone && it.indentationLevel == 0} + 1
+                    // however, we could have landed inside a section
+                    while (newPosition < tasks.size && tasks[newPosition].indentationLevel>0) {
+                        //search downwards until end of section/end of list or until we find unindented element
+                        newPosition++
+                    }
+                }
+                // remove items temporarily
+                repeat(rangeSize) { tasks.removeAt(position) }
                 // Only move upwards; don't move further down
                 if (newPosition < position) {
-                    tasks.removeAt(position)
-                    tasks.add(newPosition, newTask)
-
-                    tasksAdapter.notifyItemMoved(position, newPosition)
-                    tasksAdapter.notifyItemRangeChanged(newPosition, position - newPosition + 1)
+                    tasks.addAll(newPosition, blockToMove) //add at new position
+                    tasksAdapter.notifyItemRangeRemoved(position, rangeSize)
+                    tasksAdapter.notifyItemRangeInserted(newPosition, rangeSize)
+                } else {
+                    tasks.addAll(position, blockToMove) // re-add at same position (but with changed check status)
+                    tasksAdapter.notifyItemRangeChanged(position, rangeSize)
                 }
             }
         }
+        else {
+            tasks[position] = newTask // content-only change
+        }
 
-        model.updateTaskList(tasksAdapter.tasks)
+        model.updateTaskList(tasks)
+    }
+
+    private fun updateIndentation(position: Int, newIndentationLevel: Int) {
+        // When indentation increases, we must find the (new) parent
+        val tasks = tasksAdapter.tasks
+        val oldTask = tasks[position]
+        // Determine the parent ID
+        val newParentId = when {
+            // If indentation is 0, it is a root item and has NO parent
+            newIndentationLevel == 0 -> null
+
+            // If it's indented, find the nearest parent (search upwards)
+            else -> {
+                var foundId: Long? = null
+                for (i in position - 1 downTo 0) {
+                    if (tasks[i].indentationLevel < newIndentationLevel) {
+                        foundId = tasks[i].id
+                        break
+                    }
+                }
+                foundId
+            }
+        }
+
+        // Update the task in the list and the model
+        val newTask = oldTask.copy(
+            indentationLevel = newIndentationLevel,
+            parentId = newParentId
+        )
+        tasks[position] = newTask
+        tasksAdapter.notifyItemChanged(position)
+
+        // reassign parent for items below (if we removed indentation) -> make current item parent
+        if (newIndentationLevel == 0 && position < tasksAdapter.tasks.size - 1) {
+            var subPosition = position + 1
+            while (subPosition < tasksAdapter.tasks.size && tasksAdapter.tasks[subPosition].indentationLevel > 0) {
+                tasksAdapter.tasks[subPosition] = tasksAdapter.tasks[subPosition].copy(
+                    parentId = oldTask.id
+                )
+                tasks[subPosition].parentId = oldTask.id
+                subPosition++
+            }
+        }
+
+        model.updateTaskList(tasks)
     }
 
     private fun showColorChangeDialog() {
