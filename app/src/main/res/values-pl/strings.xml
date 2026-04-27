@@ -24,7 +24,7 @@
     <string name="preferences_color_scheme">Schemat kolorystyczny</string>
     <string name="preferences_color_scheme_blue">Niebieski</string>
     <string name="preferences_color_scheme_pink">Różowy</string>
-    <string name="preferences_color_scheme_green">Zielony</string>
+    <string name="preferences_color_scheme_green">Zielona</string>
     <string name="preferences_color_scheme_orange">Pomarańczowy</string>
     <string name="preferences_color_scheme_purple">Fioletowy</string>
     <string name="preferences_color_scheme_yellow">Żółty</string>
@@ -78,7 +78,7 @@
     <string name="preferences_background_sync_disabled">Wyłączona</string>
     <string name="preferences_new_notes_synchronizable">Włącz synchronizację dla nowych notatek</string>
     <string name="preferences_dark_theme_mode">Tryb ciemnego motywu</string>
-    <string name="preferences_theme_dark_mode_standard">Standard</string>
+    <string name="preferences_theme_dark_mode_standard">Standardowy</string>
     <string name="preferences_theme_dark_mode_black">Czarny</string>
     <!-- About -->
     <string name="about_version">Wersja</string>
@@ -86,7 +86,7 @@
     <string name="about_developer">Programista</string>
     <string name="about_contribute">Pomóż w rozwoju</string>
     <string name="about_support">Wsparcie</string>
-    <string name="about_support_subtext">Tworzenie i rozwijanie projektów open-source jest czasochłonne i nie przynosi dochodów.\nPostaw więc twórcom piwo!</string>
+    <string name="about_support_subtext">Tworzenie i rozwijanie projektów open-source jest czasochłonne i nie przynosi dochodów.\nPostaw twórcom kawę!</string>
     <string name="about_libraries">Biblioteki</string>
     <string name="about_libraries_subtext">Zobacz biblioteki i licencje stron trzecich.</string>
     <!-- General -->
@@ -274,7 +274,7 @@
     <string name="preferences_color_scheme_cyan">Cyjanowy</string>
     <string name="preferences_color_scheme_brown">Brązowy</string>
     <string name="preferences_color_scheme_gray">Szary</string>
-    <string name="preferences_color_scheme_system">Zgodny z systemem</string>
+    <string name="preferences_color_scheme_system">Zgodnie z systemem</string>
     <string name="continue_next">Fortsette</string>
     <string name="preferences_header_view_tags">Tag liste</string>
     <string name="preferences_sort_tags_method">Sorter tagger etter</string>
@@ -289,7 +289,7 @@
     <string name="preferences_default_editor_mode">Domyślny tryb edycji</string>
     <string name="preferences_default_editor_mode_view">Tryb podglądu</string>
     <string name="preferences_default_editor_mode_edit">Tryb edycji</string>
-    <string name="preferences_move_checked_items">Przenieś (nie)zaznaczone elementy w listach</string>
+    <string name="preferences_move_checked_items">Przenieś (nie)zaznaczone elementy na listach</string>
     <string name="preferences_trust_self_signed_certificate">Zaufaj samodzielnie podpisanemu certyfikatowi</string>
     <string name="about_send_logs">Wyślij dzienniki błędów</string>
     <string name="about_send_logs_subtext">Wyślij dzienniki aplikacji do dewelopera celem przeprowadzenia śledztwa</string>
@@ -302,4 +302,7 @@
     <string name="message_notes_not_installed">Aplikacja Notes nie jest zainstalowana w Twoim Nextclo</string>
     <string name="widget_description">Pokaż Twoje ostatnie notatki na ekranie głównym</string>
     <string name="action_new_note">Nowa notatka</string>
+    <string name="note_untitled">Bez tytułu</string>
+    <string name="tasks">zadania</string>
+    <string name="widget_no_pinned_notes">Brak przypiętych notatek. Przypnij notatkę, aby zobaczyć ją w tym miejscu.</string>
 </resources>
