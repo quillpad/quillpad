@@ -24,7 +24,7 @@
     <string name="preferences_color_scheme">Schemat kolorystyczny</string>
     <string name="preferences_color_scheme_blue">Niebieski</string>
     <string name="preferences_color_scheme_pink">Różowy</string>
-    <string name="preferences_color_scheme_green">Zielony</string>
+    <string name="preferences_color_scheme_green">Zielona</string>
     <string name="preferences_color_scheme_orange">Pomarańczowy</string>
     <string name="preferences_color_scheme_purple">Fioletowy</string>
     <string name="preferences_color_scheme_yellow">Żółty</string>
@@ -64,8 +64,8 @@
     <string name="preferences_currently_not_syncing">Aktualnie nie synchronizuje</string>
     <string name="preferences_cloud_service">Usługa synchronizacji</string>
     <string name="preferences_cloud_service_disabled">Wyłączona</string>
-    <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
-    <string name="preferences_nextcloud_limited_features">Pamiętaj że notatki Nextcloud nie wspierają funkcji takich jak znaczniki, załączniki, przypomnienia, listy zadań itd.</string>
+    <string name="preferences_cloud_service_nextcloud">Nextchmury</string>
+    <string name="preferences_nextcloud_limited_features">Pamiętaj, że aplikacja Nextcloud Notes nie obsługuje takich funkcji jak tagi, załączniki, przypomnienia i inne. Nextcloud Notes musi być zainstalowane na serwerze Nextcloud, w przeciwnym razie logowanie zakończy się błędem: „Coś poszło nie tak!</string>
     <string name="preferences_nextcloud_account">Konto Nextcloud</string>
     <string name="preferences_nextcloud_instance_url">Adres URL instancji Nextcloud</string>
     <string name="preferences_nextcloud_set_your_credentials">Ustaw dane logowania</string>
@@ -78,7 +78,7 @@
     <string name="preferences_background_sync_disabled">Wyłączona</string>
     <string name="preferences_new_notes_synchronizable">Włącz synchronizację dla nowych notatek</string>
     <string name="preferences_dark_theme_mode">Tryb ciemnego motywu</string>
-    <string name="preferences_theme_dark_mode_standard">Standard</string>
+    <string name="preferences_theme_dark_mode_standard">Standardowy</string>
     <string name="preferences_theme_dark_mode_black">Czarny</string>
     <!-- About -->
     <string name="about_version">Wersja</string>
@@ -86,7 +86,7 @@
     <string name="about_developer">Programista</string>
     <string name="about_contribute">Pomóż w rozwoju</string>
     <string name="about_support">Wsparcie</string>
-    <string name="about_support_subtext">Tworzenie i rozwijanie projektów open-source jest czasochłonne i nie przynosi dochodów.\nPostaw więc twórcom piwo!</string>
+    <string name="about_support_subtext">Tworzenie i rozwijanie projektów open-source jest czasochłonne i nie przynosi dochodów.\nPostaw twórcom kawę!</string>
     <string name="about_libraries">Biblioteki</string>
     <string name="about_libraries_subtext">Zobacz biblioteki i licencje stron trzecich.</string>
     <!-- General -->
@@ -242,27 +242,27 @@
     <string name="never">Nigdy</string>
     <plurals name="more_items" tools:ignore="MissingQuantity">
         <item quantity="one">+%d element</item>
-        <item quantity="few"/>
-        <item quantity="many"/>
-        <item quantity="other"/>
+        <item quantity="few">+%d elementy</item>
+        <item quantity="many">+%d elementów</item>
+        <item quantity="other">+%d elementów</item>
     </plurals>
     <plurals name="selected_notes" tools:ignore="MissingQuantity">
         <item quantity="one">Zaznaczono %d notatkę</item>
-        <item quantity="few"/>
-        <item quantity="many"/>
-        <item quantity="other"/>
+        <item quantity="few">Zaznaczono %d notatki</item>
+        <item quantity="many">Zaznaczono %d notatek</item>
+        <item quantity="other">Zaznaczono %d notatek</item>
     </plurals>
     <plurals name="selected_notebooks" tools:ignore="MissingQuantity">
         <item quantity="one">Zaznaczono %d notatnik</item>
-        <item quantity="few"/>
-        <item quantity="many"/>
-        <item quantity="other"/>
+        <item quantity="few">Zaznaczono %d notatniki</item>
+        <item quantity="many">Zaznaczono %d notatników</item>
+        <item quantity="other">Zaznaczono %d notatników</item>
     </plurals>
     <plurals name="selected_tags" tools:ignore="MissingQuantity">
         <item quantity="one">Zaznaczono %d znacznik</item>
-        <item quantity="few"/>
-        <item quantity="many"/>
-        <item quantity="other"/>
+        <item quantity="few">Zaznaczono %d znaczniki</item>
+        <item quantity="many">Zaznaczono %d znaczników</item>
+        <item quantity="other">Zaznaczono %d znaczników</item>
     </plurals>
     <string name="preferences_cloud_service_files">Nośnik danych</string>
     <string name="preferences_file_storage_info">Wybierz folder z pamięci lokalnej lub od dostawcy usług w chmurze.
@@ -274,7 +274,7 @@
     <string name="preferences_color_scheme_cyan">Cyjanowy</string>
     <string name="preferences_color_scheme_brown">Brązowy</string>
     <string name="preferences_color_scheme_gray">Szary</string>
-    <string name="preferences_color_scheme_system">Zgodny z systemem</string>
+    <string name="preferences_color_scheme_system">Zgodnie z systemem</string>
     <string name="continue_next">Fortsette</string>
     <string name="preferences_header_view_tags">Tag liste</string>
     <string name="preferences_sort_tags_method">Sorter tagger etter</string>
@@ -286,11 +286,11 @@
     <string name="preferences_show_fab_change_mode">Pozycja przycisku edytuj/wyświetl notatkę</string>
     <string name="preferences_fab">Pływający przycisk</string>
     <string name="preferences_top_bar">Górny pasek</string>
-    <string name="preferences_default_editor_mode">Domyślny tryb edycji</string>
+    <string name="preferences_default_editor_mode">Domyślny tryb edytora</string>
     <string name="preferences_default_editor_mode_view">Tryb podglądu</string>
     <string name="preferences_default_editor_mode_edit">Tryb edycji</string>
-    <string name="preferences_move_checked_items">Przenieś (nie)zaznaczone elementy w listach</string>
-    <string name="preferences_trust_self_signed_certificate">Zaufaj samodzielnie podpisanemu certyfikatowi</string>
+    <string name="preferences_move_checked_items">Przenieś (nie)zaznaczone elementy na listach</string>
+    <string name="preferences_trust_self_signed_certificate">Zaufaj certyfikatowi samopodpisanemu</string>
     <string name="about_send_logs">Wyślij dzienniki błędów</string>
     <string name="about_send_logs_subtext">Wyślij dzienniki aplikacji do dewelopera celem przeprowadzenia śledztwa</string>
     <string name="action_change_mode">Tryb edycji/podglądu</string>
@@ -298,8 +298,11 @@
     <string name="action_enable_screen_always_on">Włącz ekran zawsze włączony</string>
     <string name="action_disable_screen_always_on">Wyłącz ekranz zawsze włączony</string>
     <string name="action_uncheck_all_tasks">Odznacz wszystkie pozycje</string>
-    <string name="message_certificates_invalid">Błąd certyfikatu. Proszę włączyć \"ufaj certyfikatowi podpisanemu samodzielnie</string>
-    <string name="message_notes_not_installed">Aplikacja Notes nie jest zainstalowana w Twoim Nextclo</string>
+    <string name="message_certificates_invalid">Błąd certyfikatu. Aby kontynuować proszę włączyć \"ufaj certyfikatowi samopodpisanemu\"..</string>
+    <string name="message_notes_not_installed">Aplikacja Notes nie jest zainstalowana w Twoim Nextcloud.</string>
     <string name="widget_description">Pokaż Twoje ostatnie notatki na ekranie głównym</string>
     <string name="action_new_note">Nowa notatka</string>
+    <string name="note_untitled">Bez tytułu</string>
+    <string name="tasks">zadania</string>
+    <string name="widget_no_pinned_notes">Brak przypiętych notatek. Przypnij notatkę, aby zobaczyć ją w tym miejscu.</string>
 </resources>
