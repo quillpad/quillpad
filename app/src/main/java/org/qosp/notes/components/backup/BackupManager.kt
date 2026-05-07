@@ -169,10 +169,11 @@ class BackupManager(
                 when (entry.name) {
                     "backup.json" -> {
                         // Create backup class
+                        val reader = input.reader()
                         val builder = StringBuilder()
-                        val buffer = ByteArray(BUFFER)
+                        val buffer = CharArray(BUFFER)
                         var length = 0
-                        while (input.read(buffer).also { length = it } > 0) {
+                        while (reader.read(buffer).also { length = it } > 0) {
                             builder.append(String(buffer, 0, length))
                         }
                         val deserialized = migrationHandler.migrate(builder.toString())
