@@ -6,6 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
@@ -51,19 +52,23 @@ class EditorViewModel(
         .filterNotNull()
         .flatMapLatest { note ->
             getNotebookData(note.notebookId).flatMapLatest { notebook ->
-                preferenceRepository.getAll().map { prefs ->
-                    Data(
-                        note = note,
-                        notebook = notebook,
-                        dateTimeFormats = prefs.dateFormat to prefs.timeFormat,
-                        openMediaInternally = prefs.openMediaIn == OpenMediaIn.INTERNAL,
-                        showDates = prefs.showDate == ShowDate.YES,
-                        editorFontSize = prefs.editorFontSize.fontSize,
-                        showFabChangeMode = prefs.showFabChangeMode == ShowFabChangeMode.FAB,
-                        defaultEditorMode = prefs.defaultEditorMode,
-                        isInitialized = true,
-                    )
-                }
+                preferenceRepository.getAll()
+                    .combine(
+                        preferenceRepository.getEncryptedString(PreferenceRepository.EDITOR_BOTTOM_TOOLBAR_CONFIG)
+                    ) { prefs, toolbarConfig ->
+                        Data(
+                            note = note,
+                            notebook = notebook,
+                            dateTimeFormats = prefs.dateFormat to prefs.timeFormat,
+                            openMediaInternally = prefs.openMediaIn == OpenMediaIn.INTERNAL,
+                            showDates = prefs.showDate == ShowDate.YES,
+                            editorFontSize = prefs.editorFontSize.fontSize,
+                            showFabChangeMode = prefs.showFabChangeMode == ShowFabChangeMode.FAB,
+                            defaultEditorMode = prefs.defaultEditorMode,
+                            bottomToolbarItems = EditorBottomToolbarConfig.parse(toolbarConfig),
+                            isInitialized = true,
+                        )
+                    }
             }
         }
         .stateIn(
@@ -186,6 +191,7 @@ class EditorViewModel(
         val editorFontSize: Int = -1, // -1: not customised, default font size
         val showFabChangeMode: Boolean = true,
         val defaultEditorMode: DefaultEditorMode = defaultOf(),
+        val bottomToolbarItems: List<EditorBottomToolbarItemState> = EditorBottomToolbarConfig.defaultItems,
         val isInitialized: Boolean = false,
         val moveCheckedItems: Boolean = true,
     )

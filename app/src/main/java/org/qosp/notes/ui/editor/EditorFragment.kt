@@ -137,6 +137,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
     private var isList: Boolean = false
     private var isFirstLoad: Boolean = true
     private var formatter: DateTimeFormatter? = null
+    private var appliedBottomToolbarItems: List<EditorBottomToolbarItemState> = emptyList()
 
     private lateinit var attachmentsAdapter: AttachmentsAdapter
     private lateinit var tasksAdapter: TasksAdapter
@@ -295,6 +296,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
         data = Data()
         isFirstLoad = true
+        appliedBottomToolbarItems = emptyList()
 
         if (model.isNotInitialized) {
             model.initialize(
@@ -585,7 +587,8 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
     private fun setMarkdownToolbarVisibility(note: Note? = data.note) = with(binding) {
         if (note == null) return@with
 
-        containerBottomToolbar.isVisible = !isList && note.isMarkdownEnabled && model.inEditMode && contentHasFocus
+        containerBottomToolbar.isVisible =
+            !isList && note.isMarkdownEnabled && model.inEditMode && contentHasFocus && bottomToolbar.menu.size() > 0
 
         scrollView.updateLayoutParams<ConstraintLayout.LayoutParams> {
             val actionBarSize = requireContext().getDimensionAttribute(R.attr.actionBarSize) ?: 0
@@ -594,6 +597,25 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                 else -> 0
             }
         }
+    }
+
+    private fun applyBottomToolbarItems(items: List<EditorBottomToolbarItemState>) = with(binding.bottomToolbar.menu) {
+        if (items == appliedBottomToolbarItems) return@with
+        appliedBottomToolbarItems = items
+
+        clear()
+
+        items
+            .filter { it.visible }
+            .forEachIndexed { index, state ->
+                add(Menu.NONE, state.item.itemId, index, state.item.titleRes).apply {
+                    setIcon(state.item.iconRes)
+                    setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                    if (itemId == R.id.action_undo || itemId == R.id.action_redo) {
+                        isEnabled = false
+                    }
+                }
+            }
     }
 
     private fun setupEditTexts() = with(binding) {
@@ -851,6 +873,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
             }
             recyclerTasks.isVisible = isList
 
+            applyBottomToolbarItems(data.bottomToolbarItems)
             updateEditMode(note = data.note)
 
             // Must be called after updateEditMode since that method changes the visibility of the inputs
