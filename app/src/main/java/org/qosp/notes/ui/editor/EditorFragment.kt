@@ -23,6 +23,8 @@ import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -82,6 +84,7 @@ import org.qosp.notes.ui.editor.dialog.InsertImageDialog
 import org.qosp.notes.ui.editor.dialog.InsertTableDialog
 import org.qosp.notes.ui.editor.markdown.MarkdownSpan
 import org.qosp.notes.ui.editor.markdown.applyTo
+import org.qosp.notes.ui.editor.markdown.imageMarkdown
 import org.qosp.notes.ui.editor.markdown.insertMarkdown
 import org.qosp.notes.ui.editor.markdown.toggleCheckmarkCurrentLine
 import org.qosp.notes.ui.media.MediaActivity
@@ -137,6 +140,8 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
     private var isList: Boolean = false
     private var isFirstLoad: Boolean = true
     private var formatter: DateTimeFormatter? = null
+    private var pendingImageDescription: String = ""
+    private var pendingImageSelection: Pair<Int, Int>? = null
 
     private lateinit var attachmentsAdapter: AttachmentsAdapter
     private lateinit var tasksAdapter: TasksAdapter
@@ -166,6 +171,30 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
         model.insertAttachments(Attachment.fromUri(requireContext(), uri))
         activityModel.tempPhotoUri = null
+    }
+
+    private val pickImageForMarkdownLauncher = registerForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri ->
+        val description = pendingImageDescription
+        val selection = pendingImageSelection
+        pendingImageDescription = ""
+        pendingImageSelection = null
+        if (uri == null || view == null) return@registerForActivityResult
+
+        val mimeType = context?.contentResolver?.getType(uri) ?: "image/jpeg"
+        viewLifecycleOwner.lifecycleScope.launch {
+            val privateUri = activityModel.copyMediaToPrivateStorage(uri, mimeType)
+            if (!isAdded || view == null) return@launch
+
+            if (privateUri == null) {
+                Snackbar.make(binding.root, getString(R.string.message_image_copy_failed), Snackbar.LENGTH_SHORT)
+                    .show()
+                return@launch
+            }
+
+            insertMarkdownAtSelection(imageMarkdown(privateUri.toString(), description), selection)
+        }
     }
 
     private val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(UP or DOWN, LEFT or RIGHT) {
@@ -328,12 +357,11 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
         setFragmentResultListener(MARKDOWN_DIALOG_RESULT) { _, bundle ->
             val markdown = bundle.getString(MARKDOWN_DIALOG_RESULT) ?: return@setFragmentResultListener
-            binding.editTextContent.apply {
-                if (selectedText?.isNotEmpty() == true) {
-                    text?.replace(selectionStart, selectionEnd, "")
-                }
-                text?.insert(selectionStart, markdown)
-            }
+            insertMarkdownAtSelection(markdown)
+        }
+
+        setFragmentResultListener(IMAGE_PICKER_DIALOG_RESULT) { _, bundle ->
+            pickImageForMarkdown(bundle.getString(IMAGE_PICKER_DESCRIPTION).orEmpty())
         }
 
         binding.fabChangeMode.setOnClickListener {
@@ -969,6 +997,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
                 R.id.action_insert_image -> {
                     clearFragmentResult(MARKDOWN_DIALOG_RESULT)
+                    clearFragmentResult(IMAGE_PICKER_DIALOG_RESULT)
                     InsertImageDialog
                         .build(editTextContent.selectedText ?: "")
                         .show(parentFragmentManager, null)
@@ -1025,6 +1054,32 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
             // Always add new tasks at the top (position 0)
             addTask(0)
         }
+    }
+
+    private fun insertMarkdownAtSelection(markdown: String, selection: Pair<Int, Int>? = null) = with(binding.editTextContent) {
+        val editable = text ?: return@with
+        val range = model.selectedRange
+        val rawStart = selection?.first ?: selectionStart.takeIf { it >= 0 } ?: range.first
+        val rawEnd = selection?.second ?: selectionEnd.takeIf { it >= 0 } ?: range.second
+        val start = minOf(rawStart, rawEnd).coerceIn(0, editable.length)
+        val end = maxOf(rawStart, rawEnd).coerceIn(0, editable.length)
+
+        if (end > start) {
+            editable.replace(start, end, "")
+        }
+        editable.insert(start, markdown)
+        setSelection((start + markdown.length).coerceAtMost(editable.length))
+    }
+
+    private fun pickImageForMarkdown(description: String) {
+        pendingImageDescription = description
+        pendingImageSelection = with(binding.editTextContent) { selectionStart to selectionEnd }
+        model.selectedRange = pendingImageSelection ?: model.selectedRange
+        pickImageForMarkdownLauncher.launch(
+            PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                .build()
+        )
     }
 
     private fun setupMarkdown() {
@@ -1280,5 +1335,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
 
     companion object {
         const val MARKDOWN_DIALOG_RESULT = "MARKDOWN_DIALOG_RESULT"
+        const val IMAGE_PICKER_DIALOG_RESULT = "IMAGE_PICKER_DIALOG_RESULT"
+        const val IMAGE_PICKER_DESCRIPTION = "IMAGE_PICKER_DESCRIPTION"
     }
 }
