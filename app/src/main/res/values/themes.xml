@@ -143,4 +143,44 @@
         <item name="colorPrimaryTranscluent">#29673AB7</item>
 
     </style>
+
+    <style name="MonetWaterLilies">
+        <item name="colorPrimary">#6A8FA6</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="colorSecondary">#7CA6A1</item>
+
+        <item name="colorDrawerHeaderBackground">#996A8FA6</item>
+        <item name="colorPrimaryTranscluent">#336A8FA6</item>
+
+    </style>
+
+    <style name="MonetSunrise">
+        <item name="colorPrimary">#E59A7A</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="colorSecondary">#D4B36F</item>
+
+        <item name="colorDrawerHeaderBackground">#99E59A7A</item>
+        <item name="colorPrimaryTranscluent">#33E59A7A</item>
+
+    </style>
+
+    <style name="MonetGarden">
+        <item name="colorPrimary">#7FA37D</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="colorSecondary">#B5A26A</item>
+
+        <item name="colorDrawerHeaderBackground">#997FA37D</item>
+        <item name="colorPrimaryTranscluent">#337FA37D</item>
+
+    </style>
+
+    <style name="MonetIris">
+        <item name="colorPrimary">#8D7DB8</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="colorSecondary">#A794C7</item>
+
+        <item name="colorDrawerHeaderBackground">#998D7DB8</item>
+        <item name="colorPrimaryTranscluent">#338D7DB8</item>
+
+    </style>
 </resources>
