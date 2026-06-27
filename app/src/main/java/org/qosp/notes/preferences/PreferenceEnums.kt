@@ -23,13 +23,18 @@ enum class DarkThemeMode(override val nameResource: Int, val styleResource: Int?
     STANDARD(R.string.preferences_theme_dark_mode_standard, null) { override val isDefault = true },
     BLACK(R.string.preferences_theme_dark_mode_black, R.style.DarkBlack),
 }
+// TODO : Fix color preference mapping to correct values whenever possible (or come up with a way to migrate them)
 enum class ColorScheme(
     override val nameResource: Int,
     val styleResource: Int,
 ) : HasNameResource, HasSupportRequirement, EnumPreference by key("color_scheme") {
     BLUE(R.string.preferences_color_scheme_blue, R.style.Blue) { override val isDefault = true },
+    // These two lines below are correct, but must be prefixed due to already existing lines
+    TRUE_RED(R.string.preferences_color_scheme_red, R.style.Red),
+    TRUE_YELLOW(R.string.preferences_color_scheme_yellow, R.style.Yellow),
     GREEN(R.string.preferences_color_scheme_green, R.style.Green),
     PINK(R.string.preferences_color_scheme_pink, R.style.Pink),
+    // These two lines here are labeled incorrectly (should be labelled as ORANGE, PURPLE respectively)
     YELLOW(R.string.preferences_color_scheme_orange, R.style.Orange),
     RED(R.string.preferences_color_scheme_purple, R.style.Purple),
     SYSTEM(R.string.preferences_color_scheme_system, R.style.System) {

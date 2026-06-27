@@ -20,12 +20,17 @@ fun Context.getDimensionAttribute(attr: Int): Int? {
 
 fun NoteColor.resId(context: Context): Int? {
     val resId = when (this) {
-        NoteColor.Green -> R.attr.colorNoteGreen
-        NoteColor.Pink -> R.attr.colorNotePink
-        NoteColor.Blue -> R.attr.colorNoteBlue
         NoteColor.Red -> R.attr.colorNoteRed
         NoteColor.Orange -> R.attr.colorNoteOrange
         NoteColor.Yellow -> R.attr.colorNoteYellow
+        NoteColor.Green -> R.attr.colorNoteGreen
+        NoteColor.Teal -> R.attr.colorNoteTeal
+        NoteColor.Cyan -> R.attr.colorNoteCyan
+        NoteColor.Blue -> R.attr.colorNoteBlue
+        NoteColor.Purple -> R.attr.colorNotePurple
+        NoteColor.Pink -> R.attr.colorNotePink
+        NoteColor.Brown -> R.attr.colorNoteBrown
+        NoteColor.Gray -> R.attr.colorNoteGray
         else -> R.attr.colorNoteDefault
     }
 

@@ -8,6 +8,7 @@ import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
+import org.qosp.notes.data.sync.core.AvailabilityStatus
 import org.qosp.notes.data.sync.core.ISyncBackend
 import org.qosp.notes.data.sync.core.SyncNote
 import org.qosp.notes.data.sync.nextcloud.BackendValidationResult
@@ -24,6 +25,21 @@ class StorageBackend(private val context: Context, private val config: StorageCo
     }
 
     override val type: CloudService = CloudService.FILE_STORAGE
+
+    override suspend fun isAvailable(): AvailabilityStatus {
+        return try {
+            val root = getRootDocumentFile()
+            when {
+                root == null -> AvailabilityStatus.Unavailable("Storage location not accessible")
+                !hasPermissionsAt(config.location) -> AvailabilityStatus.Unavailable("Missing storage permissions - please reconfigure sync")
+                !root.canRead() -> AvailabilityStatus.Unavailable("Cannot read from storage location")
+                !root.canWrite() -> AvailabilityStatus.Unavailable("Cannot write to storage location")
+                else -> AvailabilityStatus.Available
+            }
+        } catch (e: Exception) {
+            AvailabilityStatus.Unavailable("Storage access error: ${e.message ?: "Unknown error"}")
+        }
+    }
 
     private val Note.filename: String
         get() {
@@ -133,9 +149,8 @@ class StorageBackend(private val context: Context, private val config: StorageCo
     }
 
     private fun writeNoteToFile(file: DocumentFile, content: String) {
-        context.contentResolver.openOutputStream(file.uri, "w")?.use { output ->
+        context.contentResolver.openOutputStream(file.uri, "wt")?.use { output ->
             (output as? FileOutputStream)?.let {
-                output.channel.truncate(0)
                 val bytesWritten = content.encodeToByteArray().inputStream().copyTo(output)
                 Log.d(TAG, "writeNote: Wrote $bytesWritten bytes to ${file.name}")
             } ?: run {

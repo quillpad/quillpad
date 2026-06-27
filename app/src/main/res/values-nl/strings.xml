@@ -28,6 +28,10 @@
     <string name="preferences_color_scheme_purple">Paars</string>
     <string name="preferences_color_scheme_yellow">Geel</string>
     <string name="preferences_color_scheme_red">Rood</string>
+    <string name="preferences_color_scheme_teal">Teal</string>
+    <string name="preferences_color_scheme_cyan">Cyaan</string>
+    <string name="preferences_color_scheme_brown">Bruin</string>
+    <string name="preferences_color_scheme_gray">Grijs</string>
     <string name="preferences_color_scheme_system">Volg systeem</string>
     <!-- Preferences / View -->
     <string name="preferences_header_view">Uiterlijk</string>

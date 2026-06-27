@@ -259,6 +259,8 @@
         <item quantity="many">Selezionate %d etichette</item>
         <item quantity="other">Selezionate %d etichette</item>
     </plurals>
+    <string name="preferences_color_scheme_brown">Marrone</string>
+    <string name="preferences_color_scheme_gray">Grigio</string>
     <string name="preferences_color_scheme_system">Segui il sistema</string>
     <string name="continue_next">Continua</string>
     <string name="preferences_header_view_tags">Elenco etichette</string>
@@ -295,4 +297,6 @@
     <string name="tasks">attività</string>
     <string name="widget_no_pinned_notes">Ancora nessuna nota fissata. Fissa una nota per visualizzarla qui.</string>
     <string name="preferences_default_editor_mode">Modalità predefinita dell\'editor</string>
+    <string name="preferences_color_scheme_teal">Verde acqua</string>
+    <string name="preferences_color_scheme_cyan">Ciano</string>
 </resources>

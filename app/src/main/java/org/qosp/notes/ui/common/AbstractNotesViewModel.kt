@@ -2,7 +2,6 @@ package org.qosp.notes.ui.common
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flatMapLatest
@@ -23,7 +22,6 @@ abstract class AbstractNotesViewModel(
 
     protected abstract val provideNotes: (SortMethod) -> Flow<List<Note>>
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     val data = preferenceRepository.getAll()
         .flatMapLatest { prefs ->
             provideNotes(prefs.sortMethod).map { notes ->

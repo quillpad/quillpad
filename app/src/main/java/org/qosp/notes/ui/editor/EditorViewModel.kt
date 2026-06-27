@@ -3,7 +3,6 @@ package org.qosp.notes.ui.editor
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -16,7 +15,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import me.msoul.datastore.defaultOf
-import org.qosp.notes.preferences.DefaultEditorMode
 import org.qosp.notes.data.model.Attachment
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.model.NoteColor
@@ -25,6 +23,7 @@ import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.data.repo.NoteRepository
 import org.qosp.notes.data.repo.NotebookRepository
 import org.qosp.notes.preferences.DateFormat
+import org.qosp.notes.preferences.DefaultEditorMode
 import org.qosp.notes.preferences.MoveCheckedItems
 import org.qosp.notes.preferences.NewNotesSyncable
 import org.qosp.notes.preferences.OpenMediaIn
@@ -46,7 +45,6 @@ class EditorViewModel(
     private val noteIdFlow: MutableStateFlow<Long?> = MutableStateFlow(null)
     var selectedRange = 0 to 0
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     val data = noteIdFlow
         .filterNotNull()
         .flatMapLatest { noteRepository.getById(it) }

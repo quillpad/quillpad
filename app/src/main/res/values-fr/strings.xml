@@ -271,6 +271,7 @@
   </string>
     <string name="preferences_file_storage_location">Emplacement de stockage</string>
     <string name="preferences_file_storage_select">Sélectionnez l\'emplacement de stockage</string>
+    <string name="preferences_color_scheme_gray">Gris</string>
     <string name="preferences_color_scheme_system">Thème du système</string>
     <string name="action_disable_screen_always_on">Désactiver l\'écran toujours allumé</string>
     <string name="action_enable_screen_always_on">Activer l\'écran toujours allumé</string>
@@ -288,4 +289,7 @@
     <string name="action_change_mode">Mode Édition/Lecture</string>
     <string name="preferences_trust_self_signed_certificate">Faire confiance au certificat auto-signé</string>
     <string name="message_certificates_invalid">Erreur de certificat. Veuillez activer \"Faire confiance au certificat auto-signé\" pour continuer...</string>
+    <string name="preferences_color_scheme_teal">Sarcelle</string>
+    <string name="preferences_color_scheme_cyan">Cyan</string>
+    <string name="preferences_color_scheme_brown">Brun</string>
 </resources>

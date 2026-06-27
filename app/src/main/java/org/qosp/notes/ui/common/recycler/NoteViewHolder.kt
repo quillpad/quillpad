@@ -1,10 +1,12 @@
 package org.qosp.notes.ui.common.recycler
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.ContextThemeWrapper
 import android.widget.TextView
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
+import androidx.core.view.isNotEmpty
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +33,8 @@ class NoteViewHolder(
     private val context: Context,
     private val searchMode: Boolean,
     private val markwon: Markwon,
+    tasksViewPool: RecyclerView.RecycledViewPool,
+    attachmentsViewPool: RecyclerView.RecycledViewPool,
 ) : RecyclerView.ViewHolder(binding.root), SelectableViewHolder {
 
     private val tasksAdapter = TasksAdapter(true, null, markwon)
@@ -43,11 +47,13 @@ class NoteViewHolder(
         binding.recyclerAttachments.apply {
             layoutManager = AttachmentsPreviewGridManager(context, 2)
             adapter = attachmentsAdapter
+            setRecycledViewPool(attachmentsViewPool)
         }
 
         binding.recyclerTasks.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = tasksAdapter
+            setRecycledViewPool(tasksViewPool)
         }
 
         if (listener != null) {
@@ -59,25 +65,35 @@ class NoteViewHolder(
     private fun updateBackgroundColor(color: NoteColor) {
         color.resId(context)?.let { resId ->
             binding.root.setCardBackgroundColor(resId)
-            binding.linearLayout.setBackgroundColor(resId)
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateTags(tags: List<Tag>) {
-        binding.containerTags.removeAllViews()
         binding.containerTags.isVisible = tags.isNotEmpty()
 
-        if (tags.isEmpty()) return
+        if (tags.isEmpty()) {
+            if (binding.containerTags.isNotEmpty()) binding.containerTags.removeAllViews()
+            return
+        }
 
-        for (tag in tags) {
+        val count = tags.size
+        val needed = if (count > 1) 2 else 1
+
+        // Re-use existing views to avoid unnecessary allocations and layout passes
+        while (binding.containerTags.childCount > needed) {
+            binding.containerTags.removeViewAt(binding.containerTags.childCount - 1)
+        }
+
+        while (binding.containerTags.childCount < needed) {
             val tagView = TextView(ContextThemeWrapper(context, R.style.TagChip))
-            if (binding.containerTags.childCount > 0) {
-                tagView.text = "+${tags.size - binding.containerTags.childCount}"
-                binding.containerTags.addView(tagView)
-                break
-            }
-            tagView.text = "# ${tag.name}"
             binding.containerTags.addView(tagView)
+        }
+
+        (binding.containerTags.getChildAt(0) as TextView).text = "# ${tags[0].name}"
+
+        if (needed > 1) {
+            (binding.containerTags.getChildAt(1) as TextView).text = "+${count - 1}"
         }
     }
 
@@ -98,95 +114,95 @@ class NoteViewHolder(
         }
     }
 
-    private fun setContent(note: Note) = with(binding) {
-        recyclerTasks.isVisible = note.isList && note.taskList.isNotEmpty() && !note.isCompactPreview
-        indicatorMoreTasks.isVisible = false
-        textViewContent.isVisible = !note.isList && note.content.isNotEmpty() && !note.isCompactPreview
+    private fun setTextContent(note: Note) = with(binding) {
+        val showContent = !note.isList && note.content.isNotEmpty() && !note.isCompactPreview
+        textViewContent.isVisible = showContent
 
-        val taskList = note.taskList.takeIf { it.size <= 8 } ?: note.taskList.subList(0, 8).also {
-            val moreItems = note.taskList.size - 8
+        if (showContent) {
+            textViewContent.ellipsize()
 
-            indicatorMoreTasks.isVisible = !note.isCompactPreview
-            indicatorMoreTasks.text = context.resources.getQuantityString(R.plurals.more_items, moreItems, moreItems)
-        }
-
-        tasksAdapter.submitList(taskList)
-        textViewContent.ellipsize()
-
-        if (note.isMarkdownEnabled && note.content.isNotBlank()) {
-            try {
-                markwon.applyTo(textViewContent, note.content) {
-                    maximumTableColumns = 4
-                    tableReplacement = { Code(context.getString(R.string.message_cannot_preview_table)) }
+            if (note.isMarkdownEnabled && note.content.isNotBlank()) {
+                try {
+                    markwon.applyTo(textViewContent, note.content) {
+                        maximumTableColumns = 4
+                        tableReplacement = { Code(context.getString(R.string.message_cannot_preview_table)) }
+                    }
+                } catch (e: Throwable) {
+                    textViewContent.text = ""
                 }
-            } catch(e: Throwable) {
-                textViewContent.text = ""
+            } else {
+                textViewContent.text = note.content
             }
-        } else {
-            textViewContent.text = note.content
         }
     }
 
-    private fun setupAttachments(attachments: List<Attachment>) {
-        binding.recyclerAttachments.isVisible = attachments.isNotEmpty()
-        if (attachments.isEmpty()) return
+    private fun setTasks(note: Note, useDiff: Boolean = true) = with(binding) {
+        val showTasks = note.isList && note.taskList.isNotEmpty() && !note.isCompactPreview
+        recyclerTasks.isVisible = showTasks
+        indicatorMoreTasks.isVisible = false
 
-        val layoutManager = binding.recyclerAttachments.layoutManager as AttachmentsPreviewGridManager
+        if (showTasks) {
+            val taskList = note.taskList.takeIf { it.size <= 8 } ?: note.taskList.subList(0, 8).also {
+                val moreItems = note.taskList.size - 8
+                val showMoreIndicator = moreItems > 0
+                indicatorMoreTasks.isVisible = showMoreIndicator
+                if (showMoreIndicator) {
+                    indicatorMoreTasks.text =
+                        context.resources.getQuantityString(R.plurals.more_items, moreItems, moreItems)
+                }
+            }
+            tasksAdapter.submitList(taskList, useDiff)
+        }
+    }
 
-        val list = attachments.take(attachments.size.coerceAtMost(4))
-        val remaining = attachments.size - list.size
+    private fun setupAttachments(note: Note) = with(binding) {
+        val showAttachments = note.attachments.isNotEmpty() && !note.isCompactPreview
+        recyclerAttachments.isVisible = showAttachments
+        if (!showAttachments) return@with
+
+        val layoutManager = recyclerAttachments.layoutManager as AttachmentsPreviewGridManager
+
+        val list = note.attachments.take(note.attachments.size.coerceAtMost(4))
+        val remaining = note.attachments.size - list.size
         layoutManager.allocateSpans(list.size)
         attachmentsAdapter.submitList(list)
 
         if (remaining > 0) {
-            binding.recyclerAttachments.doOnPreDraw {
-                (binding.recyclerAttachments.findViewHolderForAdapterPosition(3) as? AttachmentViewHolder)
+            recyclerAttachments.doOnPreDraw {
+                (recyclerAttachments.findViewHolderForAdapterPosition(3) as? AttachmentViewHolder)
                     ?.showMoreAttachmentsIndicator(remaining)
             }
         }
     }
 
-    fun runPayloads(note: Note, payloads: List<NoteRecyclerAdapter.Payload>) {
-        payloads.forEach {
-            when (it) {
-                NoteRecyclerAdapter.Payload.TitleChanged -> setTitle(note)
-                NoteRecyclerAdapter.Payload.ContentChanged -> setContent(note)
-                NoteRecyclerAdapter.Payload.PinChanged -> updateIndicatorIcons(
-                    note,
-                    note.reminders.isNotEmpty()
-                )
-                NoteRecyclerAdapter.Payload.MarkdownChanged -> setContent(note)
-                NoteRecyclerAdapter.Payload.HiddenChanged -> updateIndicatorIcons(
-                    note,
-                    note.reminders.isNotEmpty()
-                )
-                NoteRecyclerAdapter.Payload.ColorChanged -> updateBackgroundColor(note.color)
-                NoteRecyclerAdapter.Payload.ArchivedChanged -> updateIndicatorIcons(
-                    note,
-                    note.reminders.isNotEmpty()
-                )
-                NoteRecyclerAdapter.Payload.DeletedChanged -> updateIndicatorIcons(
-                    note,
-                    note.reminders.isNotEmpty()
-                )
-                NoteRecyclerAdapter.Payload.AttachmentsChanged -> setupAttachments(note.attachments)
-                NoteRecyclerAdapter.Payload.TagsChanged -> updateTags(note.tags)
-                NoteRecyclerAdapter.Payload.RemindersChanged -> updateIndicatorIcons(
-                    note,
-                    note.reminders.isNotEmpty()
-                )
-                NoteRecyclerAdapter.Payload.TasksChanged -> setContent(note)
-            }
+    fun runPayloads(note: Note, payloads: Set<NoteRecyclerAdapter.Payload>) {
+        if (NoteRecyclerAdapter.Payload.TitleChanged in payloads) setTitle(note)
+        if (NoteRecyclerAdapter.Payload.ContentChanged in payloads ||
+            NoteRecyclerAdapter.Payload.MarkdownChanged in payloads
+        ) setTextContent(note)
+        if (NoteRecyclerAdapter.Payload.TasksChanged in payloads) setTasks(note, useDiff = true)
+        if (NoteRecyclerAdapter.Payload.ColorChanged in payloads) updateBackgroundColor(note.color)
+        if (NoteRecyclerAdapter.Payload.TagsChanged in payloads) updateTags(note.tags)
+        if (NoteRecyclerAdapter.Payload.AttachmentsChanged in payloads) setupAttachments(note)
+
+        if (NoteRecyclerAdapter.Payload.PinChanged in payloads ||
+            NoteRecyclerAdapter.Payload.HiddenChanged in payloads ||
+            NoteRecyclerAdapter.Payload.ArchivedChanged in payloads ||
+            NoteRecyclerAdapter.Payload.DeletedChanged in payloads ||
+            NoteRecyclerAdapter.Payload.RemindersChanged in payloads
+        ) {
+            updateIndicatorIcons(note, note.reminders.isNotEmpty())
         }
     }
 
     fun bind(note: Note) {
-        setContent(note)
+        setTextContent(note)
+        setTasks(note, useDiff = false)
         setTitle(note)
         updateBackgroundColor(note.color)
         updateIndicatorIcons(note, note.reminders.isNotEmpty())
         updateTags(note.tags)
-        setupAttachments(note.attachments)
+        setupAttachments(note)
 
         ViewCompat.setTransitionName(binding.root, "editor_${note.id}")
     }

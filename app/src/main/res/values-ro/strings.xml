@@ -30,6 +30,10 @@
     <string name="preferences_color_scheme_purple">Violet</string>
     <string name="preferences_color_scheme_yellow">Galben</string>
     <string name="preferences_color_scheme_red">Roșu</string>
+    <string name="preferences_color_scheme_teal">Turcoaz</string>
+    <string name="preferences_color_scheme_cyan">Cian</string>
+    <string name="preferences_color_scheme_brown">Maro</string>
+    <string name="preferences_color_scheme_gray">Gri</string>
     <string name="preferences_color_scheme_system">Schema de culori a sistemului</string>
 
     <!-- Preferences / View -->

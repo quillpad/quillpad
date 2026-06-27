@@ -30,6 +30,10 @@
     <string name="preferences_color_scheme_purple">Purple</string>
     <string name="preferences_color_scheme_yellow">Yellow</string>
     <string name="preferences_color_scheme_red">Red</string>
+    <string name="preferences_color_scheme_teal">Teal</string>
+    <string name="preferences_color_scheme_cyan">Cyan</string>
+    <string name="preferences_color_scheme_brown">Brown</string>
+    <string name="preferences_color_scheme_gray">Gray</string>
     <string name="preferences_color_scheme_system">Follow system</string>
 
     <!-- Preferences / View -->

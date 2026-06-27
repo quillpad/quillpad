@@ -28,6 +28,10 @@
     <string name="preferences_color_scheme_purple">Violett</string>
     <string name="preferences_color_scheme_yellow">Gelb</string>
     <string name="preferences_color_scheme_red">Rot</string>
+    <string name="preferences_color_scheme_teal">Türkis</string>
+    <string name="preferences_color_scheme_cyan">Cyan</string>
+    <string name="preferences_color_scheme_brown">Braun</string>
+    <string name="preferences_color_scheme_gray">Grau</string>
     <string name="preferences_color_scheme_system">Systemeinstellung</string>
     <!-- Preferences / View -->
     <string name="preferences_header_view">Ansicht</string>

@@ -28,6 +28,7 @@
     <string name="preferences_color_scheme_purple">紫色</string>
     <string name="preferences_color_scheme_yellow">黄色</string>
     <string name="preferences_color_scheme_red">红色</string>
+    <string name="preferences_color_scheme_gray">灰色的</string>
     <string name="preferences_color_scheme_system">跟随系统</string>
     <!-- Preferences / View -->
     <string name="preferences_header_view">视图</string>
@@ -291,4 +292,7 @@
     <string name="tasks">任务</string>
     <string name="widget_no_pinned_notes">还没有置顶的笔记。置顶一条笔记即可在这里查看。</string>
     <string name="message_notes_not_installed">您的 Nextcloud 中未安装“笔记”应用。</string>
+    <string name="preferences_color_scheme_teal">"蓝绿色 "</string>
+    <string name="preferences_color_scheme_cyan">青色</string>
+    <string name="preferences_color_scheme_brown">"棕色的 "</string>
 </resources>

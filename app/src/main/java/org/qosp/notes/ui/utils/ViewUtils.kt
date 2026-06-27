@@ -65,6 +65,7 @@ fun View.liftAppBarOnScroll(
                 appBar.elevation = if (canScrollVertically(-1)) elevation else 0F
             }
         })
+
         is ScrollView, is NestedScrollView -> {
             val listener = ViewTreeObserver.OnScrollChangedListener {
                 appBar.elevation = if (canScrollVertically(-1)) elevation else 0F
@@ -73,7 +74,7 @@ fun View.liftAppBarOnScroll(
             viewTreeObserver.addOnScrollChangedListener(listener)
 
             appBar.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-                override fun onViewAttachedToWindow(v: View) { }
+                override fun onViewAttachedToWindow(v: View) {}
 
                 override fun onViewDetachedFromWindow(v: View) {
                     viewTreeObserver.removeOnScrollChangedListener(listener)
@@ -85,35 +86,35 @@ fun View.liftAppBarOnScroll(
 
 fun TextView.ellipsize() {
     viewTreeObserver.addOnGlobalLayoutListener(object :
-            ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                viewTreeObserver.removeOnGlobalLayoutListener(this)
-                val maxLines: Int = maxLines
-                if (layout != null) {
-                    val layout: Layout = layout
-                    if (layout.lineCount > maxLines) {
-                        val end: Int = layout.getLineEnd(maxLines - 1)
-                        setText(text.subSequence(0, end - 3), TextView.BufferType.SPANNABLE)
-                        append("...")
-                    }
+        ViewTreeObserver.OnGlobalLayoutListener {
+        override fun onGlobalLayout() {
+            viewTreeObserver.removeOnGlobalLayoutListener(this)
+            val maxLines: Int = maxLines
+            if (layout != null) {
+                val layout: Layout = layout
+                if (layout.lineCount > maxLines) {
+                    val end: Int = layout.getLineEnd(maxLines - 1)
+                    val safeEnd = (end - 3).coerceAtLeast(0)
+                    setText(text.subSequence(0, safeEnd), TextView.BufferType.SPANNABLE)
+                    append("...")
                 }
             }
         }
-    )
+    })
 }
 
 inline fun DrawerLayout.closeAndThen(crossinline block: () -> Unit) {
     addDrawerListener(object : DrawerLayout.DrawerListener {
-        override fun onDrawerSlide(drawerView: View, slideOffset: Float) { }
+        override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
 
-        override fun onDrawerOpened(drawerView: View) { }
+        override fun onDrawerOpened(drawerView: View) {}
 
         override fun onDrawerClosed(drawerView: View) {
             removeDrawerListener(this)
             block()
         }
 
-        override fun onDrawerStateChanged(newState: Int) { }
+        override fun onDrawerStateChanged(newState: Int) {}
     })
 
     close()

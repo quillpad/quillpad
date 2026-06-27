@@ -8,7 +8,6 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.tfcporciuncula.flow.FlowSharedPreferences
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -18,7 +17,6 @@ import java.security.KeyStore
 
 val Context.dataStore by preferencesDataStore("preferences")
 
-@OptIn(ExperimentalCoroutinesApi::class)
 object PreferencesModule {
 
     val prefModule = module {

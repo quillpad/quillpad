@@ -245,10 +245,14 @@
   </string>
     <string name="preferences_file_storage_location">Τοποθεσία αποθήκευσης</string>
     <string name="preferences_file_storage_select">Επιλέξτε Θέση αποθήκευσης</string>
+    <string name="preferences_color_scheme_gray">Γκράου</string>
     <string name="preferences_color_scheme_system">Ρύθμιση συστήματος</string>
     <string name="continue_next">Συνεχίζω</string>
     <string name="preferences_header_view_tags">Λίστα ετικετών</string>
     <string name="preferences_sort_tags_method">Ταξινόμηση ετικετών κατά</string>
     <string name="preferences_header_view_navdrawer">Συρτάρι πλοήγησης</string>
     <string name="preferences_sort_navdrawer_method">Ταξινόμηση σημειωματάρια κατά</string>
+    <string name="preferences_color_scheme_teal">Βάσκας</string>
+    <string name="preferences_color_scheme_cyan">Κυανό</string>
+    <string name="preferences_color_scheme_brown">Καστανός</string>
 </resources>

@@ -28,6 +28,7 @@
     <string name="preferences_color_scheme_purple">بنفسجي</string>
     <string name="preferences_color_scheme_yellow">أصفر</string>
     <string name="preferences_color_scheme_red">أحمر</string>
+    <string name="preferences_color_scheme_gray">رمادي</string>
     <string name="preferences_color_scheme_system">اتبع النظام</string>
     <!-- Preferences / View -->
     <string name="preferences_header_view">العرض</string>
@@ -310,4 +311,7 @@
         <item quantity="other">تم تحديد %d علامة</item>
     </plurals>
     <string name="preferences_cloud_service_files">تخزين الملفات</string>
+    <string name="preferences_color_scheme_teal">اللون الأزرق المخضر</string>
+    <string name="preferences_color_scheme_cyan">سماوي</string>
+    <string name="preferences_color_scheme_brown">بني</string>
 </resources>

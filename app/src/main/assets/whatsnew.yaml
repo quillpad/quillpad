@@ -1,4 +1,11 @@
 updates:
+  - id: 7
+    title: New Color Scheme Options
+    items:
+      - More color options for notes (Teal, Cyan, Purple, Brown, Gray)
+      - Two new themes for the app (Red & Yellow)
+      - Improved performance and bug fixes
+
   - id: 6
     title: Bug Fixes & Translation Updates
     items:

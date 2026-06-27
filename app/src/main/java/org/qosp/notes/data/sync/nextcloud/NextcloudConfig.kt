@@ -1,7 +1,6 @@
 package org.qosp.notes.data.sync.nextcloud
 
 import android.util.Base64
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
@@ -19,7 +18,6 @@ data class NextcloudConfig(
         get() = mapOf("Authorization" to credentials)
 
     companion object {
-        @OptIn(ExperimentalCoroutinesApi::class)
         fun fromPreferences(preferenceRepository: PreferenceRepository): Flow<NextcloudConfig?> {
             val url = preferenceRepository.getEncryptedString(PreferenceRepository.NEXTCLOUD_INSTANCE_URL)
             val username = preferenceRepository.getEncryptedString(PreferenceRepository.NEXTCLOUD_USERNAME)

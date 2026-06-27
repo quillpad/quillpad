@@ -28,6 +28,7 @@
     <string name="preferences_color_scheme_purple">紫色</string>
     <string name="preferences_color_scheme_yellow">黃色</string>
     <string name="preferences_color_scheme_red">紅色</string>
+    <string name="preferences_color_scheme_gray">灰色的</string>
     <string name="preferences_color_scheme_system">跟隨系統</string>
     <!-- Preferences / View 偏好 / 檢視-->
     <string name="preferences_header_view">檢視</string>
@@ -274,4 +275,7 @@
     <string name="preferences_header_view_navdrawer">導航抽屜</string>
     <string name="preferences_sort_navdrawer_method">筆記本排序依據</string>
     <string name="action_screen_always_on">防止休眠</string>
+    <string name="preferences_color_scheme_teal">"蓝绿色 "</string>
+    <string name="preferences_color_scheme_cyan">青色</string>
+    <string name="preferences_color_scheme_brown">"棕色的 "</string>
 </resources>

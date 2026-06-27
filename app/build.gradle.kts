@@ -18,8 +18,8 @@ android {
         applicationId = "io.github.quillpad"
         minSdk = 24
         targetSdk = 35
-        versionCode = 51
-        versionName = "1.5.9"
+        versionCode = 54
+        versionName = "1.5.12"
 
         testInstrumentationRunner = "org.qosp.notes.TestRunner"
 
@@ -122,6 +122,11 @@ android {
 kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.JVM_11
+        freeCompilerArgs.addAll(
+            "-opt-in=kotlin.time.ExperimentalTime",
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-opt-in=kotlinx.coroutines.FlowPreview",
+        )
     }
 }
 
