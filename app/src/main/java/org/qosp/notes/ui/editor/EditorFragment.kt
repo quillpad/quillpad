@@ -180,6 +180,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         override fun getSwipeVelocityThreshold(defaultValue: Float) = defaultValue / 3
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            binding.scrollView.findFocus()?.clearFocus()
             tasksAdapter.tasks.removeAt(viewHolder.bindingAdapterPosition)
             model.updateTaskList(tasksAdapter.tasks)
             tasksAdapter.notifyItemRemoved(viewHolder.bindingAdapterPosition)
@@ -1124,6 +1125,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
         tasks[position] = newTask
 
         if (oldTask.isDone != newTask.isDone && model.moveCheckedItems) {
+            binding.scrollView.findFocus()?.clearFocus()
             if (newTask.isDone) {
                 // Move to very end
                 tasks.removeAt(position)
@@ -1243,6 +1245,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
     }
 
     private fun uncheckAllTasks() {
+        binding.scrollView.findFocus()?.clearFocus()
         val updatedTasks = tasksAdapter.tasks.map { task ->
             task.copy(isDone = false)
         }
@@ -1252,6 +1255,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
     }
 
     private fun removeAllCheckedTasks() {
+        binding.scrollView.findFocus()?.clearFocus()
         val updatedTasks = tasksAdapter.tasks.filter { task ->
             !task.isDone
         }
