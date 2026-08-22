@@ -2,7 +2,7 @@
 acra = "5.12.0"
 activityCompose = "1.10.1"
 activityKtx = "1.10.1"
-androidGradlePlugin = "8.11.0"
+androidGradlePlugin = "8.13.2"
 androidxComposeBom = "2025.07.00"
 androidxTest = "1.7.0"
 appcompat = "1.7.1"
