@@ -11,13 +11,13 @@ plugins {
 }
 
 android {
-    compileSdk = 35
+    compileSdk = 36
     namespace = "org.qosp.notes"
 
     defaultConfig {
         applicationId = "io.github.quillpad"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 54
         versionName = "1.5.12"
 
