@@ -10,16 +10,18 @@ plugins {
     alias(libs.plugins.navigationSafeArgs)
 }
 
+// Do not use build-in kotlin until this issue is resolved:
+// https://github.com/google/ksp/issues/3053
 android {
-    compileSdk = 36
+    compileSdk = 37
     namespace = "org.qosp.notes"
 
     defaultConfig {
         applicationId = "io.github.quillpad"
         minSdk = 24
-        targetSdk = 36
-        versionCode = 54
-        versionName = "1.5.12"
+        targetSdk = 37
+        versionCode = 55
+        versionName = "1.5.13-dev"
 
         testInstrumentationRunner = "org.qosp.notes.TestRunner"
 
@@ -95,8 +97,8 @@ android {
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     buildFeatures {
@@ -115,13 +117,13 @@ android {
     }
     sourceSets {
         // Adds exported schema location as test app assets.
-        getByName("androidTest").assets.srcDirs(files("$projectDir/schemas"))
+        getByName("androidTest").assets.directories.add("$projectDir/schemas")
     }
 }
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_11
+        jvmTarget = JvmTarget.JVM_17
         freeCompilerArgs.addAll(
             "-opt-in=kotlin.time.ExperimentalTime",
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
