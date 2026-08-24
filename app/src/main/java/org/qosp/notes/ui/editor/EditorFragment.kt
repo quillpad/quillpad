@@ -364,24 +364,24 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                 R.id.action_archive_note -> {
                     if (note.isArchived) activityModel.unarchiveNotes(note) else activityModel.archiveNotes(note)
                     sendMessage(getString(R.string.indicator_archive_note))
-                    activity?.onBackPressed()
+                    activity?.onBackPressedDispatcher?.onBackPressed()
                 }
 
                 R.id.action_delete_note -> {
                     activityModel.deleteNotes(note)
                     sendMessage(getString(R.string.indicator_moved_note_to_bin))
-                    activity?.onBackPressed()
+                    activity?.onBackPressedDispatcher?.onBackPressed()
                 }
 
                 R.id.action_restore_note -> {
                     activityModel.restoreNotes(note)
-                    activity?.onBackPressed()
+                    activity?.onBackPressedDispatcher?.onBackPressed()
                 }
 
                 R.id.action_delete_permanently_note -> {
                     activityModel.deleteNotesPermanently(note)
                     sendMessage(getString(R.string.indicator_deleted_note_permanently))
-                    activity?.onBackPressed()
+                    activity?.onBackPressedDispatcher?.onBackPressed()
                 }
 
                 R.id.action_view_tags -> {
@@ -919,7 +919,7 @@ class EditorFragment : BaseFragment(R.layout.fragment_editor) {
                     .setText(getString(R.string.indicator_deleted_note_cannot_be_edited))
                     .setAction(getString(R.string.action_restore)) { _ ->
                         activityModel.restoreNotes(data.note)
-                        activity?.onBackPressed()
+                        activity?.onBackPressedDispatcher?.onBackPressed()
                     }
                 snackbar?.show()
                 snackbar?.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {

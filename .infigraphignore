@@ -1,0 +1,7 @@
+target/        # Rust build output
+build/         # build output (Gradle, CMake, etc.)
+dist/          # distribution bundles
+out/           # compiler/IDE output
+vendor/        # vendored dependencies (Go, Ruby)
+bin/           # compiled binaries
+
