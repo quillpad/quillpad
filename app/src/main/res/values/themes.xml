@@ -10,14 +10,6 @@
 
         <item name="colorBottomAppBarBackground">#FFFFFF</item>
 
-        <item name="android:navigationBarColor">
-            @android:color/transparent
-        </item>
-
-        <item name="android:statusBarColor">
-            @android:color/transparent
-        </item>
-
         <!-- Navigation -->
         <item name="colorDrawerBackground">#FFFFFF</item>
         <item name="colorDrawerItemRipple">#59000000</item>
@@ -54,9 +46,7 @@
         <item name="materialAlertDialogTheme">@style/DialogTheme</item>
     </style>
 
-    <style name="AppTheme" parent="BaseAppTheme">
-        <item name="android:windowTranslucentStatus">true</item>
-    </style>
+    <style name="AppTheme" parent="BaseAppTheme" />
 
     <style name="DarkBlack">
         <item name="colorBackground">#000</item>
@@ -67,11 +57,6 @@
         <item name="colorNoteDefault">#000</item>
         <item name="colorDrawerBackground">#191919</item>
         <item name="colorBottomAppBarBackground">#121212</item>
-<!--        <item name="android:navigationBarColor">#090909</item>-->
-        <item name="android:navigationBarColor">
-            @android:color/transparent
-        </item>
-
     </style>
 
     <style name="Blue">

@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
@@ -22,6 +24,7 @@ class LauncherActivity : ComponentActivity() {
     private val viewModel: LauncherViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         if (BuildConfig.TESTLAB_BUILD) {
             // Skip the welcome screen in Firebase TestLab builds
@@ -35,7 +38,9 @@ class LauncherActivity : ComponentActivity() {
                 setContent {
                     QuillpadTheme {
                         Surface(
-                            modifier = Modifier.fillMaxSize(),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .safeDrawingPadding(),
                             color = MaterialTheme.colorScheme.background
                         ) {
                             WelcomeScreen(whatsNewItem = whatsNewToShow) {

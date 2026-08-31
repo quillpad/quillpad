@@ -81,8 +81,11 @@ class MediaActivity : BaseActivity() {
         window.setBackgroundDrawable(backgroundColor.toDrawable())
 
         WindowInsetsControllerCompat(window, binding.root).isAppearanceLightStatusBars = false
+        val initialControlsBottomPadding = binding.layoutMediaControls.paddingBottom
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
-            binding.toolbar.updatePadding(top = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top)
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            binding.toolbar.updatePadding(top = systemBars.top)
+            binding.layoutMediaControls.updatePadding(bottom = initialControlsBottomPadding + systemBars.bottom)
             WindowInsetsCompat.CONSUMED
         }
         setupToolbar()
