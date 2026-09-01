@@ -4,6 +4,8 @@ import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import me.msoul.datastore.defaultOf
 import org.qosp.notes.data.dao.IdMappingDao
 import org.qosp.notes.data.dao.NoteDao
@@ -46,6 +48,7 @@ class NoteRepositoryImpl(
 ) : NoteRepository {
 
     private val tag = NoteRepositoryImpl::class.java.simpleName
+    private val syncMutex = Mutex()
 
     private suspend fun cleanMappingsForLocalNotes(vararg notes: Note) {
         val n = notes.filter { it.isLocalOnly }
@@ -75,34 +78,40 @@ class NoteRepositoryImpl(
             }
         }
 
-        val syncMethod =
-            if (idMappingDao.getCountByCloudService(syncProvider.type) == 0)
-                SyncMethod.TITLE else SyncMethod.MAPPING
-        try {
-            // Get all local notes (excluding local-only ones)
-            val localNotes = getAll().first().filterNot { it.isLocalOnly || it.isDeleted }
+        return syncMutex.withLock {
+            val syncMethod =
+                if (idMappingDao.getCountByCloudService(syncProvider.type) == 0)
+                    SyncMethod.TITLE else SyncMethod.MAPPING
+            try {
+                // Get all local notes (excluding local-only ones)
+                val localNotes = getAll().first().filterNot { it.isLocalOnly || it.isDeleted }
 
-            // Get all remote notes and convert to metadata
-            val allRemoteNotes = syncProvider.getAll() ?: return GenericError("Failed to fetch remote notes")
-            Log.d(
-                tag, "syncNotes: Syncing by $syncMethod. " +
-                    "Found ${allRemoteNotes.size} remote notes, and ${localNotes.size} local notes"
-            )
+                // Get all remote notes and convert to metadata
+                val allRemoteNotes =
+                    syncProvider.getAll() ?: return@withLock GenericError("Failed to fetch remote notes")
+                Log.d(
+                    tag, "syncNotes: Syncing by $syncMethod. " +
+                        "Found ${allRemoteNotes.size} remote notes, and ${localNotes.size} local notes"
+                )
 
-            // Use SynchronizeNotes to determine what updates are needed
-            val syncResult =
-                synchronizeNotes(localNotes, allRemoteNotes, service = syncProvider.type, syncMethod)
-            Log.d(tag, "sync updates: ${syncResult.localUpdates.size} local, ${syncResult.remoteUpdates.size} remote")
+                // Use SynchronizeNotes to determine what updates are needed
+                val syncResult =
+                    synchronizeNotes(localNotes, allRemoteNotes, service = syncProvider.type, syncMethod)
+                Log.d(
+                    tag, "sync updates: ${syncResult.localUpdates.size} local, " +
+                        "${syncResult.remoteUpdates.size} remote"
+                )
 
-            if (syncMethod == SyncMethod.TITLE) applyMappingChanges(syncResult, syncProvider) // Initial import
-            applyLocalUpdates(syncResult.localUpdates, syncProvider)
-            applyRemoteUpdates(syncResult.remoteUpdates)
-            Log.i(tag, "syncNotes: Synchronization completed successfully")
-        } catch (e: Exception) {
-            Log.e(tag, "syncNotes: Synchronization failed: ${e.message}", e)
-            return GenericError(e.message ?: "Unknown error")
+                if (syncMethod == SyncMethod.TITLE) applyMappingChanges(syncResult, syncProvider) // Initial import
+                applyLocalUpdates(syncResult.localUpdates, syncProvider)
+                applyRemoteUpdates(syncResult.remoteUpdates)
+                Log.i(tag, "syncNotes: Synchronization completed successfully")
+            } catch (e: Exception) {
+                Log.e(tag, "syncNotes: Synchronization failed: ${e.message}", e)
+                return@withLock GenericError(e.message ?: "Unknown error")
+            }
+            Success
         }
-        return Success
     }
 
     private suspend fun applyLocalUpdates(localUpdates: List<NoteAction>, syncProvider: ISyncBackend) {
