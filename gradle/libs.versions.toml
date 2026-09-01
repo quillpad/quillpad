@@ -43,6 +43,7 @@ photoview = "2.3.0"
 recyclerview = "1.4.0"
 retrofit = "3.0.0"
 retrofit2Converter = "1.0.0"
+robolectric = "4.16.1"
 room = "2.7.2"
 securityCrypto = "1.1.0"
 swiperefreshlayout = "1.1.0"
@@ -126,6 +127,7 @@ photoview = { module = "com.github.chrisbanes:PhotoView", version.ref = "photovi
 recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit2Convertor = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2Converter" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 roomCompiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 roomKtx = { module = "androidx.room:room-ktx", version.ref = "room" }
 roomRuntime = { module = "androidx.room:room-runtime", version.ref = "room" }

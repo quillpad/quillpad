@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.os.IBinder
 import android.view.WindowManager
@@ -32,7 +33,6 @@ import org.qosp.notes.R
 import org.qosp.notes.data.model.Attachment
 import org.qosp.notes.databinding.ActivityMediaBinding
 import org.qosp.notes.ui.BaseActivity
-import org.qosp.notes.ui.attachments.getAlbumArtBitmap
 import org.qosp.notes.ui.attachments.uri
 import org.qosp.notes.ui.utils.collect
 import org.qosp.notes.ui.utils.getDrawableCompat
@@ -212,18 +212,22 @@ class MediaActivity : BaseActivity() {
         seekBar.trackInactiveTintList = ColorStateList.valueOf(ColorUtils.setAlphaComponent(Color.WHITE, 38))
 
         val attachmentUri = attachment.uri(this@MediaActivity) ?: return@with
-        val bitmap = getAlbumArtBitmap(this@MediaActivity, attachmentUri)
-
-        if (bitmap != null) {
-            val palette = Palette.from(bitmap)
-                .generate()
-            val dominant = palette.getDominantColor(backgroundColor)
-
-            imageView.load(bitmap)
-            root.background = dominant.toDrawable()
-        } else {
-            imageView.setColorFilter(Color.WHITE)
-            imageView.load(R.drawable.ic_music)
+        imageView.setColorFilter(Color.WHITE)
+        imageView.load(attachmentUri) {
+            placeholder(R.drawable.ic_music)
+            error(R.drawable.ic_music)
+            listener(
+                onSuccess = { _, result ->
+                    imageView.clearColorFilter()
+                    val bitmap = (result.drawable as? BitmapDrawable)?.bitmap ?: return@listener
+                    Palette.from(bitmap).generate { palette ->
+                        if (!isFinishing && !isDestroyed) {
+                            root.background = palette?.getDominantColor(backgroundColor)?.toDrawable()
+                                ?: backgroundColor.toDrawable()
+                        }
+                    }
+                }
+            )
         }
     }
 

@@ -10,14 +10,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import coil.decode.VideoFrameDecoder
-import coil.fetch.Fetcher
 import coil.load
 import coil.request.ImageRequest
 import org.qosp.notes.R
 import org.qosp.notes.data.model.Attachment
 import org.qosp.notes.databinding.LayoutAttachmentBinding
 import org.qosp.notes.ui.attachments.uri
-import org.qosp.notes.ui.utils.coil.AlbumArtFetcher
 
 class AttachmentViewHolder(
     private val context: Context,
@@ -80,13 +78,7 @@ class AttachmentViewHolder(
                 setIndicator(R.drawable.ic_movie)
             }
             Attachment.Type.AUDIO -> {
-                imageView.loadThumbnail(attachment.uri(context)) {
-                    fetcherFactory(Fetcher.Factory { data, options, _ ->
-                        (data as? Uri)?.let {
-                            AlbumArtFetcher(context, data, options)
-                        }
-                    })
-                }
+                imageView.loadThumbnail(attachment.uri(context))
 
                 setIndicator(R.drawable.ic_music)
             }
