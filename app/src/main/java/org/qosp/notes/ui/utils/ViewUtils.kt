@@ -84,17 +84,25 @@ fun View.liftAppBarOnScroll(
     }
 }
 
+/**
+ * Index at which text should be cut to leave room for a trailing "...", kept within
+ * [0, textLength] so a short, empty or stale-layout text can never cause a
+ * StringIndexOutOfBoundsException.
+ */
+internal fun ellipsisCutoff(lineEnd: Int, textLength: Int): Int =
+    (lineEnd - 3).coerceIn(0, textLength.coerceAtLeast(0))
+
 fun TextView.ellipsize() {
     viewTreeObserver.addOnGlobalLayoutListener(object :
         ViewTreeObserver.OnGlobalLayoutListener {
         override fun onGlobalLayout() {
             viewTreeObserver.removeOnGlobalLayoutListener(this)
             val maxLines: Int = maxLines
-            if (layout != null) {
+            if (layout != null && maxLines > 0) {
                 val layout: Layout = layout
                 if (layout.lineCount > maxLines) {
                     val end: Int = layout.getLineEnd(maxLines - 1)
-                    val safeEnd = (end - 3).coerceAtLeast(0)
+                    val safeEnd = ellipsisCutoff(end, text.length)
                     setText(text.subSequence(0, safeEnd), TextView.BufferType.SPANNABLE)
                     append("...")
                 }
