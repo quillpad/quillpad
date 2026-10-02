@@ -12,14 +12,6 @@
         <item name="colorBottomAppBarBackground">#202020</item>
 
 
-        <item name="android:navigationBarColor">
-            @android:color/transparent
-        </item>
-
-        <item name="android:statusBarColor">
-            @android:color/transparent
-        </item>
-
         <!-- Navigation -->
         <item name="colorDrawerBackground">#202020</item>
         <item name="colorDrawerItemRipple">#59FFFFFF</item>
@@ -56,9 +48,7 @@
         <item name="materialAlertDialogTheme">@style/DialogTheme</item>
     </style>
 
-    <style name="AppTheme" parent="BaseAppTheme">
-        <item name="android:windowTranslucentStatus">true</item>
-    </style>
+    <style name="AppTheme" parent="BaseAppTheme" />
 
     <style name="Blue">
         <item name="colorPrimary">#90CAF9</item>

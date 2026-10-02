@@ -1,9 +1,6 @@
 package org.qosp.notes.ui.attachments
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.provider.OpenableColumns
 import androidx.core.content.FileProvider
@@ -47,22 +44,4 @@ fun getAttachmentUri(context: Context, path: String, mediaFolder: String = App.M
             }.getOrNull()
         }
     }
-}
-
-fun getAlbumArtBitmap(context: Context, uri: Uri): Bitmap? {
-    val retriever = MediaMetadataRetriever()
-    val result = runCatching {
-        retriever
-            .run {
-                setDataSource(context, uri)
-                embeddedPicture
-            }
-            ?.let {
-                BitmapFactory.decodeByteArray(it, 0, it.size)
-            }
-    }.getOrNull()
-
-    retriever.release()
-
-    return result
 }

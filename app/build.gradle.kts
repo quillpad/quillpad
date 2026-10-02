@@ -81,13 +81,13 @@ android {
             buildConfigField("boolean", "TESTLAB_BUILD", testLabBuild)
         }
         release {
-            isMinifyEnabled = true
-            isShrinkResources = true
+            optimization {
+                enable = true
+            }
             isCrunchPngs = false
             if (project.hasProperty("keystore")) {
                 signingConfig = signingConfigs.getByName("release")
             }
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             ndk {
                 debugSymbolLevel = "FULL"
             }
