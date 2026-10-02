@@ -2,9 +2,6 @@
 <resources>
 
     <style name="AppTheme" parent="BaseAppTheme">
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowTranslucentStatus">false</item>
         <item name="android:forceDarkAllowed">false</item>
     </style>
 </resources>

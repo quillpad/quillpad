@@ -1,10 +1,10 @@
 package org.qosp.notes.ui
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.os.bundleOf
@@ -104,6 +104,16 @@ class MainActivity : BaseActivity() {
 
         WidgetUpdateHelper.updateAllWidgets(this)
         if (intent != null) handleIntent(intent)
+
+        onBackPressedDispatcher.addCallback(this) {
+            if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
+                binding.drawer.closeDrawer(GravityCompat.START)
+            } else if (navController.previousBackStackEntry != null) {
+                navController.popBackStack()
+            } else {
+                moveTaskToBack(true)
+            }
+        }
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -115,17 +125,6 @@ class MainActivity : BaseActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    @SuppressLint("MissingSuperCall")
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
-            binding.drawer.closeDrawer(GravityCompat.START)
-        } else if (navController.previousBackStackEntry != null) {
-            navController.popBackStack()
-        } else {
-            moveTaskToBack(true)
-        }
-    }
 
     /**
      * Copies shared media from a URI to the app's private storage.

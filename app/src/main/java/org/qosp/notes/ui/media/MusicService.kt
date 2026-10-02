@@ -18,11 +18,14 @@ import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.getSystemService
+import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
 import androidx.media.AudioAttributesCompat
 import androidx.media.AudioFocusRequestCompat
 import androidx.media.AudioManagerCompat
+import coil.Coil
+import coil.request.ImageRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -32,7 +35,6 @@ import kotlinx.coroutines.launch
 import org.qosp.notes.App
 import org.qosp.notes.R
 import org.qosp.notes.data.model.Attachment
-import org.qosp.notes.ui.attachments.getAlbumArtBitmap
 import org.qosp.notes.ui.attachments.getAttachmentFilename
 import org.qosp.notes.ui.attachments.uri
 import org.qosp.notes.ui.utils.generateId
@@ -250,8 +252,24 @@ class MusicServiceBinder(
                 setContentTitle(it)
             }
 
-            // Fetch album art and set is as the large icon, if it exists
-            getAlbumArtBitmap(applicationContext, uri)?.let { setLargeIcon(it) }
+            // Coil extracts and downsamples embedded art off the main thread. The notification is
+            // updated once the bounded, software bitmap is ready.
+            val notificationIconPx = applicationContext.resources
+                .getDimensionPixelSize(android.R.dimen.notification_large_icon_height)
+                .coerceAtLeast(256)
+            Coil.imageLoader(applicationContext).enqueue(
+                ImageRequest.Builder(applicationContext)
+                    .data(uri)
+                    .size(notificationIconPx, notificationIconPx)
+                    .allowHardware(false)
+                    .target(
+                        onSuccess = { drawable ->
+                            setLargeIcon(drawable.toBitmap(notificationIconPx, notificationIconPx))
+                            notificationId?.let { notificationManager?.notify(it, build()) }
+                        }
+                    )
+                    .build()
+            )
         }
     }
 

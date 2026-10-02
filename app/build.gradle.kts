@@ -10,16 +10,18 @@ plugins {
     alias(libs.plugins.navigationSafeArgs)
 }
 
+// Do not use build-in kotlin until this issue is resolved:
+// https://github.com/google/ksp/issues/3053
 android {
-    compileSdk = 35
+    compileSdk = 37
     namespace = "org.qosp.notes"
 
     defaultConfig {
         applicationId = "io.github.quillpad"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 54
-        versionName = "1.5.12"
+        targetSdk = 37
+        versionCode = 55
+        versionName = "1.5.13"
 
         testInstrumentationRunner = "org.qosp.notes.TestRunner"
 
@@ -79,13 +81,13 @@ android {
             buildConfigField("boolean", "TESTLAB_BUILD", testLabBuild)
         }
         release {
-            isMinifyEnabled = true
-            isShrinkResources = true
+            optimization {
+                enable = true
+            }
             isCrunchPngs = false
             if (project.hasProperty("keystore")) {
                 signingConfig = signingConfigs.getByName("release")
             }
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             ndk {
                 debugSymbolLevel = "FULL"
             }
@@ -95,8 +97,8 @@ android {
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     buildFeatures {
@@ -115,13 +117,13 @@ android {
     }
     sourceSets {
         // Adds exported schema location as test app assets.
-        getByName("androidTest").assets.srcDirs(files("$projectDir/schemas"))
+        getByName("androidTest").assets.directories.add("$projectDir/schemas")
     }
 }
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_11
+        jvmTarget = JvmTarget.JVM_17
         freeCompilerArgs.addAll(
             "-opt-in=kotlin.time.ExperimentalTime",
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
@@ -156,6 +158,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockk.android)
     testImplementation(libs.mockk.agent)
+    testImplementation(libs.robolectric)
     testImplementation(libs.roomTesting)
     testImplementation(libs.koin.test)
     testImplementation(libs.koin.test.junit4)

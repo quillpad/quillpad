@@ -39,6 +39,7 @@ import org.qosp.notes.di.RepositoryModule
 import org.qosp.notes.di.SyncModule
 import org.qosp.notes.di.UIModule
 import org.qosp.notes.di.UtilModule
+import org.qosp.notes.ui.utils.coil.AlbumArtFetcher
 import java.util.concurrent.TimeUnit
 
 class App : Application(), ImageLoaderFactory {
@@ -56,6 +57,9 @@ class App : Application(), ImageLoaderFactory {
             .components {
                 if (SDK_INT >= 28) add(ImageDecoderDecoder.Factory()) else add(GifDecoder.Factory())
                 add(VideoFrameDecoder.Factory())
+                // Intercepts audio URIs and extracts embedded album art as a Coil ImageSource,
+                // letting Coil's decoder handle downsampling, memory pooling, and caching.
+                add(AlbumArtFetcher.Factory(applicationContext))
             }
             .build()
     }
