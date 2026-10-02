@@ -158,6 +158,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockk.android)
     testImplementation(libs.mockk.agent)
+    testImplementation(libs.robolectric)
     testImplementation(libs.roomTesting)
     testImplementation(libs.koin.test)
     testImplementation(libs.koin.test.junit4)

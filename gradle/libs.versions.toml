@@ -38,6 +38,7 @@ mockk = "1.14.5"
 nav = "2.9.3"
 navigationSafeArgs = "2.9.6"
 okhttp = "5.1.0"
+robolectric = "4.16"
 paletteKtx = "1.0.0"
 photoview = "2.3.0"
 recyclerview = "1.4.0"
@@ -116,6 +117,7 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 media = { module = "androidx.media:media", version.ref = "media" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 mockk-agent = { module = "io.mockk:mockk-agent", version.ref = "mockk" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 monitor = { group = "androidx.test", name = "monitor", version.ref = "monitor" }
 navigationFragmentKtx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "nav" }
 navigationUiKtx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "nav" }
