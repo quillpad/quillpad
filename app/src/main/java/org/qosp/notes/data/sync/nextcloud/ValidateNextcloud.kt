@@ -3,6 +3,7 @@ package org.qosp.notes.data.sync.nextcloud
 import android.util.Log
 import org.acra.ktx.sendWithAcra
 import retrofit2.HttpException
+import java.io.IOException
 import javax.net.ssl.SSLException
 
 class ValidateNextcloud(private val apiProvider: NextcloudAPIProvider) {
@@ -26,9 +27,25 @@ class ValidateNextcloud(private val apiProvider: NextcloudAPIProvider) {
                     )
                 }
 
-                else -> BackendValidationResult.InvalidConfig.also {
+                is HttpException -> when (exception.code()) {
+                    401, 403 -> BackendValidationResult.InvalidConfig.also {
+                        Log.w("ValidateNextcloud", "Server rejected the credentials (${exception.code()})", exception)
+                    }
+
+                    else -> BackendValidationResult.UnexpectedError.also {
+                        Log.e("ValidateNextcloud", "Unexpected HTTP ${exception.code()} from server", exception)
+                        exception.sendWithAcra()
+                    }
+                }
+
+                is IOException -> BackendValidationResult.ConnectionError.also {
+                    // Network problems are not actionable crashes, so no report is sent
+                    Log.w("ValidateNextcloud", "Could not connect to server", exception)
+                }
+
+                else -> BackendValidationResult.UnexpectedError.also {
                     Log.e("ValidateNextcloud", "invoke: Error validating config", exception)
-                    if (exception !is HttpException || exception.code() != 401) exception.sendWithAcra()
+                    exception.sendWithAcra()
                 }
             }
         }
@@ -45,4 +62,6 @@ sealed class BackendValidationResult {
     object Incompatible : BackendValidationResult()
     object CertificateError : BackendValidationResult()
     object NotesNotInstalled : BackendValidationResult()
+    object ConnectionError : BackendValidationResult()
+    object UnexpectedError : BackendValidationResult()
 }
