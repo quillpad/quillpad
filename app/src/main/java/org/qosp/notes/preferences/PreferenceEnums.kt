@@ -42,6 +42,10 @@ enum class ColorScheme(
             return Build.VERSION.SDK_INT >= 31
         }
     },
+    MONET_WATER_LILIES(R.string.preferences_color_scheme_monet_water_lilies, R.style.MonetWaterLilies),
+    MONET_SUNRISE(R.string.preferences_color_scheme_monet_sunrise, R.style.MonetSunrise),
+    MONET_GARDEN(R.string.preferences_color_scheme_monet_garden, R.style.MonetGarden),
+    MONET_IRIS(R.string.preferences_color_scheme_monet_iris, R.style.MonetIris),
 }
 
 enum class SortMethod(override val nameResource: Int) : HasNameResource, EnumPreference by key("sort_method") {
