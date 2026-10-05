@@ -73,5 +73,6 @@ class PreferenceRepository(
         const val NEXTCLOUD_USERNAME = "NEXTCLOUD_USERNAME"
         const val NEXTCLOUD_PASSWORD = "NEXTCLOUD_PASSWORD"
         const val STORAGE_LOCATION = "STORAGE_LOCATION"
+        const val EDITOR_BOTTOM_TOOLBAR_CONFIG = "EDITOR_BOTTOM_TOOLBAR_CONFIG"
     }
 }
