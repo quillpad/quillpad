@@ -64,6 +64,8 @@ class NextcloudAccountDialog : BaseDialog<DialogNextcloudAccountBinding>() {
                     InvalidConfig -> R.string.message_invalid_credentials
                     CertificateError -> R.string.message_certificates_invalid
                     BackendValidationResult.NotesNotInstalled -> R.string.message_notes_not_installed
+                    BackendValidationResult.ConnectionError -> R.string.message_server_connection_failed
+                    BackendValidationResult.UnexpectedError -> R.string.message_something_went_wrong
                 }
                 Toast.makeText(requireContext(), getString(messageResId), Toast.LENGTH_LONG).show()
                 if (result == Success) dismiss()

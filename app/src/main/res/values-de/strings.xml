@@ -253,6 +253,7 @@
     <string name="indicator_offline_account">Offline-Konto</string>
     <string name="indicator_connecting">Verbinde…</string>
     <string name="message_something_went_wrong">Etwas ist schiefgelaufen.</string>
+    <string name="message_server_connection_failed">Verbindung zum Server fehlgeschlagen. Bitte Serveradresse und Netzwerkverbindung prüfen.</string>
     <string name="message_invalid_credentials">Authentifizierung mit dem Server ist aufgrund falscher Zugangsdaten fehlgschlagen.</string>
     <string name="message_logged_in_successfully">Erfolgreich angemeldet!</string>
     <string name="message_server_not_compatible">Die Server-Version ist nicht mit dieser App kompatibel.</string>

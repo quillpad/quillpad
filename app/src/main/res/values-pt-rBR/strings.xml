@@ -229,6 +229,7 @@
     <string name="indicator_offline_account">Contas offline</string>
     <string name="indicator_connecting">Conectando…</string>
     <string name="message_something_went_wrong">Algo deu errado.</string>
+    <string name="message_server_connection_failed">Não foi possível conectar ao servidor. Verifique o endereço do servidor e sua conexão de rede.</string>
     <string name="message_invalid_credentials">Não foi possível autenticar com o servidor devido a credenciais inválidas.</string>
     <string name="message_logged_in_successfully">Conectado com sucesso!</string>
     <string name="message_server_not_compatible">Versão do servidor não é compatível com esse app.</string>

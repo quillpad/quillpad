@@ -245,6 +245,7 @@
     <string name="indicator_offline_account">Offline účet</string>
     <string name="indicator_connecting">Připojování…</string>
     <string name="message_something_went_wrong">Něco se nepovedlo.</string>
+    <string name="message_server_connection_failed">Nelze se připojit k serveru. Zkontrolujte adresu serveru a připojení k síti.</string>
     <string name="message_invalid_credentials">Nelze se ověřit u serveru z důvodu chybných přihlašovacích údajů.</string>
     <string name="message_logged_in_successfully">Přihlášení úspěšné!</string>
     <string name="message_server_not_compatible">Verze serveru není kompatibilní s touto aplikací.</string>

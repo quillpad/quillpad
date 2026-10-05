@@ -240,6 +240,7 @@
     <string name="indicator_offline_account">离线帐户</string>
     <string name="indicator_connecting">连接中…</string>
     <string name="message_something_went_wrong">出了点问题。</string>
+    <string name="message_server_connection_failed">无法连接到服务器。请检查服务器地址和网络连接。</string>
     <string name="message_invalid_credentials">由于证书无效，无法向服务器进行身份验证。</string>
     <string name="message_logged_in_successfully">登录成功!</string>
     <string name="message_server_not_compatible">服务器版本与此应用程序不兼容。</string>

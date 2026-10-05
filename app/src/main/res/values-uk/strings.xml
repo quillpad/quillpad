@@ -227,6 +227,7 @@
     <string name="indicator_offline_account">Локальна обліковка</string>
     <string name="indicator_connecting">З\'єднання…</string>
     <string name="message_something_went_wrong">Щось пішло не за планом.</string>
+    <string name="message_server_connection_failed">Не вдалося підключитися до сервера. Перевірте адресу сервера та підключення до мережі.</string>
     <string name="message_invalid_credentials">Неможливо авторизуватися на сервері, так як ім\'я користувача та пароль не збігаються.</string>
     <string name="message_logged_in_successfully">Успішно увійшли в обліковку!</string>
     <string name="message_server_not_compatible">Версія сервера не підтримується цим додатком.</string>

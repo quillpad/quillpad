@@ -227,6 +227,7 @@
     <string name="indicator_offline_account">Account non in linea</string>
     <string name="indicator_connecting">Connessione in corso…</string>
     <string name="message_something_went_wrong">Qualcosa non ha funzionato.</string>
+    <string name="message_server_connection_failed">Impossibile connettersi al server. Controlla l\'indirizzo del server e la connessione di rete.</string>
     <string name="message_invalid_credentials">Impossibile autenticarsi sul server a causa delle credenziali non valide.</string>
     <string name="message_logged_in_successfully">Accesso effettuato con successo.</string>
     <string name="message_server_not_compatible">La versione del server non è compatibile con questa app.</string>

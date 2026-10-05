@@ -251,6 +251,7 @@
     <string name="indicator_offline_account">Offline account</string>
     <string name="indicator_connecting">Verbinding maken…</string>
     <string name="message_something_went_wrong">Er ging iets mis.</string>
+    <string name="message_server_connection_failed">Kan geen verbinding maken met de server. Controleer het serveradres en je netwerkverbinding.</string>
     <string name="message_invalid_credentials">Authenticatie met de server mislukt vanwege ongeldige inloggegevens.</string>
     <string name="message_logged_in_successfully">Aanmelden gelukt!</string>
     <string name="message_server_not_compatible">De serverversie is niet compatibel met deze app.</string>
