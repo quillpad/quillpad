@@ -228,6 +228,7 @@
     <string name="indicator_offline_account">Konto lokalne</string>
     <string name="indicator_connecting">Łączenie…</string>
     <string name="message_something_went_wrong">Coś poszło nie tak.</string>
+    <string name="message_server_connection_failed">Nie można połączyć się z serwerem. Sprawdź adres serwera i połączenie sieciowe.</string>
     <string name="message_invalid_credentials">Niepoprawne dane logowania.</string>
     <string name="message_logged_in_successfully">Zalogowano pomyślnie!</string>
     <string name="message_server_not_compatible">Wersja serwera nie jest kompatybilna z tą aplikacją.</string>

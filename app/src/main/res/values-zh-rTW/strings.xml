@@ -245,6 +245,7 @@
     <string name="indicator_offline_account">離線帳戶</string>
     <string name="indicator_connecting">連接中…</string>
     <string name="message_something_went_wrong">出了點問題。</string>
+    <string name="message_server_connection_failed">無法連線到伺服器。請檢查伺服器位址和網路連線。</string>
     <string name="message_invalid_credentials">由於認證無效，無法在服務器進行身份驗證。</string>
     <string name="message_logged_in_successfully">登錄成功!</string>
     <string name="message_server_not_compatible">伺服器版本與此應用程式不相容。</string>

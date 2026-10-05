@@ -233,6 +233,7 @@
     <string name="indicator_offline_account">Compte fora de línia</string>
     <string name="indicator_connecting">Connectant…</string>
     <string name="message_something_went_wrong">Alguna cosa ha anat malament.</string>
+    <string name="message_server_connection_failed">No s\'ha pogut connectar amb el servidor. Comproveu l\'adreça del servidor i la connexió de xarxa.</string>
     <string name="message_invalid_credentials">No s\'ha pogut autenticar amb el servidor a causa de credencials no vàlides.</string>
     <string name="message_logged_in_successfully">Sessió iniciada correctament.</string>
     <string name="message_server_not_compatible">La versió del servidor no és compatible amb aquesta aplicació.</string>

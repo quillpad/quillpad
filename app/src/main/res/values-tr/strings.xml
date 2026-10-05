@@ -260,6 +260,7 @@
     <string name="indicator_offline_account">Çevrimdışı hesap</string>
     <string name="indicator_connecting">Bağlanıyor…</string>
     <string name="message_something_went_wrong">Bir şeyler ters gitti.</string>
+    <string name="message_server_connection_failed">Sunucuya bağlanılamadı. Lütfen sunucu adresini ve ağ bağlantınızı kontrol edin.</string>
     <string name="message_invalid_credentials">Geçersiz kimlik bilgileri nedeniyle sunucuyla kimlik doğrulaması yapılamadı.</string>
     <string name="message_logged_in_successfully">Başarıyla giriş yapıldı!</string>
     <string name="message_server_not_compatible">Sunucu sürümü bu uygulamayla uyumlu değil.</string>
