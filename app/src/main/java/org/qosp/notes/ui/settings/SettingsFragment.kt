@@ -1,11 +1,21 @@
 package org.qosp.notes.ui.settings
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.qosp.notes.R
@@ -15,10 +25,13 @@ import org.qosp.notes.preferences.CloudService
 import org.qosp.notes.preferences.DarkThemeMode
 import org.qosp.notes.preferences.DateFormat
 import org.qosp.notes.preferences.LayoutMode
+import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.preferences.ThemeMode
 import org.qosp.notes.preferences.TimeFormat
 import org.qosp.notes.ui.MainActivity
 import org.qosp.notes.ui.common.BaseFragment
+import org.qosp.notes.ui.editor.EditorBottomToolbarConfig
+import org.qosp.notes.ui.editor.EditorBottomToolbarItemState
 import org.qosp.notes.ui.utils.RestoreNotesContract
 import org.qosp.notes.ui.utils.collect
 import org.qosp.notes.ui.utils.liftAppBarOnScroll
@@ -57,6 +70,7 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
         setupSortNavdrawerMethodListener()
         setupGroupNotesWithoutNotebookListener()
         setupMoveCheckedItemsListener()
+        setupEditBottomToolbarListener()
         setupOpenMediaInListener()
         setupNoteDeletionTimeListener()
         setupBackupStrategyListener()
@@ -210,10 +224,125 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
         }
     }
 
+    private fun setupEditBottomToolbarListener() = binding.settingEditBottomToolbar.setOnClickListener {
+        lifecycleScope.launch {
+            val items = EditorBottomToolbarConfig
+                .parse(model.getEncryptedString(PreferenceRepository.EDITOR_BOTTOM_TOOLBAR_CONFIG).first())
+                .toMutableList()
+            showEditBottomToolbarDialog(items)
+        }
+    }
+
     private fun setupOpenMediaInListener() = binding.settingOpenMedia.setOnClickListener {
         showPreferenceDialog(R.string.preferences_open_media_in, appPreferences.openMediaIn) { selected ->
             model.setPreference(selected)
         }
+    }
+
+    private fun showEditBottomToolbarDialog(items: MutableList<EditorBottomToolbarItemState>) {
+        val content = LinearLayout(requireContext()).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(0, 8.dp, 0, 8.dp)
+        }
+
+        fun refreshRows() {
+            content.removeAllViews()
+            items.forEachIndexed { index, state ->
+                content.addView(createToolbarItemRow(items, index, state, ::refreshRows))
+            }
+        }
+
+        refreshRows()
+
+        val scrollView = ScrollView(requireContext()).apply {
+            addView(
+                content,
+                ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                )
+            )
+        }
+
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.preferences_edit_bottom_toolbar)
+            .setView(scrollView)
+            .setNegativeButton(R.string.action_cancel, null)
+            .setNeutralButton(R.string.action_reset, null)
+            .setPositiveButton(R.string.action_done, null)
+            .create()
+
+        dialog.setOnShowListener {
+            dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
+                items.clear()
+                items.addAll(EditorBottomToolbarConfig.defaultItems)
+                refreshRows()
+            }
+            dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                model.setEncryptedString(
+                    PreferenceRepository.EDITOR_BOTTOM_TOOLBAR_CONFIG,
+                    EditorBottomToolbarConfig.serialize(items),
+                )
+                dialog.dismiss()
+            }
+        }
+
+        dialog.show()
+    }
+
+    private fun createToolbarItemRow(
+        items: MutableList<EditorBottomToolbarItemState>,
+        index: Int,
+        state: EditorBottomToolbarItemState,
+        refreshRows: () -> Unit,
+    ): View {
+        val row = LinearLayout(requireContext()).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            setPadding(16.dp, 6.dp, 8.dp, 6.dp)
+        }
+
+        val checkbox = AppCompatCheckBox(requireContext()).apply {
+            isChecked = state.visible
+            setOnCheckedChangeListener { _, isChecked ->
+                items[index] = items[index].copy(visible = isChecked)
+            }
+        }
+
+        val icon = AppCompatImageView(requireContext()).apply {
+            setImageResource(state.item.iconRes)
+            layoutParams = LinearLayout.LayoutParams(32.dp, 32.dp).apply {
+                marginEnd = 12.dp
+            }
+        }
+
+        val label = AppCompatTextView(requireContext()).apply {
+            text = getString(state.item.titleRes)
+            layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
+        }
+
+        val upButton = AppCompatImageButton(requireContext()).apply {
+            setImageResource(R.drawable.ic_up)
+            contentDescription = getString(R.string.action_move_up)
+            isEnabled = index > 0
+            setOnClickListener {
+                java.util.Collections.swap(items, index, index - 1)
+                refreshRows()
+            }
+        }
+
+        val downButton = AppCompatImageButton(requireContext()).apply {
+            setImageResource(R.drawable.ic_down)
+            contentDescription = getString(R.string.action_move_down)
+            isEnabled = index < items.lastIndex
+            setOnClickListener {
+                java.util.Collections.swap(items, index, index + 1)
+                refreshRows()
+            }
+        }
+
+        listOf(checkbox, icon, label, upButton, downButton).forEach(row::addView)
+        return row
     }
 
     private fun setupNoteDeletionTimeListener() = binding.settingNoteDeletion.setOnClickListener {
@@ -271,4 +400,7 @@ class SettingsFragment : BaseFragment(resId = R.layout.fragment_settings) {
             model.setPreference(selected)
         }
     }
+
+    private val Int.dp: Int
+        get() = (this * resources.displayMetrics.density).toInt()
 }

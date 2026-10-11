@@ -83,6 +83,9 @@
     <!-- Preferences / Other -->
     <string name="preferences_header_other">Other</string>
 
+    <string name="preferences_edit_bottom_toolbar">Edit bottom toolbar</string>
+    <string name="preferences_edit_bottom_toolbar_subtext">Choose tools and order</string>
+
     <string name="preferences_open_media_in">Open media in</string>
     <string name="preferences_open_media_in_internal">Internal player</string>
     <string name="preferences_open_media_in_external">External player</string>
@@ -159,6 +162,7 @@
     <string name="hint_password">Password</string>
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
+    <string name="action_reset">Reset</string>
     <string name="action_delete">Delete</string>
     <string name="action_done">Done!</string>
     <string name="action_delete_permanently">Delete permanently</string>
@@ -175,6 +179,8 @@
     <string name="action_unpin">Unpin</string>
     <string name="action_restore">Restore</string>
     <string name="action_share">Share</string>
+    <string name="action_move_up">Move up</string>
+    <string name="action_move_down">Move down</string>
     <string name="action_pin_unpin">Pin / Unpin</string>
     <string name="action_move_to">Move to…</string>
     <string name="action_duplicate">Duplicate</string>
@@ -267,6 +273,11 @@
     <string name="action_insert_heading">Insert heading markdown</string>
     <string name="action_insert_quote">Insert quotation markdown</string>
     <string name="action_insert_code">Insert code markdown</string>
+    <string name="action_toggle_check_line">Toggle checklist item</string>
+    <string name="action_scroll_to_top">Scroll to top</string>
+    <string name="action_scroll_to_bottom">Scroll to bottom</string>
+    <string name="action_undo">Undo</string>
+    <string name="action_redo">Redo</string>
     <string name="action_uncheck_all_tasks">Uncheck all items</string>
     <string name="action_remove_all_checked_tasks">Remove all checked tasks</string>
     <string name="indicator_note_date">Created at %1$s\nLast modified at %2$s</string>

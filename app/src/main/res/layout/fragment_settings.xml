@@ -198,6 +198,14 @@
                     android:layout_height="wrap_content"/>
 
                 <org.qosp.notes.ui.utils.views.PreferenceView
+                    android:id="@+id/setting_edit_bottom_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:text="@string/preferences_edit_bottom_toolbar"
+                    app:subText="@string/preferences_edit_bottom_toolbar_subtext"
+                    app:iconSrc="@drawable/ic_markdown"/>
+
+                <org.qosp.notes.ui.utils.views.PreferenceView
                     android:id="@+id/setting_open_media"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
