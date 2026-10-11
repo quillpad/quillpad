@@ -35,6 +35,10 @@
     <string name="preferences_color_scheme_brown">Brown</string>
     <string name="preferences_color_scheme_gray">Gray</string>
     <string name="preferences_color_scheme_system">Follow system</string>
+    <string name="preferences_color_scheme_monet_water_lilies">Monet: Water Lilies</string>
+    <string name="preferences_color_scheme_monet_sunrise">Monet: Sunrise</string>
+    <string name="preferences_color_scheme_monet_garden">Monet: Garden</string>
+    <string name="preferences_color_scheme_monet_iris">Monet: Iris</string>
 
     <!-- Preferences / View -->
     <string name="preferences_header_view">View</string>
