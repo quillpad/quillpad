@@ -13,6 +13,7 @@ import org.qosp.notes.data.dao.ReminderDao
 import org.qosp.notes.data.model.IdMapping
 import org.qosp.notes.data.model.Note
 import org.qosp.notes.data.model.NoteEntity
+import org.qosp.notes.data.model.Notebook
 import org.qosp.notes.data.sync.core.AvailabilityStatus
 import org.qosp.notes.data.sync.core.BackendProvider
 import org.qosp.notes.data.sync.core.BaseResult
@@ -40,6 +41,7 @@ class NoteRepositoryImpl(
     private val noteDao: NoteDao,
     private val idMappingDao: IdMappingDao,
     private val reminderDao: ReminderDao,
+    private val notebookRepository: NotebookRepository,
     private val backendProvider: BackendProvider,
     private val synchronizeNotes: SynchronizeNotes,
     private val processRemoteActions: ProcessRemoteActions,
@@ -54,6 +56,12 @@ class NoteRepositoryImpl(
         val n = notes.filter { it.isLocalOnly }
         Log.d(tag, "cleanMappingsForLocalNotes: Cleaning ${n.size} local-only notes from ${notes.size} total")
         idMappingDao.setNotesToBeDeleted(*n.map { it.id }.toLongArray())
+    }
+
+    private suspend fun getOrCreateNotebookId(category: String): Long? {
+        if (category.isBlank()) return null
+        val notebook = notebookRepository.getByName(category).first()
+        return notebook?.id ?: notebookRepository.insert(Notebook(name = category))
     }
 
     override suspend fun syncNotes(): BaseResult {
@@ -120,12 +128,15 @@ class NoteRepositoryImpl(
                 when (action) {
                     is NoteAction.Create -> {
                         val syncNote = action.remoteNote
-                        val noteId = insertNote(syncNote.toLocalNote(defaultPinned = false), sync = false)
+                        val noteId = insertNote(
+                            syncNote.toLocalNote(::getOrCreateNotebookId, defaultPinned = false),
+                            sync = false
+                        )
                         idMappingDao.insert(syncNote.getMapping(noteId, syncProvider.type))
                     }
 
                     is NoteAction.Update -> {
-                        val mergedNote = action.remoteNote.updateLocalNote(action.note)
+                        val mergedNote = action.remoteNote.updateLocalNote(::getOrCreateNotebookId, action.note)
                         val note = if (action.note.isList) {
                             val tasks = mergedNote.mdToTaskList(mergedNote.content)
                             mergedNote.copy(content = "", taskList = tasks, isList = true)
