@@ -282,8 +282,10 @@
     <string name="action_insert_table">Insert table</string>
     <string name="message_invalid_number_rows_columns">Invalid number of rows and columns</string>
     <string name="action_insert_image">Insert image</string>
+    <string name="action_choose_image">Choose image</string>
     <string name="hint_image_description">Description</string>
     <string name="hint_image_path">Image path</string>
+    <string name="message_image_copy_failed">Could not copy the image.</string>
     <string name="hint_hyperlink_text">Text</string>
     <string name="hint_hyperlink_url">URL</string>
     <string name="hint_number_columns">Number of columns</string>
