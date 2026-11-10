@@ -95,8 +95,10 @@ class MainActivity : BaseActivity() {
         // Apply insets to the NavigationView to prevent it from overlapping with the status bar
         // This is to fix the insets after Android 15 enforcing edge-to-edge display
         ViewCompat.setOnApplyWindowInsetsListener(binding.navigationView) { view, insets ->
-            // Reduce padding but keep it below the status bar
-            view.setPadding(0, 0, 0, 0)
+            // The top inset is handled by the drawer header. The bottom inset must be applied here,
+            // otherwise the last menu entry sits under the 3-button navigation bar.
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+            view.setPadding(0, 0, 0, bars.bottom)
             insets
         }
 
