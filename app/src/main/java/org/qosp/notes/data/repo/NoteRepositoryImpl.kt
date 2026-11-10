@@ -25,8 +25,10 @@ import org.qosp.notes.data.sync.core.RemoteOperation.Delete
 import org.qosp.notes.data.sync.core.RemoteOperation.Update
 import org.qosp.notes.data.sync.core.Success
 import org.qosp.notes.data.sync.core.SyncMethod
+import org.qosp.notes.data.sync.core.SyncNote
 import org.qosp.notes.data.sync.core.SyncNotesResult
 import org.qosp.notes.data.sync.core.SynchronizeNotes
+import org.qosp.notes.data.sync.fs.findLegacyTitleFixes
 import org.qosp.notes.data.sync.getMapping
 import org.qosp.notes.data.sync.toLocalNote
 import org.qosp.notes.data.sync.updateLocalNote
@@ -105,6 +107,9 @@ class NoteRepositoryImpl(
                 if (syncMethod == SyncMethod.TITLE) applyMappingChanges(syncResult, syncProvider) // Initial import
                 applyLocalUpdates(syncResult.localUpdates, syncProvider)
                 applyRemoteUpdates(syncResult.remoteUpdates)
+                if (syncMethod == SyncMethod.MAPPING && syncProvider.type == CloudService.FILE_STORAGE) {
+                    healLegacyTitles(localNotes, allRemoteNotes, syncResult)
+                }
                 Log.i(tag, "syncNotes: Synchronization completed successfully")
             } catch (e: Exception) {
                 Log.e(tag, "syncNotes: Synchronization failed: ${e.message}", e)
@@ -160,6 +165,35 @@ class NoteRepositoryImpl(
                 }
             } catch (e: Exception) {
                 Log.e(tag, "applyRemoteUpdates: Failed to apply action $action: ${e.message}")
+            }
+        }
+    }
+
+    /**
+     * Repairs titles that were overwritten with a provider's opaque document id by versions up to 1.5.15.
+     * Runs after the regular updates so that a rename queued here supersedes a stale queued update.
+     */
+    private suspend fun healLegacyTitles(
+        localNotes: List<Note>,
+        remoteNotes: List<SyncNote>,
+        syncResult: SyncNotesResult,
+    ) {
+        // Notes about to be overwritten from remote already receive the remote title.
+        val skipNoteIds = syncResult.localUpdates.mapNotNull {
+            when (it) {
+                is NoteAction.Update -> it.note.id
+                is NoteAction.Delete -> it.note.id
+                is NoteAction.Create -> null
+            }
+        }.toSet()
+        val mappings = idMappingDao.getAllByCloudService(CloudService.FILE_STORAGE)
+        for (fix in findLegacyTitleFixes(localNotes, remoteNotes, mappings, skipNoteIds)) {
+            Log.i(tag, "healLegacyTitles: Note ID=${fix.note.id} '${fix.note.title}' -> '${fix.newTitle}'")
+            try {
+                noteDao.updateTitle(fix.note.id, fix.newTitle)
+                if (fix.renameRemote) processRemoteActions(fix.note.id, Update(fix.note.copy(title = fix.newTitle)))
+            } catch (e: Exception) {
+                Log.e(tag, "healLegacyTitles: Failed for note ID=${fix.note.id}: ${e.message}")
             }
         }
     }

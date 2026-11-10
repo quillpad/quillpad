@@ -22,6 +22,19 @@ class StorageBackend(private val context: Context, private val config: StorageCo
 
     companion object {
         private const val TAG = "StorageBackend"
+
+        /**
+         * Derives a note title from a file's display name. Must not be fed the last segment of a
+         * document URI: providers such as Google Drive use opaque document IDs there.
+         */
+        internal fun titleFromFileName(fileName: String?): String {
+            val name = fileName ?: ""
+            return when {
+                name.endsWith(".md") -> name.removeSuffix(".md")
+                name.endsWith(".txt") -> name.removeSuffix(".txt")
+                else -> name
+            }
+        }
     }
 
     override val type: CloudService = CloudService.FILE_STORAGE
@@ -69,11 +82,13 @@ class StorageBackend(private val context: Context, private val config: StorageCo
 
     override suspend fun updateNote(note: Note, mapping: IdMapping): IdMapping {
         val uri = mapping.storageUri?.toUri() ?: throw IllegalArgumentException("URI cannot be null")
-        val rootDoc = getRootDocumentFile() ?: throw IOException("Unable to access storage location")
+        getRootDocumentFile() ?: throw IOException("Unable to access storage location")
         val file = DocumentFile.fromSingleUri(context, uri) ?: throw FileNotFoundException("URI not found")
 
         writeNoteToFile(file, content = note.toStorableContent())
-        val newUri = if (note.filename != file.name) renameFile(file, note.filename, rootDoc) else uri
+        // A title damaged by the old URI-derived naming must never be pushed back as the file name.
+        val keepFileName = isLegacyUriTitle(note.title, titleFromFileName(file.name), mapping.storageUri)
+        val newUri = if (!keepFileName && note.filename != file.name) renameFile(file, note.filename) else uri.toString()
         return mapping.copy(storageUri = newUri.toString())
     }
 
@@ -102,7 +117,7 @@ class StorageBackend(private val context: Context, private val config: StorageCo
         id = 0,
         idStr = file.uri.toString(),
         content = readFileContent(file),
-        title = getTitleFromUri(file.uri),
+        title = titleFromFileName(file.name ?: file.uri.lastPathSegment?.substringAfterLast('/')),
         lastModified = file.lastModified() / 1000, // Milliseconds to seconds
     )
 
@@ -164,22 +179,14 @@ class StorageBackend(private val context: Context, private val config: StorageCo
         return context.contentResolver.openInputStream(file.uri)?.use { it.bufferedReader().readText() }
     }
 
-    private fun getTitleFromUri(uri: Uri): String {
-        val fileName = uri.lastPathSegment?.substringAfterLast('/') ?: ""
-        return when {
-            fileName.endsWith(".md") -> fileName.removeSuffix(".md")
-            fileName.endsWith(".txt") -> fileName.removeSuffix(".txt")
-            else -> fileName
-        }
-    }
-
-    private fun renameFile(file: DocumentFile, newName: String, root: DocumentFile): String {
+    private fun renameFile(file: DocumentFile, newName: String): String {
         Log.d(TAG, "renameFile: Renaming ${file.name} to $newName")
-        val foundFile = root.listFiles().firstOrNull { it.name == file.name }
-            ?: throw FileNotFoundException("File ${file.name} not found")
-        val succeeded = foundFile.renameTo(newName)
-        Log.d(TAG, "renameFile: Renaming ${foundFile.name}, succeeded? $succeeded")
-        return foundFile.uri.toString()
+        // Works from the URI alone (so also for files in subfolders) and returns the new URI,
+        // which some providers (e.g. Google Drive) are free to change.
+        val newUri = DocumentsContract.renameDocument(context.contentResolver, file.uri, newName)
+            ?: throw IOException("Unable to rename ${file.name} to $newName")
+        Log.d(TAG, "renameFile: Renamed ${file.name} to $newName")
+        return newUri.toString()
     }
 
     private inline fun <reified T> inStorage(block: () -> T): T? {
