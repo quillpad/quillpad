@@ -20,8 +20,8 @@ android {
         applicationId = "io.github.quillpad"
         minSdk = 24
         targetSdk = 37
-        versionCode = 57
-        versionName = "1.5.15"
+        versionCode = 58
+        versionName = "1.5.16"
 
         testInstrumentationRunner = "org.qosp.notes.TestRunner"
 
