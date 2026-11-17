@@ -21,6 +21,8 @@ class SettingsViewModel(
 
     val appPreferences = preferenceRepository.getAll()
     val loggedInUsername = NextcloudConfig.fromPreferences(preferenceRepository).map { it?.username }
+    val davx5AccountName = preferenceRepository.getEncryptedString(PreferenceRepository.DAVX5_ACCOUNT_NAME)
+    val davx5CollectionId = preferenceRepository.getEncryptedString(PreferenceRepository.DAVX5_COLLECTION_ID)
 
     fun <T> setPreference(pref: T) where T : Enum<T>, T : EnumPreference {
         when (pref) {
@@ -46,6 +48,29 @@ class SettingsViewModel(
     fun setEncryptedString(key: String, value: String) =
         viewModelScope.launch { preferenceRepository.putEncryptedStrings(key to value) }
 
+    fun setDavx5Account(accountName: String) = viewModelScope.launch(Dispatchers.IO) {
+        val prev = preferenceRepository.getEncryptedString(PreferenceRepository.DAVX5_ACCOUNT_NAME).first()
+        preferenceRepository.putEncryptedStrings(PreferenceRepository.DAVX5_ACCOUNT_NAME to accountName)
+        if (prev != accountName) {
+            noteRepository.deleteIdMappingsForCloudService(CloudService.DAVX5)
+        }
+        noteRepository.syncNotes()
+    }
+
+    fun setDavx5Collection(collectionId: Long) = viewModelScope.launch(Dispatchers.IO) {
+        val prev = preferenceRepository.getEncryptedString(PreferenceRepository.DAVX5_COLLECTION_ID).first()
+        val newStr = collectionId.toString()
+        preferenceRepository.putEncryptedStrings(PreferenceRepository.DAVX5_COLLECTION_ID to newStr)
+        if (prev != newStr) {
+            noteRepository.deleteIdMappingsForCloudService(CloudService.DAVX5)
+        }
+        noteRepository.syncNotes()
+    }
+
+    fun syncDavx5Now() = viewModelScope.launch(Dispatchers.IO) {
+        noteRepository.syncNotes()
+    }
+
     fun clearNextcloudCredentials() = viewModelScope.launch {
         preferenceRepository.putEncryptedStrings(
             PreferenceRepository.NEXTCLOUD_INSTANCE_URL to "",
@@ -53,6 +78,14 @@ class SettingsViewModel(
             PreferenceRepository.NEXTCLOUD_USERNAME to "",
         )
         noteRepository.deleteIdMappingsForCloudService(CloudService.NEXTCLOUD)
+    }
+
+    fun clearDavx5Data() = viewModelScope.launch {
+        preferenceRepository.putEncryptedStrings(
+            PreferenceRepository.DAVX5_ACCOUNT_NAME to "",
+            PreferenceRepository.DAVX5_COLLECTION_ID to "0",
+        )
+        noteRepository.deleteIdMappingsForCloudService(CloudService.DAVX5)
     }
 
     /**

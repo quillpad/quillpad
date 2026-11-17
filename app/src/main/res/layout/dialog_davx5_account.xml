@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:animateLayoutChanges="true">
+
+    <org.qosp.notes.ui.utils.views.ExtendedEditText
+            android:id="@+id/edit_text_davx5_account"
+            android:hint="@string/preferences_davx5_manual_account_hint"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:background="@drawable/background_edit_text"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:scrollHorizontally="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"/>
+</LinearLayout>

@@ -334,4 +334,33 @@ class SynchronizeNotesTest {
         assertEquals(0, result.localUpdates.size)
         assertEquals(0, result.remoteUpdates.size)
     }
+
+    @Test
+    fun `davx5 mapping sync - matches remote note using storageUri`() = runTest {
+        val localNote = Note(id = 1L, title = "DAVx5 Note", modifiedDate = 100L)
+        val remoteNote = SyncNote(
+            id = 1L,
+            idStr = "uuid-davx5-1",
+            title = "DAVx5 Note",
+            lastModified = 200L,
+            content = "Updated remote content"
+        )
+        val mapping = IdMapping(
+            localNoteId = 1L,
+            remoteNoteId = null,
+            provider = CloudService.DAVX5,
+            extras = null,
+            isDeletedLocally = false,
+            storageUri = "uuid-davx5-1"
+        )
+        coEvery { idMappingRepository.getAllByProvider(CloudService.DAVX5) } returns listOf(mapping)
+
+        val result = synchronizeNotes(listOf(localNote), listOf(remoteNote), CloudService.DAVX5, SyncMethod.MAPPING)
+
+        assertEquals(1, result.localUpdates.size)
+        assertEquals(0, result.remoteUpdates.size)
+        val action = result.localUpdates[0] as NoteAction.Update
+        assertEquals(localNote, action.note)
+        assertEquals(remoteNote, action.remoteNote)
+    }
 }

@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import org.qosp.notes.data.sync.davx5.Davx5Backend
+import org.qosp.notes.data.sync.davx5.Davx5Config
 import org.qosp.notes.data.sync.fs.StorageBackend
 import org.qosp.notes.data.sync.fs.StorageConfig
 import org.qosp.notes.data.sync.nextcloud.NextcloudAPIProvider
@@ -32,12 +34,14 @@ class BackendProvider(
     val syncProvider: StateFlow<ISyncBackend?> = combine(
         syncService,
         NextcloudConfig.fromPreferences(preferenceRepository),
-        StorageConfig.storageLocation(preferenceRepository)
-    ) { service, nextcloudConfig, storageConfig ->
+        StorageConfig.storageLocation(preferenceRepository),
+        Davx5Config.fromPreferences(preferenceRepository)
+    ) { service, nextcloudConfig, storageConfig, davx5Config ->
         when (service) {
             CloudService.DISABLED -> null
             CloudService.NEXTCLOUD -> nextcloudConfig?.let { NextcloudBackend(nextcloudApiProvider, it) }
             CloudService.FILE_STORAGE -> storageConfig?.let { StorageBackend(context, it) }
+            CloudService.DAVX5 -> Davx5Backend(context, davx5Config)
         }
     }.stateIn(syncingScope, SharingStarted.Eagerly, null)
 

@@ -114,6 +114,81 @@
                         android:visibility="visible"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/layout_davx5_settings"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?attr/colorOutline"/>
+
+                    <TextView
+                        android:text="@string/preferences_cloud_service_davx5"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/inter_font_family"
+                        android:textColor="?attr/colorPrimary"
+                        android:padding="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="@string/preferences_davx5_info"
+                        android:textStyle="bold"
+                        android:paddingHorizontal="16dp"
+                        android:paddingBottom="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <org.qosp.notes.ui.utils.views.PreferenceView
+                        android:id="@+id/setting_davx5_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:text="@string/preferences_davx5_status_title"
+                        app:subText="@string/preferences_davx5_status_installed"
+                        app:iconSrc="@drawable/ic_sync_settings"/>
+
+                    <org.qosp.notes.ui.utils.views.PreferenceView
+                        android:id="@+id/setting_davx5_open"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:text="@string/preferences_davx5_open"
+                        app:subText="@string/preferences_davx5_open_subtext"
+                        app:iconSrc="@drawable/ic_web"/>
+
+                    <org.qosp.notes.ui.utils.views.PreferenceView
+                        android:id="@+id/setting_davx5_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:text="@string/preferences_davx5_account"
+                        app:subText="@string/preferences_davx5_no_account_selected"
+                        app:iconSrc="@drawable/ic_person"/>
+
+                    <org.qosp.notes.ui.utils.views.PreferenceView
+                        android:id="@+id/setting_davx5_add_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:text="@string/preferences_davx5_add_account"
+                        app:subText="@string/preferences_davx5_add_account_subtext"
+                        app:iconSrc="@drawable/ic_sync"/>
+
+                    <org.qosp.notes.ui.utils.views.PreferenceView
+                        android:id="@+id/setting_davx5_collection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:text="@string/preferences_davx5_collection"
+                        app:subText="@string/preferences_davx5_collection_default"
+                        app:iconSrc="@drawable/ic_file"/>
+
+                    <org.qosp.notes.ui.utils.views.PreferenceView
+                        android:id="@+id/setting_davx5_sync_now"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:text="@string/preferences_davx5_sync_now"
+                        app:subText="@string/preferences_davx5_sync_now_subtext"
+                        app:iconSrc="@drawable/ic_sync"/>
+                </LinearLayout>
+                <LinearLayout
                     android:id="@+id/layout_storage_settings"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
