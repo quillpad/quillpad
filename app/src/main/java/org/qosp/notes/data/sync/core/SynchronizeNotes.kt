@@ -48,7 +48,7 @@ class SynchronizeNotes(private val idMappingRepository: IdMappingRepository) {
                         // Local note has a mapping to a remote note
                         val remoteNote = when (service) {
                             CloudService.NEXTCLOUD -> mapping.remoteNoteId.toString()
-                            CloudService.FILE_STORAGE -> mapping.storageUri
+                            CloudService.FILE_STORAGE, CloudService.DAVX5 -> mapping.storageUri
                             else -> null
                         }?.let { remoteNotesMap[it] }
 

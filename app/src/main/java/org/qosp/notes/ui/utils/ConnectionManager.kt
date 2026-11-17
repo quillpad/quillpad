@@ -10,7 +10,7 @@ import org.qosp.notes.preferences.SyncMode
 class ConnectionManager(private val context: Context) {
 
     fun isConnectionAvailable(syncMode: SyncMode?, cloudService: CloudService?): Boolean {
-        if (cloudService != CloudService.NEXTCLOUD) return true
+        if (cloudService != CloudService.NEXTCLOUD && cloudService != CloudService.DAVX5) return true
         val connectivityManager = context.getSystemService<ConnectivityManager>() ?: return false
         val network = connectivityManager.activeNetwork ?: return false
         val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false

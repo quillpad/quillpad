@@ -73,5 +73,7 @@ class PreferenceRepository(
         const val NEXTCLOUD_USERNAME = "NEXTCLOUD_USERNAME"
         const val NEXTCLOUD_PASSWORD = "NEXTCLOUD_PASSWORD"
         const val STORAGE_LOCATION = "STORAGE_LOCATION"
+        const val DAVX5_ACCOUNT_NAME = "DAVX5_ACCOUNT_NAME"
+        const val DAVX5_COLLECTION_ID = "DAVX5_COLLECTION_ID"
     }
 }

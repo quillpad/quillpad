@@ -134,8 +134,28 @@
             android:name="org.qosp.notes.components.backup.BackupService"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
+
+        <provider
+            android:name="org.qosp.notes.data.sync.davx5.Davx5ContentProvider"
+            android:authorities="io.github.quillpad.sync.davx5"
+            android:exported="true" />
     </application>
 
+    <queries>
+        <package android:name="at.bitfire.davdroid" />
+        <package android:name="at.bitfire.davdroid.ose" />
+        <package android:name="org.davx5" />
+        <intent>
+            <action android:name="android.accounts.AccountAuthenticator" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="davx5" />
+        </intent>
+    </queries>
+
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />

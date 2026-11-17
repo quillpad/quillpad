@@ -43,6 +43,7 @@ import org.qosp.notes.data.sync.fs.toFriendlyString
 import org.qosp.notes.data.sync.nextcloud.NextcloudConfig
 import org.qosp.notes.databinding.ActivityMainBinding
 import org.qosp.notes.preferences.CloudService
+import org.qosp.notes.preferences.PreferenceRepository
 import org.qosp.notes.preferences.SortNavdrawerNotebooksMethod
 import org.qosp.notes.ui.attachments.fromUri
 import org.qosp.notes.ui.utils.closeAndThen
@@ -295,6 +296,13 @@ class MainActivity : BaseActivity() {
                                 textViewUsername.text = getString(R.string.preferences_cloud_service)
                                 textViewProvider.text = getString(R.string.preferences_cloud_service_disabled)
                             }
+                        }
+
+                        CloudService.DAVX5 -> {
+                            val account = preferenceRepository.getEncryptedString(PreferenceRepository.DAVX5_ACCOUNT_NAME)
+                                .firstOrNull()?.ifEmpty { null }
+                            textViewUsername.text = account ?: getString(R.string.preferences_cloud_service_davx5)
+                            textViewProvider.text = getString(R.string.preferences_cloud_service_davx5)
                         }
 
                         CloudService.DISABLED, null -> {
