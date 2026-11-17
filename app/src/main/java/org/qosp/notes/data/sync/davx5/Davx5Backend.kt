@@ -2,6 +2,7 @@ package org.qosp.notes.data.sync.davx5
 
 import android.content.ContentValues
 import android.content.Context
+import android.os.Build
 import android.provider.CalendarContract
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +24,10 @@ class Davx5Backend(
     private val tag = "Davx5Backend"
     override val type: CloudService = CloudService.DAVX5
 
+    companion object {
+        private const val MASS_DELETE_CIRCUIT_BREAKER_THRESHOLD = 10
+    }
+
     override suspend fun isAvailable(): AvailabilityStatus {
         return AvailabilityStatus.Available
     }
@@ -30,8 +35,11 @@ class Davx5Backend(
     private fun isRemoteCalendarSelected(): Boolean {
         if (config.collectionId <= 0L) return false
         if (!Davx5Helper.hasReadCalendarPermission(context)) return false
-        return Davx5Helper.getDavx5Calendars(context).any {
-            it.id == config.collectionId && it.accountName != "Local" && it.accountName != "DAVx5"
+        return Davx5Helper.getDavx5Calendars(context, config.accountName.ifEmpty { null }).any {
+            it.id == config.collectionId &&
+                it.accountName != "Local" &&
+                it.accountName != "DAVx5" &&
+                (config.accountName.isEmpty() || it.accountName == config.accountName)
         }
     }
 
@@ -43,18 +51,24 @@ class Davx5Backend(
         modifiedMs: Long
     ): Long? {
         if (!Davx5Helper.hasWriteCalendarPermission(context)) return null
-        val startMs = if (createdMs > 0L) createdMs else System.currentTimeMillis()
-        val endMs = maxOf(startMs, modifiedMs)
+        val pointMs = when {
+            modifiedMs > 0L -> modifiedMs
+            createdMs > 0L -> createdMs
+            else -> System.currentTimeMillis()
+        }
         val tz = TimeZone.getDefault().id ?: "UTC"
 
         val values = ContentValues().apply {
             put(CalendarContract.Events.CALENDAR_ID, config.collectionId)
             put(CalendarContract.Events.TITLE, title)
             put(CalendarContract.Events.DESCRIPTION, description)
-            put(CalendarContract.Events.DTSTART, startMs)
-            put(CalendarContract.Events.DTEND, endMs)
+            put(CalendarContract.Events.DTSTART, pointMs)
+            put(CalendarContract.Events.DTEND, pointMs)
             put(CalendarContract.Events.EVENT_TIMEZONE, tz)
             put(CalendarContract.Events.UID_2445, uid)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                put(CalendarContract.Events.CUSTOM_APP_PACKAGE, context.packageName)
+            }
             put(CalendarContract.Events.HAS_ALARM, 0)
         }
         return try {
@@ -127,28 +141,38 @@ class Davx5Backend(
         var finalRemoteId = mapping.remoteNoteId
 
         if (isRemoteCalendarSelected() && Davx5Helper.hasWriteCalendarPermission(context)) {
-            val startMs = if (createdMs > 0L) createdMs else System.currentTimeMillis()
-            val endMs = maxOf(startMs, modifiedMs)
+            val pointMs = when {
+                modifiedMs > 0L -> modifiedMs
+                createdMs > 0L -> createdMs
+                else -> System.currentTimeMillis()
+            }
             val eventValues = ContentValues().apply {
                 put(CalendarContract.Events.TITLE, note.title)
                 put(CalendarContract.Events.DESCRIPTION, storableContent)
-                put(CalendarContract.Events.DTEND, endMs)
+                put(CalendarContract.Events.DTSTART, pointMs)
+                put(CalendarContract.Events.DTEND, pointMs)
             }
             val remoteId = mapping.remoteNoteId ?: -1L
-            val updatedRows = try {
+            val updatedByUid = try {
                 context.contentResolver.update(
                     CalendarContract.Events.CONTENT_URI,
                     eventValues,
-                    "${CalendarContract.Events.CALENDAR_ID} = ? AND (${CalendarContract.Events.UID_2445} = ? OR ${CalendarContract.Events._ID} = ?)",
-                    arrayOf(config.collectionId.toString(), uid, remoteId.toString())
+                    "${CalendarContract.Events.CALENDAR_ID} = ? AND ${CalendarContract.Events.UID_2445} = ?",
+                    arrayOf(config.collectionId.toString(), uid)
                 )
             } catch (_: Exception) {
+                0
+            }
+            val updatedRows = if (updatedByUid > 0 || remoteId <= 0L) {
+                updatedByUid
+            } else {
+                val (fallbackWhere, fallbackArgs) = buildFallbackEventSelection(remoteId)
                 try {
                     context.contentResolver.update(
                         CalendarContract.Events.CONTENT_URI,
                         eventValues,
-                        "${CalendarContract.Events.CALENDAR_ID} = ? AND ${CalendarContract.Events._ID} = ?",
-                        arrayOf(config.collectionId.toString(), remoteId.toString())
+                        fallbackWhere,
+                        fallbackArgs
                     )
                 } catch (_: Exception) {
                     0
@@ -197,18 +221,22 @@ class Davx5Backend(
 
         if (isRemoteCalendarSelected() && Davx5Helper.hasWriteCalendarPermission(context)) {
             val remoteId = mapping.remoteNoteId ?: -1L
-            try {
+            val deletedByUid = try {
                 context.contentResolver.delete(
                     CalendarContract.Events.CONTENT_URI,
-                    "${CalendarContract.Events.CALENDAR_ID} = ? AND (${CalendarContract.Events.UID_2445} = ? OR ${CalendarContract.Events._ID} = ?)",
-                    arrayOf(config.collectionId.toString(), uid, remoteId.toString())
+                    "${CalendarContract.Events.CALENDAR_ID} = ? AND ${CalendarContract.Events.UID_2445} = ?",
+                    arrayOf(config.collectionId.toString(), uid)
                 )
             } catch (_: Exception) {
+                0
+            }
+            if (deletedByUid == 0 && remoteId > 0L) {
+                val (fallbackWhere, fallbackArgs) = buildFallbackEventSelection(remoteId)
                 try {
                     context.contentResolver.delete(
                         CalendarContract.Events.CONTENT_URI,
-                        "${CalendarContract.Events.CALENDAR_ID} = ? AND ${CalendarContract.Events._ID} = ?",
-                        arrayOf(config.collectionId.toString(), remoteId.toString())
+                        fallbackWhere,
+                        fallbackArgs
                     )
                 } catch (e: Exception) {
                     Log.e(tag, "Failed to delete from CalendarContract.Events", e)
@@ -230,6 +258,16 @@ class Davx5Backend(
 
         Davx5Helper.requestSync(context, config.accountName.ifEmpty { null }, config.collectionId)
         true
+    }
+
+    private fun buildFallbackEventSelection(remoteId: Long): Pair<String, Array<String>> {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            "${CalendarContract.Events.CALENDAR_ID} = ? AND ${CalendarContract.Events._ID} = ? AND (${CalendarContract.Events.CUSTOM_APP_PACKAGE} = ? OR ${CalendarContract.Events.UID_2445} IS NULL)" to
+                arrayOf(config.collectionId.toString(), remoteId.toString(), context.packageName)
+        } else {
+            "${CalendarContract.Events.CALENDAR_ID} = ? AND ${CalendarContract.Events._ID} = ? AND ${CalendarContract.Events.UID_2445} IS NULL" to
+                arrayOf(config.collectionId.toString(), remoteId.toString())
+        }
     }
 
     override suspend fun getNote(mapping: IdMapping): SyncNote? = withContext(Dispatchers.IO) {
@@ -308,8 +346,8 @@ class Davx5Backend(
         val localCursor = context.contentResolver.query(
             Davx5Contract.CONTENT_URI_ICALOBJECT,
             null,
-            "${Davx5Contract.ICalObject.DELETED} = 0",
-            null,
+            "${Davx5Contract.ICalObject.DELETED} = 0 AND (${Davx5Contract.ICalObject.COLLECTION_ID} = ? OR ${Davx5Contract.ICalObject.COLLECTION_ID} = 0)",
+            arrayOf(config.collectionId.toString()),
             null
         )
         localCursor?.use {
@@ -454,6 +492,15 @@ class Davx5Backend(
             }
         } catch (e: Exception) {
             Log.e(tag, "Failed querying CalendarContract.Events in getAll", e)
+        }
+
+        val previouslySyncedCount = cachedRows.count { it.filename != null && it.filename.startsWith(prefix) }
+        if (previouslySyncedCount >= MASS_DELETE_CIRCUIT_BREAKER_THRESHOLD && matchedUids.isEmpty()) {
+            Log.w(
+                tag,
+                "Aborted DAVx5 sync: $previouslySyncedCount previously synced notes exist locally, but CalendarContract returned 0 events."
+            )
+            return@withContext null
         }
 
         // Check cached rows not yet present in this CalDAV calendar

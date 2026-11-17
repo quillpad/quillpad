@@ -391,6 +391,10 @@ object Davx5Helper {
     }
 
     fun openDavx5Account(context: Context, account: Account) {
+        if (!isDavx5Installed(context)) {
+            openDavx5(context)
+            return
+        }
         val pkg = getDavx5Package(context)
         val intent = Intent(Intent.ACTION_MAIN).apply {
             setClassName(pkg, "$pkg.ui.account.AccountActivity")
@@ -406,6 +410,10 @@ object Davx5Helper {
     }
 
     fun openDavx5Login(context: Context) {
+        if (!isDavx5Installed(context)) {
+            openDavx5(context)
+            return
+        }
         val pkg = getDavx5Package(context)
         val intent = Intent().apply {
             setClassName(pkg, "$pkg.ui.setup.LoginActivity")
@@ -453,29 +461,16 @@ object Davx5Helper {
             putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true)
         }
 
-        if (uniqueAccounts.isNotEmpty()) {
-            for (acc in uniqueAccounts) {
-                try {
-                    ContentResolver.requestSync(acc, CalendarContract.AUTHORITY, bundle)
-                } catch (e: Exception) {
-                    Log.w(TAG, "Failed to request sync on CalendarContract for ${acc.name}", e)
-                }
-                try {
-                    ContentResolver.requestSync(acc, Davx5Contract.AUTHORITY, bundle)
-                } catch (e: Exception) {
-                    Log.w(TAG, "Failed to request sync on Davx5Contract for ${acc.name}", e)
-                }
-            }
-        } else {
+        for (acc in uniqueAccounts) {
             try {
-                ContentResolver.requestSync(null, CalendarContract.AUTHORITY, bundle)
+                ContentResolver.requestSync(acc, CalendarContract.AUTHORITY, bundle)
             } catch (e: Exception) {
-                Log.w(TAG, "Failed to request sync on CalendarContract generic", e)
+                Log.w(TAG, "Failed to request sync on CalendarContract for ${acc.name}", e)
             }
             try {
-                ContentResolver.requestSync(null, Davx5Contract.AUTHORITY, bundle)
+                ContentResolver.requestSync(acc, Davx5Contract.AUTHORITY, bundle)
             } catch (e: Exception) {
-                Log.w(TAG, "Failed to request sync on Davx5Contract generic", e)
+                Log.w(TAG, "Failed to request sync on Davx5Contract for ${acc.name}", e)
             }
         }
     }

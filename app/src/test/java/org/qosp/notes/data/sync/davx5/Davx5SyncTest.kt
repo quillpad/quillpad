@@ -4,8 +4,10 @@ import android.content.ContentValues
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import kotlinx.coroutines.test.runTest
+import android.net.Uri
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -240,5 +242,48 @@ class Davx5SyncTest {
 
         val discoveredAccounts = Davx5Helper.getDavx5Accounts(context)
         assertTrue(discoveredAccounts.any { it.name == "notes@example.com" })
+    }
+
+    @Test
+    fun `content provider rejects negative or non-numeric item IDs safely`() {
+        val invalidUri = Uri.withAppendedPath(Davx5Contract.CONTENT_URI_ICALOBJECT, "-1")
+        val cursor = context.contentResolver.query(invalidUri, null, null, null, null)
+        assertNull(cursor)
+
+        val updated = context.contentResolver.update(invalidUri, ContentValues(), null, null)
+        assertEquals(0, updated)
+
+        val deleted = context.contentResolver.delete(invalidUri, null, null)
+        assertEquals(0, deleted)
+    }
+
+    @Test
+    fun `davx5 backend scopes getAll to active collectionId and local fallback`() = runTest {
+        val col1Values = ContentValues().apply {
+            put(Davx5Contract.ICalObject.COLLECTION_ID, 10L)
+            put(Davx5Contract.ICalObject.UID, "uid-col-10")
+            put(Davx5Contract.ICalObject.SUMMARY, "Collection 10 Note")
+            put(Davx5Contract.ICalObject.DESCRIPTION, "Body 10")
+            put(Davx5Contract.ICalObject.CREATED, 1000L)
+            put(Davx5Contract.ICalObject.LAST_MODIFIED, 1000L)
+            put(Davx5Contract.ICalObject.DELETED, 0)
+        }
+        val col2Values = ContentValues().apply {
+            put(Davx5Contract.ICalObject.COLLECTION_ID, 20L)
+            put(Davx5Contract.ICalObject.UID, "uid-col-20")
+            put(Davx5Contract.ICalObject.SUMMARY, "Collection 20 Note")
+            put(Davx5Contract.ICalObject.DESCRIPTION, "Body 20")
+            put(Davx5Contract.ICalObject.CREATED, 1000L)
+            put(Davx5Contract.ICalObject.LAST_MODIFIED, 1000L)
+            put(Davx5Contract.ICalObject.DELETED, 0)
+        }
+        context.contentResolver.insert(Davx5Contract.CONTENT_URI_ICALOBJECT, col1Values)
+        context.contentResolver.insert(Davx5Contract.CONTENT_URI_ICALOBJECT, col2Values)
+
+        val backendCol10 = Davx5Backend(context, Davx5Config(accountName = "test@example.com", collectionId = 10L))
+        val notesCol10 = backendCol10.getAll()
+        assertNotNull(notesCol10)
+        assertEquals(1, notesCol10!!.size)
+        assertEquals("uid-col-10", notesCol10[0].idStr)
     }
 }

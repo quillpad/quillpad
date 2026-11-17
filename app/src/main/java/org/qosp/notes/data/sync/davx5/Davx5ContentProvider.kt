@@ -66,7 +66,7 @@ class Davx5ContentProvider : ContentProvider() {
             )
 
             CODE_COLLECTION_ID -> {
-                val id = uri.lastPathSegment ?: return null
+                val id = parseValidId(uri) ?: return null
                 val where = appendIdSelection(selection, Davx5Contract.Collection._ID)
                 val args = appendIdSelectionArgs(selectionArgs, id)
                 db.query(Davx5Contract.Collection.TABLE_NAME, projection, where, args, null, null, sortOrder)
@@ -83,7 +83,7 @@ class Davx5ContentProvider : ContentProvider() {
             )
 
             CODE_ICALOBJECT_ID -> {
-                val id = uri.lastPathSegment ?: return null
+                val id = parseValidId(uri) ?: return null
                 val where = appendIdSelection(selection, Davx5Contract.ICalObject._ID)
                 val args = appendIdSelectionArgs(selectionArgs, id)
                 db.query(Davx5Contract.ICalObject.TABLE_NAME, projection, where, args, null, null, sortOrder)
@@ -136,8 +136,10 @@ class Davx5ContentProvider : ContentProvider() {
     }
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
+        if (values == null || values.size() == 0) return null
         val db = dbHelper.writableDatabase
-        val (tableName, baseUri) = when (uriMatcher.match(uri)) {
+        val match = uriMatcher.match(uri)
+        val (tableName, baseUri) = when (match) {
             CODE_COLLECTION -> Davx5Contract.Collection.TABLE_NAME to Davx5Contract.CONTENT_URI_COLLECTION
             CODE_ICALOBJECT -> Davx5Contract.ICalObject.TABLE_NAME to Davx5Contract.CONTENT_URI_ICALOBJECT
             CODE_CATEGORY -> Davx5Contract.Category.TABLE_NAME to Uri.withAppendedPath(Davx5Contract.BASE_CONTENT_URI, Davx5Contract.PATH_CATEGORY)
@@ -146,7 +148,16 @@ class Davx5ContentProvider : ContentProvider() {
             else -> return null
         }
 
-        val rowId = db.insertWithOnConflict(tableName, null, values, SQLiteDatabase.CONFLICT_REPLACE)
+        val conflictAlgorithm = if (match == CODE_COLLECTION) {
+            SQLiteDatabase.CONFLICT_REPLACE
+        } else {
+            SQLiteDatabase.CONFLICT_ABORT
+        }
+        val rowId = try {
+            db.insertWithOnConflict(tableName, null, values, conflictAlgorithm)
+        } catch (_: Exception) {
+            db.insertWithOnConflict(tableName, null, values, SQLiteDatabase.CONFLICT_REPLACE)
+        }
         if (rowId != -1L) {
             val insertedUri = ContentUris.withAppendedId(baseUri, rowId)
             context?.contentResolver?.notifyChange(uri, null)
@@ -165,7 +176,7 @@ class Davx5ContentProvider : ContentProvider() {
         val rowsUpdated = when (uriMatcher.match(uri)) {
             CODE_COLLECTION -> db.update(Davx5Contract.Collection.TABLE_NAME, values, selection, selectionArgs)
             CODE_COLLECTION_ID -> {
-                val id = uri.lastPathSegment ?: return 0
+                val id = parseValidId(uri) ?: return 0
                 val where = appendIdSelection(selection, Davx5Contract.Collection._ID)
                 val args = appendIdSelectionArgs(selectionArgs, id)
                 db.update(Davx5Contract.Collection.TABLE_NAME, values, where, args)
@@ -173,7 +184,7 @@ class Davx5ContentProvider : ContentProvider() {
 
             CODE_ICALOBJECT -> db.update(Davx5Contract.ICalObject.TABLE_NAME, values, selection, selectionArgs)
             CODE_ICALOBJECT_ID -> {
-                val id = uri.lastPathSegment ?: return 0
+                val id = parseValidId(uri) ?: return 0
                 val where = appendIdSelection(selection, Davx5Contract.ICalObject._ID)
                 val args = appendIdSelectionArgs(selectionArgs, id)
                 db.update(Davx5Contract.ICalObject.TABLE_NAME, values, where, args)
@@ -195,7 +206,7 @@ class Davx5ContentProvider : ContentProvider() {
         val rowsDeleted = when (uriMatcher.match(uri)) {
             CODE_COLLECTION -> db.delete(Davx5Contract.Collection.TABLE_NAME, selection, selectionArgs)
             CODE_COLLECTION_ID -> {
-                val id = uri.lastPathSegment ?: return 0
+                val id = parseValidId(uri) ?: return 0
                 val where = appendIdSelection(selection, Davx5Contract.Collection._ID)
                 val args = appendIdSelectionArgs(selectionArgs, id)
                 db.delete(Davx5Contract.Collection.TABLE_NAME, where, args)
@@ -203,7 +214,7 @@ class Davx5ContentProvider : ContentProvider() {
 
             CODE_ICALOBJECT -> db.delete(Davx5Contract.ICalObject.TABLE_NAME, selection, selectionArgs)
             CODE_ICALOBJECT_ID -> {
-                val id = uri.lastPathSegment ?: return 0
+                val id = parseValidId(uri) ?: return 0
                 val where = appendIdSelection(selection, Davx5Contract.ICalObject._ID)
                 val args = appendIdSelectionArgs(selectionArgs, id)
                 db.delete(Davx5Contract.ICalObject.TABLE_NAME, where, args)
@@ -230,6 +241,10 @@ class Davx5ContentProvider : ContentProvider() {
         } finally {
             db.endTransaction()
         }
+    }
+
+    private fun parseValidId(uri: Uri): String? {
+        return uri.lastPathSegment?.toLongOrNull()?.takeIf { it >= 0L }?.toString()
     }
 
     private fun appendIdSelection(selection: String?, idColumn: String): String {

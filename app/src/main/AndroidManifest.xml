@@ -138,7 +138,7 @@
         <provider
             android:name="org.qosp.notes.data.sync.davx5.Davx5ContentProvider"
             android:authorities="io.github.quillpad.sync.davx5"
-            android:exported="true" />
+            android:exported="false" />
     </application>
 
     <queries>
