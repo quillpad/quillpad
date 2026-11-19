@@ -30,7 +30,15 @@ class InsertImageDialog : BaseDialog<DialogInsertImageBinding>() {
 
         dialog.apply {
             setTitle(getString(R.string.action_insert_image))
-            setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.action_cancel)) { _, _ -> }
+            setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel)) { _, _ -> }
+            setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.action_choose_image)) { _, _ ->
+                setFragmentResult(
+                    EditorFragment.IMAGE_PICKER_DIALOG_RESULT,
+                    bundleOf(
+                        EditorFragment.IMAGE_PICKER_DESCRIPTION to binding.editTextImageDescription.text.toString()
+                    )
+                )
+            }
             setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.action_insert)) { _, _ ->
                 val markdown = imageMarkdown(
                     url = binding.editTextImagePath.text.toString(),
