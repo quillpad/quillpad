@@ -53,29 +53,29 @@
             app:showAsAction="always"/>
     <item
             android:id="@+id/action_toggle_check_line"
-            android:title=""
+            android:title="@string/action_toggle_check_line"
             android:icon="@drawable/ic_box_checked_outline"
             app:showAsAction="always"/>
     <item
             android:id="@+id/action_scroll_to_top"
             android:icon="@drawable/ic_up"
             app:showAsAction="always"
-            android:title=""/>
+            android:title="@string/action_scroll_to_top"/>
     <item
             android:id="@+id/action_scroll_to_bottom"
             android:icon="@drawable/ic_down"
             app:showAsAction="always"
-            android:title=""/>
+            android:title="@string/action_scroll_to_bottom"/>
     <item
             android:id="@+id/action_undo"
             android:icon="@drawable/ic_undo"
             app:showAsAction="always"
             android:enabled="false"
-            android:title=""/>
+            android:title="@string/action_undo"/>
     <item
             android:id="@+id/action_redo"
             android:icon="@drawable/ic_redo"
             app:showAsAction="always"
             android:enabled="false"
-            android:title=""/>
+            android:title="@string/action_redo"/>
 </menu>
